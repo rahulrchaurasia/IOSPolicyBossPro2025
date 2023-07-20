@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8J-h0-ZiZ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="finmart_splash" translatesAutoresizingMaskIntoConstraints="NO" id="wiu-j7-Jv6">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pb_bg" translatesAutoresizingMaskIntoConstraints="NO" id="R31-RL-4Me">
+                                        <rect key="frame" x="0.0" y="125" width="414" height="160"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="160" id="eH4-Ze-AYy"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wiu-j7-Jv6" secondAttribute="trailing" id="2ej-to-gYu"/>
+                                    <constraint firstItem="wiu-j7-Jv6" firstAttribute="top" secondItem="t8J-h0-ZiZ" secondAttribute="top" id="GO0-PE-KWS"/>
+                                    <constraint firstItem="R31-RL-4Me" firstAttribute="leading" secondItem="t8J-h0-ZiZ" secondAttribute="leading" id="KB0-uc-Nwy"/>
+                                    <constraint firstItem="wiu-j7-Jv6" firstAttribute="leading" secondItem="t8J-h0-ZiZ" secondAttribute="leading" id="cS2-wa-YXb"/>
+                                    <constraint firstItem="R31-RL-4Me" firstAttribute="top" secondItem="t8J-h0-ZiZ" secondAttribute="top" constant="125" id="nKS-fE-9YW"/>
+                                    <constraint firstAttribute="trailing" secondItem="R31-RL-4Me" secondAttribute="trailing" id="rah-bK-pEd"/>
+                                    <constraint firstAttribute="bottom" secondItem="wiu-j7-Jv6" secondAttribute="bottom" id="txZ-sn-dB9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="t8J-h0-ZiZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="KvW-qm-CtU"/>
+                            <constraint firstAttribute="bottom" secondItem="t8J-h0-ZiZ" secondAttribute="bottom" id="SeA-ez-0dw"/>
+                            <constraint firstItem="t8J-h0-ZiZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qZ9-kG-A9T"/>
+                            <constraint firstItem="t8J-h0-ZiZ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="uFn-tH-qHa"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="finmart_splash" width="750" height="1400"/>
+        <image name="pb_bg" width="1285" height="671"/>
+    </resources>
+</document>
