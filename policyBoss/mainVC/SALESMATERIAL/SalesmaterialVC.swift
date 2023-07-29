@@ -475,6 +475,7 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     @IBAction func laterBtnCliked(_ sender: Any)
     {
+        trackSalesMaterialEvent(strOption: "Later", strInsType: productName)
         salesmaterialdownldbckView.isHidden = true
         deSelectData()
         //        salesmaterialdownldView.isHidden = true
@@ -483,7 +484,7 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     @IBAction func downloadBtnCliked(_ sender: Any)
     {
         
-       
+        trackSalesMaterialEvent(strOption: "Download", strInsType: productName)
         let insalesmaterial : insalesmaterialVC = self.storyboard?.instantiateViewController(withIdentifier: "stbinsalesmaterialVC") as! insalesmaterialVC
         insalesmaterial.modalPresentationStyle = .fullScreen
         insalesmaterial.productId = productID
@@ -521,4 +522,17 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     
     
+}
+
+extension SalesmaterialVC {
+    
+    func trackSalesMaterialEvent(strOption: String, strInsType: String) {
+        // Create event attributes
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Option Clicked"] = strOption
+        eventAttributes["Insurance Type"] = strInsType
+
+
+        WebEngageAnaytics.shared.trackEvent("Sales Material Viewed",  eventAttributes)
+    }
 }

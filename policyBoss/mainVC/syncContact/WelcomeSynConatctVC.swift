@@ -60,6 +60,9 @@ class WelcomeSynConatctVC: UIViewController {
     
     @objc func clickAction(sender : UITapGestureRecognizer) {
 
+       
+       
+        trackSyncContactEvent(" Sync Contacts Details Viewed")
         let objVC = SyncMoreDetailsVC.shareInstance()
 
         self.present(objVC, animated: true)
@@ -114,12 +117,12 @@ class WelcomeSynConatctVC: UIViewController {
     
     @IBAction func btnTermsCondition(_ sender: Any) {
         
-
+        trackSyncContactEvent("T&C Viewed for Sync Contacts")
         moveToWeb(screeName: ScreenName.SYNC_TERMS, screenTitle: "Terms & Conditions")
     }
     @IBAction func btnPrivacyPolicy(_ sender: Any) {
         
-
+        trackSyncContactEvent("Read Privacy Policy for Sync Contacts")
         moveToWeb(screeName: ScreenName.SYNC_PRIVACY, screenTitle: "Privacy-Policy")
       
     }
@@ -179,6 +182,7 @@ class WelcomeSynConatctVC: UIViewController {
                 self.contactAuthorizedReq()
 
                 if(isAuthorized){
+                    
                     
                     saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
                   
@@ -269,6 +273,8 @@ class WelcomeSynConatctVC: UIViewController {
                     alertView.close()
                     
                     if(response.lowercased() == "success"){
+                        
+                        trackSyncContactEvent("Get Started on Sync Contacts")
                         navigationController?.pushViewController( SyncContactVC.shareInstance(), animated: false)
                     }else{
                         
@@ -376,5 +382,11 @@ extension WelcomeSynConatctVC {
     static func shareInstance() -> WelcomeSynConatctVC
     {
         return WelcomeSynConatctVC.initiateFromStoryboard(name: storyBoardName.SyncContact)
+    }
+    
+    func trackSyncContactEvent(_ strEvent: String) {
+        
+        WebEngageAnaytics.shared.trackEvent(strEvent)
+        
     }
 }

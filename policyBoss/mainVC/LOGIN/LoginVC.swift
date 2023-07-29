@@ -11,11 +11,13 @@ import CustomIOSAlertView
 import TTGSnackbar
 import Alamofire
 import KeychainAccess
+import WebEngage
 //import CobrowseIO
 
 class LoginVC: UIViewController,UITextFieldDelegate {
 
-    
+    //  WebEngage for Analytics
+    let weUser: WEGUser = WebEngage.sharedInstance().user
     
     @IBOutlet weak var emailTf: ACFloatingTextfield!
     @IBOutlet weak var passwordTf: ACFloatingTextfield!
@@ -118,6 +120,8 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     
     @IBAction func signupBtnCliked(_ sender: Any)
     {
+        
+        WebEngageAnaytics.shared.trackEvent("Sign Up Initiate")
         let ViewC : ViewController = self.storyboard?.instantiateViewController(withIdentifier: "stbViewController") as! ViewController
         self.addChild(ViewC)
         self.view.addSubview(ViewC.view)
@@ -308,7 +312,17 @@ class LoginVC: UIViewController,UITextFieldDelegate {
             
       //      self.dismiss(animated: false, completion: nil)
             
-            self.getFOSUserInfo()
+            
+            if let POSPNoValue = POSPNo as? String ,!POSPNoValue.isEmpty{
+                WebEngageAnaytics.shared.trackEvent("POSP No Generated")
+                self.getFOSUserInfo()
+            } else {
+                let snackbar = TTGSnackbar.init(message: "Your Posp Number is not generated.!!\nNot Eligible For Login.Please Contact Admin", duration: .long)
+                snackbar.show()
+            }
+            
+          
+           
 
             
         }, onError: { errorData in

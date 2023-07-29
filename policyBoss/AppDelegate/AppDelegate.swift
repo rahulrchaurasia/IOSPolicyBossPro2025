@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Firebase
+import WebEngage
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -85,9 +86,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            appDelegate.window?.makeKeyAndVisible()
         }
         
-        
+        /************************************************/
+                //WebEngage for Analytics
+        /************************************************/
+      WebEngage.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
       
-  
+        // Set the sessionTimeOut to 25 minutes
+           WebEngage.sharedInstance()?.sessionTimeOut = 25
+
         return true
         
     }

@@ -757,18 +757,28 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
 //        dataImage = imageData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
         
         if(uploadDoc == "CameraClick"){
+            
+            trackDocUploadEvent(strDocType: "PROFILE PICTURE")
             uploaddocAPI(documentName:"FBAPhotograph", documentType:"1")
         }
         else if(uploadDoc == "fbaPhoto"){
+            
+            trackDocUploadEvent(strDocType: "PROFILE PICTURE")
             uploaddocAPI(documentName:"FBAPhotograph", documentType:"2")
         }
         else if(uploadDoc == "fbaPan"){
+            
+            trackDocUploadEvent(strDocType: "FBA PAN CARD")
             uploaddocAPI(documentName:"LoanRepPanCard", documentType:"3")
         }
         else if(uploadDoc == "cancelChq"){
+            
+            trackDocUploadEvent(strDocType: "CANCELLED CHQ")
             uploaddocAPI(documentName:"LoanRepCancelChq", documentType:"4")
         }
         else if(uploadDoc == "fbaAadhar"){
+            
+            trackDocUploadEvent(strDocType: "FBA AADHAR CARD")
             uploaddocAPI(documentName:"OtherAadharCard", documentType:"5")
         }
         
@@ -822,6 +832,8 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             myprofileViewHeight.constant = 200
             
         }else{
+            
+            trackMyAccountSubmitEvent()
             myaccountAPI()
         }
         
@@ -935,7 +947,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             
             print("DOC FBA PHOtograph " + srUrl)
             
-            
+            trackDocUploadSuccessEvent(strDocType: "PROFILE PICTURE")
             let remoteImageURL = URL(string: srUrl )!
             self.myaccountImgeView.sd_setImage(with: remoteImageURL )
             
@@ -951,6 +963,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             break;
 
        case 3 :
+            trackDocUploadSuccessEvent(strDocType: "FBA PAN CARD")
             print("DOC PanCard ")
             imgDoc2.image = UIImage(named: "doc_uploaded")
            
@@ -960,6 +973,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             break;
             
        case 4 :
+            trackDocUploadSuccessEvent(strDocType: "CANCELLED CHQ")
             print("DOC Cancel Cheque")
             imgDoc3.image = UIImage(named: "doc_uploaded")
            
@@ -970,6 +984,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             
             
         case 5 :
+            trackDocUploadSuccessEvent(strDocType: "FBA AADHAR CARD")
             print("DOC Aadhar")
             imgDoc4.image = UIImage(named: "doc_uploaded")
 
@@ -1694,3 +1709,37 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
   
     
 }
+
+extension profileVC {
+    
+    
+    func trackMyAccountSubmitEvent(){
+        
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "My Account"
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Bank Details Submitted",  eventAttributes)
+    }
+    
+    func trackDocUploadEvent(strDocType: String) {
+        // Create event attributes
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "My Account "
+        eventAttributes["Document Type"] = strDocType
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Document Upload Initiated",  eventAttributes)
+    }
+
+    func trackDocUploadSuccessEvent(strDocType: String) {
+        // Create event attributes
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "My Account "
+        eventAttributes["Document Type"] = strDocType
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Document Uploaded Successfully",  eventAttributes)
+    }
+}
+    

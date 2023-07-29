@@ -1071,6 +1071,8 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
               self.ViewControllerBckView.isHidden = true
               self.verifymobOTPView.isHidden = true
               self.verifymobOTPViewHeight.constant = 0
+              WebEngageAnaytics.shared.trackEvent("OTP Verified")
+
                TTGSnackbar.init(message: "OTP verified successfully", duration: .long).show()
         }else{
             
@@ -1104,7 +1106,13 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                     self.ViewControllerBckView.isHidden = true
                     self.verifymobOTPView.isHidden = true
                     self.verifymobOTPViewHeight.constant = 0
+                    
+                    
+                    WebEngageAnaytics.shared.trackEvent("OTP Verified")
+
+                    
                     TTGSnackbar.init(message: "OTP verified successfully", duration: .long).show()
+                    
                     
                 }, onError: { errorData in
                     alertView.close()
@@ -1653,13 +1661,86 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             
             if(SavedStatus == 0)
             {
+                /*
+                trackSignUpEvent(chbxLife.isChecked(),dbPersistanceController.getlifeListIdbyname(spLifeIns.getSelectedStrings()),
+
+                                       chbxGen.isChecked(),
+                                       dbPersistanceController.getGeneralListbyname(spGenIns.getSelectedStrings()),
+
+                                       chbxHealth.isChecked(),
+                                       dbPersistanceController.getHealthListByName(spHealthIns.getSelectedStrings()),
+
+                                       chbxMutual.isChecked(), chbxPostal.isChecked(),
+                                       chbxStocks.isChecked(), chbxBonds.isChecked() );
+                 */
                 
+                
+                var blnLISelected: Bool
+                var blnGISelected: Bool
+                var blnHISelected: Bool
+                var blnMISelected: Bool
+                var blnStockSelected: Bool
+                var blnPSSelected: Bool
+                var blnBondSelected : Bool
+                if self.lifeinsuranceSelected == "1" {
+                    blnLISelected = true
+                } else {
+                    blnLISelected = false
+                }
+                
+                if self.gernalinsuranceSelected == "1" {
+                    blnGISelected = true
+                } else {
+                    blnGISelected = false
+                }
+                
+                if self.healthinsuranceSelected == "1" {
+                    blnHISelected = true
+                } else {
+                    blnHISelected = false
+                }
+                
+                if self.mutualFundSelected == "1" {
+                    blnMISelected = true
+                } else {
+                    blnMISelected = false
+                }
+                
+                if self.stocksSelected == "1" {
+                    blnStockSelected = true
+                } else {
+                    blnStockSelected = false
+                }
+                
+                if self.postalSelected == "1" {
+                    blnPSSelected = true
+                } else {
+                    blnPSSelected = false
+                }
+                if self.bondsSelected == "1" {
+                    blnBondSelected = true
+                } else {
+                    blnBondSelected = false
+                }
+                
+                self.trackSignUpEvent(blnLISelected: blnLISelected,
+                                      strLIComp: self.lifeSelectedData,
+                                 blnGISelected: blnGISelected,
+                                      strGIComp: self.genSelectedData,
+                                      blnHISelected: blnHISelected,
+                                      strHIComp: self.healthSelectedData,
+                                      blnMISelected: blnMISelected,
+                                 blnPSSelected: blnPSSelected,
+                                 blnStockSelected: blnStockSelected,
+                                 blnBondSelected: blnBondSelected)
               
                 let Login : LoginVC! = self.storyboard?.instantiateViewController(withIdentifier: "stbLoginVC") as? LoginVC
                 Login.modalPresentationStyle = .fullScreen
                 self.present(Login, animated: true, completion: nil)
             
                 self.showToast(controller: Login.self, message: Message!, seconds: 4)
+                
+                
                 
               //  TTGSnackbar.init(message: Message!, duration: .long).show()
                
@@ -1767,7 +1848,8 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             
             if(!(self.pospAmntList[indexPath.row].isCheck ?? false)){
                 
-                
+                WebEngageAnaytics.shared.trackEvent("TurboMembership")
+
                 self.showPospAmntAlert(strtitle: self.pospAmntList[indexPath.row].posp_header_desc,
                                        strbody: self.pospAmntList[indexPath.row].posp_desc,
                                        strsubTitle: self.pospAmntList[indexPath.row].posp_sub_header_desc)
@@ -1796,6 +1878,60 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
     
     
     
+}
+
+extension ViewController {
+    
+   
+    func trackSignUpEvent(blnLISelected : Bool, strLIComp : String,blnGISelected : Bool,
+                          strGIComp : String, blnHISelected : Bool , strHIComp : String,
+                          blnMISelected : Bool , blnPSSelected  : Bool ,blnStockSelected : Bool,
+                          blnBondSelected : Bool
+    ){
+        
+        var li = "";   var gi = "";   var hi = "";
+
+        if(blnLISelected)
+        {
+            li = strLIComp
+        }else
+        {
+            li = ""
+        }
+
+        if(blnGISelected)
+        {
+            gi = strGIComp
+        }else
+        {
+            gi = ""
+        }
+
+        if(blnHISelected)
+        {
+            hi = strHIComp;
+        }else
+        {
+            hi = ""
+        }
+        
+        var eventAttributes: [String: Any] = [:]
+
+        eventAttributes["Life Insurance Selected"] = blnLISelected
+        eventAttributes["Life Insurance Companies"] = li
+
+        eventAttributes["General Insurance Selected"] = blnGISelected
+        eventAttributes["General Insurance Companies"] = gi
+
+        eventAttributes["Health Insurance Selected"] = blnHISelected
+        eventAttributes["Health Insurance Companies"] = hi
+
+        eventAttributes["Mutual Funds Selected"] = blnMISelected
+        eventAttributes["Postal Savings Selected"] = blnPSSelected
+        eventAttributes["Stocks Selected"] = blnStockSelected
+        eventAttributes["Bonds/CFD Selected"] = blnBondSelected
+    }
+
 }
 
 

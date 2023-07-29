@@ -45,13 +45,13 @@ class MenuDb {
     {
         Menulist =  [MenuModel]()
         Menulist.append(MenuModel(name: "Home" ,img: "home.png", modelId: "nav_home"))
-        if(isAttendenceEnable == "1"){
-            
-            if (uidLogin == "Y"){
-                Menulist.append(MenuModel(name: "PolicyBoss Attendance" ,img: "attendanceicon.png", modelId: "nav_attendance"))
-            }
-         
-        }
+//        if(isAttendenceEnable == "1"){
+//            
+//            if (uidLogin == "Y"){
+//                Menulist.append(MenuModel(name: "PolicyBoss Attendance" ,img: "attendanceicon.png", modelId: "nav_attendance"))
+//            }
+//         
+//        }
     
         Menulist.append(MenuModel(name: "Generate Login Token" ,img: "ic_business_name.png", modelId: "nav_authToken"))
         

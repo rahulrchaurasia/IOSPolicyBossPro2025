@@ -363,15 +363,15 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                           self.dismissAll(animated: false)
             
     
-        case "nav_attendance" :
-            
-           
-            let mySwiftUIView = UIHostingController(rootView: LocationAttendanceNew())
-            
-            mySwiftUIView.modalPresentationStyle = .fullScreen
-           // mySwiftUIView.modalTransitionStyle = .coverVertical
-        
-            present(mySwiftUIView, animated: false, completion: nil)
+//        case "nav_attendance" :
+//
+//
+//            let mySwiftUIView = UIHostingController(rootView: LocationAttendanceNew())
+//
+//            mySwiftUIView.modalPresentationStyle = .fullScreen
+//           // mySwiftUIView.modalTransitionStyle = .coverVertical
+//
+//            present(mySwiftUIView, animated: false, completion: nil)
             
         case "nav_authToken":
             
@@ -468,6 +468,9 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
          
         case "nav_MyUtilities" :
             
+            WebEngageAnaytics.shared.trackEvent("Clicked My Utilities on Options Menu")
+
+
             let addUsersV : addUsersVC = storyboard?.instantiateViewController(withIdentifier: "stbaddUsersVC") as! addUsersVC
             addUsersV.modalPresentationStyle = .fullScreen
             addUsersV.modalTransitionStyle = .coverVertical

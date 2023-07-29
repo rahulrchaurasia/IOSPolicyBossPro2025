@@ -15,6 +15,7 @@ class helpnfeedbackVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen("HelpFeedBack Screen")
     }
 
     @IBAction func backBtnCliked(_ sender: Any)
@@ -44,6 +45,8 @@ class helpnfeedbackVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(indexPath.row == 0)
         {
+            
+            WebEngageAnaytics.shared.trackEvent("Clicked on Contact Us in Help & Feedback")
             let hnfcontactUs : hnfcontactUsVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhnfcontactUsVC") as! hnfcontactUsVC
             hnfcontactUs.modalPresentationStyle = .fullScreen
             hnfcontactUs.modalTransitionStyle = .coverVertical

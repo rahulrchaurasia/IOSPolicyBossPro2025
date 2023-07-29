@@ -167,14 +167,12 @@
 		B2E62F1126FB596F00D1B5C7 /* AlertDocVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62F1026FB596F00D1B5C7 /* AlertDocVC.swift */; };
 		CD0E58FE29C07449008A67BF /* SyncContact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD0E58FD29C07449008A67BF /* SyncContact.storyboard */; };
 		CD0E590129C074E9008A67BF /* WelcomeSynConatctVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */; };
-		CD1278802A08D4CF009BC7A9 /* LocationAttendance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12787F2A08D4CF009BC7A9 /* LocationAttendance.swift */; };
 		CD1278882A09147F009BC7A9 /* Pods_policyBoss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */; };
 		CD12788C2A092165009BC7A9 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; };
 		CD12788D2A092165009BC7A9 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CD12788F2A092497009BC7A9 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD12788E2A092497009BC7A9 /* LocationViewModel.swift */; };
 		CD290471288042FB00C75C74 /* FOSUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD290470288042FB00C75C74 /* FOSUserResponse.swift */; };
 		CD2D676329125ED000DF42D9 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2D676229125ED000DF42D9 /* Extension+UIView.swift */; };
-		CD2F8D202A33393400BE5A1A /* LocationAttendanceNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2F8D1F2A33393400BE5A1A /* LocationAttendanceNew.swift */; };
+		CD34DDAF2A7395B00055791E /* WebEngageAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */; };
 		CD3ED387286069BF0012FF05 /* PospAmoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED386286069BE0012FF05 /* PospAmoutResponse.swift */; };
 		CD3F9A7C29CDA04A00FB8F2F /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3F9A7B29CDA04A00FB8F2F /* NotificationListVC.swift */; };
 		CD3F9A7E29CDA0CC00FB8F2F /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD3F9A7D29CDA0CC00FB8F2F /* Notification.storyboard */; };
@@ -186,7 +184,6 @@
 		CD475D062910EAFA00BAE252 /* MenuTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD475D052910EAFA00BAE252 /* MenuTabVC.swift */; };
 		CD475D092910F19B00BAE252 /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD475D082910F19B00BAE252 /* DashBoardVC.swift */; };
 		CD475D0C2910F1CC00BAE252 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD475D0B2910F1CC00BAE252 /* NotificationVC.swift */; };
-		CD4A84BB2A138CEC00B0426F /* AttendanceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4A84BA2A138CEC00B0426F /* AttendanceCardView.swift */; };
 		CD65415A29C2EE7E006DC774 /* SyncMoreDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65415929C2EE7E006DC774 /* SyncMoreDetailsVC.swift */; };
 		CD6E912629C1F4EF00936762 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E912529C1F4EF00936762 /* Constant.swift */; };
 		CD6E912829C205F400936762 /* Extension+Scrollview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E912729C205F400936762 /* Extension+Scrollview.swift */; };
@@ -419,12 +416,10 @@
 		C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_policyBoss.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0E58FD29C07449008A67BF /* SyncContact.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SyncContact.storyboard; sourceTree = "<group>"; };
 		CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSynConatctVC.swift; sourceTree = "<group>"; };
-		CD12787F2A08D4CF009BC7A9 /* LocationAttendance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAttendance.swift; sourceTree = "<group>"; };
 		CD12788A2A092160009BC7A9 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
-		CD12788E2A092497009BC7A9 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		CD290470288042FB00C75C74 /* FOSUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FOSUserResponse.swift; sourceTree = "<group>"; };
 		CD2D676229125ED000DF42D9 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
-		CD2F8D1F2A33393400BE5A1A /* LocationAttendanceNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAttendanceNew.swift; sourceTree = "<group>"; };
+		CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngageAnalytics.swift; sourceTree = "<group>"; };
 		CD3ED386286069BE0012FF05 /* PospAmoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PospAmoutResponse.swift; sourceTree = "<group>"; };
 		CD3F9A7B29CDA04A00FB8F2F /* NotificationListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListVC.swift; sourceTree = "<group>"; };
 		CD3F9A7D29CDA0CC00FB8F2F /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
@@ -436,7 +431,6 @@
 		CD475D052910EAFA00BAE252 /* MenuTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTabVC.swift; sourceTree = "<group>"; };
 		CD475D082910F19B00BAE252 /* DashBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
 		CD475D0B2910F1CC00BAE252 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
-		CD4A84BA2A138CEC00B0426F /* AttendanceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendanceCardView.swift; sourceTree = "<group>"; };
 		CD65415929C2EE7E006DC774 /* SyncMoreDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncMoreDetailsVC.swift; sourceTree = "<group>"; };
 		CD6E912529C1F4EF00936762 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CD6E912729C205F400936762 /* Extension+Scrollview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Scrollview.swift"; sourceTree = "<group>"; };
@@ -739,9 +733,9 @@
 		840AC5CE21BE80AB004DCB26 /* policyBoss */ = {
 			isa = PBXGroup;
 			children = (
+				CD34DDAD2A7395860055791E /* Analytics */,
 				CD4A84B72A122BED00B0426F /* swiftuiUtility */,
 				CD1278812A090CD2009BC7A9 /* Razorpay */,
-				CD12787E2A08D42C009BC7A9 /* LocationAttendance */,
 				CD9D048A29E0214600AE6AA9 /* policyBoss.entitlements */,
 				CD9D048829E01F5C00AE6AA9 /* GoogleService-Info.plist */,
 				CD41B28C290FD4FE004ACDD8 /* HomeMain */,
@@ -1190,17 +1184,6 @@
 			path = syncContact;
 			sourceTree = "<group>";
 		};
-		CD12787E2A08D42C009BC7A9 /* LocationAttendance */ = {
-			isa = PBXGroup;
-			children = (
-				CD12787F2A08D4CF009BC7A9 /* LocationAttendance.swift */,
-				CD12788E2A092497009BC7A9 /* LocationViewModel.swift */,
-				CD4A84BA2A138CEC00B0426F /* AttendanceCardView.swift */,
-				CD2F8D1F2A33393400BE5A1A /* LocationAttendanceNew.swift */,
-			);
-			path = LocationAttendance;
-			sourceTree = "<group>";
-		};
 		CD1278812A090CD2009BC7A9 /* Razorpay */ = {
 			isa = PBXGroup;
 			children = (
@@ -1215,6 +1198,14 @@
 				CD290470288042FB00C75C74 /* FOSUserResponse.swift */,
 			);
 			path = FosInfo;
+			sourceTree = "<group>";
+		};
+		CD34DDAD2A7395860055791E /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		CD3F9A7A29CD9FDA00FB8F2F /* notification */ = {
@@ -1585,7 +1576,6 @@
 				44354AA5248FCCF800F9BD80 /* InsuranceData.swift in Sources */,
 				8410403E21D786E500C3B7A7 /* FinmartRestClient.swift in Sources */,
 				840562EB21D4D3B40099DDE8 /* whatsNewVC.swift in Sources */,
-				CD1278802A08D4CF009BC7A9 /* LocationAttendance.swift in Sources */,
 				84C368BD21C76D9300BB2E9B /* CAPSPageMenu.swift in Sources */,
 				84C4D08B21C230C500A677B7 /* forgtPassVC.swift in Sources */,
 				CDAA0FA5286CABF7009B69A9 /* pospAmntAlertTVCell.swift in Sources */,
@@ -1595,7 +1585,6 @@
 				84C368C721C7AB0800BB2E9B /* finmartMenuCell.swift in Sources */,
 				B253B250261652E0000C3A7D /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				B253B259261652E0000C3A7D /* IQNSArray+Sort.swift in Sources */,
-				CD4A84BB2A138CEC00B0426F /* AttendanceCardView.swift in Sources */,
 				442C140D2497A31700E3C455 /* pospDoc.swift in Sources */,
 				CD6E912629C1F4EF00936762 /* Constant.swift in Sources */,
 				B245113E261464C0003EB5A9 /* callbackToHomeProtocol.swift in Sources */,
@@ -1610,7 +1599,6 @@
 				4427908C244885E000AFDED9 /* UserConstDashboardModel.swift in Sources */,
 				84EF6EA12296B2BD0002E73B /* smsTemplateVC.swift in Sources */,
 				840C4BE121C383AC000B8D49 /* KnowlgeGuruVC.swift in Sources */,
-				CD12788F2A092497009BC7A9 /* LocationViewModel.swift in Sources */,
 				8415D25721EEFFE000C07577 /* pendingcaseTVCell.swift in Sources */,
 				84A064BF22AFB10E000D18B7 /* notipopupurlVC.swift in Sources */,
 				449F17EE22DC790200C9A2BF /* callingRevampTVCell.swift in Sources */,
@@ -1634,7 +1622,6 @@
 				B218FF17269336F70090A877 /* HealthAssureConfigure.swift in Sources */,
 				CDD14A0229A73EBD006BB92B /* AlertLoginTokenVC.swift in Sources */,
 				8410403B21D784EB00C3B7A7 /* FinmartStyler.swift in Sources */,
-				CD2F8D202A33393400BE5A1A /* LocationAttendanceNew.swift in Sources */,
 				8480BBDB220807FA00BEEDF4 /* helpnfeedbckTVCell.swift in Sources */,
 				442E20E324C8388400FFC075 /* TutorialViewController.swift in Sources */,
 				8410404521D789C300C3B7A7 /* CommonSettings.swift in Sources */,
@@ -1706,6 +1693,7 @@
 				840562E321D4D3440099DDE8 /* enrolasPOSPVC.swift in Sources */,
 				B2622BE42613721E00B49797 /* Extension+UIViewController.swift in Sources */,
 				B2622BE7261372AF00B49797 /* Extension+UserDefaults.swift in Sources */,
+				CD34DDAF2A7395B00055791E /* WebEngageAnalytics.swift in Sources */,
 				CDC7B7F329A4C5BB00DC2012 /* IFSCModel.swift in Sources */,
 				840562E521D4D3590099DDE8 /* addUsersVC.swift in Sources */,
 				8411808821C5105D00D5638B /* PresentMenuAnimator.swift in Sources */,

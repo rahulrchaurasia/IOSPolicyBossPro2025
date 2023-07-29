@@ -556,6 +556,7 @@ class SyncContactVC: UIViewController {
     }
     func successMessage(){
         
+        trackSyncContactEvent()
         self.activityIndicator.isHidden = true
         self.activityIndicator.stopAnimating()
       
@@ -603,6 +604,11 @@ extension SyncContactVC {
     {
         return SyncContactVC.initiateFromStoryboard(name: storyBoardName.SyncContact)
     }
+    
+     func trackSyncContactEvent() {
+         
+      WebEngageAnaytics.shared.trackEvent("Sync Contacts completed")
+      }
 }
 
 

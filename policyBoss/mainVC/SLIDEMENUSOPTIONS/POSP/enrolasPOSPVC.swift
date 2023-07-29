@@ -896,6 +896,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
                     openValidatePosp(strData: "DOC")
                 }else{
                     
+                      trackPospSubmitEvent()
                       pospregistrationAPI()
                 }
                 
@@ -1110,32 +1111,38 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
         
         if(uploadDoc == "DOC6"){
         
-            
+            trackDocUploadEvent(strDocType: "RECENT PHOTOGRAPH")
             uploaddocAPI(documentName: PHOTO_File, documentType: "6")
         }
             
         else if(uploadDoc == "DOC7"){
           
+            trackDocUploadEvent(strDocType: "RECENT PAN CARD")
              uploaddocAPI(documentName: PAN_File, documentType: "7")
         }
             
         else if(uploadDoc == "DOC8"){
          
+            //
+            trackDocUploadEvent(strDocType: "RECENT AADHAR CARD FRONT")
              uploaddocAPI(documentName: AADHAR_FRONT_File, documentType: "8")
         }
             
         else if(uploadDoc == "DOC9"){
             
+            trackDocUploadEvent(strDocType: "RECENT AADHAR CARD BACK")
              uploaddocAPI(documentName: AADHAR_BACK_File, documentType: "9")
         }
             
         else if(uploadDoc == "DOC10"){
+            
+            trackDocUploadEvent(strDocType: "RECENT CANCELLED CHQ")
            
              uploaddocAPI(documentName: CANCEL_CHQ_File, documentType: "10")
         }
         else if(uploadDoc == "DOC11"){
             
-          
+            trackDocUploadEvent(strDocType: "RECENT HIGHEST EDU. PROOF")
              uploaddocAPI(documentName: EDU_FILE, documentType: "11")
         }
 
@@ -1484,6 +1491,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
         FinmartRestClient.sharedInstance.authorisedPost(url, parameters: params, onSuccess: { (userObject, metadata) in
             alertView.close()
             
+            self.trackPOSPSuccessEvent()
             self.view.layoutIfNeeded()
             
             let jsonData = userObject as? NSDictionary
@@ -1816,7 +1824,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
         switch(type) {
             
         case 6  :
-            
+            trackDocUploadSuccessEvent(strDocType: "RECENT PHOTOGRAPH")
             print("DOC Image 1 ")
             imgDoc1.image = UIImage(named: "doc_uploaded")
             imgDoc1.tag = 1
@@ -1828,6 +1836,8 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             break;
             
         case 7  :
+            
+            trackDocUploadSuccessEvent(strDocType: "RECENT PAN CARD")
             print("DOC Image 2 ")
             imgDoc2.image = UIImage(named: "doc_uploaded")
             imgDoc2.tag = 1
@@ -1838,6 +1848,8 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             break;
             
         case 8 :
+            
+            trackDocUploadSuccessEvent(strDocType: "RECENT AADHAR CARD FRONT")
             print("DOC Image 3 ")
             imgDoc3.image = UIImage(named: "doc_uploaded")
             imgDoc3.tag = 1
@@ -1848,6 +1860,8 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             break;
             
         case 9 :
+            
+            trackDocUploadSuccessEvent(strDocType: "RECENT AADHAR CARD BACK")
             print("DOC Image 4 ")
             imgDoc4.image = UIImage(named: "doc_uploaded")
             imgDoc4.tag = 1
@@ -1859,6 +1873,8 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             
             
         case 10  :
+            
+            trackDocUploadSuccessEvent(strDocType: "RECENT CANCELLED CHQ")
             print("DOC Image 5 ")
             imgDoc5.image = UIImage(named: "doc_uploaded")
             imgDoc5.tag = 1
@@ -1869,6 +1885,8 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             break;
             
         case 11  :
+            
+            trackDocUploadSuccessEvent(strDocType: "RECENT HIGHEST EDU. PROOF")
             print("DOC Image 5 ")
             imgDoc6.image = UIImage(named: "doc_uploaded")
             imgDoc6.tag = 1
@@ -2155,6 +2173,46 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
 //    }
    
     
+}
+
+extension enrolasPOSPVC {
+    
+    // Analytic Handling
+    func trackPospSubmitEvent(){
+        
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "Enroll for IRDA POSP"
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Bank Details Submitted",  eventAttributes)
+    }
+    
+    func trackDocUploadEvent(strDocType: String) {
+        // Create event attributes
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "Enroll for IRDA POSP"
+        eventAttributes["Document Type"] = strDocType
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Document Upload Initiated", eventAttributes)
+    }
+    
+    func trackDocUploadSuccessEvent(strDocType: String) {
+        // Create event attributes
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Section"] = "Enroll for IRDA POSP"
+        eventAttributes["Document Type"] = strDocType
+
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Document Uploaded Successfully",  eventAttributes)
+    }
+
+   
+    func trackPOSPSuccessEvent() {
+        
+        WebEngageAnaytics.shared.trackEvent("POSP Enrollment Initiated")
+      
+    }
 }
 
 extension String

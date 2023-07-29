@@ -231,22 +231,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2ED9F5D3-D3DC-4128-95B1-FE6BB1CA7F76"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
-            landmarkName = "btnStarted(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "CA2FE8B4-1430-43A9-9161-FB42DC88DFEF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -254,8 +238,8 @@
             filePath = "policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
             landmarkName = "saveSyncContAgreementData(isCall:isSms:)"
             landmarkType = "7">
             <Locations>
@@ -473,8 +457,8 @@
             filePath = "policyBoss/mainVC/LOGIN/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "loginAPI()"
             landmarkType = "7">
             <Locations>
@@ -566,8 +550,8 @@
             filePath = "policyBoss/mainVC/LOGIN/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "loginAPI()"
             landmarkType = "7">
             <Locations>
@@ -682,6 +666,118 @@
             endingLineNumber = "118"
             landmarkName = "getContactData()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "240045AF-31B1-471A-8585-AA929F6AA3C1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/registeration/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "573"
+            endingLineNumber = "573"
+            landmarkName = "healthdropDownBtn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FC36767F-3F3E-4A97-B0CD-8788F69AC5ED"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "btnStarted(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FC36767F-3F3E-4A97-B0CD-8788F69AC5ED - 62574a50547fa1a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.WelcomeSynConatctVC.btnStarted(Any) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "FC36767F-3F3E-4A97-B0CD-8788F69AC5ED - 62574a50547fa1a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.WelcomeSynConatctVC.btnStarted(Any) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3FBA9063-8D80-46E2-81D8-4DA74732E670"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/SLIDEMENUSOPTIONS/OTHERUTILITIES/helpnfeedbackVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3FBA9063-8D80-46E2-81D8-4DA74732E670 - 96aff214c263a98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.helpnfeedbackVC.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/SLIDEMENUSOPTIONS/OTHERUTILITIES/helpnfeedbackVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "3FBA9063-8D80-46E2-81D8-4DA74732E670 - 96aff214c263a98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.helpnfeedbackVC.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/SLIDEMENUSOPTIONS/OTHERUTILITIES/helpnfeedbackVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "388">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

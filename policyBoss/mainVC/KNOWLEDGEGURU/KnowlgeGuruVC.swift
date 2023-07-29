@@ -106,6 +106,7 @@ class KnowlgeGuruVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         
         if(indexPath.row == 0){
             
+            trackMainMenuEvent()
             let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
             commonWeb.modalPresentationStyle = .fullScreen
             commonWeb.webfromScreen = ScreenName.Insurance
@@ -126,3 +127,20 @@ class KnowlgeGuruVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
         }
     }
 }
+
+extension KnowlgeGuruVC{
+
+    
+    func trackMainMenuEvent() {
+        // Create event attributes dictionary
+        var eventAttributes: [String: Any] = [:]
+        eventAttributes["Page Viewed"] = "Personal Accident FAQ's"
+
+        // Track the event using WebEngage
+        WebEngageAnaytics.shared.trackEvent("Insurance Repository Viewed", eventAttributes)
+    }
+    
+    
+}
+
+

@@ -77,7 +77,7 @@ class EulaVC: UIViewController , WKNavigationDelegate,UIScrollViewDelegate {
     
     @IBAction func didTapAgreeButton(_ sender: Any) {
         
-        
+        trackEvent(strStatus: "I Agree")
         Core.shared.setNewUser()
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         
@@ -91,7 +91,7 @@ class EulaVC: UIViewController , WKNavigationDelegate,UIScrollViewDelegate {
         // self.dismiss(animated: false)
         
       //  exit (0);
-        
+        trackEvent(strStatus: "I Disagree")
         warningAlert()
 
     
@@ -113,5 +113,19 @@ class EulaVC: UIViewController , WKNavigationDelegate,UIScrollViewDelegate {
     }
     
     
+    
+    
+}
+
+extension EulaVC {
+    
+    func trackEvent(strStatus : String){
+        
+        let agreementAcknowledgementAttributes: [String:Any]  = [
+            "Staus": strStatus,
+        ]
+
+        WebEngageAnaytics.shared.trackEvent("Agreement Acknowledgement", agreementAcknowledgementAttributes)
+    }
     
 }

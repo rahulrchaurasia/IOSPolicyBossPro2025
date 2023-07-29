@@ -189,6 +189,8 @@ class addUsersVC: UIViewController {
     @IBAction func myTrainingBtnCliked(_ sender: Any)
     {
        
+        WebEngageAnaytics.shared.trackEvent("Clicked on My Training Calendar in My Utilities")
+
         let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
         commonWeb.modalPresentationStyle = .fullScreen
         commonWeb.modalTransitionStyle = .coverVertical
@@ -198,7 +200,8 @@ class addUsersVC: UIViewController {
     
     @IBAction func helpnFeedbckBtnCliked(_ sender: Any)
     {
-      
+        WebEngageAnaytics.shared.trackEvent("Clicked on Help & Feedback in My Utilities")
+
         let helpnfeedback : helpnfeedbackVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhelpnfeedbackVC") as! helpnfeedbackVC
         helpnfeedback.modalPresentationStyle = .fullScreen
         helpnfeedback.modalTransitionStyle = .coverVertical
