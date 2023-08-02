@@ -37,6 +37,8 @@ class ShareImageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SalesShareScreen)
+
            print("detailImg=",detailImg)
             let url = URL(string: detailImg)
              

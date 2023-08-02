@@ -27,7 +27,12 @@ target 'policyBoss' do
    pod 'SDWebImage/WebP'
    pod 'WebEngage'
    
+   pod 'WEPersonalization'
+   pod 'WebEngageBannerPush'
+   pod 'WebEngageAppEx/ContentExtension'
+   
 end
+
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

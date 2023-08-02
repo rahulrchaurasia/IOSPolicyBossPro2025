@@ -23,6 +23,7 @@ class DynamicDashboardModel: NSObject {
     var dashboard_type : String
 
     var ProdId: String
+    var ProdName: String?
     var ProductNameFontColor: String
     var ProductDetailsFontColor: String
     var ProductBackgroundColor : String
@@ -40,7 +41,7 @@ class DynamicDashboardModel: NSObject {
     
     init(menuid: Int, menuname: String,link: String,iconimage :String,
          isActive: Int, dashdescription: String,modalType: String,dashboard_type :String,
-        ProdId: String, ProductNameFontColor:String,ProductDetailsFontColor:String,ProductBackgroundColor :String,
+        ProdId: String,ProdName: String, ProductNameFontColor:String,ProductDetailsFontColor:String,ProductBackgroundColor :String,
         IsExclusive: String, IsNewprdClickable:String,IsSharable:String,popupmsg :String,
         title:String,info: String) {
         
@@ -55,6 +56,7 @@ class DynamicDashboardModel: NSObject {
         self.dashboard_type=dashboard_type
         
         self.ProdId = ProdId
+        self.ProdName = ProdName
         self.ProductNameFontColor = ProductNameFontColor
         self.ProductDetailsFontColor = ProductDetailsFontColor
         self.ProductBackgroundColor=ProductBackgroundColor

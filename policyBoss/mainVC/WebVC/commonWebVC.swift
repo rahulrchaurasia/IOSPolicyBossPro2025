@@ -46,7 +46,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.CommonWebViewScreen)
 
 //        print("fromcontctWebsite??=",fromcontctWebsite)
 //        print("ProposerPageUrl=",ProposerPageUrl)

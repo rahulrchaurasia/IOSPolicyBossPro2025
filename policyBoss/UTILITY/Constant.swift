@@ -100,3 +100,39 @@ struct ScreenName  {
     
     static let Dynamic = "Dynamic"
 }
+
+
+struct AnalyticScreenName  {
+    
+    static let  LoginScreen   = "Login Screen"
+    static let  AppCodeScreen   = "AppCode Screen"
+    static let  IncomePotentialScreen   = "IncomePotential Screen"
+    static let  ChangePasswordScreen   = "ChangePassword Screen"
+    static let  DashBoardScreen   = "DashBoard Screen"
+    static let  HelpFeedBackScreen   = "HelpFeedBack Screen"
+    static let  AboutScreen   = "About Screen"
+    
+    
+    static let  ContactUsScreen   = "ContactUs Screen"
+    static let  HomeScreen   = "Home Screen"
+    static let  EulaScreen   = "Eula Screen"
+    static let  WelcomeScreen   = "Welcome Screen"
+   
+    
+    static let  KnowledgeGuruScreen   = "KnowledgeGuru Screen"
+    static let  MyAccountScreen   = "MyAccount Screen"
+    static let  NotificationScreen   = "Notification Screen"
+    static let  PospScreen   = "Posp Screen"
+    static let  RegisterScreen   = "Register Screen"
+    static let SalesDetailScreen = "SalesDetail Screen"
+    
+    static let  SalesMaterialScreen   = "SalesMaterial Screen"
+    static let  SalesShareScreen   = "SalesShareScreen"
+    static let  SplashScreenScreen   = "SplashScreen Screen"
+    static let  SyncContactScreen   = "Sync Contact Screen"
+    static let  WelcomeSyncContactScreen   = "Welcome Sync Contact Screen"
+    static let CommonWebViewScreen = "Common WebView Screen"
+    static let PrivacyScreen = "Privacy Screen"
+    
+    
+}

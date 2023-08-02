@@ -69,7 +69,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>WEPersonalization.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>WebEngage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>WebEngageAppEx.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>WebEngageBannerPush.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

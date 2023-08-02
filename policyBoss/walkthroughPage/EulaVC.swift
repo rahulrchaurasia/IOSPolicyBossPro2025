@@ -20,6 +20,8 @@ class EulaVC: UIViewController , WKNavigationDelegate,UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.EulaScreen)
+
         addIndicator()
         
          setData(btn: btnAgree)

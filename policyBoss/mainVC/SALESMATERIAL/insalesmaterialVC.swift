@@ -44,7 +44,8 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SalesDetailScreen)
+
         passindexLbl.text! = passindexlbl
         switchBtn.isOn = false
         

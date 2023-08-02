@@ -32,6 +32,13 @@ PODS:
   - SwiftyJSON (5.0.0)
   - TTGSnackbar (1.9.2)
   - WebEngage (6.4.1)
+  - WebEngageAppEx/ContentExtension (1.0.2):
+    - WebEngageAppEx/CoreApi
+  - WebEngageAppEx/CoreApi (1.0.2)
+  - WebEngageBannerPush (1.0.2):
+    - WebEngage (>= 6.4.0)
+  - WEPersonalization (1.2.1):
+    - WebEngage (>= 6.3)
 
 DEPENDENCIES:
   - Alamofire (= 4.9.1)
@@ -44,6 +51,9 @@ DEPENDENCIES:
   - SwiftyJSON
   - TTGSnackbar
   - WebEngage
+  - WebEngageAppEx/ContentExtension
+  - WebEngageBannerPush
+  - WEPersonalization
 
 SPEC REPOS:
   trunk:
@@ -61,6 +71,9 @@ SPEC REPOS:
     - SwiftyJSON
     - TTGSnackbar
     - WebEngage
+    - WebEngageAppEx
+    - WebEngageBannerPush
+    - WEPersonalization
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -77,7 +90,10 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TTGSnackbar: b1da26bd1e791048b08d69e9efb033db0e22d310
   WebEngage: e276beb4c93566656d50953140e1de53fe663bac
+  WebEngageAppEx: 48ddb2095e24592e812e046a22681d497b9a20e2
+  WebEngageBannerPush: 470a5caa6978a429ba60a47ca249a90d271a7b1c
+  WEPersonalization: db824cf2a032ec9327ff42a386eeaf8058043928
 
-PODFILE CHECKSUM: a8967b55e11788cbc145ada8f7533d4b4a2846a2
+PODFILE CHECKSUM: 5a931dcb6b5c2db07edba349c384394c4c53f8d9
 
 COCOAPODS: 1.11.3

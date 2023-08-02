@@ -14,6 +14,7 @@ import Alamofire
 import SDWebImage
 import MessageUI
 import StoreKit
+import WebEngage
 
 class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,callingrevampDelegate,MFMailComposeViewControllerDelegate ,HomeDelegate, SKStoreProductViewControllerDelegate{
    
@@ -77,7 +78,8 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 //        let notificationCenter = NotificationCenter.default
 //           notificationCenter.addObserver(self, selector: #selector(appComeToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
-      
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.HomeScreen)
+
         UIApplication.shared.applicationIconBadgeNumber = 0
         UserDefaults.standard.set(0, forKey: Constant.NotificationCount)
        
@@ -104,6 +106,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         // UITableViewCell.appearance().selectionStyle = .none    // for Removing Default Selection
         
         
+        setWebEnagageUser()
         //--<api>--
        // getLoanStaticDashboard()
         self.userconstantAPI()
@@ -131,6 +134,37 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
     }
     
+    func setWebEnagageUser(){
+        
+        
+        let FullName = UserDefaults.standard.string(forKey: "FullName")
+        let EmailID = UserDefaults.standard.string(forKey: "EmailID")
+        let MobiNumb = UserDefaults.standard.string(forKey: "MobiNumb1")
+        let IsUidLogin = UserDefaults.standard.string(forKey: "IsUidLogin")
+        
+        
+        WebEngageAnaytics.shared.getWEGUser().login(EmailID)
+        WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
+        
+        if ( IsUidLogin == "N") {
+            
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: true )
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: false )
+        }
+        
+        let strNameArray = FullName?.components(separatedBy: " ")
+        
+        WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray?[0] ?? "")
+        WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray?[1] ?? "")
+        debugPrint("First Name",strNameArray?[0] ?? "No Data") // Prints "Chung"
+        debugPrint("Last Name",strNameArray?[1] ?? "No Data")
+        
+        
+        
+        
+        
+    }
     
     @objc func NotifyFirebaseDeeplink(notification : Notification){
         
@@ -209,6 +243,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
       
     
     }
+    
     @objc func NotifyData(notification : Notification){
         
         self.userconstantAPI()
@@ -386,7 +421,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
    
     @IBAction func salesmaterialBtnCliked(_ sender: Any)
     {
-        
+        trackTopMenuEvent("CUSTOMER COMM")
        // self.add(Salesmaterial)
         moveToSalesmaterial()
     }
@@ -394,6 +429,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     @IBAction func knowguruBtnCliked(_ sender: Any)
     {
     
+        trackTopMenuEvent("KNOWLEDGE GURU")
        let KnowlgeGuru : KnowlgeGuruVC = self.storyboard?.instantiateViewController(withIdentifier: "stbKnowlgeGuruVC") as! KnowlgeGuruVC
         
         KnowlgeGuru.modalPresentationStyle = .fullScreen
@@ -691,22 +727,25 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 case 1  :  // car
                     
 
-                    
+                    trackMainMenuEvent("Motor Insurance")
                     callWebView(webfromScreen: ScreenName.privateCar)
                     
                     break
                 case 2  :  // Health
                    
+                    trackMainMenuEvent("Health Insurance")
                     callWebView(webfromScreen: ScreenName.HealthInsurance)
                     break
                     
                 case 10 :  // TWO WHEELER
                  
+                    trackMainMenuEvent("Two Wheeler Insurance")
                     callWebView(webfromScreen: ScreenName.twoWheeler)
                     break
                     
                 case 12  :   //COMMERCIAL VEHICLE
                    
+                    trackMainMenuEvent("Commercial Vehicle Insurance")
                     callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
                     break
                     
@@ -736,7 +775,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
                 case 41 : // Sync Contact
                     
-
+                    trackMainMenuEvent("Sync Contact")
                     let objVC = WelcomeSynConatctVC.shareInstance()
 
                     navigationController?.pushViewController(objVC, animated: false)
@@ -764,6 +803,12 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                             
                             
                             if let modelURL = dynamicURL {
+                                
+                               
+                                
+                                let ProdName = self.dynamicDashboardModel[indexPath.row].ProdName ?? ""
+                          
+                                trackMainMenuEvent(ProdName)
                                 
                                 let ProdId = self.dynamicDashboardModel[indexPath.row].ProdId
                                // let pospNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
@@ -799,6 +844,10 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                        
                     }
                    else if(Int(self.dynamicDashboardModel[indexPath.row].ProdId )!  >= 100 ){
+                       
+                       let ProdName = self.dynamicDashboardModel[indexPath.row].ProdName ?? ""
+                 
+                       trackMainMenuEvent(ProdName)
                         let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
                         commonWeb.webfromScreen = "Dynamic"
                         commonWeb.dynamicUrl = self.dynamicDashboardModel[indexPath.row].link
@@ -1327,8 +1376,9 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                                self.verifyVersion()
                                           
                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                          
-                          
+                      
+                    WebEngageAnaytics.shared.getWEGUser().setAttribute("POSP No.", withStringValue: POSPNo as? String ?? "")
+                    
                   
                     
                 }, onError: { errorData in
@@ -1407,7 +1457,9 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                                                                   isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
                                                                   modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
                                                                   
-                                                                  ProdId: aObject["ProdId"] as! String, ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
+                                                                  ProdId: aObject["ProdId"] as! String,
+                                                                  ProdName: aObject["menuname"] as! String,
+                                                                  ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
                                                                   ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
                                                                   IsExclusive: aObject["IsExclusive"] as! String,
                                                                   IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
@@ -1828,21 +1880,25 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         switch (ProdId) {
         case "1"  :  // car
             
+           
             callWebView(webfromScreen: ScreenName.privateCar)
             
             break
         case "2"  :  // Health
            
+            
             callWebView(webfromScreen: ScreenName.HealthInsurance )
             break
             
         case "10" :  // TWO WHEELER
          
+           
             callWebView(webfromScreen: ScreenName.twoWheeler)
             break
             
         case "12"  :   //COMMERCIAL VEHICLE
            
+        
             callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE )
             break
             
@@ -1866,7 +1922,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
         case "41" : // Sync Contact
             
-
+          
             let objVC = WelcomeSynConatctVC.shareInstance()
 
             navigationController?.pushViewController(objVC, animated: false)
@@ -1894,7 +1950,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             break
             
         case "504" : //Sales Material
-            
+          
             moveToSalesmaterial()
             break
           
@@ -1913,21 +1969,24 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         switch (ProdId) {
         case "1"  :  // car
-            
+          
             callWebView(webfromScreen: ScreenName.privateCar)
             
             break
         case "2"  :  // Health
+           
            
             callWebView(webfromScreen: ScreenName.HealthInsurance )
             break
             
         case "10" :  // TWO WHEELER
          
+           
             callWebView(webfromScreen: ScreenName.twoWheeler)
             break
             
         case "12"  :   //COMMERCIAL VEHICLE
+            
            
             callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE )
             break
@@ -1952,7 +2011,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
         case "41" : // Sync Contact
             
-
+         
             let objVC = WelcomeSynConatctVC.shareInstance()
 
             navigationController?.pushViewController(objVC, animated: false)
@@ -2041,5 +2100,29 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
        }
 
+}
+
+
+extension MainfinMartVC {
+   
+    func trackTopMenuEvent(_ strMenu : String){
+        
+        let menuAttribute: [String:Any]  = [
+            "Menu Clicked": strMenu,
+        ]
+
+        WebEngageAnaytics.shared.trackEvent("Top Menu Viewed", menuAttribute)
+    }
+    
+    func trackMainMenuEvent(_ strOption : String){
+        
+        let menuAttribute: [String:Any]  = [
+            "Option Clicked": strOption,
+        ]
+
+        WebEngageAnaytics.shared.trackEvent("Main Menu Clicked", menuAttribute)
+    }
+   
+    
 }
 

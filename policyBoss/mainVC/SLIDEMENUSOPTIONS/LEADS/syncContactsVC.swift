@@ -13,6 +13,8 @@ class syncContactsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SyncContactScreen)
+
         // Do any additional setup after loading the view.
     }
     

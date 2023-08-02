@@ -462,7 +462,9 @@ class DashBoardVC: UIViewController {
                                                                   isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
                                                                   modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
                                                                   
-                                                                  ProdId: aObject["ProdId"] as! String, ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
+                                                                  ProdId: aObject["ProdId"] as! String,
+                                                                  ProdName: aObject["menuname"] as! String,
+                                                                  ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
                                                                   ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
                                                                   IsExclusive: aObject["IsExclusive"] as! String,
                                                                   IsNewprdClickable: aObject["IsNewprdClickable"] as! String,

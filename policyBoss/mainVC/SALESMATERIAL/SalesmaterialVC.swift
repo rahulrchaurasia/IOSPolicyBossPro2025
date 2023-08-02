@@ -48,6 +48,7 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SalesMaterialScreen)
         salesmaterialdownldbckView.isHidden = true
         //        salesmaterialdownldView.isHidden = true
         

@@ -10,6 +10,7 @@ import UIKit
 import CustomIOSAlertView
 import TTGSnackbar
 import Alamofire
+import WebEngage
 
 class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,getPickerDataDelegate,selectedDataDelegate , UITableViewDelegate,UITableViewDataSource  {
     
@@ -118,6 +119,8 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.RegisterScreen)
+
         self.hideKeyboardWhenTappedAround()
         //---<hideViews>--
         
@@ -185,6 +188,60 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
        
     }
     
+    func setUserInfoToWebEngAnalytic(blnLogin :Bool = false) {
+        
+        if(blnLogin){
+           
+            WebEngageAnaytics.shared.getWEGUser().login(emailTf.text!)
+        }
+ 
+        WebEngageAnaytics.shared.getWEGUser().setFirstName(firstNameTf.text!)
+        WebEngageAnaytics.shared.getWEGUser().setLastName(lastNameTf.text! )
+        
+        if(Gender == "M"){
+         
+            WebEngageAnaytics.shared.getWEGUser().setGender("MALE")
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setGender("FEMALE")
+        }
+        WebEngageAnaytics.shared.getWEGUser().setEmail(emailTf.text!)
+        
+        
+        WebEngageAnaytics.shared.getWEGUser().setPhone(mob1Tf.text!)
+        
+        let dobFormatted  = dobTf.text!.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:"yyyy-MM-dd") ?? ""
+        WebEngageAnaytics.shared.getWEGUser().setBirthDateString(dobFormatted )
+        
+        WebEngageAnaytics.shared.getWEGUser().setPhone(sourceLbl.text!)
+        WebEngageAnaytics.shared.getWEGUser().setPhone(fieldSaleLbl.text!)
+        
+        
+        if(sourceLbl.text! != "Select"){
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Source", withStringValue: sourceLbl.text! )
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Source", withStringValue: "" )
+        }
+       
+        if(sourceLbl.text! != "Select"){
+            
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Field Sale", withStringValue: fieldSaleLbl.text! )
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setAttribute("Field Sale", withStringValue: "" )
+        }
+            
+        
+       
+        
+        WebEngageAnaytics.shared.getWEGUser().setAttribute("Referrer Code", withStringValue: referrCodeTf.text! )
+        
+        WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
+        
+        debugPrint("Analytic dob", dobFormatted)
+        debugPrint("Analytic Source", sourceLbl.text!)
+        debugPrint("Analytic Field Sale", fieldSaleLbl.text!)
+        debugPrint("Analytic Refer Code", referrCodeTf.text!)
+       
+    }
    
     //05 temp
     func getselectedData(insuranceCompObj: InsuranceCompModel? ,selectedData: [String], selectedID: [String], stringId : String) {
@@ -376,7 +433,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
     {
         if(persnlTfView.isHidden)
         {
-            if(self.sourceLbl.text == "Finmart"){
+            if(self.sourceLbl.text == "Select"){
                 fieldSaleView.isHidden = true
                 fieldSaleViewHeight.constant = 0
                 persnlTfView.isHidden = false
@@ -466,9 +523,9 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         self.view.endEditing(true)
         let Picker : PickerViewVC! = storyboard?.instantiateViewController(withIdentifier: "stbPickerViewVC") as? PickerViewVC
         Picker.fromScreen = "source"
-        Picker.pickerData = ["Select"]+sourceNameArray
+        Picker.pickerData = ["Select"]+sourceNameArray.filter { ($0) != "-- SELECT SOURCE --" }
       //  Picker.pickerData = sourceNameArray
-        Picker.pickerIdData = [""]+sourceIdArray
+        Picker.pickerIdData = [""]+sourceIdArray.filter { ($0) != "1" }
         self.addChild(Picker)
         self.view.addSubview(Picker.view)
         Picker.pickerdelegate = self
@@ -492,7 +549,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
     
     func getPickerDataValue(pickerSelectedData: String, fromScreen: String, pickerSelectedId: String) {
         switch fromScreen
-        {
+    {
         case "source":
             self.sourceLbl.text = pickerSelectedData
             self.sourceId = pickerSelectedId
@@ -500,7 +557,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
               print("AA sourceId",pickerSelectedId)
              print("AA sourceLbl",pickerSelectedData)
             
-            if(self.sourceLbl.text == "Finmart"){
+            if(self.sourceLbl.text == "Select"){
                 fieldSaleView.isHidden = true
                 fieldSaleViewHeight.constant = 0
                 persnlTfView.isHidden = false
@@ -583,6 +640,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             lifeinsuranceCheckbox.image = UIImage(named: "check-box-empty.png")
             lifeinsuranceLbl.isEnabled = false
             lifeinsuranceBtn.tag = 0
+            lifeinsuranceSelected = "0"
         }
         
     }
@@ -746,7 +804,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
     func openValidateInfo(strData : String){
         
         if(strData == "PERS"){
-            if(self.sourceLbl.text == "Finmart"){
+            if(self.sourceLbl.text == "Select"){
                 fieldSaleView.isHidden = true
                 fieldSaleViewHeight.constant = 0
                 persnlTfView.isHidden = false
@@ -798,6 +856,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         
         if( pospInfoValidate() == false){
             
+          
             openValidateInfo(strData: "PERS")
         }else{
             
@@ -894,7 +953,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                     generateOTPAPI()      // OTP generation
 
                 }else{
-
+                    
                     registrationSubmitAPI()
                 }
 
@@ -1071,6 +1130,8 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
               self.ViewControllerBckView.isHidden = true
               self.verifymobOTPView.isHidden = true
               self.verifymobOTPViewHeight.constant = 0
+           
+               setUserInfoToWebEngAnalytic()
               WebEngageAnaytics.shared.trackEvent("OTP Verified")
 
                TTGSnackbar.init(message: "OTP verified successfully", duration: .long).show()
@@ -1107,7 +1168,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                     self.verifymobOTPView.isHidden = true
                     self.verifymobOTPViewHeight.constant = 0
                     
-                    
+                    self.setUserInfoToWebEngAnalytic()
                     WebEngageAnaytics.shared.trackEvent("OTP Verified")
 
                     
@@ -1463,9 +1524,70 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         
     }
     
+    func getfieldsalesAPI(campaignid : String){
+        let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
+        if let parentView = self.navigationController?.view
+        {
+            alertView.parentView = parentView
+        }
+        else
+        {
+            alertView.parentView = self.view
+        }
+        alertView.show()
+     
+        Task{
+
+            do{
+
+                let result = try await registerViewModel.shareInstance.getempbyregsource(campaignid: campaignid)
+
+                alertView.close()
+                
+                
+                if(result.status == 0){
+                   
+                    if let empRes = result.response{
+                        
+                        
+                        // let index =  empRes.MasterData.count - 1
+                        
+                        debugPrint("Emp Resource Response: \(String(describing: empRes))")
+
+                        self.EmployeeIdArray = empRes.MasterData.map{String($0.Uid) }
+                        self.EmployeeNameArray  = empRes.MasterData.map{String($0.EmployeeName) }
+                        
+                        if(self.EmployeeIdArray.count > 0 ){
+                            self.fieldSaleLbl.text = self.EmployeeNameArray[0]
+                            self.EmployeeId =  self.EmployeeIdArray[0]
+                        }else{
+                            self.fieldSaleLbl.text = ""
+                            self.EmployeeId =  "0"
+                        }
+                        
+                    }else{
+                       
+                        let snackbar = TTGSnackbar.init(message: Constant.NoDataFound, duration: .middle )
+                        snackbar.show()
+                    }
+                }
+                
+               
+
+
+            }catch{
+                alertView.close()
+                print("Request failed with error: \(error)")
+                let snackbar = TTGSnackbar.init(message: error.localizedDescription, duration: .middle )
+                snackbar.show()
+            }
+
+        }
+        
+    }
     
     
-    func getfieldsalesAPI( campaignid : String)
+    func getfieldsalesAPI2( campaignid : String)
     {
         
         if Connectivity.isConnectedToInternet()
@@ -1491,7 +1613,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             FinmartRestClient.sharedInstance.authorisedPost(url, parameters: params, onSuccess: { (userObject, metadata) in
                 alertView.close()
                 
-                self.view.layoutIfNeeded()
+              //  self.view.layoutIfNeeded()
                 
                 let jsonData = userObject as? NSArray
                 let EmployeeName = jsonData?.value(forKey: "EmployeeName") as AnyObject
@@ -1723,12 +1845,13 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                     blnBondSelected = false
                 }
                 
+                self.setUserInfoToWebEngAnalytic(blnLogin: true)
                 self.trackSignUpEvent(blnLISelected: blnLISelected,
-                                      strLIComp: self.lifeSelectedData,
+                                      strLIComp: self.lifeinsuranceLbl.text!,
                                  blnGISelected: blnGISelected,
-                                      strGIComp: self.genSelectedData,
+                                      strGIComp: self.gernlinsuranceLbl.text!,
                                       blnHISelected: blnHISelected,
-                                      strHIComp: self.healthSelectedData,
+                                      strHIComp: self.healthinsuranceLbl.text! ,
                                       blnMISelected: blnMISelected,
                                  blnPSSelected: blnPSSelected,
                                  blnStockSelected: blnStockSelected,
@@ -1929,7 +2052,7 @@ extension ViewController {
         eventAttributes["Mutual Funds Selected"] = blnMISelected
         eventAttributes["Postal Savings Selected"] = blnPSSelected
         eventAttributes["Stocks Selected"] = blnStockSelected
-        eventAttributes["Bonds/CFD Selected"] = blnBondSelected
+        eventAttributes["Bonds CFD Selected"] = blnBondSelected
     }
 
 }

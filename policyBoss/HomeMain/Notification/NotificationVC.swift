@@ -13,6 +13,7 @@ class NotificationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.NotificationScreen)
         // Do any additional setup after loading the view.
     }
     

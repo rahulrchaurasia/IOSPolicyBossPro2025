@@ -488,6 +488,8 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
         case "nav_PrivacyPolicy" :
             
+            WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.PrivacyScreen)
+
          
             let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
             commonWeb.modalPresentationStyle = .fullScreen
@@ -1117,9 +1119,10 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let alertController = UIAlertController(title: "", message: "Do you really want to logout?", preferredStyle: .alert)
         // Create the actions
         let okAction = UIAlertAction(title: "Logout", style: UIAlertAction.Style.default) {
+            
             UIAlertAction in
             NSLog("OK Pressed")
-            
+            WebEngageAnaytics.shared.getWEGUser().logout()
             self.dismissAll(animated: false)
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let Login : LoginVC = self.storyboard?.instantiateViewController(withIdentifier: "stbLoginVC") as! LoginVC
@@ -1131,7 +1134,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             self.present(Login, animated: true, completion: nil)
             
             
-            
+          
             //              self.resetDefaults()
             //             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
             //

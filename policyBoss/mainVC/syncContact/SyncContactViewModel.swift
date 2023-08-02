@@ -12,6 +12,8 @@ class SyncContactViewModel{
     
     static let shareInstance = SyncContactViewModel()
 
+    
+    // Using Completion Handler :-->
     func fetchDataFromApi( subContactList : [ContactMainModel],rawData : String, completionHandler : @escaping Handler) {
         
         
@@ -182,6 +184,7 @@ class SyncContactViewModel{
     }
     
     
+    // Using Async and Await :-->
     func fetchSyncAgreement() async throws ->  (response: SyncContactAgreementResponse?,status : String ){
 
         
@@ -235,7 +238,7 @@ class SyncContactViewModel{
         }
     }
     
-    
+    // Using Async and Await :-->
     func saveSyncAgreement(isCall : Bool , isSMS : Bool) async throws ->  String{
 
        var strCall = "", strSMS = ""

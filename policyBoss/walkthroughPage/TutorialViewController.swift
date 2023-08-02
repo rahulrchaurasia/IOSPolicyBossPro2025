@@ -24,7 +24,7 @@ class TutorialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.WelcomeScreen)
 
         if(Core.shared.isVerifyInstall()){
             self.getDeviceDetails()

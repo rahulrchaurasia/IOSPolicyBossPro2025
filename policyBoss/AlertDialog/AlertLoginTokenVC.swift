@@ -18,6 +18,8 @@ class AlertLoginTokenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.AppCodeScreen)
+
         lblLoginToken.text = alertLoginToken
         
         viewLoginToken.layer.cornerRadius = 8

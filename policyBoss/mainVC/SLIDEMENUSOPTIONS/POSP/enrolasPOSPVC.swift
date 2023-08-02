@@ -101,6 +101,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
      var isPaymentDone  = false
     var isPaymentLinkAvailable  = false
      var isPospAvailable  = false
+    var bankeventcheck = false;
       var pospDocModel = [pospDoc]()
     
     let PHOTO_File = "POSPPhotograph"
@@ -117,6 +118,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.PospScreen)
         //toolbar.sizeToFit()
         self.hideKeyboardWhenTappedAround()
         imagePicker.delegate = self
@@ -808,7 +810,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
         let requiredFormat = currDate.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:
             "yyyy-MM-dd")
        
-        self.strPosp_DOB = requiredFormat
+        self.strPosp_DOB = requiredFormat ?? ""
          print("POSP Date ",requiredFormat)
     }
     
@@ -816,7 +818,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
         let requiredFormat = CurrDate.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:
             "yyyy-MM-dd")
         
-        self.strPosp_DOB = requiredFormat
+        self.strPosp_DOB = requiredFormat ?? ""
         print("POSP Date DISPLAY",requiredFormat)
         
     }
@@ -896,7 +898,9 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
                     openValidatePosp(strData: "DOC")
                 }else{
                     
-                      trackPospSubmitEvent()
+                    if(!bankeventcheck){
+                        trackPospSubmitEvent()
+                    }
                       pospregistrationAPI()
                 }
                 
@@ -1495,15 +1499,20 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             self.view.layoutIfNeeded()
             
             let jsonData = userObject as? NSDictionary
-            TTGSnackbar.init(message: "Posp registered successfully.", duration: .middle).show()
-            // self.showToast(controller: self, message: "Posp registered successfully.", seconds: 3)
+           // TTGSnackbar.init(message: "Posp registered successfully.", duration: .middle).show()
             
-            let storyboard = UIStoryboard(name: "payment", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "stbPaymentMainController") as UIViewController
-            vc.modalPresentationStyle =  .fullScreen
-            vc.modalTransitionStyle = .coverVertical
-           
-            self.present(vc, animated: true, completion: nil)
+          //   self.showToast(controller: self, message: "Posp registered successfully.", seconds: 3)
+            
+            self.dismiss(animated: false, completion: nil)
+          
+            TTGSnackbar.init(message: "Posp registered successfully.", duration: .long).show()
+            
+//            let storyboard = UIStoryboard(name: "payment", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "stbPaymentMainController") as UIViewController
+//            vc.modalPresentationStyle =  .fullScreen
+//            vc.modalTransitionStyle = .coverVertical
+//
+//            self.present(vc, animated: true, completion: nil)
              
    
             
@@ -1572,6 +1581,10 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
             self.enaddress3Tf.text! = Posp_Address3 as! String
             let Posp_BankAcNo = (jsonData![0] as AnyObject).value(forKey: "Posp_BankAcNo") as AnyObject
             self.enbankaccnoTf.text! = Posp_BankAcNo as! String
+            if (!self.enbankaccnoTf.text!.isEmpty){
+                
+                self.bankeventcheck = true
+            }
             let Posp_BankBranch = (jsonData![0] as AnyObject).value(forKey: "Posp_BankBranch") as AnyObject
             self.enbankBranchTf.text! = Posp_BankBranch as! String
             let Posp_BankName = (jsonData![0] as AnyObject).value(forKey: "Posp_BankName") as AnyObject
@@ -1613,7 +1626,7 @@ class enrolasPOSPVC: UIViewController,SelectedDateDelegate,UITextFieldDelegate, 
                     let requiredFormat = currDate.toDateString(inputDateFormat: "yyyy-MM-dd", ouputDateFormat:
                         "dd-MM-yyyy")
 
-                    self.endobTf.text! = requiredFormat
+                    self.endobTf.text! = requiredFormat ?? ""
                     self.strPosp_DOB  = currDate
                    
                     print("POSP Date Display",requiredFormat)
@@ -2210,14 +2223,14 @@ extension enrolasPOSPVC {
    
     func trackPOSPSuccessEvent() {
         
-        WebEngageAnaytics.shared.trackEvent("POSP Enrollment Initiated")
+        WebEngageAnaytics.shared.trackEvent("POSP Enrollment Submitted")
       
     }
 }
 
 extension String
 {
-    func toDateString( inputDateFormat inputFormat  : String,  ouputDateFormat outputFormat  : String ) -> String
+    func toDateString( inputDateFormat inputFormat  : String,  ouputDateFormat outputFormat  : String ) -> String?
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = inputFormat
@@ -2227,4 +2240,8 @@ extension String
         
         
     }
+    
+    
+    
+    
 }

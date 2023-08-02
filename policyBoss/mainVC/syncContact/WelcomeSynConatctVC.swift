@@ -32,6 +32,8 @@ class WelcomeSynConatctVC: UIViewController {
 
         ScrollView.layoutIfNeeded()
        
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.WelcomeSyncContactScreen)
+
         //self.ScrollView.scrollToBottom(animated: true)
         btnGetStarted.alpha = 0.40
     
@@ -250,6 +252,7 @@ class WelcomeSynConatctVC: UIViewController {
         }
         
     }
+    
     func saveSyncContAgreementData(isCall : Bool , isSms : Bool)
     {
         

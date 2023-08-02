@@ -12,11 +12,13 @@ import WebEngage
 final class WebEngageAnaytics {
     static let shared = WebEngageAnaytics()
 
-    private let analytics: WEGAnalytics
+    private let analytics: WEGAnalytics // for Analytic
+    private let weUser: WEGUser // Add this property to hold the WEGUser instance
 
     
     private init() {
         analytics = WebEngage.sharedInstance().analytics
+        weUser = WebEngage.sharedInstance().user
     }
 
     func trackEvent(_ eventName: String, _ attributes: [String: Any]? = nil) {
@@ -38,5 +40,9 @@ final class WebEngageAnaytics {
         analytics.navigatingToScreen(withName: eventName)
     }
 
+    func getWEGUser() -> WEGUser {
+        
+        return weUser
+    }
     
 }

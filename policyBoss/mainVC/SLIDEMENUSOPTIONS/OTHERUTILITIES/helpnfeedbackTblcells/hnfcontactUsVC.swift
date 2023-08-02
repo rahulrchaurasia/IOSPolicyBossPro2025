@@ -29,6 +29,7 @@ class hnfcontactUsVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.ContactUsScreen)
         //--<apiCall>--
         contactusAPI()
         
@@ -36,9 +37,11 @@ class hnfcontactUsVC: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     @IBAction func backBtnCliked(_ sender: Any)
     {
-        let helpnfeedback : helpnfeedbackVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhelpnfeedbackVC") as! helpnfeedbackVC
-        helpnfeedback.modalPresentationStyle = .fullScreen
-        present(helpnfeedback, animated: true, completion: nil)
+        
+        dismiss(animated: false)
+//        let helpnfeedback : helpnfeedbackVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhelpnfeedbackVC") as! helpnfeedbackVC
+//        helpnfeedback.modalPresentationStyle = .fullScreen
+//        present(helpnfeedback, animated: true, completion: nil)
     }
     
     //--<tableViewDatasource+Delegates>--

@@ -15,7 +15,9 @@ class helpnfeedbackVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        WebEngageAnaytics.shared.navigatingToScreen("HelpFeedBack Screen")
+       
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.HelpFeedBackScreen)
+
     }
 
     @IBAction func backBtnCliked(_ sender: Any)

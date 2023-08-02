@@ -22,7 +22,7 @@ class KnowlgeGuruVC: UIViewController,UITableViewDelegate,UITableViewDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.KnowledgeGuruScreen)
     }
     
     @IBAction func knowguruBackBtn(_ sender: Any)

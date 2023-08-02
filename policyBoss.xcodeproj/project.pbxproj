@@ -203,6 +203,8 @@
 		CDAA0FA5286CABF7009B69A9 /* pospAmntAlertTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAA0FA4286CABF7009B69A9 /* pospAmntAlertTVCell.swift */; };
 		CDC7B7F329A4C5BB00DC2012 /* IFSCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7B7F229A4C5BB00DC2012 /* IFSCModel.swift */; };
 		CDC7B7F629A4F2EB00DC2012 /* DeviceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */; };
+		CDCAC3CB2A78FE0700B85C88 /* EmpbyregsourceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */; };
+		CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */; };
 		CDD14A0229A73EBD006BB92B /* AlertLoginTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */; };
 		CDD14A0429A753EA006BB92B /* OauthTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */; };
 		CDD3E68429C43E2D00E7DDFE /* SyncContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */; };
@@ -446,6 +448,8 @@
 		CDAA0FA4286CABF7009B69A9 /* pospAmntAlertTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pospAmntAlertTVCell.swift; sourceTree = "<group>"; };
 		CDC7B7F229A4C5BB00DC2012 /* IFSCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFSCModel.swift; sourceTree = "<group>"; };
 		CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailModel.swift; sourceTree = "<group>"; };
+		CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpbyregsourceResponse.swift; sourceTree = "<group>"; };
+		CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewModel.swift; sourceTree = "<group>"; };
 		CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLoginTokenVC.swift; sourceTree = "<group>"; };
 		CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OauthTokenModel.swift; sourceTree = "<group>"; };
 		CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncContactVC.swift; sourceTree = "<group>"; };
@@ -1276,6 +1280,7 @@
 				84F7305221E0DFC40033D615 /* verifyMobNoVC.swift */,
 				CD75384A285CA446004B2D4D /* pospAmntTableViewCell.swift */,
 				840AC5D121BE80AB004DCB26 /* ViewController.swift */,
+				CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */,
 				CD75384C285CA914004B2D4D /* Model */,
 			);
 			path = registeration;
@@ -1286,6 +1291,7 @@
 			children = (
 				CD75384D285CA963004B2D4D /* pospAmntModel.swift */,
 				CD3ED386286069BE0012FF05 /* PospAmoutResponse.swift */,
+				CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1580,6 +1586,7 @@
 				84C4D08B21C230C500A677B7 /* forgtPassVC.swift in Sources */,
 				CDAA0FA5286CABF7009B69A9 /* pospAmntAlertTVCell.swift in Sources */,
 				84C4D08D21C23B0700A677B7 /* multiselctionTVC.swift in Sources */,
+				CDCAC3CB2A78FE0700B85C88 /* EmpbyregsourceResponse.swift in Sources */,
 				B253B24B261652E0000C3A7D /* IQInvocation.swift in Sources */,
 				84C368BF21C7706E00BB2E9B /* pendingcasescapsVC.swift in Sources */,
 				84C368C721C7AB0800BB2E9B /* finmartMenuCell.swift in Sources */,
@@ -1635,6 +1642,7 @@
 				CD41B28E290FD538004ACDD8 /* HomeTabBar.swift in Sources */,
 				8483DC9A226756250095AA24 /* getmpsNowVC.swift in Sources */,
 				44367ED8244466DC005B9441 /* SharePrdModel.swift in Sources */,
+				CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */,
 				8413349521C8FD350084AFC2 /* KYDrawerController.swift in Sources */,
 				B253B256261652E0000C3A7D /* IQUIViewController+Additions.swift in Sources */,
 				84AA9F782269C8A9008D6393 /* getmpsTnCVC.swift in Sources */,
@@ -1910,7 +1918,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1925,7 +1933,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1943,7 +1951,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1958,7 +1966,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";

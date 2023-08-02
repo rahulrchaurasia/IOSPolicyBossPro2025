@@ -37,6 +37,8 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         emailTf.delegate = self
         passwordTf.delegate = self
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.LoginScreen)
+
 
         
     }
@@ -314,7 +316,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
             
             
             if let POSPNoValue = POSPNo as? String ,!POSPNoValue.isEmpty{
-                WebEngageAnaytics.shared.trackEvent("POSP No Generated")
+              //  WebEngageAnaytics.shared.trackEvent("POSP No Generated")
                 self.getFOSUserInfo()
             } else {
                 let snackbar = TTGSnackbar.init(message: "Your Posp Number is not generated.!!\nNot Eligible For Login.Please Contact Admin", duration: .long)

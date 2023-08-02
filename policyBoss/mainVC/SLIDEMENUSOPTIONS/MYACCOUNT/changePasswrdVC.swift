@@ -21,6 +21,8 @@ class changePasswrdVC: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.ChangePasswordScreen)
+
         self.hideKeyboardWhenTappedAround()
         //--<textField>--
         aTextField.delegate = self

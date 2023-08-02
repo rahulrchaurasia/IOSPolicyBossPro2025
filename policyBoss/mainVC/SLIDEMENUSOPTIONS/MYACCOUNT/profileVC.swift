@@ -105,6 +105,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
         
         self.hideKeyboardWhenTappedAround()
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.MyAccountScreen)
         imagePicker.delegate = self
         //--<textField>--
         aTextField.delegate = self
@@ -569,6 +570,28 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             btnColorChangeBlue(Btn: currentBtn)
             accountType = "CURRENT"
         }
+     
+    }
+    func setWebEnagageUser(mob : String ,email : String , gender : String ,dob : String){
+        
+        WebEngageAnaytics.shared.getWEGUser().setPhone(mob)
+        WebEngageAnaytics.shared.getWEGUser().setEmail(email)
+        if(gender == "M"){
+         
+            WebEngageAnaytics.shared.getWEGUser().setGender("MALE")
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setGender("FEMALE")
+        }
+      
+       
+        let dobFormatted  = dob.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:"yyyy-MM-dd") ?? ""
+        
+        debugPrint("User dob ", dobFormatted )
+        WebEngageAnaytics.shared.getWEGUser().setBirthDateString(dobFormatted)
+        
+        debugPrint("User Phone ",mob)
+        debugPrint("User Gender ",gender)
+        debugPrint("User enmail ",email)
      
     }
     
@@ -1430,6 +1453,9 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             self.fbaIdLbl.text! = FBAID as! String
             
             
+            let Gender = (jsonData![0] as AnyObject).value(forKey: "Gender") as AnyObject
+            let DOB = (jsonData![0] as AnyObject).value(forKey: "DOB") as AnyObject
+            
             let DisplayDesignation = (jsonData![0] as AnyObject).value(forKey: "DisplayDesignation") as AnyObject
             self.pospDesignTf.text! = DisplayDesignation as! String
             let DisplayPhoneNo = (jsonData![0] as AnyObject).value(forKey: "DisplayPhoneNo") as AnyObject
@@ -1454,6 +1480,8 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             self.abtmeMobnoLbl.text! = MangMobile!
             self.spprtMobNoLbl.text! = SuppMobile!
             self.spportEmailLbl.text! = SuppEmail!
+            
+            self.setWebEnagageUser(mob: DisplayPhoneNo as? String ?? "" , email: DisplayEmail as? String ?? "", gender: Gender as? String ?? "" , dob: DOB as? String ?? "")
             
      /*********************DOC Availabilty From server ***********************************/
           
