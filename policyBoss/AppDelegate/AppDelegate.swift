@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Firebase
 import WebEngage
+import WEPersonalization
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        
+        /************************************************/
+                //WebEngage for Analytics
+        /************************************************/
+
+        // Here we are are initializing the WebEngage SDK.
+        WebEngage.sharedInstance().application(application,didFinishLaunchingWithOptions: launchOptions, notificationDelegate: self)
+      
+        // Set the sessionTimeOut to 25 minutes
+           WebEngage.sharedInstance()?.sessionTimeOut = 25
+        
+        // Here we are initializing the WebEngage Personalization.
+        WEPersonalization.shared.initialise()
+        
+        /**************** End Here ********************************/
         
         //Note :  Used For Keyboard Handling When its hiding the textfield
         
@@ -86,14 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            appDelegate.window?.makeKeyAndVisible()
         }
         
-        /************************************************/
-                //WebEngage for Analytics
-        /************************************************/
-      WebEngage.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-      
-        // Set the sessionTimeOut to 25 minutes
-           WebEngage.sharedInstance()?.sessionTimeOut = 25
-
+       
         return true
         
     }

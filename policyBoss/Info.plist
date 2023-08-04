@@ -88,6 +88,12 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>WEGLicenseCode</key>
-	<string>in~~991991c1</string>
+	<string>in~aa13173a</string>
+	<key>WEGEnvironment</key>
+	<string>DEFAULT</string>
+	<key>WEGLogLevel</key>
+	<string>VERBOSE</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires to access your Location.</string>
 </dict>
 </plist>

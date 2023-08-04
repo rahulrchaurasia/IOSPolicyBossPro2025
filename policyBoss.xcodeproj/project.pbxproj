@@ -205,6 +205,8 @@
 		CDC7B7F629A4F2EB00DC2012 /* DeviceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */; };
 		CDCAC3CB2A78FE0700B85C88 /* EmpbyregsourceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */; };
 		CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */; };
+		CDCF845D2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */; };
+		CDCF845F2A7A6ABE001C7DB7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */; };
 		CDD14A0229A73EBD006BB92B /* AlertLoginTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */; };
 		CDD14A0429A753EA006BB92B /* OauthTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */; };
 		CDD3E68429C43E2D00E7DDFE /* SyncContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */; };
@@ -450,6 +452,8 @@
 		CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailModel.swift; sourceTree = "<group>"; };
 		CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpbyregsourceResponse.swift; sourceTree = "<group>"; };
 		CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewModel.swift; sourceTree = "<group>"; };
+		CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+AppDelegateWebEngageAnaly.swift"; sourceTree = "<group>"; };
+		CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLoginTokenVC.swift; sourceTree = "<group>"; };
 		CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OauthTokenModel.swift; sourceTree = "<group>"; };
 		CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncContactVC.swift; sourceTree = "<group>"; };
@@ -1208,6 +1212,8 @@
 			isa = PBXGroup;
 			children = (
 				CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */,
+				CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */,
+				CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -1561,6 +1567,7 @@
 			files = (
 				44AB396D243E201A0009BD86 /* AlertWebViewController.swift in Sources */,
 				44C9635522D340CA0037BC82 /* viewCommentnAddVC.swift in Sources */,
+				CDCF845F2A7A6ABE001C7DB7 /* NotificationService.swift in Sources */,
 				8410F8D821F84F9C00DFC974 /* imgsalesmaterialVC.swift in Sources */,
 				8410F8D621F835DF00DFC974 /* insalesmaterialCVCell.swift in Sources */,
 				44394A33248A26980095ADF5 /* InsuranceCompModel.swift in Sources */,
@@ -1668,6 +1675,7 @@
 				B253B247261652E0000C3A7D /* IQTitleBarButtonItem.swift in Sources */,
 				44BB07B7243EFC9A00F14FEE /* AlertViewController.swift in Sources */,
 				840AC5D021BE80AB004DCB26 /* AppDelegate.swift in Sources */,
+				CDCF845D2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift in Sources */,
 				8411808121C50F1300D5638B /* FinmartMenuVC.swift in Sources */,
 				CD75384E285CA963004B2D4D /* pospAmntModel.swift in Sources */,
 				444DBF92246A97E4009F08F6 /* PaymentSuccessVC.swift in Sources */,
