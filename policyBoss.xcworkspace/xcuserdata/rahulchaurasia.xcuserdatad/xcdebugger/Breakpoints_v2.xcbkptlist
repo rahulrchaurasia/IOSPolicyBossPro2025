@@ -678,8 +678,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
             landmarkName = "healthdropDownBtn(_:)"
             landmarkType = "7">
             <Locations>
@@ -774,8 +774,8 @@
             filePath = "policyBoss/mainVC/MainfinMartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1011"
-            endingLineNumber = "1011"
+            startingLineNumber = "1014"
+            endingLineNumber = "1014"
             landmarkName = "buttonDisclTapped(_:)"
             landmarkType = "7">
             <Locations>
@@ -867,8 +867,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1624"
-            endingLineNumber = "1624"
+            startingLineNumber = "1621"
+            endingLineNumber = "1621"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -915,8 +915,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1628"
-            endingLineNumber = "1628"
+            startingLineNumber = "1625"
+            endingLineNumber = "1625"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -963,8 +963,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1632"
-            endingLineNumber = "1632"
+            startingLineNumber = "1629"
+            endingLineNumber = "1629"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1026,8 +1026,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1618"
-            endingLineNumber = "1618"
+            startingLineNumber = "1615"
+            endingLineNumber = "1615"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1074,8 +1074,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1616"
-            endingLineNumber = "1616"
+            startingLineNumber = "1613"
+            endingLineNumber = "1613"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1122,8 +1122,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1609"
-            endingLineNumber = "1609"
+            startingLineNumber = "1606"
+            endingLineNumber = "1606"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1185,8 +1185,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1638"
-            endingLineNumber = "1638"
+            startingLineNumber = "1635"
+            endingLineNumber = "1635"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1233,8 +1233,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1644"
-            endingLineNumber = "1644"
+            startingLineNumber = "1641"
+            endingLineNumber = "1641"
             landmarkName = "getfieldsalesAPI2(campaignid:)"
             landmarkType = "7">
             <Locations>
@@ -1281,8 +1281,8 @@
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
             landmarkName = "getPickerDataValue(pickerSelectedData:fromScreen:pickerSelectedId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1306,97 +1306,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E814CFFE-8087-4B58-A518-DA008BD77C99"
-            shouldBeEnabled = "Yes"
+            uuid = "0D3EBF0C-58FD-44D4-9055-EFF282F34B8E"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/registeration/ViewController.swift"
+            filePath = "policyBoss/mainVC/MainfinMartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2047"
-            endingLineNumber = "2047"
-            landmarkName = "trackSignUpEvent(blnLISelected:strLIComp:blnGISelected:strGIComp:blnHISelected:strHIComp:blnMISelected:blnPSSelected:blnStockSelected:blnBondSelected:)"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E814CFFE-8087-4B58-A518-DA008BD77C99 - ecc8dcb7939d30dd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.ViewController.trackSignUpEvent(blnLISelected: Swift.Bool, strLIComp: Swift.String, blnGISelected: Swift.Bool, strGIComp: Swift.String, blnHISelected: Swift.Bool, strHIComp: Swift.String, blnMISelected: Swift.Bool, blnPSSelected: Swift.Bool, blnStockSelected: Swift.Bool, blnBondSelected: Swift.Bool) -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/registeration/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2110"
-                  endingLineNumber = "2110"
-                  offsetFromSymbolStart = "1260">
-               </Location>
-               <Location
-                  uuid = "E814CFFE-8087-4B58-A518-DA008BD77C99 - ecc8dcb7939d38fa"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.ViewController.trackSignUpEvent(blnLISelected: Swift.Bool, strLIComp: Swift.String, blnGISelected: Swift.Bool, strGIComp: Swift.String, blnHISelected: Swift.Bool, strHIComp: Swift.String, blnMISelected: Swift.Bool, blnPSSelected: Swift.Bool, blnStockSelected: Swift.Bool, blnBondSelected: Swift.Bool) -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/registeration/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2047"
-                  endingLineNumber = "2047"
-                  offsetFromSymbolStart = "1136">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DF3D1972-BEE0-49D4-9AD3-9BDA58FE529D"
+            uuid = "D801252D-B6E6-4923-B3F4-16700DB1E328"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "policyBoss/mainVC/registeration/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2044"
-            endingLineNumber = "2044"
-            landmarkName = "trackSignUpEvent(blnLISelected:strLIComp:blnGISelected:strGIComp:blnHISelected:strHIComp:blnMISelected:blnPSSelected:blnStockSelected:blnBondSelected:)"
+            startingLineNumber = "1131"
+            endingLineNumber = "1131"
+            landmarkName = "retriveOTPAPI()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "DF3D1972-BEE0-49D4-9AD3-9BDA58FE529D - ecc8dcb7939d30be"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.ViewController.trackSignUpEvent(blnLISelected: Swift.Bool, strLIComp: Swift.String, blnGISelected: Swift.Bool, strGIComp: Swift.String, blnHISelected: Swift.Bool, strHIComp: Swift.String, blnMISelected: Swift.Bool, blnPSSelected: Swift.Bool, blnStockSelected: Swift.Bool, blnBondSelected: Swift.Bool) -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/registeration/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2107"
-                  endingLineNumber = "2107"
-                  offsetFromSymbolStart = "1048">
-               </Location>
-               <Location
-                  uuid = "DF3D1972-BEE0-49D4-9AD3-9BDA58FE529D - ecc8dcb7939d385f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.ViewController.trackSignUpEvent(blnLISelected: Swift.Bool, strLIComp: Swift.String, blnGISelected: Swift.Bool, strGIComp: Swift.String, blnHISelected: Swift.Bool, strHIComp: Swift.String, blnMISelected: Swift.Bool, blnPSSelected: Swift.Bool, blnStockSelected: Swift.Bool, blnBondSelected: Swift.Bool) -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/registeration/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2044"
-                  endingLineNumber = "2044"
-                  offsetFromSymbolStart = "920">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D726DEDE-F7AD-44A5-B1F8-5742A9865EF2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/registeration/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1168"
+            endingLineNumber = "1168"
+            landmarkName = "retriveOTPAPI()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DCD29F16-CDAF-46CB-AA4A-26ACBD75C4E2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/registeration/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1845"
+            endingLineNumber = "1845"
+            landmarkName = "registrationSubmitAPI()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

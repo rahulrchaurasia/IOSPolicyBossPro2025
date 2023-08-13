@@ -123,7 +123,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     @IBAction func signupBtnCliked(_ sender: Any)
     {
         
-        WebEngageAnaytics.shared.trackEvent("Sign Up Initiate")
+        WebEngageAnaytics.shared.trackEvent("Sign Up Initiated")
         let ViewC : ViewController = self.storyboard?.instantiateViewController(withIdentifier: "stbViewController") as! ViewController
         self.addChild(ViewC)
         self.view.addSubview(ViewC.view)

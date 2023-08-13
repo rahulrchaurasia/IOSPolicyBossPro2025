@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 class AlertService {
 
-
+    var completionPospAmntHandler: (() -> Void)?
+   
     
     func alert(title: String , body: String, buttonTitle: String) -> AlertViewController {
         
@@ -96,11 +97,18 @@ class AlertService {
            
            let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
            let alertVC =  storyboard.instantiateViewController(withIdentifier: "AlertPospAmntVC") as! AlertPospAmntVC
-           
+        
+           alertVC.completionHandler = {
+                
+               
+                self.completionPospAmntHandler?()
+            }
+               
            alertVC.alertTitle = title
            alertVC.pospAmntData = body
            alertVC.alertSubTitle = subTitle
-          
+        
+
            
            return alertVC
        }

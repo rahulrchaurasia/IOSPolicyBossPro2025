@@ -143,6 +143,9 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let IsUidLogin = UserDefaults.standard.string(forKey: "IsUidLogin")
         
         
+        WebEngageAnaytics.shared.getWEGUser().setPhone(MobiNumb)
+        WebEngageAnaytics.shared.getWEGUser().setEmail(EmailID)
+        
         WebEngageAnaytics.shared.getWEGUser().login(EmailID)
         WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
         

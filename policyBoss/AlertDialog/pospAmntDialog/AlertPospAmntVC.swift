@@ -9,8 +9,11 @@
 import UIKit
 
 class AlertPospAmntVC: UIViewController ,  UITableViewDataSource , UITableViewDelegate{
-
     
+    // Closure for Dismiss
+    var completionHandler: (() -> Void)?
+    
+   
     var alertTitle = String()
      
     var  pospAmntData =   String()
@@ -49,13 +52,18 @@ class AlertPospAmntVC: UIViewController ,  UITableViewDataSource , UITableViewDe
 
     @IBAction func btnClose(_ sender: Any) {
         
+        completionHandler?()
         dismiss(animated: true)
+      
     }
     
     
     @IBAction func btnOK(_ sender: Any) {
         
+        completionHandler?()
         dismiss(animated: true)
+        
+     
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

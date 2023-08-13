@@ -124,7 +124,7 @@ extension EulaVC {
     func trackEvent(strStatus : String){
         
         let agreementAcknowledgementAttributes: [String:Any]  = [
-            "Staus": strStatus,
+            "Status": strStatus,
         ]
 
         WebEngageAnaytics.shared.trackEvent("Agreement Acknowledgement", agreementAcknowledgementAttributes)

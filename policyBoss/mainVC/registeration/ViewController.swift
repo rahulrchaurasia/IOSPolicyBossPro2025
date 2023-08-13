@@ -212,10 +212,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         let dobFormatted  = dobTf.text!.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:"yyyy-MM-dd") ?? ""
         WebEngageAnaytics.shared.getWEGUser().setBirthDateString(dobFormatted )
         
-        WebEngageAnaytics.shared.getWEGUser().setPhone(sourceLbl.text!)
-        WebEngageAnaytics.shared.getWEGUser().setPhone(fieldSaleLbl.text!)
-        
-        
+
         if(sourceLbl.text! != "Select"){
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Source", withStringValue: sourceLbl.text! )
         }else{
@@ -1901,6 +1898,13 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         let alertDocVC = self.alertService.alertPospAmntVC(title: strtitle,
                                                            body: strbody,
                                                            subTitle: strsubTitle)
+       
+        alertService.completionPospAmntHandler = {
+            
+            debugPrint("call back return from Posp Amnount Alert")
+            
+            self.setUserInfoToWebEngAnalytic()
+        }
         self.present(alertDocVC, animated: true)
         
     }
@@ -1971,7 +1975,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             
             if(!(self.pospAmntList[indexPath.row].isCheck ?? false)){
                 
-                WebEngageAnaytics.shared.trackEvent("TurboMembership")
+                WebEngageAnaytics.shared.trackEvent("Turbo Membership Acknowledged")
 
                 self.showPospAmntAlert(strtitle: self.pospAmntList[indexPath.row].posp_header_desc,
                                        strbody: self.pospAmntList[indexPath.row].posp_desc,
@@ -2053,6 +2057,9 @@ extension ViewController {
         eventAttributes["Postal Savings Selected"] = blnPSSelected
         eventAttributes["Stocks Selected"] = blnStockSelected
         eventAttributes["Bonds CFD Selected"] = blnBondSelected
+        
+        // Track the login event using WebEngageHelper
+        WebEngageAnaytics.shared.trackEvent("Professional Information Submitted",  eventAttributes)
     }
 
 }
