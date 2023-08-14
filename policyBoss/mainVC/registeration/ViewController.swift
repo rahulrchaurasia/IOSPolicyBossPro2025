@@ -195,6 +195,13 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
             WebEngageAnaytics.shared.getWEGUser().login(emailTf.text!)
         }
  
+        guard let dob = dobTf.text, !dob.isEmpty,
+              let fName = firstNameTf.text, !fName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else {
+            // Text field is nil or empty
+            return
+        }
+        
         WebEngageAnaytics.shared.getWEGUser().setFirstName(firstNameTf.text!)
         WebEngageAnaytics.shared.getWEGUser().setLastName(lastNameTf.text! )
         
@@ -1902,6 +1909,7 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         alertService.completionPospAmntHandler = {
             
             debugPrint("call back return from Posp Amnount Alert")
+            
             
             self.setUserInfoToWebEngAnalytic()
         }
