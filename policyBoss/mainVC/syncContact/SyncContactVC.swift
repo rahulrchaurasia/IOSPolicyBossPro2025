@@ -23,6 +23,7 @@ class SyncContactVC: UIViewController {
     @IBOutlet weak var lblResult: UILabel!
     var contactMainData = [ContactMainModel]()
     var contactData = [ContactModel]()
+    var contactDataNew = [ContactModelRaw]()
    // var addressData = [AddressModel]()
     //Mark: contactUploadStep decide the  quantity of data which is uploaded to server at one time
     let contactUploadStep = 500
@@ -131,7 +132,9 @@ class SyncContactVC: UIViewController {
             /******** Retreive All the data *******/
             
             
-            handlingData()
+           handlingData()
+            
+           // retrieveContactsDemo()
             
         }
         
@@ -140,8 +143,321 @@ class SyncContactVC: UIViewController {
    
     
     //////////////////////
-    ///
-    ///
+  
+//    func retrieveContactsNeeew(completion: @escaping ([ContactModel]?, Error?) -> Void) {
+//
+//
+//        let lock = DispatchQueue(label: "com.policybossPro.SyncContact", qos: .userInitiated)
+//
+//        var contactData = [ContactModel]()
+//        // var error: Error?
+//
+//
+//        lock.async { [weak self]  in
+//
+//
+//            let keys = [CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,
+//
+//                        CNContactPhoneNumbersKey,CNContactEmailAddressesKey,
+//                        CNContactOrganizationNameKey,
+//
+//                        CNContactPostalAddressesKey,
+//                        CNContactBirthdayKey,
+//                        CNContactNoteKey,
+//                        CNContactJobTitleKey,
+//                        CNContactDepartmentNameKey,
+//                        CNContactBirthdayKey,
+//                        CNContactRelationsKey,
+//                        CNContactNicknameKey
+//            ]
+//
+//
+//
+//
+//            let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+//
+//            contactData = [ContactModel]()
+//
+//
+//
+//            do{
+//
+//
+//                try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
+//
+//
+//
+//                    // initialize contact Model object using Display name
+//                    var contactModel = ContactModel(displayName: "\(contact.givenName) \(contact.familyName)")
+//
+//                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
+//
+//                    }.compactMap { $0.value.stringValue.digitOnly}
+//
+//
+//                    var PhoneDataArray = [String]()
+//
+//
+//
+//                    tempPhoneData.forEach { element in
+//
+//                        if(element.count >= 10){
+//
+//                            let c =   element.suffix(10)
+//
+//                            PhoneDataArray.append(String(c))
+//
+//
+//                        }
+//
+//
+//                    }
+//
+//                    contactModel.phone.append(contentsOf: PhoneDataArray)
+//
+//                    debugPrint("websites" , contact.urlAddresses as? String ?? "")
+//                    contactModel.websites.append( contact.urlAddresses as? String ?? "")
+//                    contactModel.nickname.append(contact.nickname )
+//                    contactModel.note.append(contact.note )
+//
+//                    for phoneNumber in contact.phoneNumbers {
+//
+//
+//                            let label = phoneNumber.label ?? ""
+//                           let value = phoneNumber.value.stringValue
+//                            contactModel.phoneNumbers.append(PhoneData(normalizedNumber: "", number: value ,type: label))
+//
+//                        debugPrint("Phone label" , label )
+//                        debugPrint("Phone Value" , value )
+//                        }
+//
+//
+//
+//                    for emailAddress in contact.emailAddresses {
+//
+//                        if let emailValue = emailAddress.value  as? String, !emailValue.isEmpty {
+//
+//                            let emailLabel = emailAddress.label ?? ""
+//
+//                            contactModel.emails.append(EmailData(address: emailValue , type: emailLabel))
+//                        }
+//
+//                    }
+//
+//
+//
+//                    for relation in contact.contactRelations {
+//
+//                        if let relationName = relation.value.name as? String, !relationName.isEmpty {
+//
+//                            let relationLabel = relation.label ?? ""
+//
+//                            contactModel.relations.append(RelationData(relationName: relationName  ,relationLabel: relationLabel))
+//                        }
+//
+//                    }
+//
+//
+//
+//                    for postalAddress in contact.postalAddresses {
+//
+//
+//                        let formattedAddress = CNPostalAddressFormatter.string(from: postalAddress.value, style: .mailingAddress)
+//
+//                        let addressLabel = postalAddress.label ?? ""
+//
+//                        contactModel.PostalAddress.append( AddressData(formattedAddress: formattedAddress ?? "", type: addressLabel))
+//
+//                    }
+//
+//
+//
+//                    //Nickname: contact.nickname
+//
+//
+//
+//
+//                })
+//
+//
+//
+//                completion(contactData, nil)
+//
+//                debugPrint("raw Data" , self?.contactData as Any)
+//            }catch let err {
+//                debugPrint("print to fetch Contact" ,  err)
+//
+//
+//
+//                completion(nil, err)
+//
+//            }
+//
+//
+//
+//        }
+//
+//
+//    }
+  
+    
+//
+//    func retrieveContactsDemo() {
+//
+//
+//
+//         var error: Error?
+//
+//
+//
+//
+//            let keys = [CNContactGivenNameKey,CNContactMiddleNameKey,CNContactFamilyNameKey,
+//
+//                        CNContactPhoneNumbersKey,CNContactEmailAddressesKey,
+//                        CNContactOrganizationNameKey,
+//
+//                        CNContactPostalAddressesKey,
+//                        CNContactBirthdayKey,
+//                        CNContactNoteKey,
+//                        CNContactJobTitleKey,
+//                        CNContactDepartmentNameKey,
+//                        CNContactBirthdayKey,
+//                        CNContactRelationsKey,
+//                        CNContactNicknameKey
+//            ]
+//
+//
+//
+//
+//            let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+//
+//
+//
+//            do{
+//
+//
+//                try   self.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
+//
+//
+//
+//                    // initialize contact Model object using Display name
+//                    var contactModel = ContactModelRaw(displayName: "\(contact.givenName) \(contact.familyName)")
+//
+//
+//                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
+//
+//                    }.compactMap { $0.value.stringValue.digitOnly}
+//
+//
+//                    var PhoneDataArray = [String]()
+//
+//
+//
+//                    tempPhoneData.forEach { element in
+//
+//                        if(element.count >= 10){
+//
+//                            let c =   element.suffix(10)
+//
+//                            PhoneDataArray.append(String(c))
+//
+//
+//                        }
+//
+//
+//                    }
+//
+//
+//
+//
+//                    contactModel.phone.append(contentsOf: PhoneDataArray)
+//
+//                    debugPrint("websites" , contact.urlAddresses as? String ?? "")
+//                    contactModel.websites.append( contact.urlAddresses as? String ?? "")
+//                    contactModel.nickname.append(contact.nickname as? String ?? "" )
+//                   // contactModel.note.append(contact.note )
+//
+//                    for phoneNumber in contact.phoneNumbers {
+//
+//
+//                            let label = phoneNumber.label ?? ""
+//                           let value = phoneNumber.value.stringValue
+//                            contactModel.phoneNumbers.append(PhoneData(normalizedNumber: "", number: value ,type: label))
+//
+//                        debugPrint("Phone label" , label )
+//                        debugPrint("Phone Value" , value )
+//                        }
+//
+//
+//
+//                    for emailAddress in contact.emailAddresses {
+//
+//                        if let emailValue = emailAddress.value  as? String, !emailValue.isEmpty {
+//
+//                            let emailLabel = emailAddress.label ?? ""
+//
+//                            contactModel.emails.append(EmailData(address: emailValue , type: emailLabel))
+//                        }
+//
+//                    }
+//
+//
+////
+////                    for relation in contact.contactRelations {
+////
+////                        if let relationName = relation.value.name as? String, !relationName.isEmpty {
+////
+////                            let relationLabel = relation.label ?? ""
+////
+////                            contactModel.relations.append(RelationData(relationName: relationName  ,relationLabel: relationLabel))
+////                        }
+////
+////                    }
+////
+//
+//
+//                    for postalAddress in contact.postalAddresses {
+//
+//
+//                        let formattedAddress = CNPostalAddressFormatter.string(from: postalAddress.value, style: .mailingAddress)
+//
+//                        let addressLabel = postalAddress.label ?? ""
+//
+//                        contactModel.PostalAddress.append( AddressData(formattedAddress: formattedAddress ?? "", type: addressLabel))
+//
+//                    }
+//
+//                   // contactDataNew.append(contactModel)
+//
+//                    //Nickname: contact.nickname
+//
+//
+//
+//
+//
+//                })
+//
+//
+//
+//
+//
+//                debugPrint("raw Data" ," Done")
+//            }catch let err {
+//                debugPrint("Error SyncData print to fetch Contact" ,  err)
+//
+//
+//
+//
+//
+//            }
+//
+//
+//
+//
+//
+//
+//    }
+    
     func retrieveContacts(completion: @escaping ([ContactModel]?, Error?) -> Void) {
         
         
@@ -151,19 +467,50 @@ class SyncContactVC: UIViewController {
         // var error: Error?
         
         
+        /////////////////////
+        
+        
+        var label : String = ""
+        var value : String = ""
+        var localizedLabel : String = ""
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        
+          var PhoneDataArray = [String]()
+        
+           var phoneNumbersArray: [PhoneData] = []
+          
+           var emailsArray: [EmailData] = []
+           var PostalAddressArray: [AddressData] = []
+           var websitesArray: [String] = []
+           var relationsArray : [RelationData] = []
+         
+
+        ///////////////////////////
+        
         lock.async { [weak self]  in
             
             
-            let keys = [CNContactGivenNameKey,CNContactPhoneNumbersKey,CNContactFamilyNameKey,CNContactEmailAddressesKey,
-                        CNContactOrganizationNameKey,
-                        
+            let keys = [CNContactGivenNameKey,
+                        CNContactPhoneNumbersKey,
+                        CNContactFamilyNameKey,
+                        CNContactEmailAddressesKey,
                         CNContactPostalAddressesKey,
-                        //CNContactBirthdayKey,
-                        //CNContactNoteKey,
+                        CNContactRelationsKey,
+                        CNContactBirthdayKey,
+                        CNContactDatesKey,
+                       
+                        CNContactOrganizationNameKey,
+                        CNContactJobTitleKey,
+                        CNContactDepartmentNameKey,
+                      
+                        
                         CNContactNicknameKey
             ]
             
-            
+
             
             
             let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
@@ -173,19 +520,27 @@ class SyncContactVC: UIViewController {
             
             
             do{
-                
-                
+
                 
                 try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
                     
+                    /*******************************/
                     
+                    var contactModel = ContactModelRaw()  // Initialize the Object
+                    
+                    /*******************************/
                     let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
                         
                     }.compactMap { $0.value.stringValue.digitOnly}
                     
                     
-                    var PhoneDataArray = [String]()
-                    
+                     PhoneDataArray = [String]()
+                     phoneNumbersArray  = [PhoneData]()
+                     emailsArray  = [EmailData]()
+                     PostalAddressArray = [AddressData]()
+                     websitesArray = [String]()
+                     relationsArray  = [RelationData]()
+                  
                     
                     
                     tempPhoneData.forEach { element in
@@ -204,32 +559,221 @@ class SyncContactVC: UIViewController {
                     
                     // debugPrint("Filter Data :", PhoneDataArray)
                     
-                    contactData.append(
-                        ContactModel(
-                            Name :"\(contact.givenName) \(contact.familyName)",
-                            
-                            
-                            //                        PhoneNumbers: contact.phoneNumbers.compactMap {           $0.value.stringValue.removeSpecialCharactersWithoutSpace},
-                            
-                            PhoneNumbers: PhoneDataArray,
-                            
-                            EmailAddresses: contact.emailAddresses.compactMap{$0.value as String },
-                            
-                            OrganizationName:  contact.organizationName,
-                            
-                            
-                            PostalAddress: contact.postalAddresses.compactMap{
-                                
-                                return  "\($0.value.street) \($0.value.city) \($0.value.postalCode) "
-                                
-                                
-                            },
-                            
-                            Nickname: contact.nickname
-                            
-                            // Note: contact.note,
-                            
+                    
+                     // NickName
+                      if let pnote = contact.nickname as?  String, !pnote.isEmpty {
+
+                          contactModel.nickname = pnote
+                          debugPrint("nick name :", pnote )
+                          
+                        }
+                    
+                    // Phone Number
+                    for phoneNumber in contact.phoneNumbers {
+                        
+                        
+                        let label = phoneNumber.label ?? ""
+                        
+                        if !label.isEmpty   {
+                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+                        } else {
+                            localizedLabel = ""  // Provide a default label here
+                        }
+                        
+                        
+                        value = phoneNumber.value.stringValue
+                       
+                        
+                        debugPrint("Phone label" , localizedLabel )
+                        debugPrint("Phone Value" , value )
+                        
+                        
+                       
+                    }
+                    // add  Phone data
+                    phoneNumbersArray.append(
+                        PhoneData(
+                            normalizedNumber: "",
+                            number: value,
+                            type: localizedLabel
                         ))
+                    
+                    // emailAddress
+                    for emailAddress in contact.emailAddresses {
+                        
+                        label = emailAddress.label ?? ""
+                        
+                        
+                        if !label.isEmpty   {
+                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+                        } else {
+                            localizedLabel = ""  // Provide a default label here
+                        }
+                        
+                        value = emailAddress.value as? String ?? ""
+                        
+                        debugPrint("Localized Label:", localizedLabel)
+                        debugPrint("Email Value:", value ?? "")
+                        // Do something with label and emailValue
+                    }
+                    
+                    // add  emailAddress data
+                    emailsArray.append(
+                        EmailData(
+                            address: value,
+                            type: localizedLabel
+                        ))
+                    
+                    
+                    debugPrint("*************Relation*************")
+                    
+                    //// relation
+                    for relation in contact.contactRelations {
+
+
+                        label = relation.label ?? ""
+
+
+                        if !label.isEmpty   {
+                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+                        } else {
+                            localizedLabel = ""  // Provide a default label here
+                        }
+
+                        if let relationName = relation.value.name as? String {
+
+                            value = relationName ?? ""
+                            debugPrint("Localized Label:", localizedLabel)
+                            debugPrint("Relation Value:", relationName ?? "")
+                        }
+
+                    }
+                    // add relation Data
+                    relationsArray.append(
+                        RelationData(
+                            relationName : value,
+                            relationLabel : localizedLabel
+                        ))
+                    
+                    
+                    if let birthday = contact.birthday?.date {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateStyle = .long
+
+                        let formattedBirthday = dateFormatter.string(from: birthday)
+                        debugPrint("Birthday:", formattedBirthday)
+                        
+                      
+                        
+                    }
+                   
+                    
+                    debugPrint("*************Dates*************")
+                    
+
+                   
+                    for dateLabel in contact.dates {
+                        let label = CNLabeledValue<NSString>.localizedString(forLabel: dateLabel.label ?? "")
+                        let nsDateComponents = dateLabel.value as NSDateComponents
+
+                        // Check if nsDateComponents is not nil and contains valid date information
+                        let calendar = Calendar(identifier: .gregorian)
+                        if let date = calendar.date(from: nsDateComponents as DateComponents) {
+                           
+                            let formattedDate = dateFormatter.string(from: date)
+                            
+                            print("Date Label:", label)
+                            print("Formatted Date:", formattedDate)
+                        } else {
+                            print("Invalid date components for label:", label)
+                        }
+                    }
+                    
+
+                    if !contact.departmentName.isEmpty {
+                        print("Company Department:", contact.departmentName)
+                    } else {
+                        print("No company department available")
+                    }
+
+                    if !contact.organizationName.isEmpty {
+                        print("Company Name:", contact.organizationName)
+                    } else {
+                        print("No company name available")
+                    }
+
+                    if !contact.jobTitle.isEmpty {
+                        print("Company Title:", contact.jobTitle)
+                    } else {
+                        print("No company title available")
+                    }
+                    
+
+
+
+
+                    debugPrint("organizationName", contact.organizationName)
+                    debugPrint("jobTitle", contact.jobTitle)
+                    debugPrint("departmentName", contact.departmentName)
+                    
+                    debugPrint("*************Address*************")
+                    for postalAddress in contact.postalAddresses {
+
+
+
+                        label = postalAddress.label ?? ""
+
+
+                        if !label.isEmpty   {
+                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+                        } else {
+                            localizedLabel = ""  // Provide a default label here
+                        }
+
+                        let formattedAddress = CNPostalAddressFormatter.string(from: postalAddress.value, style: .mailingAddress) as? String
+
+
+                        debugPrint("Localized Label:", localizedLabel)
+                        debugPrint("Address Value:", formattedAddress ?? "")
+
+                    }
+                    
+                  
+                  
+                    
+                  
+                   
+                                             
+                    
+//                    contactData.append(
+//                        ContactModel(
+//                            Name :"\(contact.givenName) \(contact.familyName)",
+//                            
+//
+//                            //                        PhoneNumbers: contact.phoneNumbers.compactMap {           $0.value.stringValue.removeSpecialCharactersWithoutSpace},
+//
+//                            PhoneNumbers: PhoneDataArray,
+//
+//
+//                            EmailAddresses: contact.emailAddresses.compactMap{$0.value as String },
+//
+//
+//                            OrganizationName:  contact.organizationName,
+//
+//
+//
+//                            PostalAddress: contact.postalAddresses.compactMap{
+//
+//                                return  "\($0.value.street) \($0.value.city) \($0.value.postalCode) "
+//
+//
+//                            },
+//
+//                            Nickname: contact.nickname
+//
+//                            // Note: contact.note,
+//
+//                        ))
                     
                     
                     
@@ -240,7 +784,7 @@ class SyncContactVC: UIViewController {
                 
                 completion(contactData, nil)
                 
-                //print(self.contactData)
+                debugPrint("raw Data" , self?.contactData as Any)
             }catch let err {
                 debugPrint("print to fetch Contact" ,  err)
                 
@@ -257,131 +801,415 @@ class SyncContactVC: UIViewController {
         
     }
   
-    
-    func retrieveContacts1(completion: @escaping ([ContactModel]?, Error?) -> Void) {
-        
-        let dispatchGroup = DispatchGroup()
-            var contactData = [ContactModel]()
-           // var error: Error?
+//    func retrieveContacts1(completion: @escaping ([ContactModel]?, Error?) -> Void) {
+//
+//
+//        let lock = DispatchQueue(label: "com.policybossPro.SyncContact", qos: .userInitiated)
+//
+//        var contactData = [ContactModel]()
+//        // var error: Error?
+//
+//
+//        /////////////////////
+//
+//
+//        var label : String = ""
+//        var localizedLabel : String = ""
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd-MM-yyyy"
+//
+//        ///////////////////////////
+//
+//        lock.async { [weak self]  in
+//
+//
+//            let keys = [CNContactGivenNameKey,
+//                        CNContactPhoneNumbersKey,
+//                        CNContactFamilyNameKey,
+//                        CNContactEmailAddressesKey,
+//                        CNContactPostalAddressesKey,
+//                        CNContactRelationsKey,
+//                        CNContactBirthdayKey,
+//                        CNContactDatesKey,
+//
+//                        CNContactOrganizationNameKey,
+//                        CNContactJobTitleKey,
+//                        CNContactDepartmentNameKey,
+//
+//
+//                        CNContactNicknameKey
+//            ]
+//
+//
+//
+//
+//            let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+//
+//            contactData = [ContactModel]()
+//
+//
+//
+//            do{
+//
+//
+//                try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
+//
+//
+//                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
+//
+//                    }.compactMap { $0.value.stringValue.digitOnly}
+//
+//
+//                    var PhoneDataArray = [String]()
+//
+//
+//
+//                    tempPhoneData.forEach { element in
+//
+//                        if(element.count >= 10){
+//
+//                            let c =   element.suffix(10)
+//
+//                            PhoneDataArray.append(String(c))
+//
+//
+//                        }
+//
+//
+//                    }
+//
+//                    // debugPrint("Filter Data :", PhoneDataArray)
+//
+//
+//                      if let pnote = contact.nickname as?  String, !pnote.isEmpty {
+//
+//                        debugPrint("nick name :", pnote )
+//                        }
+//
+//                    for phoneNumber in contact.phoneNumbers {
+//
+//
+//                        let label = phoneNumber.label ?? ""
+//
+//                        if !label.isEmpty   {
+//                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+//                        } else {
+//                            localizedLabel = ""  // Provide a default label here
+//                        }
+//
+//
+//                        let value = phoneNumber.value.stringValue
+//
+//
+//                        debugPrint("Phone label" , localizedLabel )
+//                        debugPrint("Phone Value" , value )
+//                    }
+//                    //
+//
+//                    for emailAddress in contact.emailAddresses {
+//
+//                        label = emailAddress.label ?? ""
+//
+//
+//                        if !label.isEmpty   {
+//                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+//                        } else {
+//                            localizedLabel = ""  // Provide a default label here
+//                        }
+//
+//                        let emailValue = emailAddress.value as? String
+//
+//                        debugPrint("Localized Label:", localizedLabel)
+//                        debugPrint("Email Value:", emailValue ?? "")
+//                        // Do something with label and emailValue
+//                    }
+//
+//
+//                    debugPrint("*************Relation*************")
+//
+//                    for relation in contact.contactRelations {
+//
+//
+//                        label = relation.label ?? ""
+//
+//
+//                        if !label.isEmpty   {
+//                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+//                        } else {
+//                            localizedLabel = ""  // Provide a default label here
+//                        }
+//
+//                        if let relationName = relation.value.name as? String {
+//
+//                            debugPrint("Localized Label:", localizedLabel)
+//                            debugPrint("Relation Value:", relationName ?? "")
+//                        }
+//
+//
+//
+//                    }
+//
+//
+//                    if let birthday = contact.birthday?.date {
+//                        let dateFormatter = DateFormatter()
+//                        dateFormatter.dateStyle = .long
+//
+//                        let formattedBirthday = dateFormatter.string(from: birthday)
+//                        debugPrint("Birthday:", formattedBirthday)
+//                    }
+//
+//                    debugPrint("*************Dates*************")
+//
+//
+//
+//                    for dateLabel in contact.dates {
+//                        let label = CNLabeledValue<NSString>.localizedString(forLabel: dateLabel.label ?? "")
+//                        let nsDateComponents = dateLabel.value as NSDateComponents
+//
+//                        // Check if nsDateComponents is not nil and contains valid date information
+//                        let calendar = Calendar(identifier: .gregorian)
+//                        if let date = calendar.date(from: nsDateComponents as DateComponents) {
+//
+//                            let formattedDate = dateFormatter.string(from: date)
+//
+//                            print("Date Label:", label)
+//                            print("Formatted Date:", formattedDate)
+//                        } else {
+//                            print("Invalid date components for label:", label)
+//                        }
+//                    }
+//
+//
+//                    if !contact.departmentName.isEmpty {
+//                        print("Company Department:", contact.departmentName)
+//                    } else {
+//                        print("No company department available")
+//                    }
+//
+//                    if !contact.organizationName.isEmpty {
+//                        print("Company Name:", contact.organizationName)
+//                    } else {
+//                        print("No company name available")
+//                    }
+//
+//                    if !contact.jobTitle.isEmpty {
+//                        print("Company Title:", contact.jobTitle)
+//                    } else {
+//                        print("No company title available")
+//                    }
+//
+//
+//
+//
+//
+//                    debugPrint("organizationName", contact.organizationName)
+//                    debugPrint("jobTitle", contact.jobTitle)
+//                    debugPrint("departmentName", contact.departmentName)
+//
+//                    debugPrint("*************Address*************")
+//                    for postalAddress in contact.postalAddresses {
+//
+//
+//
+//                        label = postalAddress.label ?? ""
+//
+//
+//                        if !label.isEmpty   {
+//                            localizedLabel = CNLabeledValue<NSString>.localizedString(forLabel: label)
+//                        } else {
+//                            localizedLabel = ""  // Provide a default label here
+//                        }
+//
+//                        let formattedAddress = CNPostalAddressFormatter.string(from: postalAddress.value, style: .mailingAddress) as? String
+//
+//
+//                        debugPrint("Localized Label:", localizedLabel)
+//                        debugPrint("Address Value:", formattedAddress ?? "")
+//
+//                    }
+//
+//                    contactData.append(
+//                        ContactModel(
+//                            Name :"\(contact.givenName) \(contact.familyName)",
+//
+//
+//                            //                        PhoneNumbers: contact.phoneNumbers.compactMap {           $0.value.stringValue.removeSpecialCharactersWithoutSpace},
+//
+//                            PhoneNumbers: PhoneDataArray,
+//
+//
+//                            EmailAddresses: contact.emailAddresses.compactMap{$0.value as String },
+//
+//
+//                            OrganizationName:  contact.organizationName,
+//
+//
+//
+//                            PostalAddress: contact.postalAddresses.compactMap{
+//
+//                                return  "\($0.value.street) \($0.value.city) \($0.value.postalCode) "
+//
+//
+//                            },
+//
+//                            Nickname: contact.nickname
+//
+//                            // Note: contact.note,
+//
+//                        ))
+//
+//
+//
+//
+//                })
+//
+//
+//
+//                completion(contactData, nil)
+//
+//                debugPrint("raw Data" , self?.contactData as Any)
+//            }catch let err {
+//                debugPrint("print to fetch Contact" ,  err)
+//
+//
+//
+//                completion(nil, err)
+//
+//            }
+//
+//
+//
+//        }
+//
+//
+//    }
 
-        
-        DispatchQueue.global(qos: .userInteractive).async { [weak self]  in
-           
-      
-            let keys = [CNContactGivenNameKey,CNContactPhoneNumbersKey,CNContactFamilyNameKey,CNContactEmailAddressesKey,
-                CNContactOrganizationNameKey,
-                
-                CNContactPostalAddressesKey,
-                //CNContactBirthdayKey,
-                //CNContactNoteKey,
-                CNContactNicknameKey
-                ]
-            
-            
-            
-            
-            let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-            
-           contactData = [ContactModel]()
-            
-          
-           
-            do{
-                
-                
-                
-                try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
-                   
-                    dispatchGroup.enter()
 
-                    
-                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
-                        
-                    }.compactMap { $0.value.stringValue.digitOnly}
-                    
-                    
-                    var PhoneDataArray = [String]()
-                    
-                    
-                    
-                    tempPhoneData.forEach { element in
-                        
-                        if(element.count >= 10){
-                            
-                            let c =   element.suffix(10)
-                            
-                            PhoneDataArray.append(String(c))
-                            
-                            
-                        }
-                        
-                        
-                    }
-                    
-                    // debugPrint("Filter Data :", PhoneDataArray)
-                    
-                    contactData.append(
-                        ContactModel(
-                            Name :"\(contact.givenName) \(contact.familyName)",
-                            
-                            
-                            //                        PhoneNumbers: contact.phoneNumbers.compactMap {           $0.value.stringValue.removeSpecialCharactersWithoutSpace},
-                            
-                            PhoneNumbers: PhoneDataArray,
-                            
-                            EmailAddresses: contact.emailAddresses.compactMap{$0.value as String },
-                            
-                            OrganizationName:  contact.organizationName,
-                            
-                            
-                            PostalAddress: contact.postalAddresses.compactMap{
-                                
-                                return  "\($0.value.street) \($0.value.city) \($0.value.postalCode) "
-                                
-                                
-                            },
-                            
-                            Nickname: contact.nickname
-                            
-                            // Note: contact.note,
-                            
-                        ))
-                    
-                    dispatchGroup.leave()
+//    func retrieveContactsold(completion: @escaping ([ContactModel]?, Error?) -> Void) {
+//
+//        let dispatchGroup = DispatchGroup()
+//            var contactData = [ContactModel]()
+//           // var error: Error?
+//
+//
+//        DispatchQueue.global(qos: .userInteractive).async { [weak self]  in
+//
+//
+//            let keys = [CNContactGivenNameKey,CNContactPhoneNumbersKey,CNContactFamilyNameKey,CNContactEmailAddressesKey,
+//                CNContactOrganizationNameKey,
+//
+//                CNContactPostalAddressesKey,
+//                //CNContactBirthdayKey,
+//                //CNContactNoteKey,
+//                CNContactNicknameKey
+//                ]
+//
+//
+//
+//
+//            let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+//
+//           contactData = [ContactModel]()
+//
+//
+//
+//            do{
+//
+//
+//
+//                try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
+//
+//                    dispatchGroup.enter()
+//
+//
+//                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
+//
+//                    }.compactMap { $0.value.stringValue.digitOnly}
+//
+//
+//                    var PhoneDataArray = [String]()
+//
+//
+//
+//                    tempPhoneData.forEach { element in
+//
+//                        if(element.count >= 10){
+//
+//                            let c =   element.suffix(10)
+//
+//                            PhoneDataArray.append(String(c))
+//
+//
+//                        }
+//
+//
+//                    }
+//
+//                    // debugPrint("Filter Data :", PhoneDataArray)
+//
+//                    contactData.append(
+//                        ContactModel(
+//                            Name :"\(contact.givenName) \(contact.familyName)",
+//
+//
+//                            //                        PhoneNumbers: contact.phoneNumbers.compactMap {           $0.value.stringValue.removeSpecialCharactersWithoutSpace},
+//
+//                            PhoneNumbers: PhoneDataArray,
+//
+//                            EmailAddresses: contact.emailAddresses.compactMap{$0.value as String },
+//
+//                            OrganizationName:  contact.organizationName,
+//
+//
+//                            PostalAddress: contact.postalAddresses.compactMap{
+//
+//                                return  "\($0.value.street) \($0.value.city) \($0.value.postalCode) "
+//
+//
+//                            },
+//
+//                            Nickname: contact.nickname
+//
+//                            // Note: contact.note,
+//
+//                        ))
+//
+//                    dispatchGroup.leave()
+//
+//
+//
+//
+//
+//
+//
+//                })
+//
+//
+//
+//
+//
+//                dispatchGroup.notify(queue: .main) {
+//                              completion(contactData, nil)
+//                          }
+//
+//                 //print(self.contactData)
+//            }catch let err {
+//                debugPrint("print to fetch Contact" ,  err)
+//
+//
+//
+//                    completion(nil, err)
+//
+//            }
+//
+//
+//
+//        }
+//
+//
+//    }
 
-                    
-                   
-                    
-                    
-                  
-                    
-                })
-               
-                
-
-
-              
-                dispatchGroup.notify(queue: .main) {
-                              completion(contactData, nil)
-                          }
-                
-                 //print(self.contactData)
-            }catch let err {
-                debugPrint("print to fetch Contact" ,  err)
-
-                
-               
-                    completion(nil, err)
-                
-            }
-            
-            
-            
-        }
-        
-
-    }
-    
 
     func handlingData(){
         
@@ -399,7 +1227,7 @@ class SyncContactVC: UIViewController {
                         self.contactData = contactData
                         
                         print("Contact Data Size", self.contactData.count)
-                        self.processData()
+                       // self.processData()     // 005 temp commnted
                     }
                   
                 }
@@ -412,6 +1240,7 @@ class SyncContactVC: UIViewController {
     }
     
     func processData(){
+        
         
         var index = 0
         for contact in self.contactData{
@@ -449,7 +1278,7 @@ class SyncContactVC: UIViewController {
             //Mark :****** comment  For Showing contactMainData Details****
             
             
-            let encodedData = try JSONEncoder().encode(contactMainData)
+            let encodedData = try JSONEncoder().encode(contactData)
             let jsonString = String(data: encodedData, encoding: .utf8)
 
             var rawData = ""
@@ -462,7 +1291,7 @@ class SyncContactVC: UIViewController {
                 rawData = ""
             }
           
-            
+            debugPrint("rawData", rawData)
             
                 
             let ContactMainList = self.contactMainData
@@ -553,7 +1382,9 @@ class SyncContactVC: UIViewController {
         catch let error {
             print("Error: ", error)
         }
+        
     }
+    
     func successMessage(){
         
         trackSyncContactEvent()

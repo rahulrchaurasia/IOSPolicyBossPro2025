@@ -29,6 +29,60 @@ struct ContactMainModel :Identifiable, Encodable  {
     var mobileno : String
 }
 
+//
+class ContactModelRaw :Identifiable, Encodable {
+    var id = UUID().uuidString
+    
+    var displayName: String = ""
+    var givenName: String = ""
+    var middleName: String = ""
+    var familyName : String = ""
+    
+    var phone: [String] = []
+    var phoneNumbers: [PhoneData] = []
+    var nickname: String = ""
+    var companyName : String = ""
+    
+    var emails: [EmailData] = [] 
+    var PostalAddress: [AddressData] = []
+    var websites: [String] = []
+    var relations : [RelationData] = []
+  
+    var note: String = ""
+  
+
+    
+}
+
+struct PhoneData  : Encodable {
+    var normalizedNumber: String = ""
+    var number: String = ""
+    var type: String = ""
+   
+}
+
+struct EmailData  : Encodable {
+   
+    var address: String = ""
+    var type: String = ""
+   
+}
+
+struct AddressData  : Encodable {
+   
+    var formattedAddress: String = ""
+    var type: String = ""
+   
+}
+
+struct RelationData  : Encodable {
+   
+    var relationName : String  = ""
+    var relationLabel : String = ""
+   
+}
+
+
 
 struct ContactModel :Identifiable, Encodable {
     var id = UUID().uuidString
@@ -45,6 +99,7 @@ struct ContactModel :Identifiable, Encodable {
   
 
 }
+
 //******************* End *******************************
 
 

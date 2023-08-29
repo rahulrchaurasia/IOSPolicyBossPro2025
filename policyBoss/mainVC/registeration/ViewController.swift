@@ -240,6 +240,8 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
         
         WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
         
+        
+    
         debugPrint("Analytic dob", dobFormatted)
         debugPrint("Analytic Source", sourceLbl.text!)
         debugPrint("Analytic Field Sale", fieldSaleLbl.text!)
@@ -1135,8 +1137,11 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
               self.verifymobOTPView.isHidden = true
               self.verifymobOTPViewHeight.constant = 0
            
+            WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.RegisterScreen)
                setUserInfoToWebEngAnalytic()
               WebEngageAnaytics.shared.trackEvent("OTP Verified")
+            
+             
 
                TTGSnackbar.init(message: "OTP verified successfully", duration: .long).show()
         }else{
@@ -1172,9 +1177,11 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                     self.verifymobOTPView.isHidden = true
                     self.verifymobOTPViewHeight.constant = 0
                     
+                    WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.RegisterScreen)
                     self.setUserInfoToWebEngAnalytic()
                     WebEngageAnaytics.shared.trackEvent("OTP Verified")
-
+                    
+                   
                     
                     TTGSnackbar.init(message: "OTP verified successfully", duration: .long).show()
                     

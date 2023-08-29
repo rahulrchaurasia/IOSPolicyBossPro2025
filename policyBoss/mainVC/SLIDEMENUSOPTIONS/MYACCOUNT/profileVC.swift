@@ -1748,6 +1748,8 @@ extension profileVC {
 
         // Track the login event using WebEngageHelper
         WebEngageAnaytics.shared.trackEvent("Bank Details Submitted",  eventAttributes)
+        
+        
     }
     
     func trackDocUploadEvent(strDocType: String) {

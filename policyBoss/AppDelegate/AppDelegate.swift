@@ -3,7 +3,7 @@
 //  MagicFinmart
 //
 //  Created by Ashwini on 10/12/18.
-//  Copyright © 2018 Ashwini. All rights reserved.
+//  Copyright © 2018 Rahul. All rights reserved.
 //
 
 import UIKit

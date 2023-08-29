@@ -2193,11 +2193,17 @@ extension enrolasPOSPVC {
     // Analytic Handling
     func trackPospSubmitEvent(){
         
+        
+        
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.PospScreen)
+        
         var eventAttributes: [String: Any] = [:]
         eventAttributes["Section"] = "Enroll for IRDA POSP"
 
+        
         // Track the login event using WebEngageHelper
         WebEngageAnaytics.shared.trackEvent("Bank Details Submitted",  eventAttributes)
+       
     }
     
     func trackDocUploadEvent(strDocType: String) {
@@ -2223,8 +2229,11 @@ extension enrolasPOSPVC {
    
     func trackPOSPSuccessEvent() {
         
+        WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.PospScreen)
+        
         WebEngageAnaytics.shared.trackEvent("POSP Enrollment Submitted")
       
+     
     }
 }
 

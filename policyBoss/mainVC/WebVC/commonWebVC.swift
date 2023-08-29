@@ -18,6 +18,7 @@ import TTGSnackbar
 import Alamofire
 import Foundation.NSURL
 import CoreLocation
+import WebEngage.WEGMobileBridge
 
 class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,UIDocumentInteractionControllerDelegate  {
 
@@ -42,72 +43,92 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
     var dynamicName = ""
     var delegateData : HomeDelegate?
     
-  
+    let weObject = WEGMobileBridge()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+      
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.CommonWebViewScreen)
-
-//        print("fromcontctWebsite??=",fromcontctWebsite)
-//        print("ProposerPageUrl=",ProposerPageUrl)
+        
+        //        print("fromcontctWebsite??=",fromcontctWebsite)
+        //        print("ProposerPageUrl=",ProposerPageUrl)
         
         
         
         //Mark : Add WKWebViewConfiguration for Handling location
-        let webViewConfiguration = WKWebViewConfiguration()
-                let userContentController = WKUserContentController()
-                webViewConfiguration.userContentController = userContentController
-                
-                // Disable geolocation permission prompt
-                let disableGeolocationScript = """
+        //let webViewConfiguration = WKWebViewConfiguration()
+        
+        let userContentController = WKUserContentController()
+        
+        //005
+       // webViewConfiguration.userContentController = userContentController
+        
+        // Disable geolocation permission prompt
+        let disableGeolocationScript = """
                     navigator.geolocation.getCurrentPosition = function(success, error, options) {
                         error({ code: 1, message: 'Geolocation access denied.' });
                     };
                 """
-                let userScript = WKUserScript(source: disableGeolocationScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
-                userContentController.addUserScript(userScript)
-                
-                webView = WKWebView(frame: view.bounds, configuration: webViewConfiguration)
         
-//        webView = WKWebView(frame: CGRect(x: 0,
-//                                          y: 55,
-//                                          width: view.bounds.width,
-//                                          height: view.bounds.height - 55), configuration: webViewConfiguration)
-//
+        // Create a WKUserScript with the geolocation disabling script
+        let userScript = WKUserScript(source: disableGeolocationScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         
-                webView.navigationDelegate = self
-                view.addSubview(webView)
-                
+        // Add the user script to the userContentController
+        userContentController.addUserScript(userScript)
+        
+        
+        // Create a WKWebViewConfiguration and assign the userContentController
+        let webViewConfiguration = WKWebViewConfiguration()
+        webViewConfiguration.userContentController = userContentController
+        
+        // Create a WKWebView with the given configuration : Default
+//        webView = WKWebView(frame: view.bounds, configuration: webViewConfiguration)
+        
+       
+        // WebEngaged Now you can add the enhanced configuration
+        let enhancedConfiguration = weObject.enhanceWebConfig(forMobileWebBridge: webViewConfiguration)
+        
+        if let enhancedConfiguration = enhancedConfiguration{
+            
+            self.webView = WKWebView(frame: self.view.frame, configuration: enhancedConfiguration )
+        }
+      
+        
+        
+        webView.navigationDelegate = self
+        view.addSubview(webView)
+        
         // Mark : Adding WebView below headerView
         webView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    webView.topAnchor.constraint(equalTo: viewHeader.bottomAnchor),
-                    webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                    webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-                ])
-       
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: viewHeader.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
         // add activity
         
-         // Mark : Origonal Code is only This
+        // Mark : Origonal Code is only This
         self.webView.addSubview(self.activityIndicator)
         self.activityIndicator.startAnimating()
         self.webView.navigationDelegate = self
         self.activityIndicator.hidesWhenStopped = true
         self.webView.configuration.preferences.javaScriptEnabled = true
         
-       
-               
+        
+        
         
         let FBAId = UserDefaults.standard.string(forKey: "FBAId")
-//        let SSID = UserDefaults.standard.string(forKey: "POSPNo")
-       // let Url = UserDefaults.standard.string(forKey: "Url")
+        //        let SSID = UserDefaults.standard.string(forKey: "POSPNo")
+        // let Url = UserDefaults.standard.string(forKey: "Url")
         let loanselfmobile = UserDefaults.standard.string(forKey: "loanselfmobile")
         let TwoWheelerUrl = UserDefaults.standard.string(forKey: "TwoWheelerUrl")
         let FourWheelerUrl = UserDefaults.standard.string(forKey: "FourWheelerUrl")
         
-         let HealthUrl = UserDefaults.standard.string(forKey: "healthurl")
-         let CVUrl = UserDefaults.standard.string(forKey: "CVUrl")
+        let HealthUrl = UserDefaults.standard.string(forKey: "healthurl")
+        let CVUrl = UserDefaults.standard.string(forKey: "CVUrl")
         
         let LoanId = UserDefaults.standard.string(forKey: "LoanId")
         
@@ -115,26 +136,26 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         let appVersion = Configuration.appVersion
         
         // self.setupWKWebview()
-       // webView.configuration.userContentController.add(self, name: "finmartios")
+        // webView.configuration.userContentController.add(self, name: "finmartios")
         
         
-       
         
-      
+        
+        
         if(webfromScreen == ScreenName.privateCar)      //  PrdID =1
         {
-
+            
             titleLbl.text! = "PRIVATE CAR"
             bindInsuranceUrl(strURL: FourWheelerUrl!,prdID: "1")
             
-       //  let insURL = "http://elite.interstellar.co.in/iostestnew.html"   // 005  For testing
-        //  webView.load(URLRequest(url: URL(string: insURL)!))
-
+            //  let insURL = "http://elite.interstellar.co.in/iostestnew.html"   // 005  For testing
+            //  webView.load(URLRequest(url: URL(string: insURL)!))
+            
             
         }
         else if(webfromScreen == ScreenName.twoWheeler)  //  PrdID =10
         {
-
+            
             titleLbl.text! = "TWO WHEELER"
             bindInsuranceUrl(strURL: TwoWheelerUrl!,prdID: "10")
             
@@ -142,19 +163,19 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen == ScreenName.COMMERCIALVEHICLE)
         {
             titleLbl.text! = "COMMERCIAL VEHICLE"
-             bindInsuranceUrl(strURL: CVUrl!,prdID: "12")
+            bindInsuranceUrl(strURL: CVUrl!,prdID: "12")
             
             
         }
-            
-            
+        
+        
         else if(webfromScreen == ScreenName.HealthInsurance)     //   PrdID = 2
         {
             titleLbl.text! = "HEALTH INSURANCE"
             bindInsuranceUrl(strURL: HealthUrl!,prdID: "2")
             
             
-
+            
         }
         
         else if(webfromScreen == ScreenName.SYNC_TERMS)
@@ -162,26 +183,26 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             self.btnHome.isHidden = true
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/terms-condition")!))
-             debugPrint("URL","https://www.policyboss.com/terms-condition")
+            debugPrint("URL","https://www.policyboss.com/terms-condition")
         }
         
         else if(webfromScreen == ScreenName.Insurance)
         {
-           
+            
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")!))
-             debugPrint("URL","https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")
+            debugPrint("URL","https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")
         }
         else if(webfromScreen == ScreenName.SYNC_PRIVACY)
         {
             self.btnHome.isHidden = true
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/privacy-policy-policyboss-pro")!))
-             debugPrint("URL","https://www.policyboss.com/terms-condition")
+            debugPrint("URL","https://www.policyboss.com/terms-condition")
         }
-      /********************************************Loan URL ******************************************************************/
-            
-            
+        /********************************************Loan URL ******************************************************************/
+        
+        
         else if(webfromScreen == "credit")
         {
             
@@ -191,9 +212,9 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             webView.load(URLRequest(url: URL(string: creditURL)!))
             print("URL",creditURL)
             
-             // webView.load(URLRequest(url: URL(string: dynamicUrl)!))
+            // webView.load(URLRequest(url: URL(string: dynamicUrl)!))
         }
-            
+        
         else if(webfromScreen == "personal")
         {
             
@@ -204,7 +225,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL",tempURL)
             
         }
-            
+        
         else if(webfromScreen == "business")
         {
             
@@ -215,10 +236,10 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL",tempURL)
             
         }
-            
-       
-            
-            
+        
+        
+        
+        
         else if(webfromScreen == "home")
         {
             
@@ -229,7 +250,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL",tempURL)
             
         }
-            
+        
         else if(webfromScreen == "lap")
         {
             
@@ -250,33 +271,33 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL",tempURL)
             
         }
-            
- 
-     /**********************************************End   OF Loan ***********************************************************/
-            
-            
-    /****************************** HTML    ( Disclosure & Privacy Policy)  ****************************************/
+        
+        
+        /**********************************************End   OF Loan ***********************************************************/
+        
+        
+        /****************************** HTML    ( Disclosure & Privacy Policy)  ****************************************/
         else if(webfromScreen == "DISCLOSURE")
         {
             
             bindHTMLData()
         }
-            
-            
+        
+        
         else if(webfromScreen == "PrivacyPolicy")
         {
             titleLbl.text! = "Privacy Policy"
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/privacy-policy-policyboss-pro")!))
             print("URL","http://"+fromcontctWebsite)
         }
-            
-            
-       
-     ///////////////////////////////////////////////////////////////////////////////
-                   //    Menu Saction //
-      ///////////////////////////////////////////////////////////////////////////////
-            
-    /****************************** Home Section  ****************************************/
+        
+        
+        
+        ///////////////////////////////////////////////////////////////////////////////
+        //    Menu Saction //
+        ///////////////////////////////////////////////////////////////////////////////
+        
+        /****************************** Home Section  ****************************************/
         else if(webfromScreen == ScreenName.myFinbox)
         {
             
@@ -291,12 +312,12 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             webView.load(URLRequest(url: URL(string: FINBOX)!))
             print("URL",FINBOX)
         }
-            
+        
         else if(webfromScreen == ScreenName.Finperks)
         {
             let url = UserDefaults.standard.string(forKey: "finboxurl")
             
-         
+            
             if let finperkurl = url {
                 
                 titleLbl.text! = "FINPERKS"
@@ -304,11 +325,11 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                 print("URL",finperkurl)
             }
         }
-            
-      /******************************END OF HOME Section  ****************************************/
-            
-     /****************************** MY TRANSACTION  Section  ****************************************/
-          
+        
+        /******************************END OF HOME Section  ****************************************/
+        
+        /****************************** MY TRANSACTION  Section  ****************************************/
+        
         else if(webfromScreen == ScreenName.InsuranceBusiness)
         {
             insurancebusinessAPI()
@@ -316,7 +337,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen == ScreenName.policyByCRN)
         {
             let url = UserDefaults.standard.string(forKey: "PBByCrnSearch")
-        
+            
             
             if let mainURL = url {
                 
@@ -325,11 +346,11 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                 print("URL",mainURL)
             }
         }
-          
+        
         /******************************END****************************************/
-    
+        
         /****************************** MY LEAD Section  ****************************************/
-            
+        
         else if(webfromScreen == ScreenName.leadDashboard)
         {
             let url = UserDefaults.standard.string(forKey: "LeadDashUrl")
@@ -342,22 +363,22 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                 print("URL",mainURL)
             }
         }
-            
-            
-            
-      
+        
+        
+        
+        
         /******************************END****************************************/
-            
-            
-      
-            
-     /********************************************Not in used ****************************************/
+        
+        
+        
+        
+        /********************************************Not in used ****************************************/
         
         else if(webfromScreen == "messageCenter")
         {
             titleLbl.text! = "MESSAGE CENTER"
             webView.load(URLRequest(url: URL(string: "http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id=5999&fba_id="+(FBAId!)+"&ip_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID!))!))
-              print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
+            print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
         }
         
         else if(webfromScreen == "Training")
@@ -373,15 +394,15 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/motor-lead-details/"+(FBAId!))!))
             print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
         }
-            
-             /**************************************************************************************************************/
         
-       
+        /**************************************************************************************************************/
         
         
         
-       
-       
+        
+        
+        
+        
         else if(webfromScreen == "contactWebsites")
         {
             titleLbl.text! = "BACK"
@@ -396,11 +417,11 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL","http://bo.magicfinmart.com/liquiloan/main_2.html?fbaid="+(FBAId!)+"&type=finmart&loan_id=38054")
         }
         else if(webfromScreen == "lyfinsQuote"){
-//            let ProposerPageUrl = UserDefaults.standard.string(forKey: "ProposerPageUrl")
+            //            let ProposerPageUrl = UserDefaults.standard.string(forKey: "ProposerPageUrl")
             titleLbl.text! = "CLICK TO PROTECT 3D"
             webView.load(URLRequest(url: URL(string: ProposerPageUrl)!))
             print("URL",ProposerPageUrl)
-
+            
         }
         else if(webfromScreen == "lyfinshdfcnetPremium"){
             titleLbl.text! = "CLICK TO PROTECT 3D"
@@ -413,9 +434,9 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             webView.load(URLRequest(url: URL(string: PaymentURL)!))
             print("URL",PaymentURL)
         }
-       
         
-    
+        
+        
         
         else if(webfromScreen ==  ScreenName.Dynamic){
             titleLbl.text! = dynamicName
@@ -423,7 +444,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             print("URL",dynamicUrl)
         }
         
-       
+        
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.delegate = self
         
@@ -743,7 +764,9 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
     }
     
-    
+    deinit {
+          webView.removeFromSuperview()
+      }
     
 }
 
