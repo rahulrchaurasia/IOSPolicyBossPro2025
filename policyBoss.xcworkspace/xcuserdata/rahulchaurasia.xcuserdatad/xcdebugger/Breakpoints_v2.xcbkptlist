@@ -1747,5 +1747,290 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE4EFAF0-C8E1-4044-990C-D27130992F8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/SyncContactViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "fetchDataFromApi(subContactList:rawData:completionHandler:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DE4EFAF0-C8E1-4044-990C-D27130992F8A - dd2f41b1934f3edd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactViewModel.fetchDataFromApi(subContactList: Swift.Array&lt;PolicyBoss_Pro.ContactMainModel&gt;, rawData: Swift.String, completionHandler: (Swift.Result&lt;Swift.Optional&lt;Any&gt;, PolicyBoss_Pro.APIErrors&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "3180">
+               </Location>
+               <Location
+                  uuid = "DE4EFAF0-C8E1-4044-990C-D27130992F8A - dd2f41b1934f3edd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactViewModel.fetchDataFromApi(subContactList: Swift.Array&lt;PolicyBoss_Pro.ContactMainModel&gt;, rawData: Swift.String, completionHandler: (Swift.Result&lt;Swift.Optional&lt;Any&gt;, PolicyBoss_Pro.APIErrors&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "3052">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "241A2068-E986-48FB-836E-96B8FD115698"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1306"
+            endingLineNumber = "1306"
+            landmarkName = "processData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "241A2068-E986-48FB-836E-96B8FD115698 - 217db702810aab87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1306"
+                  endingLineNumber = "1306"
+                  offsetFromSymbolStart = "2144">
+               </Location>
+               <Location
+                  uuid = "241A2068-E986-48FB-836E-96B8FD115698 - 7218bd7205cf13b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Result&lt;Swift.Optional&lt;Any&gt;, PolicyBoss_Pro.APIErrors&gt;) -&gt; () in PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1306"
+                  endingLineNumber = "1306"
+                  offsetFromSymbolStart = "472">
+               </Location>
+               <Location
+                  uuid = "241A2068-E986-48FB-836E-96B8FD115698 - 4bfc02897f08865c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #3 (Swift.Result&lt;Swift.Optional&lt;Any&gt;, PolicyBoss_Pro.APIErrors&gt;) -&gt; () in PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1306"
+                  endingLineNumber = "1306"
+                  offsetFromSymbolStart = "508">
+               </Location>
+               <Location
+                  uuid = "241A2068-E986-48FB-836E-96B8FD115698 - 217db702810aab87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1306"
+                  endingLineNumber = "1306"
+                  offsetFromSymbolStart = "1860">
+               </Location>
+               <Location
+                  uuid = "241A2068-E986-48FB-836E-96B8FD115698 - 217db702810aab87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1306"
+                  endingLineNumber = "1306"
+                  offsetFromSymbolStart = "1840">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5993390-239D-4D45-A3EA-805AC5DE40CC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1260"
+            endingLineNumber = "1260"
+            landmarkName = "processData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D5993390-239D-4D45-A3EA-805AC5DE40CC - 217db702810ab191"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1260"
+                  endingLineNumber = "1260"
+                  offsetFromSymbolStart = "680">
+               </Location>
+               <Location
+                  uuid = "D5993390-239D-4D45-A3EA-805AC5DE40CC - 217db702810ab191"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1260"
+                  endingLineNumber = "1260"
+                  offsetFromSymbolStart = "660">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1FF00E83-6FEF-4B70-AB11-05B5B0D6C42F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1334"
+            endingLineNumber = "1334"
+            landmarkName = "processData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1FF00E83-6FEF-4B70-AB11-05B5B0D6C42F - 217db702810aa62b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1334"
+                  endingLineNumber = "1334"
+                  offsetFromSymbolStart = "3328">
+               </Location>
+               <Location
+                  uuid = "1FF00E83-6FEF-4B70-AB11-05B5B0D6C42F - 217db702810aa62b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PolicyBoss_Pro.SyncContactVC.processData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1334"
+                  endingLineNumber = "1334"
+                  offsetFromSymbolStart = "3364">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E9D1C9B1-B317-43CC-BA2D-406A876D8E1D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1239"
+            endingLineNumber = "1239"
+            landmarkName = "handlingData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E9D1C9B1-B317-43CC-BA2D-406A876D8E1D - c82e2b6275bf4331"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;Swift.Array&lt;PolicyBoss_Pro.ContactModelRaw&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PolicyBoss_Pro.SyncContactVC.handlingData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1239"
+                  endingLineNumber = "1239"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "E9D1C9B1-B317-43CC-BA2D-406A876D8E1D - c82e2b6275bf4331"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;Swift.Array&lt;PolicyBoss_Pro.ContactModelRaw&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PolicyBoss_Pro.SyncContactVC.handlingData() -&gt; ()"
+                  moduleName = "PolicyBoss Pro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/syncContact/SyncContactVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1239"
+                  endingLineNumber = "1239"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -42,12 +42,14 @@ class ContactModelRaw :Identifiable, Encodable {
     var phoneNumbers: [PhoneData] = []
     var nickname: String = ""
     var companyName : String = ""
+    var companyTitle : String = ""
+    var department : String = ""
     
     var emails: [EmailData] = [] 
-    var PostalAddress: [AddressData] = []
+    var addresses: [AddressData] = []
     var websites: [String] = []
     var relations : [RelationData] = []
-  
+    var events : [EventData] = []
     var note: String = ""
   
 
@@ -60,6 +62,14 @@ struct PhoneData  : Encodable {
     var type: String = ""
    
 }
+
+struct EventData  : Encodable {
+   
+    var startDate: String = ""
+    var type: String = ""
+   
+}
+
 
 struct EmailData  : Encodable {
    

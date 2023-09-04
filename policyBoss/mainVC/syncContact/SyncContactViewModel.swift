@@ -56,7 +56,7 @@ class SyncContactViewModel{
         )
         do {
             let jsonReq = try JSONEncoder().encode(syncReqData)
-            debugPrint("Request:-", syncReqData)
+            debugPrint("sync Request:-", syncReqData)
             request.httpBody = jsonReq
         } catch {
             print(error.localizedDescription)
