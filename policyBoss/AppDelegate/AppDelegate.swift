@@ -114,7 +114,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Mark: For Handling Dynamic Link
     func handleIncomingDynamicLink(_ dynamicLink : DynamicLink){
-        
+       
+        //Note : we have field :product_id,title and url
+        /*eg: //htps://www.policyboss.com/sync-contacts-dashboard?product_id=43&title=Sync+Contact+DashBoard
+        */
+         
         guard let url = dynamicLink.url else{
             
             print("deeplink:- Link has no URL")
@@ -125,20 +129,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else {return}
         
-        let dict  : NSMutableDictionary = [:]
+        //let dict  : NSMutableDictionary = [:]
         
-       
+        
+        //        for queryItem in queryItems {
+        //            print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
+        //
+        //            dict.setValue(queryItem.value, forKey: queryItem.name)
+        //
+        //        }
+        
+        
+        var deepLinkData: [String: Any] = [:]
+        
         for queryItem in queryItems {
+            
+            deepLinkData[queryItem.name] = queryItem.value
+            
             print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
-            
-            dict.setValue(queryItem.value, forKey: queryItem.name)
-            
-           // dict[queryItem.value ?? "", default: queryItem.name]
         }
         
-        
+        deepLinkData["url"] = url.absoluteString
+        print("deeplink:- Parameter is URL has a value of \(url.absoluteString) ")
+      
         //post Dictionary of Deeplink Notification
-        NotificationCenter.default.post(name: .NotifyDeepLink, object: dict)
+        NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
         
     }
     

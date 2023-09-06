@@ -463,7 +463,8 @@ class SyncContactVC: UIViewController {
         
         let lock = DispatchQueue(label: "com.policybossPro.SyncContact", qos: .userInitiated)
         
-        var contactData = [ContactModelRaw]()
+       // var contactData = [ContactModelRaw]()
+        var contactData : [ContactModelRaw] = []
         // var error: Error?
         
         
@@ -474,9 +475,12 @@ class SyncContactVC: UIViewController {
         var value : String = ""
         var localizedLabel : String = ""
         
+        var normalizedNumber = ""
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
+        
+        let calendar = Calendar(identifier: .gregorian)
         
           var PhoneDataArray = [String]()
         
@@ -518,51 +522,35 @@ class SyncContactVC: UIViewController {
             
             
             let request  = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-            
-            contactData = [ContactModelRaw]()
-            
-            
+                
             
             do{
 
                 
                 try   self?.store.enumerateContacts(with: request, usingBlock: {   contact, stop in
                     
+                    
+                      label  = ""
+                      value  = ""
+                      localizedLabel  = ""
+                      PhoneDataArray = [String]()
+                  
+                      phoneNumbersArray = []
+                    
+                      emailsArray = []
+                      addressArray = []
+                      websitesArray = []
+                      relationsArray  = []
+                  
+                      eventArray  = []
+                    
                     /*******************************/
                     
                     var contactModel = ContactModelRaw()  // Initialize the Object
                     
                     /*******************************/
-                    let tempPhoneData  =  contact.phoneNumbers.filter{ $0.value.stringValue.count >= 10
-                        
-                    }.compactMap { $0.value.stringValue.digitOnly}
-                    
-                    
-//                     PhoneDataArray = [String]()
-//                     phoneNumbersArray  = [PhoneData]()
-//                     emailsArray  = [EmailData]()
-//                     PostalAddressArray = [AddressData]()
-//                     websitesArray = [String]()
-//                     relationsArray  = [RelationData]()
-                  
-                    
-                    
-                    tempPhoneData.forEach { element in
-                        
-                        if(element.count >= 10){
-                            
-                            let c =   element.suffix(10)
-                            
-                            PhoneDataArray.append(String(c))
-                            
-                            
-                        }
-                        
-                        
-                    }
-                    
-                    // debugPrint("Filter Data :", PhoneDataArray)
-                    
+ 
+                
                     
                      // NickName
                       if let pnote = contact.nickname as?  String, !pnote.isEmpty {
@@ -591,13 +579,24 @@ class SyncContactVC: UIViewController {
                         debugPrint("Phone label" , localizedLabel )
                         debugPrint("Phone Value" , value )
                         
+                        
+                        let filteredValue = value.digitOnly
+                        normalizedNumber = ""
+                        if(filteredValue.count >= 10){
+                              
+                            normalizedNumber = String(filteredValue.suffix(10))
+                            PhoneDataArray.append(normalizedNumber)
+                            
+                        }
+                        
                         // add  Phone data
                         phoneNumbersArray.append(
                             PhoneData(
-                                normalizedNumber: "",
+                                normalizedNumber: normalizedNumber,
                                 number: value,
                                 type: localizedLabel
                             ))
+                        
 
                        
                     }
@@ -676,8 +675,8 @@ class SyncContactVC: UIViewController {
                     
                     
                     if let birthday = contact.birthday?.date {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateStyle = .long
+                       // let dateFormatter = DateFormatter()
+                       // dateFormatter.dateStyle = .long
 
                         let formattedBirthday = dateFormatter.string(from: birthday)
                         debugPrint("Birthday:", formattedBirthday)
@@ -686,9 +685,7 @@ class SyncContactVC: UIViewController {
                         eventArray.append(EventData(startDate: formattedBirthday, type: "Birthday")
                             
                         )
-                       
-                        
-                        
+
                     }
                    
                     
@@ -701,7 +698,7 @@ class SyncContactVC: UIViewController {
                         let nsDateComponents = dateLabel.value as NSDateComponents
 
                         // Check if nsDateComponents is not nil and contains valid date information
-                        let calendar = Calendar(identifier: .gregorian)
+                       // let calendar = Calendar(identifier: .gregorian)
                         if let date = calendar.date(from: nsDateComponents as DateComponents) {
                            
                             let formattedDate = dateFormatter.string(from: date)
@@ -716,8 +713,6 @@ class SyncContactVC: UIViewController {
                                           type: label)
                                 
                             )
-                        } else {
-                            print("Invalid date components for label:", label)
                         }
                     }
                     
@@ -727,7 +722,7 @@ class SyncContactVC: UIViewController {
                    
                     if !contact.departmentName.isEmpty {
                         debugPrint("Company Department:", contact.departmentName)
-                        contactModel.department = contact.departmentName
+                        contactModel.companyDepartment = contact.departmentName
                     }
 
                     if !contact.organizationName.isEmpty {
@@ -1252,22 +1247,27 @@ class SyncContactVC: UIViewController {
     
     func processData(){
         
-        
+        self.contactMainData = [ContactMainModel]()
+       
         var index = 0
         for contact in self.contactData{
+           
            
             let mobilenoList = contact.phone.map{$0}
             let name = contact.displayName
            
             if(mobilenoList.count > 0){
                 for mobile in mobilenoList {
-                 
+                    
                     index += 1
                     self.contactMainData.append(
+                        
                         ContactMainModel(id:index, name: name, mobileno: mobile)
-
+                        
                     )
                 }
+                
+            }
                 
             //Mark  *** Use enumerated when we required index
                // also in iteration of loop ****/
@@ -1280,9 +1280,11 @@ class SyncContactVC: UIViewController {
                 
                 
 
-            }
-            
+         
+          
         }
+            
+        debugPrint("mainData", self.contactMainData)
         
         do{
             
@@ -1303,7 +1305,7 @@ class SyncContactVC: UIViewController {
                 rawData = ""
             }
           
-            debugPrint("rawData", rawData)
+                debugPrint("rawData", rawData)
             
                 
             let ContactMainList = self.contactMainData

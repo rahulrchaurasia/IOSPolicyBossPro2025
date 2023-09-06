@@ -175,12 +175,24 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         let deeplink = notification.object as? [String : Any] ?? [:]
         
-        debugPrint("My Data",  deeplink["product_id"] ?? "NO DATA FOUND")
+        debugPrint("product id",  deeplink["product_id"] ?? "NO DATA FOUND")
+        debugPrint("product Title",  deeplink["title"] ?? "NO DATA FOUND")
+        debugPrint("product URL",  deeplink["url"] ?? "NO DATA FOUND")
+        
+//        if let productID = deeplink["product_id"] as? String {
+//                        print("deeplink Product ID: \(productID)")
+//                        // Use productID as needed
+//                    }
+//
+//                    if let title = deeplink["title"] as? String {
+//                        print("deeplink Title: \(title)")
+//                        // Use title as needed
+//                    }
         
         if let prdId = deeplink["product_id"]{
-            
-            callWebViewUsingDeeplink(ProdId: String(describing: prdId) )
-            
+
+            callWebViewUsingDeeplink(ProdId: String(describing: prdId), ProdTitle:  deeplink["title"] as? String ?? "" ,ProdURL: deeplink["url"] as? String ?? "" )
+
         }
         
       
@@ -1876,7 +1888,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     
     // Mark : Calling Push and Deeplink calls
-    func callWebViewUsingDeeplink(  ProdId : String ){
+    func callWebViewUsingDeeplink(  ProdId : String, ProdTitle : String ,ProdURL : String){
         
  
         dismissAll(animated: false)
@@ -1957,9 +1969,30 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             moveToSalesmaterial()
             break
           
-        default : break
+        default :
             
-          
+            if !ProdURL.isEmpty{
+                
+                let SSID = UserDefaults.standard.string(forKey: "POSPNo")
+                let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+                let deviceID = UIDevice.current.identifierForVendor?.uuidString
+                let appVersion = Configuration.appVersion
+                
+                if let SSID = SSID, let FBAId = FBAId {
+                    var appendURL = ProdURL + "&ss_id=" + SSID
+                    appendURL += "&fba_id=" + FBAId
+                    appendURL += "&sub_fba_id=&ip_address=10.0.0.1&mac_address=10.0.0.1"
+                    appendURL += "&app_version=" + appVersion
+                    appendURL += "&device_id=" + (deviceID ?? "")
+                    appendURL += "&login_ssid="
+                    callDeepLinkAndPushNotifyWebView(dynamicUrl: appendURL, dynamicName: ProdTitle)
+                    
+                }
+               
+            }
+            
+         
+            break
         }
         
         
@@ -2069,6 +2102,21 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
     }
     
+    func callDeepLinkAndPushNotifyWebView(dynamicUrl : String,dynamicName : String ){
+        
+       
+        
+        let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+        commonWeb.modalPresentationStyle = .fullScreen
+        commonWeb.webfromScreen = ScreenName.Dynamic
+        commonWeb.dynamicUrl = dynamicUrl
+        commonWeb.dynamicName = dynamicName.removeSpecialCharacters
+        commonWeb.addType = Screen.navigateBack
+        navigationController?.pushViewController(commonWeb, animated: false)
+       // deSelectDashboard()
+        
+        
+    }
     func callWebView(webfromScreen : String ){
         
        

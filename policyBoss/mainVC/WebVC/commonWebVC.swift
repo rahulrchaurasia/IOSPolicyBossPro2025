@@ -200,6 +200,9 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/privacy-policy-policyboss-pro")!))
             debugPrint("URL","https://www.policyboss.com/terms-condition")
         }
+        
+       
+        
         /********************************************Loan URL ******************************************************************/
         
         
@@ -527,6 +530,36 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         print("URL",insURL )
     }
+    
+//    func bindWebCommonUrl(strURL : String){
+//        
+//        let SSID = UserDefaults.standard.string(forKey: "POSPNo")
+//        let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+//        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+//        let appVersion = Configuration.appVersion
+//        
+//        if let SSID = SSID, let FBAId = FBAId {
+//            
+//            var appendURL = strURL + "&ss_id=" + SSID
+//               appendURL += "&fba_id=" + FBAId
+//               appendURL += "&sub_fba_id=&ip_address=10.0.0.1&mac_address=10.0.0.1"
+//               appendURL += "&app_version=" + appVersion
+//               appendURL += "&device_id=" + (deviceID ?? "")
+//               appendURL += "&login_ssid="
+//           
+//       
+//            webView.load(URLRequest(url: URL(string: appendURL)!))
+//            
+//            print("URL CommonWebView :",appendURL )
+//            
+//            
+//            //            var appendURL = strURL + "&ss_id="+(SSID!) + "&fba_id=" (FBAId!) + "&sub_fba_id=&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version=" + appVersion +  "&device_id=" + deviceID
+//            //
+//            //
+//            //            appendURL += "&login_ssid="
+//        }
+//       
+//    }
     
     
     func bindHTMLData(){

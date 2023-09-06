@@ -27,6 +27,12 @@ struct ContactMainModel :Identifiable, Encodable  {
     var id : Int
     var name : String
     var mobileno : String
+    
+//    init(id: Int, name: String, mobileno: String) {
+//        self.id = id
+//        self.name = name
+//        self.mobileno = mobileno
+//    }
 }
 
 //
@@ -43,7 +49,7 @@ class ContactModelRaw :Identifiable, Encodable {
     var nickname: String = ""
     var companyName : String = ""
     var companyTitle : String = ""
-    var department : String = ""
+    var companyDepartment : String = ""
     
     var emails: [EmailData] = [] 
     var addresses: [AddressData] = []
