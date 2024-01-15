@@ -53,9 +53,16 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
       // NotificationCenter.default.removeObserver(self)
         
         do{
-           NotificationCenter.default.removeObserver(self,name: .NotifyPushDetails, object: nil)
-        NotificationCenter.default.removeObserver(self,name: .NotifyLoginToken, object: nil)
-        NotificationCenter.default.removeObserver(self,name: .NotifyMyAccountProfile, object: nil)}
+            NotificationCenter.default.removeObserver(self,name: .NotifyPushDetails, object: nil)
+            NotificationCenter.default.removeObserver(self,name: .NotifyLoginToken, object: nil)
+            NotificationCenter.default.removeObserver(self,name: .NotifyMyAccountProfile, object: nil)
+            
+            
+            NotificationCenter.default.removeObserver(self,name: .NotifyDeepLink, object: nil)
+            
+        }
+        
+        
         catch let error {
             
             debugPrint("Notification Deinit Error: ",error.localizedDescription)
@@ -114,7 +121,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         self.getDeviceDetails()
         
     
-       
+        NotifyFirebaseDeeplink()
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotifyData(notification:)),
                                                name: .NotifyMyAccountProfile, object: nil)
@@ -131,7 +138,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotifyFirebaseDeeplink(notification:)),
                                                name: .NotifyDeepLink, object: nil)
-        
+
     }
     
     func setWebEnagageUser(){
@@ -169,33 +176,103 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
     }
     
+    
+    //Mark:Store Deeplink Data in UserDefault used when user logout & come vialogin screen
+   
+    func NotifyFirebaseDeeplink(){
+
+        if let data = UserDefaults.standard.data(forKey: Constant.deeplink) {
+            // Convert the Data back to a dictionary
+            
+            if let deepLinkData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
+
+                
+                if let product = deepLinkData["product_id"] as? String {
+                    
+                    debugPrint("deepLink product Data value is: \(product)")
+                }
+                
+                if let title = deepLinkData["title"] as? String {
+                    
+                    debugPrint("deepLink title  value is: \(title)")
+                }
+                
+                if let url = deepLinkData["url"] as? String {
+                    
+                    debugPrint("deepLink url : \(url)")
+                    callWebViewUsingDeeplink(
+                            ProdId: deepLinkData["product_id"] as? String ?? "",
+                            ProdTitle:  deepLinkData["title"] as? String ?? "" ,
+                            ProdURL: url )
+                    UserDefaults.standard.removeObject(forKey: Constant.deeplink)
+
+                }
+          
+               
+            }
+        }
+      
+    }
+    
+    
+    // not used
     @objc func NotifyFirebaseDeeplink(notification : Notification){
         
-        debugPrint("deeplink",notification.object as? [String: Any] ?? [:])
+        // Mark : Not Using Notification Center Data, we keep in UserDefault bec
+        // Data req when user is logout
         
-        let deeplink = notification.object as? [String : Any] ?? [:]
-        
-        debugPrint("product id",  deeplink["product_id"] ?? "NO DATA FOUND")
-        debugPrint("product Title",  deeplink["title"] ?? "NO DATA FOUND")
-        debugPrint("product URL",  deeplink["url"] ?? "NO DATA FOUND")
-        
-//        if let productID = deeplink["product_id"] as? String {
-//                        print("deeplink Product ID: \(productID)")
-//                        // Use productID as needed
-//                    }
+        //commented
+//        debugPrint("deeplink",notification.object as? [String: Any] ?? [:])
 //
-//                    if let title = deeplink["title"] as? String {
-//                        print("deeplink Title: \(title)")
-//                        // Use title as needed
-//                    }
+//        let deeplink = notification.object as? [String : Any] ?? [:]
+//
+//        debugPrint("product id",  deeplink["product_id"] ?? "NO DATA FOUND")
+//        debugPrint("product Title",  deeplink["title"] ?? "NO DATA FOUND")
+//        debugPrint("product URL",  deeplink["url"] ?? "NO DATA FOUND")
+//
+//
+//
+//        if let prdId = deeplink["product_id"]{
+//
+//            callWebViewUsingDeeplink(ProdId: String(describing: prdId), ProdTitle:  deeplink["title"] as? String ?? "" ,ProdURL: deeplink["url"] as? String ?? "" )
+//
+//
+//        }
+        //end
         
-        if let prdId = deeplink["product_id"]{
+        if let data = UserDefaults.standard.data(forKey: Constant.deeplink) {
+            // Convert the Data back to a dictionary
+            
+            if let deepLinkData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
 
-            callWebViewUsingDeeplink(ProdId: String(describing: prdId), ProdTitle:  deeplink["title"] as? String ?? "" ,ProdURL: deeplink["url"] as? String ?? "" )
+                
+                if let product = deepLinkData["product_id"] as? String {
+                    
+                    debugPrint("deepLink product Data value is: \(product)")
+                }
+                
+                if let title = deepLinkData["title"] as? String {
+                    
+                    debugPrint("deepLink title  value is: \(title)")
+                }
+                
+                if let url = deepLinkData["url"] as? String {
+                    
+                    debugPrint("deepLink url : \(url)")
+                    callWebViewUsingDeeplink(
+                            ProdId: deepLinkData["product_id"] as? String ?? "",
+                            ProdTitle:  deepLinkData["title"] as? String ?? "" ,
+                            ProdURL: url )
+                    UserDefaults.standard.removeObject(forKey: Constant.deeplink)
 
+                }
+          
+               
+            }
         }
-        
       
+        
+       
         
     }
     

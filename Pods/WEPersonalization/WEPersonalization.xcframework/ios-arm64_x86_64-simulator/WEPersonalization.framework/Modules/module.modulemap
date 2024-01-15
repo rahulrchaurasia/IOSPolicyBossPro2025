@@ -1,0 +1,11 @@
+framework module WEPersonalization {
+  umbrella header "WEPersonalization.h"
+
+  export *
+  module * { export * }
+}
+
+module WEPersonalization.Swift {
+  header "WEPersonalization-Swift.h"
+  requires objc
+}

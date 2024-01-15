@@ -1231,9 +1231,9 @@ class SyncContactVC: UIViewController {
                         
                         self.contactData = contactData
                         
-                        debugPrint("Contact Data Size", self.contactData.count)
+                        //debugPrint("Contact Data Size", self.contactData.count)
                         
-                        self.processData()     // 005 temp commnted
+                        self.processData()
                     }
                   
                 }

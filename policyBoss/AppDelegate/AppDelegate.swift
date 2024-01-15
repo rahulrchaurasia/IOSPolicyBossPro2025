@@ -152,8 +152,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deepLinkData["url"] = url.absoluteString
         print("deeplink:- Parameter is URL has a value of \(url.absoluteString) ")
       
+       
+        
+        // Convert the dictionary to Data
+        if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
+            UserDefaults.standard.set(data, forKey: Constant.deeplink)
+        }
+        
         //post Dictionary of Deeplink Notification
-        NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
+         NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
         
     }
     

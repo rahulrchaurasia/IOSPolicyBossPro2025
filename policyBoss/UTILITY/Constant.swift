@@ -51,6 +51,7 @@ struct getSharPrefernce  {
 
 struct Constant  {
     
+    static let  deeplink   = "deeplink"
     static let  errorMessage   = "No Data Found. Please try Again!!"
     static let  contactReq   = "Please Allow Contact Access."
     static let  contactTitle   = "Contact access is need to get your Contact Sync."

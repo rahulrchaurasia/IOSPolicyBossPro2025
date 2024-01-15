@@ -1,0 +1,292 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name WEPersonalization
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import UIKit
+@_exported import WEPersonalization
+import WebEngage
+import WebKit
+import _Concurrency
+import _StringProcessing
+@objc public protocol WEPlaceholderCallback {
+  @objc optional func onRendered(data: WECampaignData)
+  @objc optional func onPlaceholderException(_ campaignId: Swift.String?, _ targetViewId: Swift.String, _ exception: any Swift.Error)
+  @objc optional func onDataReceived(_ data: WECampaignData)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class WEPersonalization : ObjectiveC.NSObject, InLineNotificationsProtocol {
+  @objc public static var shared: WEPersonalization
+  @objc final public let operationQueue: Foundation.OperationQueue
+  @objc public func initialise()
+  @objc public func propertiesReceived(_ inLineProperties: [Swift.AnyHashable : Any])
+  @objc public func screenNavigated(to screenDetails: [Swift.AnyHashable : Any])
+  @objc public func registerPropertyRegistryCallbacks(_ callback: any PropertyRegistryCallback)
+  @objc public func enterInToGroup()
+  @objc public func exitFromGroup()
+  @objc public func registerWECampaignCallback(_ callback: any WECampaignCallback)
+  @objc public func registerWEPlaceholderCallback(_ targetViewId: Swift.Int, _ callback: any WEPlaceholderCallback)
+  @objc public func unregisterWECampaignCallback(_ callback: any WECampaignCallback)
+  @objc public func unregisterWEPlaceholderCallback(_ targetViewId: Swift.Int)
+  @objc public func clearUIinPrepareForReuse(view: UIKit.UIView)
+  @objc deinit
+}
+extension UIKit.UIView {
+  @available(tvOS 10.0, iOS 10.0, *)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func edgesToSuperview(excluding excludedEdge: LayoutEdge = .none, insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraints
+  @available(tvOS 10.0, iOS 10.0, *)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func leadingToSuperview(_ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @available(tvOS 10.0, iOS 10.0, *)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func trailingToSuperview(_ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @available(tvOS 10.0, iOS 10.0, *)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func horizontalToSuperview(insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraints
+  @available(tvOS 10.0, iOS 10.0, *)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func verticalToSuperview(insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraints
+}
+public struct LayoutEdge : Swift.OptionSet {
+  public let rawValue: Swift.UInt8
+  public init(rawValue: Swift.UInt8)
+  public static let top: LayoutEdge
+  public static let bottom: LayoutEdge
+  public static let trailing: LayoutEdge
+  public static let leading: LayoutEdge
+  public static let left: LayoutEdge
+  public static let right: LayoutEdge
+  public static let none: LayoutEdge
+  public typealias ArrayLiteralElement = LayoutEdge
+  public typealias Element = LayoutEdge
+  public typealias RawValue = Swift.UInt8
+}
+extension UIKit.UIView {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func centerInSuperview(offset: CoreFoundation.CGPoint = .zero, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraints
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func originToSuperview(insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraints
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func widthToSuperview(_ dimension: UIKit.NSLayoutDimension? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func heightToSuperview(_ dimension: UIKit.NSLayoutDimension? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func leftToSuperview(_ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func rightToSuperview(_ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func topToSuperview(_ anchor: UIKit.NSLayoutYAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func bottomToSuperview(_ anchor: UIKit.NSLayoutYAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func centerXToSuperview(_ anchor: UIKit.NSLayoutXAxisAnchor? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func centerYToSuperview(_ anchor: UIKit.NSLayoutYAxisAnchor? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, priority: LayoutPriority = .required, isActive: Swift.Bool = true, usingSafeArea: Swift.Bool = false) -> Constraint
+}
+@objc public protocol PropertyRegistryCallback {
+  @objc optional func onPropertyCacheCleared(for screenDetails: [Swift.AnyHashable : Any])
+}
+extension UIKit.UIView : Constrainable {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func prepareForLayout() -> Self
+}
+extension UIKit.UILayoutGuide : Constrainable {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func prepareForLayout() -> Self
+}
+public protocol Constrainable {
+  var topAnchor: UIKit.NSLayoutYAxisAnchor { get }
+  var bottomAnchor: UIKit.NSLayoutYAxisAnchor { get }
+  var leftAnchor: UIKit.NSLayoutXAxisAnchor { get }
+  var rightAnchor: UIKit.NSLayoutXAxisAnchor { get }
+  var leadingAnchor: UIKit.NSLayoutXAxisAnchor { get }
+  var trailingAnchor: UIKit.NSLayoutXAxisAnchor { get }
+  var centerXAnchor: UIKit.NSLayoutXAxisAnchor { get }
+  var centerYAnchor: UIKit.NSLayoutYAxisAnchor { get }
+  var widthAnchor: UIKit.NSLayoutDimension { get }
+  var heightAnchor: UIKit.NSLayoutDimension { get }
+  @discardableResult
+  func prepareForLayout() -> Self
+}
+public typealias Constraint = UIKit.NSLayoutConstraint
+public typealias Constraints = [Constraint]
+public enum ConstraintRelation : Swift.Int {
+  case equal
+  case equalOrLess
+  case equalOrGreater
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Swift.Collection where Self.Element == UIKit.NSLayoutConstraint {
+  public func activate()
+  public func deActivate()
+}
+extension UIKit.NSLayoutConstraint {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public func with(_ p: LayoutPriority) -> Self
+  @_Concurrency.MainActor(unsafe) public func set(_ active: Swift.Bool) -> Self
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class WEPersonalizationEvents : ObjectiveC.NSObject {
+  public static let shared: WEPersonalizationEvents
+  @objc deinit
+}
+public struct WELogger {
+  public static var isVerbose: Swift.Bool
+  public static func initLogger()
+  public static func a(_ items: Any...)
+  public static func d(_ str: Swift.String, _ function: Swift.String = #function, _ line: Swift.Int = #line)
+}
+extension UIKit.UIView {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func stack(_ views: [View], axis: ConstraintAxis = .vertical, width: CoreFoundation.CGFloat? = nil, height: CoreFoundation.CGFloat? = nil, spacing: CoreFoundation.CGFloat = 0) -> Constraints
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class WECampaignData : ObjectiveC.NSObject, Foundation.NSCopying {
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc public var targetViewTag: Swift.Int
+  @objc public var campaignId: Swift.String?
+  @objc public var content: WECampaignContent?
+  @objc public var shouldRender: Swift.Bool
+  @objc public func trackImpression(attributes: [Swift.String : Any]?)
+  public func trackClick(actionDetails: (Swift.String?, Swift.String?) = (nil,nil), attributes: [Swift.String : Any]?)
+  @objc public func trackClick(attributes: [Swift.String : Any]?)
+  @objc deinit
+}
+extension WECampaignData {
+  @objc dynamic public func toJSONString() -> Swift.String?
+}
+extension Constrainable {
+  @discardableResult
+  public func center(in view: any Constrainable, offset: CoreFoundation.CGPoint = .zero, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func edges(to view: any Constrainable, excluding excludedEdge: LayoutEdge = .none, insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func size(_ size: CoreFoundation.CGSize, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func size(to view: any Constrainable, multiplier: CoreFoundation.CGFloat = 1, insets: CoreFoundation.CGSize = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func origin(to view: any Constrainable, insets: TinyEdgeInsets = .zero, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func width(_ width: CoreFoundation.CGFloat, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func width(to view: any Constrainable, _ dimension: UIKit.NSLayoutDimension? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func widthToHeight(of view: any Constrainable, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func width(min: CoreFoundation.CGFloat? = nil, max: CoreFoundation.CGFloat? = nil, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func height(_ height: CoreFoundation.CGFloat, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func height(to view: any Constrainable, _ dimension: UIKit.NSLayoutDimension? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func heightToWidth(of view: any Constrainable, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func height(min: CoreFoundation.CGFloat? = nil, max: CoreFoundation.CGFloat? = nil, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraints
+  @discardableResult
+  public func aspectRatio(_ ratio: CoreFoundation.CGFloat, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func leadingToTrailing(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func leading(to view: any Constrainable, _ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func leftToRight(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func left(to view: any Constrainable, _ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func trailingToLeading(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func trailing(to view: any Constrainable, _ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func rightToLeft(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func right(to view: any Constrainable, _ anchor: UIKit.NSLayoutXAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func topToBottom(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func top(to view: any Constrainable, _ anchor: UIKit.NSLayoutYAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func bottomToTop(of view: any Constrainable, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func bottom(to view: any Constrainable, _ anchor: UIKit.NSLayoutYAxisAnchor? = nil, offset: CoreFoundation.CGFloat = 0, relation: ConstraintRelation = .equal, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func centerX(to view: any Constrainable, _ anchor: UIKit.NSLayoutXAxisAnchor? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+  @discardableResult
+  public func centerY(to view: any Constrainable, _ anchor: UIKit.NSLayoutYAxisAnchor? = nil, multiplier: CoreFoundation.CGFloat = 1, offset: CoreFoundation.CGFloat = 0, priority: LayoutPriority = .required, isActive: Swift.Bool = true) -> Constraint
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func setHugging(_ priority: LayoutPriority, for axis: ConstraintAxis)
+  @_Concurrency.MainActor(unsafe) public func setCompressionResistance(_ priority: LayoutPriority, for axis: ConstraintAxis)
+}
+extension UIKit.UIImageView {
+  @_Concurrency.MainActor(unsafe) public func setImage(url: Foundation.URL)
+}
+@IBDesignable extension UIKit.UIView {
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) dynamic public var WEGExpHeight: CoreFoundation.CGFloat {
+    @objc get
+    @objc set(value)
+  }
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class WECampaignContent : ObjectiveC.NSObject {
+  @objc public var layoutType: Swift.String?
+  @objc public var properties: JSON
+  @objc public var custom: JSON
+  @objc public var children: [WECampaignContent]
+  @objc deinit
+}
+extension WECampaignContent {
+  @objc dynamic public func toJSONString() -> Swift.String?
+}
+@objc @_inheritsConvenienceInitializers @objcMembers @_Concurrency.MainActor(unsafe) public class WEInlineView : UIKit.UIView, WEPlaceholderCallback {
+  @objc @_Concurrency.MainActor(unsafe) public func load(tag: Swift.Int, callbacks: (any WEPlaceholderCallback)?)
+  @_Concurrency.MainActor(unsafe) @objc public func onRendered(data: WECampaignData)
+  @_Concurrency.MainActor(unsafe) @objc public func onPlaceholderException(_ campaignId: Swift.String?, _ targetViewId: Swift.String, _ exception: any Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc public func onDataReceived(_ data: WECampaignData)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol Observer {
+  func remove()
+}
+extension UIKit.UIViewController {
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func onViewWillAppear(run callback: @escaping () -> Swift.Void) -> any Observer
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func onViewDidAppear(run callback: @escaping () -> Swift.Void) -> any Observer
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func onViewWillDisappear(run callback: @escaping () -> Swift.Void) -> any Observer
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) public func onViewDidDisappear(run callback: @escaping () -> Swift.Void) -> any Observer
+}
+public typealias JSON = [Swift.String : Any]
+public typealias View = UIKit.UIView
+public typealias LayoutGuide = UIKit.UILayoutGuide
+public typealias ConstraintAxis = UIKit.NSLayoutConstraint.Axis
+public typealias LayoutPriority = UIKit.UILayoutPriority
+public typealias TinyEdgeInsets = UIKit.UIEdgeInsets
+@objc public protocol WECampaignCallback {
+  @objc optional func onCampaignShown(data: WECampaignData)
+  @objc optional func onCampaignException(_ campaignId: Swift.String?, _ targetViewId: Swift.String, _ exception: any Swift.Error)
+  @objc optional func onCampaignPrepared(_ data: WECampaignData) -> WECampaignData
+  @objc optional func onCampaignClicked(actionId: Swift.String, deepLink: Swift.String, data: WECampaignData) -> Swift.Bool
+}
+extension UIKit.UIEdgeInsets {
+  public static func uniform(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func top(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func left(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func bottom(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func right(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func horizontal(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+  public static func vertical(_ value: CoreFoundation.CGFloat) -> TinyEdgeInsets
+}
+public func + (lhs: TinyEdgeInsets, rhs: TinyEdgeInsets) -> TinyEdgeInsets
+extension WEPersonalization {
+  public enum Constants {
+    public static let KEY_SHOULD_AUTO_TRACK_IMPRESSIONS: Swift.String
+  }
+}
+extension ConstraintRelation : Swift.Equatable {}
+extension ConstraintRelation : Swift.Hashable {}
+extension ConstraintRelation : Swift.RawRepresentable {}
