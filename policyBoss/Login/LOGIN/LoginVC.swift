@@ -12,6 +12,7 @@ import TTGSnackbar
 import Alamofire
 import KeychainAccess
 import WebEngage
+import SwiftUI
 //import CobrowseIO
 
 class LoginVC: UIViewController,UITextFieldDelegate {
@@ -19,32 +20,110 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     //  WebEngage for Analytics
     let weUser: WEGUser = WebEngage.sharedInstance().user
     
+    @IBOutlet weak var imgOTP: UIImageView!
+    @IBOutlet weak var imgPassword: UIImageView!
     @IBOutlet weak var emailTf: ACFloatingTextfield!
-    @IBOutlet weak var passwordTf: ACFloatingTextfield!
+   // @IBOutlet weak var passwordTf: ACFloatingTextfield!
     @IBOutlet weak var eyeBtn: UIButton!
+    
+    @IBOutlet weak var loginViaView: UIStackView!
+    
+    @IBOutlet weak var loginViaOTP: UIView!
+    @IBOutlet weak var loginViaPassword: UIView!
     let aTextField = ACFloatingTextfield()
     var iconClick = true
     var emailId = ""
     var userId = ""
     var deviceID = String()
     
+    let alertService = AlertService()
+    
+    var selectedLoginOption: LoginOption = .otp
+    let imageFill = "circlefill"
+    let imageEmpty = "circleempty"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         
+        
         //--<textField>--
         aTextField.delegate = self
         emailTf.delegate = self
-        passwordTf.delegate = self
+       // passwordTf.delegate = self
         
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.LoginScreen)
 
 
+        handleViewStyle()
+        let tapOTPGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleOTPTap(_:)))
+
+        loginViaOTP.addGestureRecognizer(tapOTPGestureRecognizer)
+        
+        let tapPasswordGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePasswordTap(_:)))
+        
+        
+           loginViaPassword.addGestureRecognizer(tapPasswordGestureRecognizer)
+        
         
     }
     
-
     
+    @objc func handleOTPTap(_ sender: UITapGestureRecognizer) {
+        
+       
+        
+        // Identify the clicked view
+          
+               selectedLoginOption = .otp
+             
+        imgOTP.image = UIImage(named: imageFill)
+        imgPassword.image = UIImage(named: imageEmpty)
+
+              
+         
+       
+    }
+    
+    @objc func handlePasswordTap(_ sender: UITapGestureRecognizer) {
+        
+               selectedLoginOption = .password
+              
+                
+                imgPassword.image = UIImage(named: imageFill)
+                imgOTP.image = UIImage(named: imageEmpty)
+       
+       
+    }
+    
+    
+    // Helper function to update selection and images
+    private func updateImageSelection() {
+        
+        switch selectedLoginOption {
+        case .otp:
+            imgOTP.image = UIImage(named: "checked_round_icon")
+            imgPassword.image = UIImage(named: "uncheck_round_icon")
+           
+        case .password:
+            imgOTP.image = UIImage(named: "uncheck_round_icon")
+            imgPassword.image = UIImage(named: "checked_round_icon")
+          
+        case .noData:
+            imgOTP.image = UIImage(named: "uncheck_round_icon")
+            imgPassword.image = UIImage(named: "uncheck_round_icon")
+        }
+    }
+    
+    func handleViewStyle(){
+        
+        loginViaView.layer.cornerRadius = loginViaView.frame.height/2
+              
+        loginViaView.layer.borderWidth = 1
+             
+        loginViaView.layer.borderColor =  UIColor.white.cgColor
+
+    }
     func getRandomColor() -> UIColor{
         return UIColor.init(red: 0/255.0, green: 125/255.0, blue: 213/255.0, alpha: 1)
     }
@@ -75,41 +154,68 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         return true
     }
     
-    @IBAction func eyeBtnCliked(_ sender: Any)
-    {
-        if(iconClick == true) {
-            passwordTf.isSecureTextEntry = false
-            let img = UIImage(named: "baseline_visibility_white_18pt_3x.png")
-            eyeBtn.setImage(img , for: .normal)
-
-        } else {
-            passwordTf.isSecureTextEntry = true
-            let img = UIImage(named: "baseline_visibility_off_white_18pt_3x.png")
-            eyeBtn.setImage(img , for: .normal)
-        }
-        
-        iconClick = !iconClick
-    }
+//    @IBAction func eyeBtnCliked(_ sender: Any)
+//    {
+//        if(iconClick == true) {
+//            passwordTf.isSecureTextEntry = false
+//            let img = UIImage(named: "baseline_visibility_white_18pt_3x.png")
+//            eyeBtn.setImage(img , for: .normal)
+//
+//        } else {
+//            passwordTf.isSecureTextEntry = true
+//            let img = UIImage(named: "baseline_visibility_off_white_18pt_3x.png")
+//            eyeBtn.setImage(img , for: .normal)
+//        }
+//        
+//        iconClick = !iconClick
+//    }
     
     @IBAction func loginSubmitBtnCliked(_ sender: Any)
     {
      
-        if(loginValidate() == false){
-            
-            return
-        }
+//        if(loginValidate() == false){
+//            
+//            return
+//        }
+//        
+//        
+//        if((emailTf.text?.contains("@"))!){
+//            self.view.endEditing(true)
+//            emailId = emailTf.text!
+//            loginAPI()
+//        }else{
+//            self.view.endEditing(true)
+//            userId = emailTf.text!
+//            loginAPI()
+//        }
         
-        
-        if((emailTf.text?.contains("@"))!){
-            self.view.endEditing(true)
-            emailId = emailTf.text!
-            loginAPI()
-        }else{
-            self.view.endEditing(true)
-            userId = emailTf.text!
-            loginAPI()
-        }
+//        let hostingController = UIHostingController(rootView: loginView)
+//
+//         present(hostingController, animated: true)
+//        
+        showOTPAlert(strtitle: "Head", strbody: "Body", strsubTitle: "Subtitle")
+    
     }
+
+    
+    func showOTPAlert( strtitle : String,strbody: String ,strsubTitle : String ){
+        
+        let alertDocVC = self.alertService.alertLoginOTPVC(title: strtitle,
+                                                           body: strbody,
+                                                           subTitle: strsubTitle)
+       
+//        alertService.completionPospAmntHandler = {
+//            
+//            debugPrint("call back return from Posp Amnount Alert")
+//            
+//            print("dddd")
+//           
+//        }
+        self.present(alertDocVC, animated: true)
+        
+    }
+    
+    
     
     //---<EmailValidation>---
     func isValidEmail(testStr:String) -> Bool {
@@ -169,10 +275,10 @@ class LoginVC: UIViewController,UITextFieldDelegate {
             return false
         }
        
-        if( passwordTf.text!.trimmingCharacters(in: .whitespaces).isEmpty){
-            alertCall(message: "Enter Password")
-            return false
-        }
+//        if( passwordTf.text!.trimmingCharacters(in: .whitespaces).isEmpty){
+//            alertCall(message: "Enter Password")
+//            return false
+//        }
         
         
         
@@ -251,7 +357,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                                              "LastLog": "" as AnyObject,
                                              "MobileNo": "" as AnyObject,
                                              "OldPassword": "" as AnyObject,
-                                             "Password": passwordTf.text! as AnyObject,
+                                             "Password": "000" as AnyObject,
                                              "TokenId": token as AnyObject,
                                              "UserId": userId as AnyObject,
                                              "UserName": emailTf.text! as AnyObject,
@@ -480,5 +586,11 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     
 }
     
-    
+
+enum LoginOption {
+    case otp
+    case password
+    case noData
+}
+
 
