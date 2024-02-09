@@ -11,6 +11,8 @@ import UIKit
 class AlertService {
 
     var completionPospAmntHandler: (() -> Void)?
+    
+    var completionHandler: (() -> Void)?
    
     
     func alert(title: String , body: String, buttonTitle: String) -> AlertViewController {
@@ -25,6 +27,7 @@ class AlertService {
         
         return alertVC
     }
+    
     func alertWebView(webURL: String) -> AlertWebViewController {
         
         let storyboard = UIStoryboard(name: "AlertWebViewStoryboard", bundle: .main)
@@ -104,6 +107,28 @@ class AlertService {
                 self.completionPospAmntHandler?()
             }
                
+           alertVC.alertTitle = title
+           alertVC.pospAmntData = body
+           alertVC.alertSubTitle = subTitle
+        
+
+           
+           return alertVC
+       }
+    
+    
+    
+    func alertLoginOTPVC(title: String , body: String, subTitle: String) -> OTPAlertVC {
+           
+           let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
+           let alertVC =  storyboard.instantiateViewController(withIdentifier: "OTPAlertVC") as! OTPAlertVC
+        
+           alertVC.completionHandler = {
+                
+               
+                self.completionHandler?()
+            }
+//               
            alertVC.alertTitle = title
            alertVC.pospAmntData = body
            alertVC.alertSubTitle = subTitle

@@ -12,10 +12,11 @@ class TimerViewModel : ObservableObject  {
     
     
     private var timer: Timer?
-    @Published  var remainingTime: Double = 60.0 * 2 // Initial value
+   // @Published  var remainingTime: Double = 60.0 * 0.5 // Initial value
+    @Published  var remainingTime: Double = 60.0 * 30 // Initial value
 
-    @Published  var isTimerInvalidate =  false
-
+    var onSelected: ((String) -> Void)?
+   
         func startTimer() {
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
                 guard let self = self else { return }
@@ -23,7 +24,8 @@ class TimerViewModel : ObservableObject  {
                 if self.remainingTime <= 0 {
                     self.timer?.invalidate()
                     // Perform actions after timer completion (e.g., calling onSelected)
-                    isTimerInvalidate = true
+                 
+                    onSelected?("5555")
                 }
             }
         }
@@ -31,7 +33,7 @@ class TimerViewModel : ObservableObject  {
         func stopTimer() {
             timer?.invalidate()
             timer = nil
-            isTimerInvalidate = true
+          
         }
 
        

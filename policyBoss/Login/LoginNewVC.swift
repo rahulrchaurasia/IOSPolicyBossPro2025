@@ -7,24 +7,49 @@
 //
 
 import UIKit
+import SwiftUI
 
-class LoginNewVC: UIViewController {
+// not in used...
+class LoginNewVC: UIViewController,UITextFieldDelegate {
 
+   // @State var isLoginSuccessful = true
+    @State private var isOTPAlertPresented = false
+    let loginvm = LoginVM()
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
+        addSwiftUIView()
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    func addSwiftUIView() {
+//        let swiftUIView = LoginView(loginvm: loginvm)
+//        let hostingController = UIHostingController(rootView: swiftUIView)
+//
+//        /// Add as a child of the current view controller.
+//        addChild(hostingController)
+//
+//        /// Add the SwiftUI view to the view controller view hierarchy.
+//        view.addSubview(hostingController.view)
+//
+//        /// Setup the constraints to update the SwiftUI view boundaries.
+//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+//        let constraints = [
+//            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+//            hostingController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+//            view.bottomAnchor.constraint(equalTo: hostingController.view.bottomAnchor),
+//            view.rightAnchor.constraint(equalTo: hostingController.view.rightAnchor)
+//        ]
+//
+//        NSLayoutConstraint.activate(constraints)
+//
+//        /// Notify the hosting controller that it has been moved to the current view controller.
+//        hostingController.didMove(toParent: self)
     }
-    */
 
 }
+
+

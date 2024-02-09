@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+class LoginVM : ObservableObject {
+    
+    @Published var isOTPAlertPresented = false
+}

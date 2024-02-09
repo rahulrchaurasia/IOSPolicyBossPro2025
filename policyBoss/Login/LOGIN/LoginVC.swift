@@ -204,13 +204,15 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                                                            body: strbody,
                                                            subTitle: strsubTitle)
        
-//        alertService.completionPospAmntHandler = {
-//            
-//            debugPrint("call back return from Posp Amnount Alert")
-//            
-//            print("dddd")
-//           
-//        }
+        alertService.completionHandler = {
+            
+            debugPrint("call back return from Posp Amnount Alert")
+            
+            print("dddd")
+            self.emailTf.becomeFirstResponder()
+            self.dismissKeyboard()
+           
+        }
         self.present(alertDocVC, animated: true)
         
     }

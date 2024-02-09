@@ -450,147 +450,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/LOGIN/LoginVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
-            landmarkName = "loginAPI()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281 - b7c5204931631491"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "2296">
-               </Location>
-               <Location
-                  uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281 - b7c5204931631491"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "1348">
-               </Location>
-               <Location
-                  uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281 - b7c5204931631491"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "1532">
-               </Location>
-               <Location
-                  uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281 - b7c5204931631491"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "1288">
-               </Location>
-               <Location
-                  uuid = "0D477D32-69C2-4821-A54C-8589DB1DD281 - b7c5204931631491"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "234"
-                  endingLineNumber = "234"
-                  offsetFromSymbolStart = "1472">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5358D1BF-6BA0-49EA-8907-CFFEE7F70196"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/LOGIN/LoginVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "loginAPI()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5358D1BF-6BA0-49EA-8907-CFFEE7F70196 - b7c520493163165b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "620">
-               </Location>
-               <Location
-                  uuid = "5358D1BF-6BA0-49EA-8907-CFFEE7F70196 - b7c520493163165b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PolicyBoss_Pro.LoginVC.loginAPI() -&gt; ()"
-                  moduleName = "PolicyBoss Pro"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rahulchaurasia/Desktop/OfficeProject/PolicyBoosIOS/policyBossIOS/policyBoss/mainVC/LOGIN/LoginVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "616">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "88747AD2-A58D-42FD-A40C-D8B1C364097B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1493,22 +1352,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "48399224-F96F-43B6-9A5D-8C61551E627E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/registeration/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "78BCF1C9-B10B-439B-A212-6EB494D7FDAC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1775,6 +1618,38 @@
                   offsetFromSymbolStart = "4556">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5918CC64-F855-4AF7-9345-112AEC715FE6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/Login/LoginNewVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "89FA99A7-FA18-492D-AFE6-F433696BECE9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "policyBoss/AlertDialog/OTP_PassAlert/OTPAlertVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "doneButtonAction()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

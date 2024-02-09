@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Note :  Used For Keyboard Handling When its hiding the textfield
         
         IQKeyboardManager.shared.enable = true
-        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.enableAutoToolbar = true
         
         /***************************************************/
         //Mark : FIreBase Notification Handling

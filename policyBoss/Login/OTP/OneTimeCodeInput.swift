@@ -11,13 +11,20 @@ import SwiftUI
  
 struct OneTimeCodeInput : UIViewRepresentable {
     
+    
+    
     typealias UIViewType = UITextField
     
     
     let index : Int
     @Binding var codeDict :[Int : String]
     @Binding var firstResponderIndex : Int
+    @Binding var shouldBecomeFirstResponder: Bool
+
     var oncommit : (() -> Void)?
+    
+    
+    
     
     // MARK : Internal Type
     class Coordinator: NSObject, UITextFieldDelegate {
@@ -25,19 +32,38 @@ struct OneTimeCodeInput : UIViewRepresentable {
         let index : Int
         @Binding var codeDict :[Int : String]
         @Binding var firstResponderIndex : Int
+        @Binding var shouldBecomeFirstResponder : Bool
         
-        init(index: Int, codeDict: Binding<[Int:String]>,firstResponderIndex : Binding<Int>) {
+        // Add parent reference
+        var parent: OneTimeCodeInput?
+                
+        init(index: Int, codeDict: Binding<[Int:String]>,firstResponderIndex : Binding<Int>,shouldBecomeFirstResponder : Binding<Bool> ) {
             self.index = index
             self._codeDict = codeDict
             self._firstResponderIndex = firstResponderIndex
+            self._shouldBecomeFirstResponder = shouldBecomeFirstResponder
+           
         }
+        
+//        func textFieldDidBeginEditing(_ textField: UITextField) {
+//                parent?.shouldBecomeFirstResponder = true
+//           
+//            }
+        
+        func textFieldDidChangeSelection(_ textField: UITextField) {
+            DispatchQueue.main.async {
+                self.parent?.shouldBecomeFirstResponder = true
+            }
+        }
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
+        
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
             
-            let currentText = textField.text ?? ""
-            guard let stringRange = Range(range, in: currentText)else{ return false }
-            
-            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-            
+
             //deleting
             if string.isBackspace {
                 
@@ -60,11 +86,18 @@ struct OneTimeCodeInput : UIViewRepresentable {
             
             return false
         }
+        
+      
+
+        
+      
+        
     }
     
     class BackspaceTextField : UITextField {
         
         var onDelete: (()-> Void)?
+        
         
         init(onDelete: ( () -> Void)? = nil) {
             self.onDelete = onDelete
@@ -82,15 +115,28 @@ struct OneTimeCodeInput : UIViewRepresentable {
             
             onDelete?()
         }
+
+        /////////
+        ///
+       
+        ///
+        ///
+        ///
+        
     }
+    
    
     func makeCoordinator() -> Coordinator {
-        .init(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex)
+//        .init(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex)
+        
+        let coordinator = Coordinator(index: index, codeDict: $codeDict, firstResponderIndex: $firstResponderIndex, shouldBecomeFirstResponder: $shouldBecomeFirstResponder)
+               coordinator.parent = self // Assigning the coordinator to the parent
+               return coordinator
     }
     
     func makeUIView(context: Context) -> UITextField {
         
-       // let tf = UITextField()
+      
         let tf = BackspaceTextField {
             firstResponderIndex = max(0, index - 1)
         }
@@ -99,17 +145,37 @@ struct OneTimeCodeInput : UIViewRepresentable {
         tf.textContentType = .oneTimeCode
         tf.font = .preferredFont(forTextStyle: .largeTitle)
         tf.textAlignment = .center
+        
+        
+        
+        tf.addDoneButtonOnKeyboardOTP {
+
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+                tf.resignFirstResponder() // Dismiss the keyboard
+                shouldBecomeFirstResponder = false
+                
+                // parent?.oncommit?()
+            }
+        }
+        
+       
         return tf
     }
     
+        
     func updateUIView(_ uiView: UITextField, context: Context) {
         
         uiView.text = codeDict[index]
         
         if index == firstResponderIndex {
-           
-            uiView.becomeFirstResponder()
+           // uiView.becomeFirstResponder()
+            if shouldBecomeFirstResponder {
+                uiView.becomeFirstResponder()
+            }
+            
         }
+        
         
 //Note : here our index when reach the last index of OTP
 //bec we set logic firstResponderIndex = min(codeDict.count - 1, index + string.count)
@@ -124,6 +190,12 @@ struct OneTimeCodeInput : UIViewRepresentable {
     
     
   
+    // Use onChange to handle changes to codeDict
+        func onChange(_ onChange: @escaping () -> Void) -> Self {
+            var view = self
+            view.oncommit = onChange
+            return view
+        }
     
    
 }

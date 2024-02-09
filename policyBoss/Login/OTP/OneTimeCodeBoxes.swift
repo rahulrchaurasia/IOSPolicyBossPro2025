@@ -12,6 +12,8 @@ struct OneTimeCodeBoxes: View {
     @Binding var codeDict :[Int : String]
     @Binding var isOTPError : Bool
     @State var firstResponderIndex : Int = 0
+    @State var shouldBecomeFirstResponder : Bool = true
+  
     var oncommit: (()-> Void)?  // nothing is pass therer only call back no parameter. It will trigger only  full  otp text is filled that logic in updateUIView  of OneTimeCodeInput.
     
     
@@ -24,9 +26,13 @@ struct OneTimeCodeBoxes: View {
                 OneTimeCodeInput(
                     index: i,
                     codeDict: $codeDict,
-                    firstResponderIndex: $firstResponderIndex,
+                    firstResponderIndex: $firstResponderIndex, shouldBecomeFirstResponder: $shouldBecomeFirstResponder,
                     oncommit: oncommit
                 )
+                .onChange {
+                        // Handle changes to codeDict here
+                        // ...
+                    }
                 
                 .frame(width: 60, height: 60)
                 //.aspectRatio(1,contentMode: .fit)
@@ -36,7 +42,7 @@ struct OneTimeCodeBoxes: View {
                         
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: isEmptyOTP ? 1 : 2)
-                            .foregroundStyle(isEmptyOTP ? .secondary : CustomColor.skyblue )
+                            .foregroundStyle(isEmptyOTP ? .secondary : Color.blue )
                             .shadow(
                                 color: isEmptyOTP ? .black.opacity(0.5) :
                                     .blue.opacity(0.5),

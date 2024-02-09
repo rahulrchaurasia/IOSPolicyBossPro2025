@@ -7,24 +7,115 @@
 //
 
 import UIKit
+import SwiftUI
 
-class OTPAlertVC: UIViewController {
+class OTPAlertVC: UIViewController ,UITextFieldDelegate {
 
+    @IBOutlet weak var childView: UIView!
+    //    @State var isOTPAlertPresented = true
+    let loginvm = LoginVM()
+    var completionHandler: (() -> Void)?
+    
+   
+    var alertTitle = String()
+     
+    var  pospAmntData =   String()
+   var  pospAmntList =  [String]()
+     
+    var alertSubTitle = String()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.hideKeyboardWhenTappedAround()
+        addSwiftUIView()
     }
     
 
-    /*
-    // MARK: - Navigation
+//    lazy var loginView : LoginView = {
+//        
+//        let otpView = LoginView {[weak self] otpData in
+//            
+//            print("OTP Data : \(otpData)")
+//           // self.label =....
+//            self?.dismiss(animated: true)
+//           
+//        }
+//        
+//        return otpView
+//    }()
+    
+    lazy var otpAlerView : OTPAlertView = {
+        
+        let otpView = OTPAlertView {[weak self] otpData in
+            
+            print("OTP Data : \(otpData)")
+           // self.label =....
+            self?.view.endEditing(true)
+            self?.completionHandler?()
+            self?.dismiss(animated: true)
+            
+          
+        }
+        
+        return otpView
+    }()
+    
+    
+    func addSwiftUIView() {
+        
+//        let swiftUIView =  LoginView(onSelected: { selectedString in
+//                    // Handle selectedString as needed in the preview
+//                    print("Selected string: \(selectedString)")
+//                })
+        let hostingController = UIHostingController(rootView: otpAlerView)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        /// Add as a child of the current view controller.
+        addChild(hostingController)
+
+        /// Add the SwiftUI view to the view controller view hierarchy.
+        view.addSubview(hostingController.view)
+
+        /// Setup the constraints to update the SwiftUI view boundaries.
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Adding in main view
+//        let constraints = [
+//            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+//            hostingController.view.leftAnchor.constraint(equalTo: view.leftAnchor),
+//            view.bottomAnchor.constraint(equalTo: hostingController.view.bottomAnchor),
+//            view.rightAnchor.constraint(equalTo: hostingController.view.rightAnchor)
+//        ]
+
+        // only Child view size access....
+        let constraints = [
+            hostingController.view.topAnchor.constraint(equalTo: childView.topAnchor),
+            hostingController.view.leftAnchor.constraint(equalTo: childView.leftAnchor),
+            childView.bottomAnchor.constraint(equalTo: hostingController.view.bottomAnchor),
+            childView.rightAnchor.constraint(equalTo: hostingController.view.rightAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
+
+        /// Notify the hosting controller that it has been moved to the current view controller.
+        hostingController.didMove(toParent: self)
     }
-    */
 
+
+//    func addDoneButtonOnKeyboard() {
+//           let doneToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//           doneToolbar.barStyle = .default
+//
+//           let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//           let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+//
+//           doneToolbar.items = [flexSpace, done]
+//           doneToolbar.sizeToFit()
+//
+//           self.inputAccessoryView = doneToolbar
+//       }
+    
+    
+    @objc func doneButtonAction() {
+        self.view.endEditing(true) // Or directly: oneTimeCodeInput.resignFirstResponder()
+    }
 }
