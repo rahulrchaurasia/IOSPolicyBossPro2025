@@ -13,21 +13,43 @@ import Foundation
     
     @Published var isShowingDetails = false
     
-    @Published var dynamicText : String = ""
-    
     @Published var isValid = true
+    
+    var msgOTPOnMobNo : String = "We have sent you One-Time Password on"
     
     var errorMessage = ""
     
-   
+    
+    
+    @Published var password: String = ""  // For TextField
+
+    @Published var isPasswordValid: Bool = false  // For Checking always Password Validation req Publish
+
     
    
- 
+    //Mark : OTP handling
+    func getMobOTPMessage() ->String {
+        
+        return "\(msgOTPOnMobNo) \(maskPhoneNumber("9773113793"))"
+    }
     
+    func maskPhoneNumber(_ phoneNumber: String) -> String {
+        guard phoneNumber.count >= 10 else {
+            // Handle cases where the phone number is not long enough to mask
+            return phoneNumber
+        }
+
+        let maskedDigits = String(repeating: "*", count: 6)
+        let lastDigits = String(phoneNumber.suffix(4))
+        let maskedPortion = maskedDigits + lastDigits
+
+        return maskedPortion
+    }
+
     func validateOTP(strCode : String) -> Bool {
       
         if strCode.isEmpty {
-            errorMessage = "Please Enter OTP."
+            errorMessage = "Please Enter OTP"
             isValid = false
         }  else {
             errorMessage = "" // Clear any previous error message
@@ -36,13 +58,12 @@ import Foundation
         return isValid
     }
     
-    
     func validateOTP1(strCode : String) ->( Bool,String) {
       
         var isVerify : Bool = false
         var strMessage = ""
         if strCode.isEmpty {
-            strMessage = "Please Enter OTP."
+            strMessage = "Please Enter OTP"
             isVerify = false
         }
         else {
@@ -51,6 +72,22 @@ import Foundation
         }
         return (isVerify,strMessage)
     }
+    
+    //*********************************************************//
+    
+    //Mark : Password Handling
+    func validatePasswordForm() -> Bool {
+       
+        if self.password.isEmpty {
+            isPasswordValid = true
+            errorMessage = "Please Enter Password"
+             
+            return false
+          }
+          
+        return true
+      }
+    
     
     init(){
         
@@ -66,6 +103,7 @@ import Foundation
 }
 
 
+// Not in used
 struct OTPAlertValidation{
     
     var  isValid : Bool = true

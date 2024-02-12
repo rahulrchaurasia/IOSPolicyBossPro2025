@@ -37,11 +37,11 @@ struct OTPAlertView: View {
         
         
         mainView
-        .frame(width: UIScreen.main.bounds.width - 30 , height: 350,alignment: .center)
+        .frame(width: UIScreen.main.bounds.width - 30 ,alignment: .center)
         .background(Color(.systemBackground))
         .cornerRadius(12)
         .shadow(radius: 40)
-        
+        .padding(.bottom,10)
         .overlay(alignment: .topTrailing) {
           
             
@@ -138,7 +138,6 @@ private extension OTPAlertView {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                   
-
                 }
                 
                 //Mark : View
@@ -151,7 +150,8 @@ private extension OTPAlertView {
                 
             }
             
-            .frame(maxWidth: .infinity, alignment: .leading) // Align content to leading
+            .frame(maxWidth: .infinity,maxHeight:450, alignment: .leading) // Align content to leading
+            
             .padding(.horizontal)
             
         }
@@ -165,10 +165,11 @@ private extension OTPAlertView {
             
             
             Text(vm.dynamicText) // Access dynamic text from view model
-                .font(.subheadline)
+                .font(.title3)
                 .multilineTextAlignment(.leading)
             
                 .fixedSize(horizontal: false, vertical: true)
+            
             
         }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,alignment: .leading)
     
@@ -182,19 +183,6 @@ private extension OTPAlertView {
                 .onAppear {
                     timerVM.startTimer()
                     
-                   
-                    
-//                    Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-//                        remainingTime -= 0.1
-//                        if remainingTime <= 0 {
-//                            timer.invalidate()
-//                            
-//                            DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                                // Perform actions after timer completion (e.g., calling onSelected)
-//                                 onSelected("0000") // Or any other action
-//                            }
-//                        }
-//                    }
                 }
         }.frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/,alignment: .trailing)
     }
@@ -280,6 +268,8 @@ private extension OTPAlertView {
             .onChange(of: codeDict) { newValue in
                 
                 isOTPError = true
+                isValidate = true
+                
             }
             .padding(.top,20)
             
