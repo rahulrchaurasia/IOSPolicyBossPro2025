@@ -20,6 +20,8 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     //  WebEngage for Analytics
     let weUser: WEGUser = WebEngage.sharedInstance().user
     
+    @IBOutlet weak var loginViaMainHeight: NSLayoutConstraint!
+    @IBOutlet weak var loginViaMain: UIView!
     @IBOutlet weak var imgOTP: UIImageView!
     @IBOutlet weak var imgPassword: UIImageView!
     @IBOutlet weak var emailTf: ACFloatingTextfield!
@@ -42,6 +44,10 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     let imageFill = "circlefill"
     let imageEmpty = "circleempty"
     
+     let vmLogin = LoginViewModel()
+    
+    var userNewSignUpEntity : UserNewSignUpMasterData? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -63,12 +69,104 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         let tapPasswordGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePasswordTap(_:)))
         
         
-           loginViaPassword.addGestureRecognizer(tapPasswordGestureRecognizer)
+       loginViaPassword.addGestureRecognizer(tapPasswordGestureRecognizer)
         
+        
+        
+        let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .forever )
+        snackbar.show()
+        
+        if Connectivity.isConnectedToInternet(){
+            
+            getusersignup()
+        }else{
+            
+            DispatchQueue.main.async {
+                self.showAlert(message: Connectivity.message)
+                
+                
+            }
+
+        }
+        
+       
+      
         
     }
     
     
+    func hideLoginVia(_ isHide : Bool){
+        
+        if(isHide){
+            
+            // To make the view invisible by adjusting the height constraint
+            loginViaMainHeight.constant = 0
+            loginViaMain.isHidden = true
+        }else{
+            
+            // To make the view invisible by adjusting the height constraint
+            loginViaMainHeight.constant = 90
+            loginViaMain.isHidden = false
+        }
+        view.layoutIfNeeded()
+    }
+    func getusersignup(){
+        let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
+        if let parentView = self.navigationController?.view
+        {
+            alertView.parentView = parentView
+        }
+        else
+        {
+            alertView.parentView = self.view
+        }
+        alertView.show()
+     
+        Task {
+            do {
+                
+                let result = try await vmLogin.getusersignup()
+                alertView.close()
+                self.view.layoutIfNeeded()
+                switch result {
+                case .success(let response):
+                    
+
+                    print("API call successful:",response.MasterData[0].enable_pro_signupurl)
+                    
+                    userNewSignUpEntity = response.MasterData[0]
+                    
+                    if(userNewSignUpEntity?.enable_otp_only.uppercased() == "Y"){
+                        
+                        hideLoginVia(true)
+                    }
+                    else{
+                        hideLoginVia(false)
+                    }
+                    
+                    // For Test Retrieve user signup data if it exists from Core
+//                           if let signUpEntity = Core.getSignUpEntity() {
+//                               // Use the retrieved data:
+//                               print("enable_otp_only", signUpEntity.enable_otp_only)
+//                              
+//                           } else {
+//                               // No saved data found
+//                               print("No user signup data found.")
+//                           }
+                    
+                    // Update UI based on received data
+                case .failure(let error):
+                    print("API call failed:", error.localizedDescription)
+                   
+                }
+            } catch  {
+                print("Unexpected error:", error.localizedDescription)
+                alertView.close()
+                // Handle unexpected errors gracefully
+            }
+        }
+        
+    }
     @objc func handleOTPTap(_ sender: UITapGestureRecognizer) {
         
        
@@ -193,31 +291,176 @@ class LoginVC: UIViewController,UITextFieldDelegate {
 //
 //         present(hostingController, animated: true)
 //        
-        showOTPAlert(strtitle: "Head", strbody: "Body", strsubTitle: "Subtitle")
-    
+        //
+               //alertLoginPasswordVC
+        if !Connectivity.isConnectedToInternet(){
+            
+            self.showAlert(message: Connectivity.message)
+            //return
+        }else{
+            
+           
+            //if(emailTf.text?.isEmpty){
+            if( emailTf.text!.trimmingCharacters(in: .whitespaces).isEmpty){
+                showAlert(message: "Please Enter User ID")
+                //return
+            }
+            else{
+                
+                switch selectedLoginOption {
+                case .otp:
+                   
+                    showOTPAlert(strtitle: "Head", strbody: "Body", strsubTitle: "Subtitle")
+                
+                case .password:
+                    showPasswordAlert(strtitle: "Head", strbody: "Body", strsubTitle: "Subtitle")
+                    
+
+                case .noData:
+                 
+                    print("No Data")
+                }
+                
+            }
+            
+        }
+        
+       
+       
     }
 
     
     func showOTPAlert( strtitle : String,strbody: String ,strsubTitle : String ){
         
-        let alertDocVC = self.alertService.alertLoginOTPVC(title: strtitle,
-                                                           body: strbody,
-                                                           subTitle: strsubTitle)
-       
-        alertService.completionHandler = {
-            
-            debugPrint("call back return from Posp Amnount Alert")
-            
-            print("dddd")
-            self.emailTf.becomeFirstResponder()
-            self.dismissKeyboard()
-           
-        }
-        self.present(alertDocVC, animated: true)
+        getotpLoginHorizon()
+      
+//        let alertVC = self.alertService.alertLoginOTPVC(title: strtitle,
+//                                                           body: strbody,
+//                                                           subTitle: strsubTitle)
+//       
+//        alertService.completionHandler = {
+//            
+//            debugPrint("call back return from Posp Amnount Alert")
+//            
+//            print("dddd")
+//           // self.emailTf.becomeFirstResponder()
+//            self.dismissKeyboard()
+//           
+//        }
+  //      self.present(alertVC, animated: true)
         
     }
     
     
+    func getotpLoginHorizon(){
+        let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
+        if let parentView = self.navigationController?.view
+        {
+            alertView.parentView = parentView
+        }
+        else
+        {
+            alertView.parentView = self.view
+        }
+        alertView.show()
+     
+        Task {
+            do {
+                
+                let result = try await vmLogin.getotpLoginHorizon(login_id: emailTf.text!)
+                alertView.close()
+                self.view.layoutIfNeeded()
+                
+                if(result.lowercased() == "success"){
+                    print("OTP API call successful:")
+                    
+                    callOTPView()
+                    
+                }
+                else{
+                    print("OTP API Fail")
+//                    let snackbar = TTGSnackbar.init(message: "Invalid User Id", duration: .middle )
+//                    snackbar.show()
+                    showAlert(message: "Invalid User Id")
+                    
+                }
+                
+                
+            } catch  {
+                print("Unexpected error:", error.localizedDescription)
+                alertView.close()
+                // Handle unexpected errors gracefully
+            }
+        }
+        
+    }
+    
+    func callOTPView(){
+        
+        let alertVC = self.alertService.alertLoginOTPVC(title: "",
+                                                           body: "",
+                                                           subTitle: "")
+       
+        alertService.completionHandler = { closureData in
+
+           // self.emailTf.becomeFirstResponder()
+            switch(closureData){
+                
+                
+            case .close:
+                self.dismissKeyboard()
+            case .success:
+                self.dismissKeyboard()
+                self.loginSuccess()
+            }
+
+        }
+        self.present(alertVC, animated: true)
+        
+    }
+    
+    
+    func showPasswordAlert( strtitle : String,strbody: String ,strsubTitle : String ){
+        
+        let alertVC = self.alertService.alertLoginPasswordVC(userID: emailTf.text!)
+       
+        alertService.completionHandler = { closureData in
+            
+            switch(closureData){
+                
+                
+            case .close:
+                self.dismissKeyboard()
+            case .success:
+                self.dismissKeyboard()
+                self.loginSuccess()
+            }
+           
+           // self.emailTf.becomeFirstResponder()
+           
+           
+        }
+        self.present(alertVC, animated: true)
+        
+    }
+    
+    func loginSuccess(){
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7)
+        {
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            let KYDrawer : KYDrawerController = self.storyboard?.instantiateViewController(withIdentifier: "stbKYDrawerController") as! KYDrawerController
+            KYDrawer.modalPresentationStyle = .fullScreen
+            KYDrawer.modalTransitionStyle = .coverVertical
+            appDelegate?.window?.rootViewController = KYDrawer
+            self.present(KYDrawer, animated: false, completion: nil)
+            
+            TTGSnackbar.init(message: "Login successfully.", duration: .long).show()
+            
+        }
+        
+    }
     
     //---<EmailValidation>---
     func isValidEmail(testStr:String) -> Bool {
@@ -227,14 +470,61 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         return emailTest.evaluate(with: testStr)
     }
     
-    
-    @IBAction func signupBtnCliked(_ sender: Any)
-    {
+    func callNativeRegister(){
         
         WebEngageAnaytics.shared.trackEvent("Sign Up Initiated")
         let ViewC : ViewController = self.storyboard?.instantiateViewController(withIdentifier: "stbViewController") as! ViewController
         self.addChild(ViewC)
         self.view.addSubview(ViewC.view)
+    }
+    
+    @IBAction func signupBtnCliked(_ sender: Any)
+    {
+        
+        if Connectivity.isConnectedToInternet(){
+            
+            if let userNewSignUpEntity = userNewSignUpEntity {
+                
+                if(userNewSignUpEntity.enable_pro_signupurl.isEmpty){
+                    
+                    callNativeRegister()
+                }else{
+     
+                        // Get app version and device ID
+                         let appVersion = Configuration.appVersion
+                        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+                        
+                        // Build the URL string using string interpolation
+                    let  signupURL = userNewSignUpEntity.enable_pro_signupurl + "&app_version=\(appVersion )&device_code=\(deviceID ?? "")&ssid=&fbaid="
+                    
+                    print("URL New SignUp", signupURL)
+                    if let url = URL(string: signupURL) {
+                        UIApplication.shared.open(url)
+                    }
+
+                }
+                
+            }else{
+                callNativeRegister()
+            }
+            
+            
+        }
+        else{
+            
+            DispatchQueue.main.async {
+                
+                let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
+                snackbar.show()
+                
+                
+            }
+        }
+            
+            
+       
+
+       
         
     }
     @IBAction func forgetpassBtnCliked(_ sender: Any)

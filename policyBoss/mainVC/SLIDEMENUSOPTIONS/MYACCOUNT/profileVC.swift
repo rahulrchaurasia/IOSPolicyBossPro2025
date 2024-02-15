@@ -583,12 +583,23 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             WebEngageAnaytics.shared.getWEGUser().setGender("FEMALE")
         }
       
-       
-        let dobFormatted  = dob.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:"yyyy-MM-dd") ?? ""
-        
-        debugPrint("User dob ", dobFormatted )
-        WebEngageAnaytics.shared.getWEGUser().setBirthDateString(dobFormatted)
-        
+        do {
+            
+            if(!dob.isEmpty){
+                let dobFormatted  = dob.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat:"yyyy-MM-dd") ?? ""
+                
+                debugPrint("User dob ", dobFormatted )
+                WebEngageAnaytics.shared.getWEGUser().setBirthDateString(dobFormatted)
+
+            }else{
+                WebEngageAnaytics.shared.getWEGUser().setBirthDateString("")
+
+            }
+                      
+        }catch{
+            WebEngageAnaytics.shared.getWEGUser().setBirthDateString("")
+        }
+         
         debugPrint("User Phone ",mob)
         debugPrint("User Gender ",gender)
         debugPrint("User enmail ",email)

@@ -49,6 +49,21 @@ struct getSharPrefernce  {
     
 }
 
+enum closureType {
+    
+    case close
+    case success
+    
+}
+
+enum UserType: String {
+    case posp = "POSP"
+    case fos = "FOS"
+    case emp = "EMP"
+    case misp = "MISP"
+    case none = "NONE"
+}
+
 struct Constant  {
     
     static let  deeplink   = "deeplink"
@@ -61,6 +76,11 @@ struct Constant  {
     static let  HeaderToken   = "1234567890"
     static let  NoDataFound   = "No Data Found"
     static let  InvalidURL   = "Invalid URL.."
+    static let  EncodeError   = "Failed to encode request data:"
+    static let  serverMessage   = "Server Error. Please try Again!!"
+    static let  InvalidResponse   = "Invalid Response Type.."
+    
+   
     
     static let  PbAttendanceKEY   = "K!R:|A*J$P*"
     static let PbKeychain = "pb.KeyChain"

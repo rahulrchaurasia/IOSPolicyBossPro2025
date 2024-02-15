@@ -149,7 +149,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let MobiNumb = UserDefaults.standard.string(forKey: "MobiNumb1")
         let IsUidLogin = UserDefaults.standard.string(forKey: "IsUidLogin")
         
-        
+        print("Full Name", FullName ?? "")
         WebEngageAnaytics.shared.getWEGUser().setPhone(MobiNumb)
         WebEngageAnaytics.shared.getWEGUser().setEmail(EmailID)
         
@@ -163,12 +163,16 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: false )
         }
         
-        let strNameArray = FullName?.components(separatedBy: " ")
-        
-        WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray?[0] ?? "")
-        WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray?[1] ?? "")
-        debugPrint("First Name",strNameArray?[0] ?? "No Data") // Prints "Chung"
-        debugPrint("Last Name",strNameArray?[1] ?? "No Data")
+        //let strNameArray = FullName?.components(separatedBy: " ")
+        if let strNameArray = FullName?.components(separatedBy: " ") {
+            WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0] )
+            WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray[1] )
+            debugPrint("First Name",strNameArray[0] )
+            debugPrint("Last Name",strNameArray[1] )
+        }else{
+            WebEngageAnaytics.shared.getWEGUser().setFirstName(FullName)
+            WebEngageAnaytics.shared.getWEGUser().setLastName("" )
+        }
         
         
         
@@ -1404,7 +1408,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
-                    UserDefaults.standard.set(String(describing: userid), forKey: "userid")
+                    UserDefaults.standard.set(String(describing: userid), forKey: "userid") //005
                     UserDefaults.standard.set(String(describing: iosuid), forKey: "iosuid")
                     UserDefaults.standard.set(String(describing: emplat), forKey: "emplat")
                     UserDefaults.standard.set(String(describing: emplng), forKey: "emplng")

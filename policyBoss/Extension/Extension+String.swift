@@ -12,6 +12,7 @@ import Foundation
 
 extension String {
     
+    //colorPrimaryDark #00476e
     //without removing spaces between words
     var removeSpecialCharacters: String {
         return self.components(separatedBy: CharacterSet.alphanumerics.inverted).filter({ !$0.isEmpty }).joined(separator: " ")
@@ -39,5 +40,20 @@ extension String {
         
         let char = self.cString(using: String.Encoding.utf8)!
         return strcmp(char, "\\b") == -92
+    }
+    
+    var isValidPhoneNumber: Bool {
+        // Refine phone number validation using a robust regular expression or library
+        let pattern = "^\\d{10}$" // Check for 10-digit Indian phone number format
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
+    }
+
+    var maskedPhoneNumber: String {
+        // Improve masking to handle different lengths and country codes
+        let firstPart = String(self.prefix(6))
+        let maskedPart = String(repeating: "*", count: 4)
+        let lastPart = String(self.suffix(4))
+        return "\(firstPart)\(maskedPart)\(lastPart)"
     }
 }

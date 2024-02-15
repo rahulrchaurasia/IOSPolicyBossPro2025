@@ -37,7 +37,7 @@ import Foundation
     //Mark : OTP handling
     func getMobOTPMessage() ->String {
         
-        return "\(msgOTPOnMobNo) \(maskPhoneNumber("9773113793"))"
+        return "\(msgOTPOnMobNo) \(maskPhoneNumber(OTPDataViewModel.shareInstance.getOtpMobileNo()))"
     }
     
     func maskPhoneNumber(_ phoneNumber: String) -> String {
@@ -98,8 +98,26 @@ import Foundation
         
         
       }
-    
-    
+//    private var OTP_ssid: String = ""
+//    private  var OTP_mobNo = ""
+//    
+//    func setOTPSSID(newSsid : String){
+//        
+//        OTP_ssid = newSsid
+//    }
+//    func getOTPSsid() -> String {
+//        
+//      return OTP_ssid
+//    }
+//    
+//    func setOTPMobileNo(newMobleNo : String){
+//        
+//        OTP_mobNo = newMobleNo
+//    }
+//    func getOtpMobileNo() ->String {
+//           
+//        return OTP_mobNo
+//    }
     init(){
         
         print("Init is Called...")
@@ -116,8 +134,8 @@ import Foundation
     
     //Mark : Api Call
     
-  
     
+     // LoginVC
     func getusersignup() async throws -> Result<UserNewSignUpResponse, APIErrors>{
 
 
@@ -138,8 +156,14 @@ import Foundation
         request.addValue(tokenValue, forHTTPHeaderField: "token")
         debugPrint("URL :-", urlString)
         
-        let (data,_) =  try await URLSession.shared.data(for: request,delegate: nil)
+        let (data,response) =  try await URLSession.shared.data(for: request,delegate: nil)
         
+        if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    print ("httpResponse.statusCode: \(httpResponse.statusCode)")
+
+            
+            return .failure(.custom(message: Constant.InvalidResponse ))
+        }
         let UserNewSignUpResponse = try JSONDecoder().decode(UserNewSignUpResponse.self, from: data)
         
         print("Called API Done \(UserNewSignUpResponse.Message)")
@@ -164,15 +188,17 @@ import Foundation
         
         
     }
-    
-    func getAuthLoginHorizon() async throws -> Result<AuthLoginResponse, APIErrors>{
+    //************************* Password ********************************************
+   
+    //Mark : Password
+    func getAuthLoginHorizon(username : String,password : String) async throws -> Result<String, APIErrors>{
         
         
-        let endUrl = "/quote/Postfm/auth_login"
+        let endUrl = "/auth_tokens/auth_login"
         let urlString =  Configuration.baseROOTURL  + endUrl
         
         guard let url = URL(string: urlString) else {
-            throw APIErrors.custom(message: Constant.InvalidURL)
+            return .failure(.custom(message: Constant.InvalidURL))
         }
         
         // Set the "token" header
@@ -185,8 +211,8 @@ import Foundation
         debugPrint("URL :-", urlString)
         
         let apiReq: [String: Any] = [
-                "username": "107896",
-                "password": 107896 ,
+                "username": username,
+                "password": password ,
                 
             ]
         
@@ -195,96 +221,229 @@ import Foundation
                debugPrint("Request:-", jsonData)
                request.httpBody = jsonData
            } catch {
-               print(error.localizedDescription)
-           }
-        
-        
-        
-        let (data,_) =  try await URLSession.shared.data(for: request,delegate: nil)
-        
-        let authLoginResponse = try JSONDecoder().decode(AuthLoginResponse.self, from: data)
-        
-        print("auth_login API\(authLoginResponse)")
-        
-        // return( String(UserNewSignUpResponse.StatusNo))
-        
-        if authLoginResponse.Status.lowercased() == "success" {
-            // self.userNewSignUpData = UserNewSignUpResponse.MasterData
             
-            print("Called API Done")
+               return .failure(.custom(message: Constant.EncodeError))
+            }
+        
+        do {
+            let (data,_) =  try await URLSession.shared.data(for: request,delegate: nil)
             
-           
-             
-                if let ssID = authLoginResponse.SS_ID {
-                    // SS_ID is not nil, use it here
-                    print("SS_ID:", ssID)
-                    //getLoginDetailHorizon(it)
-                } else {
-                    // SS_ID is nil, handle it accordingly
-                    print("SS_ID is nil")
+            //let authLoginResponse = try JSONDecoder().decode(AuthLoginResponse.self, from: data)
+            
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                
+   
+                  do {
+     
+                      if let status = jsonObject["Status"] as? String {
+                          
+                          if(status.lowercased() == "success"){
+                              
+                              if let ssIdInt = jsonObject["SS_ID"] as? Int {
+                                   print("SS_ID as Int:", ssIdInt)
+                                                      let horizonDetailResult =
+                                                      try await  LoginRepository.shared.getLoginDetailHorizon(userID: (ssIdInt))
+                                                      
+                                                        print("HORIZON CALL \(ssIdInt)")
+                               }
+                              
+                              else if let ssIdString = jsonObject["SS_ID"] as? String {
+                                   if let ssidInt = Int(ssIdString){
+                                       
+                                       print("SS_ID as String:", ssIdString)
+                                       
+                                               print("HORIZON CALL",ssIdString )
+                                                           let horizonDetailResult =
+                                       try await  LoginRepository.shared.getLoginDetailHorizon(userID:  ssidInt )
+                                           
+                                   }
+                                                  
+                                                      
+                               }
+                          }
+                          
+                          else {
+                              
+                              isLoading = false
+                              isValid = false
+                             // errorMessage = authLoginResponse.Msg?.ErrorResponse ?? "Invalid UserId and password"
+                              errorMessage =  "Invalid UserId and password"
+                              return .failure(.custom(message: serverUnavailbleError ))
+                              
+                              
+                          }
+                      }
+                      
+                    
+                }catch {
+                    isLoading = false
+                    print("HORIZON CALL",error.localizedDescription)
+                    
+                    return .failure(.custom(message:  String(describing: error)) )
                 }
+                
+                
+    
+            }
             
-            return .success(authLoginResponse)
+          
+                print("Called API Done")
+                
+               
+
+                
+                return .success("Success")
+                
+            }
             
-        } else {
-            
-            // errorMessage = UserNewSignUpResponse.Message // Handle error message
-            
-            return .failure(.custom(message: serverUnavailbleError ))
-            
-        }
-        
-        
+        catch {
+         
+            return .failure(.custom(message: "Network error: \( String(describing: error))"))
+         }
         
     }
-
-    //not used
-    func getempbyregsource1000(campaignid : String) async throws -> (
     
-        String
-    ){
+    
+    //************************* OTP ********************************************
+   
+    //Mark : Get OTP : Called From LoginVC ie Uikit not swiftui
+    func getotpLoginHorizon(login_id: String) async throws -> String {
         
-        let endUrl = "/quote/Postfm/getempbyregsource"
-        let urlString =  Configuration.baseROOTURL  + endUrl
-        
-        guard let url = URL(string: urlString) else {
-            throw APIErrors.custom(message: Constant.InvalidURL)
+       
+        do{
+           let (status , mobNo, SsID)  =  try await  LoginRepository.shared.getotpLoginHorizon(login_id: login_id)
+            
+            if status.lowercased() == "success"{
+                
+//                setOTPSSID(newSsid: SsID)
+//                setOTPMobileNo(newMobleNo: mobNo)
+                
+                OTPDataViewModel.shareInstance.setOTPSSID(newSsid: SsID)
+                OTPDataViewModel.shareInstance.setOTPMobileNo(newMobleNo: mobNo)
+                
+            }
+           print("otp status",status)
+            return status
+            
+        }catch{
+            
+            print(String(describing: error))
+            return "fail"
+           
         }
        
+    }
+    
+    //Mark : Veridy OTP
+    func verifyOTP(otp: String, mobileNumber: String) async throws -> String {
+        
+        isLoading = true
+        do{
+            let response =  try await  LoginRepository.shared.verifyOTP(otp: otp, mobileNumber: mobileNumber)
+            
+            if(response.lowercased() == "success"){
+               
+                print("HORIZON CALL",OTPDataViewModel.shareInstance.getOTPSsid() )
+                if let ssidInt = Int(OTPDataViewModel.shareInstance.getOTPSsid()){
+                    let horizonDetailResult =
+                    try await  LoginRepository.shared.getLoginDetailHorizon(userID: ssidInt  )
+                }
+                
+            }
+           
+            print("OTP Verify reponse",response)
+            return response
+        }catch{
+            isLoading = false
+            print(String(describing: error))
+            return "fail"
+           
+        }
+       
+    }
+    
+    //Mark : resend OTP
+    func resendOTP( mobileNumber: String) async throws -> String {
+        
+    
+        do{
+           let response =  try await  LoginRepository.shared.resendOTP(mobileNumber: mobileNumber)
+            
+            print("API Resend Response",response)
+            return response
+        }catch{
+            
+            print(String(describing: error))
+            return "fail"
+           
+        }
+       
+    }
+
+    
+    //************************* Horizon call ********************************************
+   
+    func getLoginDetailHorizon(userID : Int)  async throws -> Result<LoginNewResponse_DSAS_Horizon, APIErrors>{
+
+
+      
+        let urlString =  "https://horizon.policyboss.com:5443/posps/dsas/view/\(userID)"
+        
+     
+        guard let url = URL(string: urlString) else {
+         
+            return .failure(.custom(message: Constant.InvalidURL))
+        }
+        
         // Set the "token" header
-        let tokenValue = "1234567890"
+        //let tokenValue = "1234567890"
       
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(tokenValue, forHTTPHeaderField: "token")
+        request.httpMethod = "GET"
+        //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+       // request.addValue(tokenValue, forHTTPHeaderField: "token")
         debugPrint("URL :-", urlString)
-        
-
-        let apiReq: [String: Any] = [
-                "appTypeId": "4",
-                "campaignid": campaignid ,
-                
-            ]
-        
-        
         do {
-               let jsonData = try JSONSerialization.data(withJSONObject: apiReq)
-               debugPrint("Request:-", jsonData)
-               request.httpBody = jsonData
-           } catch {
-               print(error.localizedDescription)
-           }
+//            let (data,response) =  try await URLSession.shared.data(for: request,delegate: nil)
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                print ("httpResponse.statusCode: \(httpResponse.statusCode)")
+                
+                
+                return .failure(.custom(message: Constant.InvalidResponse ))
+            }
+            let horizonDetailResult = try JSONDecoder().decode(LoginNewResponse_DSAS_Horizon.self, from: data)
+            
+            print("horizon Called API Done \(horizonDetailResult.status ?? "")")
+            
+            // return( String(UserNewSignUpResponse.StatusNo))
+            
+            if  horizonDetailResult.status == "SUCCESS" {
+                // self.userNewSignUpData = UserNewSignUpResponse.MasterData
+                
+                print("Called API Done")
+                return .success(horizonDetailResult)
+                
+            } else {
+                
+                // errorMessage = UserNewSignUpResponse.Message // Handle error message
+                
+                return .failure(.custom(message: horizonDetailResult.status ?? "" ))
+                
+            }
+        }catch {
+            print("HORIZON CALL",error.localizedDescription)
+            throw APIError.unexpectedError(error: error)
+        }
         
         
-        let (data,_) =  try await URLSession.shared.data(for: request,delegate: nil)
         
-        let EmpbyregsourceResp = try JSONDecoder().decode(EmpbyregsourceResponse.self, from: data)
-        
-        
-        
-        return( String(EmpbyregsourceResp.StatusNo))
     }
+   
+   
+    //not used
     
         
 }
@@ -306,5 +465,32 @@ struct OTPAlertValidation{
              errorMessage = ""
         }
        return isValid
+    }
+}
+
+class OTPDataViewModel{
+    
+   
+    static let shareInstance = OTPDataViewModel()
+    
+    private var OTP_ssid: String = ""
+    private  var OTP_mobNo = ""
+    
+    func setOTPSSID(newSsid : String){
+        
+        OTP_ssid = newSsid
+    }
+    func getOTPSsid() -> String {
+        
+      return OTP_ssid
+    }
+    
+    func setOTPMobileNo(newMobleNo : String){
+        
+        OTP_mobNo = newMobleNo
+    }
+    func getOtpMobileNo() ->String {
+           
+        return OTP_mobNo
     }
 }

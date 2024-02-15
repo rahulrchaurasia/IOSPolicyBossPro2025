@@ -165,15 +165,15 @@
 		B28BDBB52701DF8500C5DE95 /* Extension+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28BDBB42701DF8500C5DE95 /* Extension+Notification.swift */; };
 		B2915B4326998FEB00DECE41 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2915B4226998FEB00DECE41 /* Reachability.swift */; };
 		B2E62F1126FB596F00D1B5C7 /* AlertDocVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E62F1026FB596F00D1B5C7 /* AlertDocVC.swift */; };
+		CD07390A2B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0739092B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift */; };
 		CD0E58FE29C07449008A67BF /* SyncContact.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD0E58FD29C07449008A67BF /* SyncContact.storyboard */; };
 		CD0E590129C074E9008A67BF /* WelcomeSynConatctVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */; };
 		CD1278882A09147F009BC7A9 /* Pods_policyBoss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */; };
 		CD12788C2A092165009BC7A9 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; };
 		CD12788D2A092165009BC7A9 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD1F8C602B72613D00098B72 /* OTPAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */; };
-		CD1F8C632B729BE200098B72 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C622B729BE200098B72 /* LoginVM.swift */; };
 		CD1F8C652B72C6C600098B72 /* OTPAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */; };
-		CD1F8C672B72C75200098B72 /* OTPAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C662B72C75200098B72 /* OTPAlertViewModel.swift */; };
+		CD1F8C672B72C75200098B72 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C662B72C75200098B72 /* LoginViewModel.swift */; };
 		CD1F8C6B2B72C7CF00098B72 /* XDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C6A2B72C7CF00098B72 /* XDismissButton.swift */; };
 		CD1F8C6D2B72C81B00098B72 /* APButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C6C2B72C81B00098B72 /* APButton.swift */; };
 		CD1F8C712B72C8B200098B72 /* OneTimeCodeBoxes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C6F2B72C8B200098B72 /* OneTimeCodeBoxes.swift */; };
@@ -193,14 +193,17 @@
 		CD475D092910F19B00BAE252 /* DashBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD475D082910F19B00BAE252 /* DashBoardVC.swift */; };
 		CD475D0C2910F1CC00BAE252 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD475D0B2910F1CC00BAE252 /* NotificationVC.swift */; };
 		CD4B7E572B67B006005B6F04 /* stbLogin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD4B7E562B67B006005B6F04 /* stbLogin.storyboard */; };
-		CD4B7E602B67BC71005B6F04 /* LoginNewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4B7E5F2B67BC71005B6F04 /* LoginNewVC.swift */; };
 		CD65415A29C2EE7E006DC774 /* SyncMoreDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD65415929C2EE7E006DC774 /* SyncMoreDetailsVC.swift */; };
 		CD6E912629C1F4EF00936762 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E912529C1F4EF00936762 /* Constant.swift */; };
 		CD6E912829C205F400936762 /* Extension+Scrollview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6E912729C205F400936762 /* Extension+Scrollview.swift */; };
+		CD708D862B7CBB8400551846 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD708D852B7CBB8400551846 /* LoginRepository.swift */; };
 		CD75384B285CA446004B2D4D /* pospAmntTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD75384A285CA446004B2D4D /* pospAmntTableViewCell.swift */; };
 		CD75384E285CA963004B2D4D /* pospAmntModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD75384D285CA963004B2D4D /* pospAmntModel.swift */; };
+		CD7547AB2B7940AD009F5332 /* UserNewSignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7547AA2B7940AD009F5332 /* UserNewSignUpResponse.swift */; };
+		CD7D4DD22B7B3BCB008C1AC1 /* AuthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D4DD12B7B3BCB008C1AC1 /* AuthLoginResponse.swift */; };
 		CD906EE029A72E9E004F85DC /* stbOther.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD906EDF29A72E9E004F85DC /* stbOther.storyboard */; };
 		CD917FBF2A384430007BB770 /* CustomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD917FBE2A384430007BB770 /* CustomLoaderView.swift */; };
+		CD955D3C2B7DCF3100011FF6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */; };
 		CD9A04EB2B555F0300BCD739 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = CD9A04EA2B555F0300BCD739 /* FirebaseMessaging */; };
 		CD9A04ED2B555F7E00BCD739 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CD9A04EC2B555F7E00BCD739 /* FirebaseAnalytics */; };
 		CD9A04EF2B555F8E00BCD739 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CD9A04EE2B555F8E00BCD739 /* FirebaseCrashlytics */; };
@@ -211,8 +214,12 @@
 		CDAA0FA2286CAAD2009B69A9 /* AlertPospAmntVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAA0FA1286CAAD2009B69A9 /* AlertPospAmntVC.swift */; };
 		CDAA0FA5286CABF7009B69A9 /* pospAmntAlertTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAA0FA4286CABF7009B69A9 /* pospAmntAlertTVCell.swift */; };
 		CDBF6DDC2B739B8C00D2E872 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBF6DDB2B739B8B00D2E872 /* TimerViewModel.swift */; };
+		CDC53ABE2B762932003AE374 /* PasswordAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC53ABD2B762932003AE374 /* PasswordAlertView.swift */; };
+		CDC53AC02B762B1C003AE374 /* TestFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC53ABF2B762B1C003AE374 /* TestFile.swift */; };
 		CDC7B7F329A4C5BB00DC2012 /* IFSCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7B7F229A4C5BB00DC2012 /* IFSCModel.swift */; };
 		CDC7B7F629A4F2EB00DC2012 /* DeviceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */; };
+		CDC920AC2B787FD000B14969 /* CustomTextFieldWithEye.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC920AB2B787FD000B14969 /* CustomTextFieldWithEye.swift */; };
+		CDC920AF2B7894F200B14969 /* PasswordAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC920AE2B7894F200B14969 /* PasswordAlertVC.swift */; };
 		CDCAC3CB2A78FE0700B85C88 /* EmpbyregsourceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */; };
 		CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */; };
 		CDCF845D2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */; };
@@ -428,13 +435,13 @@
 		B2915B4226998FEB00DECE41 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		B2E62F1026FB596F00D1B5C7 /* AlertDocVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDocVC.swift; sourceTree = "<group>"; };
 		C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_policyBoss.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD0739092B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNewResponse_DSAS_Horizon.swift; sourceTree = "<group>"; };
 		CD0E58FD29C07449008A67BF /* SyncContact.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SyncContact.storyboard; sourceTree = "<group>"; };
 		CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSynConatctVC.swift; sourceTree = "<group>"; };
 		CD12788A2A092160009BC7A9 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
 		CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertVC.swift; sourceTree = "<group>"; };
-		CD1F8C622B729BE200098B72 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertView.swift; sourceTree = "<group>"; };
-		CD1F8C662B72C75200098B72 /* OTPAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertViewModel.swift; sourceTree = "<group>"; };
+		CD1F8C662B72C75200098B72 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CD1F8C6A2B72C7CF00098B72 /* XDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDismissButton.swift; sourceTree = "<group>"; };
 		CD1F8C6C2B72C81B00098B72 /* APButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APButton.swift; sourceTree = "<group>"; };
 		CD1F8C6F2B72C8B200098B72 /* OneTimeCodeBoxes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneTimeCodeBoxes.swift; sourceTree = "<group>"; };
@@ -454,14 +461,17 @@
 		CD475D082910F19B00BAE252 /* DashBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardVC.swift; sourceTree = "<group>"; };
 		CD475D0B2910F1CC00BAE252 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		CD4B7E562B67B006005B6F04 /* stbLogin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = stbLogin.storyboard; sourceTree = "<group>"; };
-		CD4B7E5F2B67BC71005B6F04 /* LoginNewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNewVC.swift; sourceTree = "<group>"; };
 		CD65415929C2EE7E006DC774 /* SyncMoreDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncMoreDetailsVC.swift; sourceTree = "<group>"; };
 		CD6E912529C1F4EF00936762 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CD6E912729C205F400936762 /* Extension+Scrollview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Scrollview.swift"; sourceTree = "<group>"; };
+		CD708D852B7CBB8400551846 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		CD75384A285CA446004B2D4D /* pospAmntTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pospAmntTableViewCell.swift; sourceTree = "<group>"; };
 		CD75384D285CA963004B2D4D /* pospAmntModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pospAmntModel.swift; sourceTree = "<group>"; };
+		CD7547AA2B7940AD009F5332 /* UserNewSignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewSignUpResponse.swift; sourceTree = "<group>"; };
+		CD7D4DD12B7B3BCB008C1AC1 /* AuthLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginResponse.swift; sourceTree = "<group>"; };
 		CD906EDF29A72E9E004F85DC /* stbOther.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = stbOther.storyboard; sourceTree = "<group>"; };
 		CD917FBE2A384430007BB770 /* CustomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoaderView.swift; sourceTree = "<group>"; };
+		CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD9A1B5D29E52CB1002E1C07 /* PushNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationModel.swift; sourceTree = "<group>"; };
 		CD9D048829E01F5C00AE6AA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD9D048A29E0214600AE6AA9 /* policyBoss.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = policyBoss.entitlements; sourceTree = "<group>"; };
@@ -469,8 +479,12 @@
 		CDAA0FA1286CAAD2009B69A9 /* AlertPospAmntVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPospAmntVC.swift; sourceTree = "<group>"; };
 		CDAA0FA4286CABF7009B69A9 /* pospAmntAlertTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pospAmntAlertTVCell.swift; sourceTree = "<group>"; };
 		CDBF6DDB2B739B8B00D2E872 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
+		CDC53ABD2B762932003AE374 /* PasswordAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordAlertView.swift; sourceTree = "<group>"; };
+		CDC53ABF2B762B1C003AE374 /* TestFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFile.swift; sourceTree = "<group>"; };
 		CDC7B7F229A4C5BB00DC2012 /* IFSCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFSCModel.swift; sourceTree = "<group>"; };
 		CDC7B7F529A4F2EB00DC2012 /* DeviceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailModel.swift; sourceTree = "<group>"; };
+		CDC920AB2B787FD000B14969 /* CustomTextFieldWithEye.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldWithEye.swift; sourceTree = "<group>"; };
+		CDC920AE2B7894F200B14969 /* PasswordAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordAlertVC.swift; sourceTree = "<group>"; };
 		CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpbyregsourceResponse.swift; sourceTree = "<group>"; };
 		CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewModel.swift; sourceTree = "<group>"; };
 		CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+AppDelegateWebEngageAnaly.swift"; sourceTree = "<group>"; };
@@ -1005,6 +1019,9 @@
 		84C4D09521C2666B00A677B7 /* LOGIN */ = {
 			isa = PBXGroup;
 			children = (
+				CD708D842B7CBB6000551846 /* repository */,
+				CD7547A92B794059009F5332 /* response */,
+				CDC53AB92B762338003AE374 /* vm */,
 				8403E89321BFC21A0009662A /* LoginVC.swift */,
 				84C4D08A21C230C500A677B7 /* forgtPassVC.swift */,
 			);
@@ -1227,23 +1244,18 @@
 			isa = PBXGroup;
 			children = (
 				CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */,
+				CDC920AE2B7894F200B14969 /* PasswordAlertVC.swift */,
 			);
 			path = OTP_PassAlert;
-			sourceTree = "<group>";
-		};
-		CD1F8C612B729BC900098B72 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CD1F8C622B729BE200098B72 /* LoginVM.swift */,
-				CD1F8C662B72C75200098B72 /* OTPAlertViewModel.swift */,
-			);
-			path = viewModel;
 			sourceTree = "<group>";
 		};
 		CD1F8C682B72C7AE00098B72 /* swiftui */ = {
 			isa = PBXGroup;
 			children = (
+				CD955D3A2B7DCF1500011FF6 /* Loader */,
+				CDC920AD2B7892E300B14969 /* TextField */,
 				CD1F8C692B72C7B600098B72 /* button */,
+				CDC53ABF2B762B1C003AE374 /* TestFile.swift */,
 			);
 			path = swiftui;
 			sourceTree = "<group>";
@@ -1260,9 +1272,10 @@
 		CD1F8C6E2B72C86800098B72 /* OTP */ = {
 			isa = PBXGroup;
 			children = (
+				CD7547A82B793F78009F5332 /* vm */,
+				CDC53ABA2B762348003AE374 /* ui */,
 				CD1F8C6F2B72C8B200098B72 /* OneTimeCodeBoxes.swift */,
 				CD1F8C702B72C8B200098B72 /* OneTimeCodeInput.swift */,
-				CDBF6DDB2B739B8B00D2E872 /* TimerViewModel.swift */,
 			);
 			path = OTP;
 			sourceTree = "<group>";
@@ -1344,9 +1357,7 @@
 			children = (
 				84C4D09521C2666B00A677B7 /* LOGIN */,
 				CD1F8C6E2B72C86800098B72 /* OTP */,
-				CD1F8C612B729BC900098B72 /* viewModel */,
-				CD4B7E5F2B67BC71005B6F04 /* LoginNewVC.swift */,
-				CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */,
+				CDC53ABB2B7628E7003AE374 /* Password */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1357,6 +1368,14 @@
 				CD65415929C2EE7E006DC774 /* SyncMoreDetailsVC.swift */,
 			);
 			path = SyncAlertDialog;
+			sourceTree = "<group>";
+		};
+		CD708D842B7CBB6000551846 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				CD708D852B7CBB8400551846 /* LoginRepository.swift */,
+			);
+			path = repository;
 			sourceTree = "<group>";
 		};
 		CD753849285CA3EA004B2D4D /* registeration */ = {
@@ -1381,6 +1400,40 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CD7547A82B793F78009F5332 /* vm */ = {
+			isa = PBXGroup;
+			children = (
+				CDBF6DDB2B739B8B00D2E872 /* TimerViewModel.swift */,
+			);
+			path = vm;
+			sourceTree = "<group>";
+		};
+		CD7547A92B794059009F5332 /* response */ = {
+			isa = PBXGroup;
+			children = (
+				CD7D4DD02B7B3BB3008C1AC1 /* password_response */,
+				CD7547AA2B7940AD009F5332 /* UserNewSignUpResponse.swift */,
+				CD0739092B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift */,
+			);
+			path = response;
+			sourceTree = "<group>";
+		};
+		CD7D4DD02B7B3BB3008C1AC1 /* password_response */ = {
+			isa = PBXGroup;
+			children = (
+				CD7D4DD12B7B3BCB008C1AC1 /* AuthLoginResponse.swift */,
+			);
+			path = password_response;
+			sourceTree = "<group>";
+		};
+		CD955D3A2B7DCF1500011FF6 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
 		CD9A1B5C29E52C8B002E1C07 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,6 +1451,38 @@
 			path = pospAmntDialog;
 			sourceTree = "<group>";
 		};
+		CDC53AB92B762338003AE374 /* vm */ = {
+			isa = PBXGroup;
+			children = (
+				CD1F8C662B72C75200098B72 /* LoginViewModel.swift */,
+			);
+			path = vm;
+			sourceTree = "<group>";
+		};
+		CDC53ABA2B762348003AE374 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		CDC53ABB2B7628E7003AE374 /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				CDC53ABC2B76290B003AE374 /* ui */,
+			);
+			path = Password;
+			sourceTree = "<group>";
+		};
+		CDC53ABC2B76290B003AE374 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				CDC53ABD2B762932003AE374 /* PasswordAlertView.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
 		CDC7B7EF29A4B68900DC2012 /* profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1413,6 +1498,14 @@
 				CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */,
 			);
 			path = deviceDetail;
+			sourceTree = "<group>";
+		};
+		CDC920AD2B7892E300B14969 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				CDC920AB2B787FD000B14969 /* CustomTextFieldWithEye.swift */,
+			);
+			path = TextField;
 			sourceTree = "<group>";
 		};
 		CDF85CC229ED149E0041B64E /* model */ = {
@@ -1660,6 +1753,7 @@
 				CD1F8C602B72613D00098B72 /* OTPAlertVC.swift in Sources */,
 				CD75384B285CA446004B2D4D /* pospAmntTableViewCell.swift in Sources */,
 				B253B255261652E0000C3A7D /* IQUIScrollView+Additions.swift in Sources */,
+				CD955D3C2B7DCF3100011FF6 /* LoadingView.swift in Sources */,
 				84F7305321E0DFC40033D615 /* verifyMobNoVC.swift in Sources */,
 				B253B24E261652E0000C3A7D /* IQKeyboardManagerConstants.swift in Sources */,
 				B253B245261652E0000C3A7D /* IQKeyboardManager+Internal.swift in Sources */,
@@ -1678,13 +1772,17 @@
 				B253B24B261652E0000C3A7D /* IQInvocation.swift in Sources */,
 				84C368BF21C7706E00BB2E9B /* pendingcasescapsVC.swift in Sources */,
 				84C368C721C7AB0800BB2E9B /* finmartMenuCell.swift in Sources */,
+				CD07390A2B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift in Sources */,
 				B253B250261652E0000C3A7D /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				B253B259261652E0000C3A7D /* IQNSArray+Sort.swift in Sources */,
 				442C140D2497A31700E3C455 /* pospDoc.swift in Sources */,
+				CDC53ABE2B762932003AE374 /* PasswordAlertView.swift in Sources */,
+				CDC920AF2B7894F200B14969 /* PasswordAlertVC.swift in Sources */,
 				CD6E912629C1F4EF00936762 /* Constant.swift in Sources */,
 				B245113E261464C0003EB5A9 /* callbackToHomeProtocol.swift in Sources */,
 				B20B223E273193AD009A522E /* MenuModel.swift in Sources */,
 				84C4D09821C268B500A677B7 /* MainfinMartVC.swift in Sources */,
+				CDC53AC02B762B1C003AE374 /* TestFile.swift in Sources */,
 				CDA496E129CC2382006B619F /* SyncContactViewModel.swift in Sources */,
 				B253B24A261652E0000C3A7D /* IQUIView+IQKeyboardToolbar.swift in Sources */,
 				8410404421D789C300C3B7A7 /* ResponseMetadata.swift in Sources */,
@@ -1713,6 +1811,7 @@
 				8407145F21C0DFEB00D35C55 /* DatePickerVC.swift in Sources */,
 				B253B244261652E0000C3A7D /* IQTextView.swift in Sources */,
 				8411808A21C5105D00D5638B /* MenuHelper.swift in Sources */,
+				CD7547AB2B7940AD009F5332 /* UserNewSignUpResponse.swift in Sources */,
 				840562D321D4D2640099DDE8 /* transctionHistoryVC.swift in Sources */,
 				CD475D042910DEBA00BAE252 /* MenuBottomSheetVC.swift in Sources */,
 				B253B24F261652E0000C3A7D /* IQKeyboardManager+Position.swift in Sources */,
@@ -1721,12 +1820,10 @@
 				8410403B21D784EB00C3B7A7 /* FinmartStyler.swift in Sources */,
 				8480BBDB220807FA00BEEDF4 /* helpnfeedbckTVCell.swift in Sources */,
 				442E20E324C8388400FFC075 /* TutorialViewController.swift in Sources */,
-				CD4B7E602B67BC71005B6F04 /* LoginNewVC.swift in Sources */,
 				8410404521D789C300C3B7A7 /* CommonSettings.swift in Sources */,
 				8413349621C8FD350084AFC2 /* KYEmbedMainControllerSegue.swift in Sources */,
 				B218FF19269339DA0090A877 /* APIManger.swift in Sources */,
 				84C4D09A21C2736100A677B7 /* MainfinmartTVCell.swift in Sources */,
-				CD1F8C632B729BE200098B72 /* LoginVM.swift in Sources */,
 				840562ED21D4D3D90099DDE8 /* helpnfeedbackVC.swift in Sources */,
 				84C4D08F21C23DD700A677B7 /* multiselctionTVCell.swift in Sources */,
 				CD475D0C2910F1CC00BAE252 /* NotificationVC.swift in Sources */,
@@ -1750,6 +1847,7 @@
 				840C4C1F21C3BE24000B8D49 /* salesmaterialTVCell.swift in Sources */,
 				8410F8D421F835C000DFC974 /* insalesmaterialVC.swift in Sources */,
 				CDC7B7F629A4F2EB00DC2012 /* DeviceDetailModel.swift in Sources */,
+				CDC920AC2B787FD000B14969 /* CustomTextFieldWithEye.swift in Sources */,
 				840562E121D4D3270099DDE8 /* syncContactsVC.swift in Sources */,
 				447DF6342466DF3E00D0F545 /* PaymentMainController.swift in Sources */,
 				8411808721C5105D00D5638B /* Interactor.swift in Sources */,
@@ -1760,7 +1858,7 @@
 				442B80A424AF4BF000F4EBDA /* InsuranceBussWebVC.swift in Sources */,
 				B253B247261652E0000C3A7D /* IQTitleBarButtonItem.swift in Sources */,
 				44BB07B7243EFC9A00F14FEE /* AlertViewController.swift in Sources */,
-				CD1F8C672B72C75200098B72 /* OTPAlertViewModel.swift in Sources */,
+				CD1F8C672B72C75200098B72 /* LoginViewModel.swift in Sources */,
 				840AC5D021BE80AB004DCB26 /* AppDelegate.swift in Sources */,
 				CDCF845D2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift in Sources */,
 				8411808121C50F1300D5638B /* FinmartMenuVC.swift in Sources */,
@@ -1801,10 +1899,12 @@
 				CD34DDAF2A7395B00055791E /* WebEngageAnalytics.swift in Sources */,
 				CDC7B7F329A4C5BB00DC2012 /* IFSCModel.swift in Sources */,
 				840562E521D4D3590099DDE8 /* addUsersVC.swift in Sources */,
+				CD708D862B7CBB8400551846 /* LoginRepository.swift in Sources */,
 				8411808821C5105D00D5638B /* PresentMenuAnimator.swift in Sources */,
 				8411808921C5105D00D5638B /* DismissMenuAnimator.swift in Sources */,
 				444DBF94246AC2EB009F08F6 /* AddToRazorpayModel.swift in Sources */,
 				84288B2321CCF3A400BC50BC /* profileVC.swift in Sources */,
+				CD7D4DD22B7B3BCB008C1AC1 /* AuthLoginResponse.swift in Sources */,
 				442DEDCB2449967200067A3E /*  Connectivity.swift in Sources */,
 				CD3F9A7C29CDA04A00FB8F2F /* NotificationListVC.swift in Sources */,
 				4448E59F24C1E7A500CDBFEC /* SalesDetailHindiModel.swift in Sources */,

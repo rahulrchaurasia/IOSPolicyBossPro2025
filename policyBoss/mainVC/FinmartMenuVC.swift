@@ -981,7 +981,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         self.showmyinsurancebusiness = showmyinsurancebusiness as! String
        
 
-        self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
+        //self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
        
         UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
         

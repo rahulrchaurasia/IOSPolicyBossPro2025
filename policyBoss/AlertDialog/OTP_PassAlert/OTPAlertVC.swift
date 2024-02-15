@@ -13,8 +13,9 @@ class OTPAlertVC: UIViewController ,UITextFieldDelegate {
 
     @IBOutlet weak var childView: UIView!
     //    @State var isOTPAlertPresented = true
-    let loginvm = LoginVM()
-    var completionHandler: (() -> Void)?
+   
+   
+    var completionHandler: ((closureType) -> Void)?
     
    
     var alertTitle = String()
@@ -51,8 +52,8 @@ class OTPAlertVC: UIViewController ,UITextFieldDelegate {
             
             print("OTP Data : \(otpData)")
            // self.label =....
-            self?.view.endEditing(true)
-            self?.completionHandler?()
+           // self?.view.endEditing(true)
+            self?.completionHandler?(otpData)
             self?.dismiss(animated: true)
             
           
@@ -101,21 +102,5 @@ class OTPAlertVC: UIViewController ,UITextFieldDelegate {
     }
 
 
-//    func addDoneButtonOnKeyboard() {
-//           let doneToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-//           doneToolbar.barStyle = .default
-//
-//           let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-//           let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
-//
-//           doneToolbar.items = [flexSpace, done]
-//           doneToolbar.sizeToFit()
-//
-//           self.inputAccessoryView = doneToolbar
-//       }
-    
-    
-    @objc func doneButtonAction() {
-        self.view.endEditing(true) // Or directly: oneTimeCodeInput.resignFirstResponder()
-    }
+
 }

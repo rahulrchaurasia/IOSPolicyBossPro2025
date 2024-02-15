@@ -14,11 +14,15 @@ struct CustomTextFieldWithEye: View {
     var placeHolder : String
     @Binding var text: String
     @State private var isPasswordVisible: Bool = false
+   
+   
+    @FocusState private var isFocused: Bool
+
     //var onToggle: (() -> Void)? // Optional closure
     
     var body: some View {
         HStack(spacing : 0) {
-            Image(systemName: "magnifyingglass")
+            Image(systemName: "lock")
                 .frame(width: 4)
                 .padding(.leading,12)
             // Spacer for flexibility
@@ -26,10 +30,20 @@ struct CustomTextFieldWithEye: View {
             Group {
                 if isPasswordVisible {
                     TextField(placeHolder, text: $text)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .foregroundStyle(.primary)
+                        .focused($isFocused)
+                    
                 }else {
                     SecureField(placeHolder, text: $text)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                        .foregroundStyle(.primary)
+                        .focused($isFocused)
                 }
             }
+            
             .padding()
             
             .disableAutocorrection(true)
@@ -58,17 +72,32 @@ struct CustomTextFieldWithEye: View {
         .padding(.leading,10)
         .cornerRadius(25)
         
-        .foregroundColor(Color.black)
+        .foregroundColor(.primary)
         .overlay(
           RoundedRectangle(cornerRadius: 25)
             .stroke(lineWidth: 1)
             .foregroundColor(Color.gray.opacity(0.7))
         )
-        .font(.custom("Open Sans", size: 17))
+        .font(.system(size: 17))
         .shadow(radius: 10)
-    
+        .onAppear(){
+            
+            isFocused = true
+        }
         
     }
+    
+    private func backgroundColor(mode: ColorScheme) -> some View {
+          return mode == .dark ? Color.black : Color.white
+      }
+
+      private func foregroundColor(mode: ColorScheme) -> some View {
+          return mode == .dark ? Color.white : Color.black
+      }
+
+      private func color(mode: ColorScheme) -> some View {
+          return mode == .dark ? Color.init(UIColor.systemBackground) : Color.white
+      }
 }
 
 #Preview {

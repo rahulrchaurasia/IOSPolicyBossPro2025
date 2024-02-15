@@ -12,7 +12,7 @@ class AlertService {
 
     var completionPospAmntHandler: (() -> Void)?
     
-    var completionHandler: (() -> Void)?
+    var completionHandler: ((closureType) -> Void)?
    
     
     func alert(title: String , body: String, buttonTitle: String) -> AlertViewController {
@@ -123,17 +123,42 @@ class AlertService {
            let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
            let alertVC =  storyboard.instantiateViewController(withIdentifier: "OTPAlertVC") as! OTPAlertVC
         
-           alertVC.completionHandler = {
-                
-               
-                self.completionHandler?()
-            }
-//               
+         alertVC.completionHandler = {  closerData in
+             
+            self.completionHandler?(closerData)
+         }
+//
            alertVC.alertTitle = title
            alertVC.pospAmntData = body
            alertVC.alertSubTitle = subTitle
         
 
+           
+           return alertVC
+       }
+    
+    
+    func alertLoginPasswordVC(userID: String) -> PasswordAlertVC {
+           
+           let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
+           let alertVC =  storyboard.instantiateViewController(withIdentifier: "PasswordAlertVC") as! PasswordAlertVC
+        
+//           alertVC.completionHandler = {
+//                
+//               
+//                self.completionHandler?()
+//            }
+        
+        // assign closer form child to parent
+       
+        
+        alertVC.completionHandler = {  closerData in
+             
+            self.completionHandler?(closerData)
+         }
+
+           alertVC.alertUserID = userID
+           
            
            return alertVC
        }
