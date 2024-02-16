@@ -1405,7 +1405,9 @@ class SyncContactVC: UIViewController {
         self.activityIndicator.isHidden = true
         self.activityIndicator.stopAnimating()
       
-        let alertSyncDashboard = self.alertService.alertSyncDashboard()
+        guard let ssid = (UserDefaults.standard.string(forKey: "POSPNo"))
+                else{ return }
+        let alertSyncDashboard = self.alertService.alertSyncDashboard(alertSSID: ssid)
         
         alertSyncDashboard.syncDashboardCompletion  = {[weak self] dict in
             /********************************************/

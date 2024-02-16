@@ -11,7 +11,7 @@ struct OneTimeCodeBoxes: View {
     
     @Binding var codeDict :[Int : String]
     @Binding var isOTPError : Bool
-    @State var firstResponderIndex : Int = 0
+    @Binding var firstResponderIndex : Int 
     @State var shouldBecomeFirstResponder : Bool = true
   
     var oncommit: (()-> Void)?  // nothing is pass therer only call back no parameter. It will trigger only  full  otp text is filled that logic in updateUIView  of OneTimeCodeInput.
@@ -67,7 +67,7 @@ struct OneTimeCodeBoxes: View {
 
 struct OneTimeCodeBoxes_Previews: PreviewProvider {
     static var previews: some View {
-        OneTimeCodeBoxes(codeDict: .constant([0:"",1: "",2:"",3:""]), isOTPError: .constant(true))
+        OneTimeCodeBoxes(codeDict: .constant([0:"",1: "",2:"",3:""]), isOTPError: .constant(true), firstResponderIndex: .constant(0))
             .padding()
             .previewLayout(.sizeThatFits)
     }

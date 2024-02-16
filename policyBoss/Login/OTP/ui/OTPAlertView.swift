@@ -20,7 +20,7 @@ struct OTPAlertView: View {
     
     @State private var isPasswordVisible: Bool = false
 
-
+    @State var firstResponderIndex = 0
     @State
       var codeDict = Dictionary<Int,String>(uniqueKeysWithValues: (0..<codeDigit).map{($0,"")}
       )
@@ -350,7 +350,7 @@ private extension OTPAlertView {
     var OTPView : some View {
         Group{
         
-            OneTimeCodeBoxes(codeDict:$codeDict, isOTPError: $isOTPError,
+            OneTimeCodeBoxes(codeDict:$codeDict, isOTPError: $isOTPError, firstResponderIndex: $firstResponderIndex,
                              oncommit: {
             
 
@@ -389,7 +389,7 @@ private extension OTPAlertView {
         for (i, _) in codeDict.enumerated() {
             codeDict[i] = ""
         }
-       // firstResponderIndex = 0 // Set focus to first field
+        firstResponderIndex = 0 // Set focus to first field
     }
 }
 

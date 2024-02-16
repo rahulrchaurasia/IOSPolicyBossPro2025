@@ -82,10 +82,11 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         }else{
             
             DispatchQueue.main.async {
-                self.showAlert(message: Connectivity.message)
+            // self.showAlert(message: Connectivity.message)
                 
-                
+                self.networkCheckDialog()
             }
+           
 
         }
         
@@ -334,21 +335,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         
         getotpLoginHorizon()
       
-//        let alertVC = self.alertService.alertLoginOTPVC(title: strtitle,
-//                                                           body: strbody,
-//                                                           subTitle: strsubTitle)
-//       
-//        alertService.completionHandler = {
-//            
-//            debugPrint("call back return from Posp Amnount Alert")
-//            
-//            print("dddd")
-//           // self.emailTf.becomeFirstResponder()
-//            self.dismissKeyboard()
-//           
-//        }
-  //      self.present(alertVC, animated: true)
-        
+
     }
     
     
@@ -401,11 +388,12 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                                                            body: "",
                                                            subTitle: "")
        
-        alertService.completionHandler = { closureData in
+        alertService.completionHandler = { [weak self] closureData in
+
+            guard let self = self else { return } // Check for nil self
 
            // self.emailTf.becomeFirstResponder()
             switch(closureData){
-                
                 
             case .close:
                 self.dismissKeyboard()
@@ -420,15 +408,16 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     }
     
     
+    
     func showPasswordAlert( strtitle : String,strbody: String ,strsubTitle : String ){
         
         let alertVC = self.alertService.alertLoginPasswordVC(userID: emailTf.text!)
        
-        alertService.completionHandler = { closureData in
+        alertService.completionHandler = { [weak self] closureData in
             
+            guard let self = self else { return } // Check for nil self
             switch(closureData){
-                
-                
+     
             case .close:
                 self.dismissKeyboard()
             case .success:
@@ -447,7 +436,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     func loginSuccess(){
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
         {
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let KYDrawer : KYDrawerController = self.storyboard?.instantiateViewController(withIdentifier: "stbKYDrawerController") as! KYDrawerController
@@ -459,6 +448,19 @@ class LoginVC: UIViewController,UITextFieldDelegate {
             TTGSnackbar.init(message: "Login successfully.", duration: .long).show()
             
         }
+        
+    }
+    
+    func networkCheckDialog(){
+        
+        let alertConnectionVC = self.alertService.alertConnection()
+        
+        // donot confused with name of closure
+        alertService.completionPospAmntHandler =  {  [weak self] in
+            self?.getusersignup()
+        }
+        self.present(alertConnectionVC, animated: true)
+        
         
     }
     

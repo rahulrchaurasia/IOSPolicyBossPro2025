@@ -1913,12 +1913,12 @@ class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,
                                                            body: strbody,
                                                            subTitle: strsubTitle)
        
-        alertService.completionPospAmntHandler = {
+        alertService.completionPospAmntHandler = { [weak self] in
             
             debugPrint("call back return from Posp Amnount Alert")
             
             
-            self.setUserInfoToWebEngAnalytic()
+            self?.setUserInfoToWebEngAnalytic()
         }
         self.present(alertDocVC, animated: true)
         

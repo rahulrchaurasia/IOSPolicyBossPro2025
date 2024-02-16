@@ -10,8 +10,10 @@ import UIKit
 
 class AlertSyncDashboardVC: UIViewController {
     
+    @IBOutlet weak var ssid: UILabel!
     typealias syncDashCompetionHandler = ([String: Any]) -> Void
 
+    var alertSSID = String()
     var syncDashboardCompletion : syncDashCompetionHandler?
     
     @IBOutlet weak var viewMain: UIView!
@@ -22,6 +24,8 @@ class AlertSyncDashboardVC: UIViewController {
         // Do any additional setup after loading the view.
         
         initView()
+        
+        ssid.text = "SS ID :- \(alertSSID)"
     }
     
     

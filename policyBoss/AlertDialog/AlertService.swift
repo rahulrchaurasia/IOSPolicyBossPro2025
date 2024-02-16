@@ -74,13 +74,14 @@ class AlertService {
         return alertLoginVC
     }
     
-    func alertSyncDashboard() -> AlertSyncDashboardVC {
+    func alertSyncDashboard(alertSSID : String) -> AlertSyncDashboardVC {
         
         let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
         
         let alertDashVC = storyboard.instantiateViewController(withIdentifier: "AlertSyncDashboardVC") as! AlertSyncDashboardVC
         
-       
+        alertDashVC.alertSSID = alertSSID
+               
         return alertDashVC
     }
     
@@ -92,7 +93,11 @@ class AlertService {
         
         let alertConnVC = storyboard.instantiateViewController(withIdentifier: "AlertConnectionVC") as! AlertConnectionVC
         
-       
+         alertConnVC.completionHandler = { [weak self] in
+             
+            
+             self?.completionPospAmntHandler?()
+         }
         return alertConnVC
     }
     
@@ -101,10 +106,10 @@ class AlertService {
            let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
            let alertVC =  storyboard.instantiateViewController(withIdentifier: "AlertPospAmntVC") as! AlertPospAmntVC
         
-           alertVC.completionHandler = {
+           alertVC.completionHandler = { [weak self] in
                 
                
-                self.completionPospAmntHandler?()
+                self?.completionPospAmntHandler?()
             }
                
            alertVC.alertTitle = title
@@ -123,9 +128,9 @@ class AlertService {
            let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
            let alertVC =  storyboard.instantiateViewController(withIdentifier: "OTPAlertVC") as! OTPAlertVC
         
-         alertVC.completionHandler = {  closerData in
+         alertVC.completionHandler = {   [weak self] closerData in
              
-            self.completionHandler?(closerData)
+            self?.completionHandler?(closerData)
          }
 //
            alertVC.alertTitle = title
@@ -143,18 +148,12 @@ class AlertService {
            let storyboard = UIStoryboard(name: "AlertStoryboard", bundle: .main)
            let alertVC =  storyboard.instantiateViewController(withIdentifier: "PasswordAlertVC") as! PasswordAlertVC
         
-//           alertVC.completionHandler = {
-//                
-//               
-//                self.completionHandler?()
-//            }
-        
-        // assign closer form child to parent
+
        
         
-        alertVC.completionHandler = {  closerData in
+        alertVC.completionHandler = {  [weak self] closerData in
              
-            self.completionHandler?(closerData)
+            self?.completionHandler?(closerData)
          }
 
            alertVC.alertUserID = userID
