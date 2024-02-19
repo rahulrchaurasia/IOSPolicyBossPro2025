@@ -163,17 +163,74 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: false )
         }
         
-        //let strNameArray = FullName?.components(separatedBy: " ")
-        if let strNameArray = FullName?.components(separatedBy: " ") {
-            WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0] )
-            WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray[1] )
-            debugPrint("First Name",strNameArray[0] )
-            debugPrint("Last Name",strNameArray[1] )
+        
+        // Handle empty string gracefully
+        let strName = FullName ?? ""
+        
+        
+        // Handle empty string gracefully
+        
+
+        // Combine optional chaining and clarity for robust extraction
+        var firstName: String = ""
+        var lastName: String = ""
+
+        // Split the name cautiously, handling separators and single words
+        let strNameArray = strName.components(separatedBy: " ")
+        if(strNameArray.count > 1){
+            
+            do {
+                let firstData = strName.split(separator: " ", maxSplits: 1).first ?? ""
+                    
+                let lastData = strName.split(separator: " ", maxSplits: 1).last ?? ""
+                
+                firstName = String(firstData )
+                lastName = String(lastData)
+                
+                print("firstName \(firstName) and lastName \(lastName)")
+                
+                WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName)
+                WebEngageAnaytics.shared.getWEGUser().setLastName(lastName)
+                
+               
+            } 
+            
         }else{
-            WebEngageAnaytics.shared.getWEGUser().setFirstName(FullName)
+            
+            firstName = strName
+            print("firstName \(strName) and lastName \(lastName)")
+            WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName )
             WebEngageAnaytics.shared.getWEGUser().setLastName("" )
+            
         }
         
+        
+            
+        
+            // Two or more words: extract first and last
+          
+        // Split the string, ensuring there's at least one space
+        
+        //let strNameArray = FullName?.components(separatedBy: " ")
+//        let strName = (FullName ?? "") as String
+//        if let strNameArray = strName.split(separator: " ", maxSplits: 1) {
+//            
+//            if(strNameArray.count > 1){
+//                
+//                WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0] )
+//                WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray[1] )
+//                debugPrint("First Name",strNameArray[0] )
+//                debugPrint("Last Name",strNameArray[1] )
+//            }else{
+//                WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0])
+//                WebEngageAnaytics.shared.getWEGUser().setLastName("" )
+//            }
+//            
+//        }else{
+//            WebEngageAnaytics.shared.getWEGUser().setFirstName(FullName)
+//            WebEngageAnaytics.shared.getWEGUser().setLastName("" )
+//        }
+//        
         
         
         

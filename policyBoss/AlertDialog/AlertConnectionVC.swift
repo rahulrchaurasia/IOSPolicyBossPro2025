@@ -10,6 +10,7 @@ import UIKit
 
 class AlertConnectionVC: UIViewController {
 
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     // Closure for Dismiss
     var completionHandler: (() -> Void)?
     
@@ -25,17 +26,35 @@ class AlertConnectionVC: UIViewController {
         mainView.clipsToBounds = true
            btnRetry.layer.cornerRadius = btnRetry.frame.height / 2 // Consistent curve
            btnRetry.clipsToBounds = true // Hide overflow
+        
+        self.stopLoading()
 
     }
     
-    
+    func startLoading() {
+            indicator.isHidden = false // Ensure visibility
+            indicator.startAnimating()
+        }
+
+        func stopLoading() {
+            indicator.stopAnimating()
+            indicator.isHidden = true // Hide if desired
+        }
    
     @IBAction func btnRetryClick(_ sender: Any) {
         
         if Connectivity.isConnectedToInternet(){
+            
+            stopLoading()
             self.dismiss(animated: true)
             
              completionHandler?()
+        }else{
+            self.startLoading()
+            // Simulate some work
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                self.stopLoading()
+            }
         }
        
     }

@@ -365,7 +365,12 @@ final class LoginRepository {
     private func getName() -> String {
             switch userType {
             case .posp:
-                return POSP_USERNameOnPAN
+                if(!POSP_USERNameOnPAN.isEmpty)
+                {
+                   return POSP_USERNameOnPAN
+                }else{
+                    return EMP_EmpName
+                }
             case .fos:
                 // Handle FOS
                 return POSP_USERNameOnPAN
