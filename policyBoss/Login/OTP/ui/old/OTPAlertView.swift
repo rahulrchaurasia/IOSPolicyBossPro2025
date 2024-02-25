@@ -133,6 +133,8 @@ private extension OTPAlertView {
                 
                 // Start the timer when the view appears
                 timerVM.onSelected = onSelected
+                OTPDataViewModel.shareInstance.resettempDictandIndex()
+                OTPDataViewModel.shareInstance.resetIsKeyBoard()
             }
         
         
@@ -230,24 +232,8 @@ private extension OTPAlertView {
                         
                         print("Final Done \(code)")
                         
-                        Task {
-                            do  {
-                                
-                                let result = try await  vm.verifyOTP(otp: code, mobileNumber: OTPDataViewModel.shareInstance.getOtpMobileNo())
-                                
-                                if(result.lowercased() == "success"){
-                                    handleSuccess()
-                                }else{
-                                    handleFailure()
-                                    
-                                }
-                                  
-                                
-                            } catch {
-                                
-                                handleAPIError(error)
-                            }
-                        }
+                        callVerifyOTPApi()
+                       
                     }else{
                         
                         print("Validation ")
@@ -284,7 +270,8 @@ private extension OTPAlertView {
                              
                               if(result.lowercased() == "success"){
                                   vm.isLoading = false
-                                 
+                                  OTPDataViewModel.shareInstance.blnIsKeyBoardOTP = false
+                                  OTPDataViewModel.shareInstance.resettempDictandIndex()
                                   print("resend OTP success",result)
                               }else{
                                   vm.isLoading = false
@@ -302,7 +289,7 @@ private extension OTPAlertView {
              
                 
             }, label: {
-                Text("Resend Code")
+                Text("Resend OTP")
                     .font(.title2)
                     .underline()
                     .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
@@ -316,6 +303,29 @@ private extension OTPAlertView {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top,20)
+    }
+    
+    func callVerifyOTPApi() {
+       
+        Task{
+            do  {
+                
+                let result = try await  vm.verifyOTP(otp: code, mobileNumber: OTPDataViewModel.shareInstance.getOtpMobileNo())
+                
+                if(result.lowercased() == "success"){
+                    handleSuccess()
+                }else{
+                    handleFailure()
+                    
+                }
+                
+                
+            } catch {
+                
+                handleAPIError(error)
+            }
+        }
+        
     }
     
     func handleSuccess() {
@@ -351,31 +361,35 @@ private extension OTPAlertView {
         Group{
         
             OneTimeCodeBoxes(codeDict:$codeDict, isOTPError: $isOTPError, firstResponderIndex: $firstResponderIndex,
-                             oncommit: {
-            
-
-                print("***Final Done \(code)")
-                
-                Task {
-                        // Perform asynchronous operations or other tasks
-
-                        // Access and use the saved state later:
-                        DispatchQueue.main.async {
-                           let (isVerified, message)  =  vm.validateOTP1(strCode: code)
-                            
-                               isValidate = isVerified
-                               isOTPError = isVerified
-                               vm.errorMessage = message
-                        }
-                    }
-               
+               oncommit: {
+              
+                // Not trigger bec we use onchange, hence here logic written below onchange event
               
             })
             .disabled(vm.isLoading)
             .onChange(of: codeDict) { newValue in
                 
+                debugPrint("***OTP Value \(newValue.values)")
                 isOTPError = true
                 isValidate = true
+                
+                if( newValue.values.filter({!$0.isEmpty}).count == codeDict.count){
+                    
+                    debugPrint("***Final Done \(code)")
+                    let (isVerified, message)  =  vm.validateOTP1(strCode: code)
+                     
+                        isValidate = isVerified
+                        isOTPError = isVerified
+                        vm.errorMessage = message
+                     
+                    
+                         if(isVerified){
+                             
+                             callVerifyOTPApi()
+                         }
+                }
+                
+              
                 
             }
             .padding(.top,20)
