@@ -345,7 +345,8 @@ import Foundation
                
                 print("HORIZON CALL",OTPDataViewModel.shareInstance.getOTPSsid() )
                 if let ssidInt = Int(OTPDataViewModel.shareInstance.getOTPSsid()){
-                    let horizonDetailResult =
+                   // let horizonDetailResult =
+                   
                     try await  LoginRepository.shared.getLoginDetailHorizon(userID: ssidInt  )
                 }
                 
@@ -468,13 +469,23 @@ struct OTPAlertValidation{
     }
 }
 
-class OTPDataViewModel{
+final class OTPDataViewModel{
     
    
     static let shareInstance = OTPDataViewModel()
     
+    //POSP NO.
     private var OTP_ssid: String = ""
     private  var OTP_mobNo = ""
+    
+    var blnIsKeyBoardOTP : Bool = false
+    var tempCodeDict = Dictionary<Int,String>(uniqueKeysWithValues: (0..<4).map{($0,"")}
+    )
+     
+                                          
+                                              
+                                        
+    private var tempIndex : Int = 0
     
     func setOTPSSID(newSsid : String){
         
@@ -493,4 +504,51 @@ class OTPDataViewModel{
            
         return OTP_mobNo
     }
+    
+    
+    //
+    func settempIndex(){
+        
+        tempIndex = tempIndex + 1
+    }
+    func gettempIndex() -> Int{
+        
+        return tempIndex
+    }
+    
+    func settempDict( data : String){
+        
+        if( tempIndex >= 0 && tempIndex <= 3 ){
+            
+            tempCodeDict.updateValue(data, forKey: tempIndex)
+            
+            debugPrint("temp Dict position: \(tempIndex)  and value\(data)")
+            
+            tempIndex = tempIndex + 1
+        }
+      
+        
+    }
+   
+    func gettempDict() -> Dictionary<Int,String>{
+        
+        return tempCodeDict
+    }
+    
+    func resetIsKeyBoard(){
+        
+        blnIsKeyBoardOTP = false
+    }
+    
+    func resettempDictandIndex(){
+        
+        tempIndex = 0
+       
+        
+        for (key, _) in tempCodeDict {
+            tempCodeDict[key] = "" // Or nil, depending on your needs
+        }
+    }
+    
+   
 }

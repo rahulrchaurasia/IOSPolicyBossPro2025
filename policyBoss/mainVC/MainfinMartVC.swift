@@ -1461,7 +1461,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     let referer_code = UserDefaults.standard.string(forKey: "referer_code") as AnyObject
                     
                     let androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable) as AnyObject
-                   
+                    
                     
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
@@ -1521,18 +1521,35 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     UserDefaults.standard.set(String(describing: iosversion), forKey: "iosversion")
                     
                     UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
-                   
-                    UserDefaults.standard.set(String(describing: androidproattendanceEnable), forKey: getSharPrefernce.attendanceEnable)
-                   
-                          ///////////////////////////      Verify  Build Version to  Server    /////////////////////////////////////////////////////////
-                                            
-                               self.verifyVersion()
-                                          
-                           ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                      
-                    WebEngageAnaytics.shared.getWEGUser().setAttribute("POSP No.", withStringValue: POSPNo as? String ?? "")
                     
-                  
+                    UserDefaults.standard.set(String(describing: androidproattendanceEnable), forKey: getSharPrefernce.attendanceEnable)
+                    
+                    ///////////////////////////      Verify  Build Version to  Server    /////////////////////////////////////////////////////////
+                    
+                    self.verifyVersion()
+                    
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                   
+                    
+                    let pospNoString = jsonData?["POSPNo"] as? String ?? "0"
+                    
+                    if let pospNoInt = Int64(pospNoString) {
+                        
+                        WebEngageAnaytics.shared.getWEGUser().setAttribute(
+                            "POSP No.",
+                            withValue: NSNumber(value: pospNoInt)
+                        )
+                        debugPrint("POSPNO  \(pospNoInt)")
+                    } else {
+                        // Handle cases where POSPNo is not an integer
+                       
+                        debugPrint("No  POSPNO  generated")
+                        
+                    }
+                    
+                    
                     
                 }, onError: { errorData in
                     // alertView.close()

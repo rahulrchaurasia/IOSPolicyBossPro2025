@@ -56,6 +56,9 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         //--<textField>--
         aTextField.delegate = self
         emailTf.delegate = self
+        
+        emailTf.textContentType = .none
+        emailTf.keyboardType = .emailAddress
        // passwordTf.delegate = self
         
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.LoginScreen)
@@ -438,6 +441,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
         {
+           
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let KYDrawer : KYDrawerController = self.storyboard?.instantiateViewController(withIdentifier: "stbKYDrawerController") as! KYDrawerController
             KYDrawer.modalPresentationStyle = .fullScreen

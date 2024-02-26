@@ -13,7 +13,7 @@ class TimerViewModel : ObservableObject  {
     
     private var timer: Timer?
     @Published  var remainingTime: Double = 60.0 * 2 // Initial value
-    // @Published  var remainingTime: Double = 60.0 * 30 // Initial value
+   // @Published  var remainingTime: Double = 60.0 * 1.2 // Initial value
     @Published var isResendButtonVisible: Bool = false
     //var onSelected: ((String) -> Void)?
     var onSelected: ((closureType) -> Void)?

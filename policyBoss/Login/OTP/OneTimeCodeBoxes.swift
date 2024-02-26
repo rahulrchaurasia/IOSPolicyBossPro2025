@@ -14,6 +14,7 @@ struct OneTimeCodeBoxes: View {
     @Binding var firstResponderIndex : Int 
     @State var shouldBecomeFirstResponder : Bool = true
   
+    var TempIndex = 0  // for handling Keyboard OTP Auto
     var oncommit: (()-> Void)?  // nothing is pass therer only call back no parameter. It will trigger only  full  otp text is filled that logic in updateUIView  of OneTimeCodeInput.
     
     
@@ -27,11 +28,15 @@ struct OneTimeCodeBoxes: View {
                     index: i,
                     codeDict: $codeDict,
                     firstResponderIndex: $firstResponderIndex, shouldBecomeFirstResponder: $shouldBecomeFirstResponder,
+                
                     oncommit: oncommit
+                    
                 )
+            
                 .onChange {
                         // Handle changes to codeDict here
                         // ...
+                        // due to onChange our oncommit not triggered
                     }
                 
                 .frame(width: 60, height: 60)

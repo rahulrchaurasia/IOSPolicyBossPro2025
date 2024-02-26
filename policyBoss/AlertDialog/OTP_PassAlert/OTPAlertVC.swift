@@ -33,22 +33,27 @@ class OTPAlertVC: UIViewController ,UITextFieldDelegate {
     }
     
 
-//    lazy var loginView : LoginView = {
+
+    
+//    lazy var otpAlerView : OTPAlertView = {
 //        
-//        let otpView = LoginView {[weak self] otpData in
+//        let otpView = OTPAlertView {[weak self] otpData in
 //            
 //            print("OTP Data : \(otpData)")
 //           // self.label =....
+//           // self?.view.endEditing(true)
+//            self?.completionHandler?(otpData)
 //            self?.dismiss(animated: true)
-//           
+//            
+//          
 //        }
 //        
 //        return otpView
 //    }()
     
-    lazy var otpAlerView : OTPAlertView = {
+    lazy var otpAlerView : OTPAlertDialog = {
         
-        let otpView = OTPAlertView {[weak self] otpData in
+        let otpView = OTPAlertDialog {[weak self] otpData in
             
             print("OTP Data : \(otpData)")
            // self.label =....

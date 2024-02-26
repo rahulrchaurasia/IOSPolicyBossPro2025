@@ -84,9 +84,8 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         // Create a WKWebView with the given configuration : Default
 //        webView = WKWebView(frame: view.bounds, configuration: webViewConfiguration)
-        
-       
         // WebEngaged Now you can add the enhanced configuration
+        
         let enhancedConfiguration = weObject.enhanceWebConfig(forMobileWebBridge: webViewConfiguration)
         
         if let enhancedConfiguration = enhancedConfiguration{
@@ -94,7 +93,6 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             self.webView = WKWebView(frame: self.view.frame, configuration: enhancedConfiguration )
         }
       
-        
         
         webView.navigationDelegate = self
         view.addSubview(webView)

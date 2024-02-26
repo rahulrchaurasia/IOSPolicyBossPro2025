@@ -201,6 +201,10 @@
 		CD75384E285CA963004B2D4D /* pospAmntModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD75384D285CA963004B2D4D /* pospAmntModel.swift */; };
 		CD7547AB2B7940AD009F5332 /* UserNewSignUpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7547AA2B7940AD009F5332 /* UserNewSignUpResponse.swift */; };
 		CD7D4DD22B7B3BCB008C1AC1 /* AuthLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D4DD12B7B3BCB008C1AC1 /* AuthLoginResponse.swift */; };
+		CD7D55142B88C9E90041DE53 /* OTPAlertViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D55132B88C9E90041DE53 /* OTPAlertViewMain.swift */; };
+		CD7D55172B88CCA70041DE53 /* OTPAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D55162B88CCA70041DE53 /* OTPAlertDialog.swift */; };
+		CD7D551A2B88CCDF0041DE53 /* Binding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */; };
+		CD7D551C2B88CD530041DE53 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D551B2B88CD530041DE53 /* View+Extension.swift */; };
 		CD906EE029A72E9E004F85DC /* stbOther.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD906EDF29A72E9E004F85DC /* stbOther.storyboard */; };
 		CD917FBF2A384430007BB770 /* CustomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD917FBE2A384430007BB770 /* CustomLoaderView.swift */; };
 		CD955D3C2B7DCF3100011FF6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */; };
@@ -469,6 +473,10 @@
 		CD75384D285CA963004B2D4D /* pospAmntModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pospAmntModel.swift; sourceTree = "<group>"; };
 		CD7547AA2B7940AD009F5332 /* UserNewSignUpResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNewSignUpResponse.swift; sourceTree = "<group>"; };
 		CD7D4DD12B7B3BCB008C1AC1 /* AuthLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthLoginResponse.swift; sourceTree = "<group>"; };
+		CD7D55132B88C9E90041DE53 /* OTPAlertViewMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertViewMain.swift; sourceTree = "<group>"; };
+		CD7D55162B88CCA70041DE53 /* OTPAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertDialog.swift; sourceTree = "<group>"; };
+		CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extension.swift"; sourceTree = "<group>"; };
+		CD7D551B2B88CD530041DE53 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		CD906EDF29A72E9E004F85DC /* stbOther.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = stbOther.storyboard; sourceTree = "<group>"; };
 		CD917FBE2A384430007BB770 /* CustomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoaderView.swift; sourceTree = "<group>"; };
 		CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -1200,6 +1208,8 @@
 				CD2D676229125ED000DF42D9 /* Extension+UIView.swift */,
 				CD6E912729C205F400936762 /* Extension+Scrollview.swift */,
 				CDE3E35229C5E646004C3B83 /* Extension+String.swift */,
+				CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */,
+				CD7D551B2B88CD530041DE53 /* View+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1426,6 +1436,14 @@
 			path = password_response;
 			sourceTree = "<group>";
 		};
+		CD7D55152B88CAA30041DE53 /* old */ = {
+			isa = PBXGroup;
+			children = (
+				CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */,
+			);
+			path = old;
+			sourceTree = "<group>";
+		};
 		CD955D3A2B7DCF1500011FF6 /* Loader */ = {
 			isa = PBXGroup;
 			children = (
@@ -1462,7 +1480,9 @@
 		CDC53ABA2B762348003AE374 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */,
+				CD7D55152B88CAA30041DE53 /* old */,
+				CD7D55132B88C9E90041DE53 /* OTPAlertViewMain.swift */,
+				CD7D55162B88CCA70041DE53 /* OTPAlertDialog.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -1789,6 +1809,7 @@
 				CD1F8C722B72C8B300098B72 /* OneTimeCodeInput.swift in Sources */,
 				84186CD82215735B0069F152 /* transctnHisTVCell.swift in Sources */,
 				B253B246261652E0000C3A7D /* IQPreviousNextView.swift in Sources */,
+				CD7D55142B88C9E90041DE53 /* OTPAlertViewMain.swift in Sources */,
 				84F46EA021F9D1710093CB1F /* salesMaterialModel.swift in Sources */,
 				4427908C244885E000AFDED9 /* UserConstDashboardModel.swift in Sources */,
 				84EF6EA12296B2BD0002E73B /* smsTemplateVC.swift in Sources */,
@@ -1831,6 +1852,7 @@
 				CDDB6E6029D5549200BCEC66 /* AlertSyncDashboardVC.swift in Sources */,
 				CD41B28E290FD538004ACDD8 /* HomeTabBar.swift in Sources */,
 				8483DC9A226756250095AA24 /* getmpsNowVC.swift in Sources */,
+				CD7D551A2B88CCDF0041DE53 /* Binding+Extension.swift in Sources */,
 				44367ED8244466DC005B9441 /* SharePrdModel.swift in Sources */,
 				CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */,
 				8413349521C8FD350084AFC2 /* KYDrawerController.swift in Sources */,
@@ -1893,6 +1915,8 @@
 				B253B258261652E0000C3A7D /* IQUIView+Hierarchy.swift in Sources */,
 				CD3F9A8229CDDB2F00FB8F2F /* NotificationTVC.swift in Sources */,
 				CD1F8C6D2B72C81B00098B72 /* APButton.swift in Sources */,
+				CD7D55172B88CCA70041DE53 /* OTPAlertDialog.swift in Sources */,
+				CD7D551C2B88CD530041DE53 /* View+Extension.swift in Sources */,
 				840562E321D4D3440099DDE8 /* enrolasPOSPVC.swift in Sources */,
 				B2622BE42613721E00B49797 /* Extension+UIViewController.swift in Sources */,
 				B2622BE7261372AF00B49797 /* Extension+UserDefaults.swift in Sources */,
@@ -2115,7 +2139,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2130,7 +2154,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.02;
+				MARKETING_VERSION = 2.0.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2149,7 +2173,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2164,7 +2188,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.02;
+				MARKETING_VERSION = 2.0.03;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
