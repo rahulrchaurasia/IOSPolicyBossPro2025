@@ -31,7 +31,7 @@ PODS:
   - SwiftCBOR (0.4.5)
   - SwiftyJSON (5.0.0)
   - TTGSnackbar (1.9.2)
-  - WebEngage (6.4.1)
+  - WebEngage (6.6.1)
   - WebEngageAppEx/ContentExtension (1.0.2):
     - WebEngageAppEx/CoreApi
   - WebEngageAppEx/CoreApi (1.0.2)
@@ -50,7 +50,7 @@ DEPENDENCIES:
   - SDWebImage/WebP
   - SwiftyJSON
   - TTGSnackbar
-  - WebEngage
+  - WebEngage (~> 6.6.1)
   - WebEngageAppEx/ContentExtension
   - WebEngageBannerPush
   - WEPersonalization
@@ -89,11 +89,11 @@ SPEC CHECKSUMS:
   SwiftCBOR: ac340b74d3b2cf1f8884bb748bd09875848e3873
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TTGSnackbar: b1da26bd1e791048b08d69e9efb033db0e22d310
-  WebEngage: e276beb4c93566656d50953140e1de53fe663bac
+  WebEngage: 440e5cd8e5cb5f4d573ef4fd36d74c299e99cae5
   WebEngageAppEx: 48ddb2095e24592e812e046a22681d497b9a20e2
   WebEngageBannerPush: 470a5caa6978a429ba60a47ca249a90d271a7b1c
   WEPersonalization: db824cf2a032ec9327ff42a386eeaf8058043928
 
-PODFILE CHECKSUM: 185b146edcbde46ab57dd03333f86ac779b42a7c
+PODFILE CHECKSUM: 8d0f5fd647924e946e092b94511bdb6581a289fc
 
 COCOAPODS: 1.14.3

@@ -256,7 +256,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         //endregion
         
-        print("MENU COUNT \(menuSectionList.count) ")
+       // print("MENU COUNT \(menuSectionList.count) ")
         return menuSectionList[section].menuModel.count
 
         

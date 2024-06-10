@@ -241,8 +241,8 @@ import Foundation
                               
                               if let ssIdInt = jsonObject["SS_ID"] as? Int {
                                    print("SS_ID as Int:", ssIdInt)
-                                                      let horizonDetailResult =
-                                                      try await  LoginRepository.shared.getLoginDetailHorizon(userID: (ssIdInt))
+                                                      //let horizonDetailResult =
+                                                      try await  LoginRepository.shared.getLoginDetailHorizon(ssID: (ssIdInt))
                                                       
                                                         print("HORIZON CALL \(ssIdInt)")
                                }
@@ -253,8 +253,8 @@ import Foundation
                                        print("SS_ID as String:", ssIdString)
                                        
                                                print("HORIZON CALL",ssIdString )
-                                                           let horizonDetailResult =
-                                       try await  LoginRepository.shared.getLoginDetailHorizon(userID:  ssidInt )
+                                                          // let horizonDetailResult =
+                                       try await  LoginRepository.shared.getLoginDetailHorizon(ssID:  ssidInt )
                                            
                                    }
                                                   
@@ -347,7 +347,7 @@ import Foundation
                 if let ssidInt = Int(OTPDataViewModel.shareInstance.getOTPSsid()){
                    // let horizonDetailResult =
                    
-                    try await  LoginRepository.shared.getLoginDetailHorizon(userID: ssidInt  )
+                    try await  LoginRepository.shared.getLoginDetailHorizon(ssID: ssidInt  )
                 }
                 
             }
@@ -446,8 +446,36 @@ import Foundation
    
     //not used
     
+    
+    
+    //************************ Sales Material ******************************************
+   
+    //Mark : resend OTP
+    func salesMaterialContent_usage( salesMaterClickReq : SalesMaterialContentUsageRequest) async throws -> String {
+        
+    
+    
+        do{
+           let response =  try await  LoginRepository.shared.salesMaterialContent_usage(salesMaterClickReq: salesMaterClickReq )
+            
+           // print("API Resend Response",response)
+            return response
+        }catch{
+            
+           // print(String(describing: error))
+            return "fail"
+           
+        }
+       
+    }
+    
         
 }
+
+
+
+
+
 
 
 // Not in used

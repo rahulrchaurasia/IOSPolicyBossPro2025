@@ -16,7 +16,6 @@
 #import "WEInLineNotificationProtocol.h"
 #import "WEGInlineRendrerHelper.h"
 
-
 FOUNDATION_EXPORT double WebEngageVersionNumber;
 FOUNDATION_EXPORT const unsigned char WebEngageVersionString[];
 
@@ -41,6 +40,33 @@ typedef NS_ENUM(NSInteger, WEGLocationAccuracy){
 };
 
 
+typedef NS_ENUM(NSInteger, WegVersionKey) {
+    WegVersionKeyFL,
+    WegVersionKeyFLNI,
+    WegVersionKeyFLPE,
+    WegVersionKeyGTM,
+    WegVersionKeyIONI,
+    WegVersionKeyIOPE,
+    WegVersionKeyIO,
+    WegVersionKeyPE,
+    WegVersionKeyNI,
+    WegVersionKeyRN,
+    WegVersionKeyRNNI,
+    WegVersionKeyRNPE,
+    WegVersionKeySEG,
+    WegVersionKeyUN,
+    WegVersionKeyUNNI,
+    WegVersionKeyUNPE,
+    WegVersionKeyXM,
+    WegVersionKeyXMNI,
+    WegVersionKeyXMPE,
+    WegVersionKeyI_S_EXT,
+    WegVersionKeyI_C_EXT,
+    WegVersionKeySEGRN
+};
+
+
+
 
 /**
  *  This is an umbrella header for WebEngage SDK. This facade will provide the app with all the features of WebEngage.
@@ -55,6 +81,14 @@ typedef NS_ENUM(NSInteger, WEGLocationAccuracy){
  *  of its overloads before accessing this property.
  */
 @property (nonatomic, readonly) WEGUser *user;
+
+/**
+ *  Get an instance of NSMutableDictionary which provide the version of sdk-meta.
+ *
+ *  @warning Application must initialize the SDK first by calling application:didFinishLaunchingWithOptions: or one
+ *  of its overloads before accessing this property.
+ */
+@property (nonatomic, readwrite) NSMutableDictionary *WEGVersions;
 
 
 /**
@@ -192,5 +226,16 @@ typedef NS_ENUM(NSInteger, WEGLocationAccuracy){
 
 
 -(void)setInLineDelegates:(id <InLineNotificationsProtocol>)object;
+
+
+// method to set version for sub-SDKs to send in Meta-data of visitor_new_session
+
+- (void)setVersionForChildSDK:(NSString *)version forKey:(WegVersionKey)key;
+
+//set service extension version from the app group data
+- (void) setServiceExtensionVersion;
+//set content extension version from the app group data
+- (void) setContentExtensionVersion;
+
 
 @end

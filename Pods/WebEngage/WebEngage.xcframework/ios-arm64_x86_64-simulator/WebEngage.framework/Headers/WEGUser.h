@@ -252,6 +252,14 @@ typedef NS_ENUM(NSInteger, WEGEngagementChannel) {
  */
 - (void)login:(NSString *)userIdentifier jwtToken:(NSString *) token;
 
+/**
+ *  Identify the current user in WebEngage System and update the invalid jwtToken
+ *
+ *  @param userIdentifier unique identifier for the user in App's ecosystem.
+ *  @param jwtToken unique security token for the user in App's ecosystem.
+ */
+- (void)setSecureToken:(NSString *)userIdentifier jwtToken:(NSString *) token;
+
 
 /**
  *  LoggOut the currently loggedIn user from the WebEngage's context. Any Events and attributes set after this call will be associated with a new user which can be identified again via loggedIn call. Calling this method when no user has been loggedIn has no effect.

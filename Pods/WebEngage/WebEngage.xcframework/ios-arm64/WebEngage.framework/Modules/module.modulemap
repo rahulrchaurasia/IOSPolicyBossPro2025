@@ -1,7 +1,7 @@
 framework module WebEngage {
   umbrella header "WebEngage.h"
-
   export *
+
   module * { export * }
 }
 

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MagicFinmart
+//@testable import MagicFinmart
 
 class MagicFinmartTests: XCTestCase {
 

@@ -45,6 +45,8 @@ struct getSharPrefernce  {
     
     static let  attendanceEnable   = "androidproattendanceEnable"
     static let  uidLogin = "IsUidLogin"
+    static let  userType = "policyBossPro_userType"
+    static let  isAgent = "policyBossPro_isAgent"
   
     
 }
@@ -61,7 +63,13 @@ enum UserType: String {
     case fos = "FOS"
     case emp = "EMP"
     case misp = "MISP"
-    case none = "NONE"
+    case none = ""
+    
+    var isAgent: Bool {
+        
+     return self == .posp || self == .fos
+        
+    }
 }
 
 struct Constant  {
@@ -86,6 +94,8 @@ struct Constant  {
     static let PbKeychain = "pb.KeyChain"
     static let DeviceDetail = "deviceDetail"
     static let  PbAttendanceURL   = "https://pbtimes.policyboss.com/EIS/JSON_Test/app_data_push_test.php"
+    
+    static let SalesMaterial_TypeOfContyent = "CUSTOMER COMM"
 }
 
 

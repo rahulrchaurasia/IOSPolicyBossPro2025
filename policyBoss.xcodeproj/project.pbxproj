@@ -213,6 +213,7 @@
 		CD9A04EF2B555F8E00BCD739 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CD9A04EE2B555F8E00BCD739 /* FirebaseCrashlytics */; };
 		CD9A04F12B555FA900BCD739 /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = CD9A04F02B555FA900BCD739 /* FirebaseDynamicLinks */; };
 		CD9A1B5E29E52CB1002E1C07 /* PushNotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9A1B5D29E52CB1002E1C07 /* PushNotificationModel.swift */; };
+		CD9BA2632BA2C90A003D85CE /* SalesMaterialContentUsageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9BA2622BA2C90A003D85CE /* SalesMaterialContentUsageRequest.swift */; };
 		CD9D048929E01F5D00AE6AA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD9D048829E01F5C00AE6AA9 /* GoogleService-Info.plist */; };
 		CDA496E129CC2382006B619F /* SyncContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA496E029CC2382006B619F /* SyncContactViewModel.swift */; };
 		CDAA0FA2286CAAD2009B69A9 /* AlertPospAmntVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDAA0FA1286CAAD2009B69A9 /* AlertPospAmntVC.swift */; };
@@ -481,6 +482,7 @@
 		CD917FBE2A384430007BB770 /* CustomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoaderView.swift; sourceTree = "<group>"; };
 		CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		CD9A1B5D29E52CB1002E1C07 /* PushNotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationModel.swift; sourceTree = "<group>"; };
+		CD9BA2622BA2C90A003D85CE /* SalesMaterialContentUsageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesMaterialContentUsageRequest.swift; sourceTree = "<group>"; };
 		CD9D048829E01F5C00AE6AA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CD9D048A29E0214600AE6AA9 /* policyBoss.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = policyBoss.entitlements; sourceTree = "<group>"; };
 		CDA496E029CC2382006B619F /* SyncContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncContactViewModel.swift; sourceTree = "<group>"; };
@@ -837,6 +839,7 @@
 		840C4BD921C382D6000B8D49 /* SALESMATERIAL */ = {
 			isa = PBXGroup;
 			children = (
+				CD9BA2612BA2C8E1003D85CE /* model */,
 				18DBD99925D54BC40006E53D /* old */,
 				1835672925547EE400799E63 /* ShareImage */,
 				840C4BDC21C38377000B8D49 /* SalesmaterialVC.swift */,
@@ -1460,6 +1463,14 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		CD9BA2612BA2C8E1003D85CE /* model */ = {
+			isa = PBXGroup;
+			children = (
+				CD9BA2622BA2C90A003D85CE /* SalesMaterialContentUsageRequest.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		CDAA0FA3286CAAF4009B69A9 /* pospAmntDialog */ = {
 			isa = PBXGroup;
 			children = (
@@ -1782,6 +1793,7 @@
 				84D2E0C721EDB85500991D47 /* LoginAPI.swift in Sources */,
 				840C4BDF21C3838D000B8D49 /* PendingcasesVC.swift in Sources */,
 				44354AA5248FCCF800F9BD80 /* InsuranceData.swift in Sources */,
+				CD9BA2632BA2C90A003D85CE /* SalesMaterialContentUsageRequest.swift in Sources */,
 				8410403E21D786E500C3B7A7 /* FinmartRestClient.swift in Sources */,
 				840562EB21D4D3B40099DDE8 /* whatsNewVC.swift in Sources */,
 				84C368BD21C76D9300BB2E9B /* CAPSPageMenu.swift in Sources */,
@@ -2139,7 +2151,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2153,8 +2165,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.03;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.0.06;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2173,7 +2185,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2187,8 +2199,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.03;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.0.06;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2327,7 +2339,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = exactVersion;
-				version = 10.19.1;
+				version = 10.27.0;
 			};
 		};
 		CDDF4F932A1B258D00D6438A /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {

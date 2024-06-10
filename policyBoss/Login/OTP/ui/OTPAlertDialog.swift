@@ -457,7 +457,7 @@ private extension OTPAlertDialog {
             let status = (isKeyBoardShowing && otpText.count == index)
             
             RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .stroke(status ? .black : .gray,
+                .stroke(status ? Color.accentColor : .gray,
                  lineWidth: status ? 1 : 0.5)
                 .animation(.easeInOut(duration: 0.2), value: status)
 

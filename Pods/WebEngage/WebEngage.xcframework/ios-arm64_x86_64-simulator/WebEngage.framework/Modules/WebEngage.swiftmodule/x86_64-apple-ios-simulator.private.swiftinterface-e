@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target x86_64-apple-ios10.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name WebEngage
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Foundation
@@ -8,6 +8,7 @@ import UIKit
 @_exported import WebEngage
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 import os.log
 import os
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class WEGNetworkManager : ObjectiveC.NSObject {
@@ -18,6 +19,7 @@ import os
   #if compiler(>=5.3) && $Sendable
   @objc public func performDataTask(to urlRequest: Foundation.URLRequest, then handler: @escaping @Sendable (Foundation.Data?, Foundation.URLResponse?, (any Swift.Error)?) -> Swift.Void) -> Foundation.URLSessionDataTask
   #endif
+  @objc public func getModifiedUrl(request: Foundation.URLRequest, cuid: Swift.String?) -> Foundation.URLRequest
   @objc public func getModifiedCommonRequest(request: Foundation.URLRequest, cuid: Swift.String?) -> Foundation.URLRequest
   @objc public func getCuid() -> Swift.String?
   @objc public func getLuid() -> Swift.String?
@@ -47,3 +49,46 @@ import os
   @objc public func removeJWTToken(cuid: Swift.String)
   @objc deinit
 }
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class WEGCLCHandler : ObjectiveC.NSObject {
+  @objc public enum CampaignTypes : Swift.Int {
+    case inApp
+    case inLine
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public enum CLCHandlerKeys : Swift.String {
+    case viewDetailsForSession
+    case totalInAppCountInSession
+    case totalInLineCountInSession
+    case lastInAppViewDate
+    case lastInLineViewDate
+    case recurrDetails
+    case lastRecurResetTime
+    case frequency
+    case recurCount
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  @objc public static let shared: WebEngage.WEGCLCHandler
+  @objc public var fcDetails: Foundation.NSMutableDictionary
+  @objc public func isPassedFrequencyCapping(forKey: Swift.String, forNotification: Foundation.NSDictionary) -> Swift.Bool
+  @objc public func isRecurLimitPassed(forKey: Swift.String, forNotification: Foundation.NSDictionary) -> Swift.Bool
+  @objc public func resetRecurringforCampaign()
+  @objc public func incrementTotalViewCountForSession(forCampaignType: WebEngage.WEGCLCHandler.CampaignTypes)
+  @objc public func incrementRecurCount(forKey: Swift.String, forNotification: Foundation.NSDictionary)
+  @objc public func resetTotalViewCountForSession(forCampaignType: WebEngage.WEGCLCHandler.CampaignTypes)
+  @objc public func removeViewDetailsInSession()
+  @objc deinit
+}
+extension WebEngage.WEGCLCHandler.CampaignTypes : Swift.Equatable {}
+extension WebEngage.WEGCLCHandler.CampaignTypes : Swift.Hashable {}
+extension WebEngage.WEGCLCHandler.CampaignTypes : Swift.RawRepresentable {}
+extension WebEngage.WEGCLCHandler.CLCHandlerKeys : Swift.Equatable {}
+extension WebEngage.WEGCLCHandler.CLCHandlerKeys : Swift.Hashable {}
+extension WebEngage.WEGCLCHandler.CLCHandlerKeys : Swift.RawRepresentable {}

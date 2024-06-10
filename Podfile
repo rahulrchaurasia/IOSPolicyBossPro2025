@@ -25,11 +25,12 @@ target 'policyBoss' do
    pod 'PopupDialog', '~> 0.5'
    pod 'CobrowseIO'
    pod 'SDWebImage/WebP'
-   pod 'WebEngage'
+#   pod 'WebEngage'
+   pod 'WebEngage', '~> 6.6.1'
    
    pod 'WEPersonalization'
    pod 'WebEngageBannerPush'
-   pod 'WebEngageAppEx/ContentExtension'
+   pod 'WebEngageAppEx/ContentExtension' 
    
 end
 
@@ -38,7 +39,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
     # some older pods don't support some architectures, anything over iOS 11 resolves that
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
       
       xcconfig_relative_path = "Pods/Target Support Files/#{target.name}/#{target.name}.#{config.name}.xcconfig"
          file_path = Pathname.new(File.expand_path(xcconfig_relative_path))

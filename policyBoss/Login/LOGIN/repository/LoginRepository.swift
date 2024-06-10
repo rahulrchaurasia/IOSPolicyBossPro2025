@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 final class LoginRepository {
@@ -94,9 +95,14 @@ final class LoginRepository {
                 }
                 if let msgDict = jsonObject["Msg"] as? [String: Any] {
                     
-                    if let _mobileNo = msgDict["Mobile_No"] as? NSNumber {
+//                    if let _mobileNo = msgDict["Mobile_No"] as? NSNumber {
+//                        print("OTP Mobile_No",_mobileNo )
+//                        Mobile_No = _mobileNo.stringValue
+//                        
+//                    }
+                    if let _mobileNo = msgDict["Mobile_No"] as? String {
                         print("OTP Mobile_No",_mobileNo )
-                        Mobile_No = _mobileNo.stringValue
+                        Mobile_No = _mobileNo
                         
                     }
                     if let _ss_Id = msgDict["Ss_Id"] as? NSNumber {
@@ -196,10 +202,10 @@ final class LoginRepository {
         return "fail"
     }
     
-    func getLoginDetailHorizon(userID : Int) async throws {
+    func getLoginDetailHorizon(ssID : Int) async throws {
         
         
-        guard let url = URL(string: "https://horizon.policyboss.com:5443/posps/dsas/view/\(userID)") else {
+        guard let url = URL(string: "https://horizon.policyboss.com:5443/posps/dsas/view/\(ssID)") else {
             throw APIError.invalidURL
         }
     
@@ -234,6 +240,18 @@ final class LoginRepository {
                 if let user_type = jsonObject["user_type"] as? String {
                     print("user_type",user_type )
                     userType = UserType(rawValue: user_type) ?? .none
+                    
+                    debugPrint("User Type",userType.rawValue)
+                    
+                   
+                    if(userType.isAgent){
+                        
+                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
+                        
+                    }else{
+                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
+                        
+                    }
                     
                     //Mark : POSP
                     if let pospDict = jsonObject["POSP"] as? [String: Any] {
@@ -307,10 +325,11 @@ final class LoginRepository {
     
                 }
                 
+
                 //let fbaid = getFbaId(userType: userType)
                 UserDefaults.standard.set(getFbaId(userType: userType), forKey: "FBAId")
                 UserDefaults.standard.set("", forKey: "referer_code")
-                UserDefaults.standard.set(String(describing: userID), forKey: "POSPNo")
+                UserDefaults.standard.set(String(describing: ssID), forKey: "POSPNo")
                 UserDefaults.standard.set(String(describing: 0), forKey: "CustID")
                 UserDefaults.standard.set(String(describing: getMobileNo()), forKey: "MobiNumb1")
                 UserDefaults.standard.set(String(describing: getEmailId()), forKey: "EmailID")
@@ -425,4 +444,51 @@ final class LoginRepository {
     private func getUserId() -> String {
         return EMP_UID
     }
+    
+    
+    
+    
+    //Mark :--> SalesMaterial User Click Api
+    // Using Async and Await :-->
+    func salesMaterialContent_usage(salesMaterClickReq : SalesMaterialContentUsageRequest) async throws ->  String{
+
+        
+        let endUrl = "/postservicecall/content_usage"
+        let urlString =  Configuration.baseROOTURL  + endUrl
+
+
+        guard let url = URL(string: urlString) else {
+            throw APIErrors.custom(message: Constant.InvalidURL)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        debugPrint("URL :-", urlString)
+
+            
+        do {
+            let jsonReq = try? JSONEncoder().encode(salesMaterClickReq)
+            debugPrint("Request:-", salesMaterClickReq)
+            request.httpBody = jsonReq
+            
+           
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+       
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        
+        //Parse the JSON Data
+        
+            let salesMaterialResp = try? JSONDecoder().decode(SalesMaterialContentUsageResponse.self, from: data)
+       
+        
+        
+        return salesMaterialResp?.Status ?? ""
+        
+        
+        
+    }
+    
 }

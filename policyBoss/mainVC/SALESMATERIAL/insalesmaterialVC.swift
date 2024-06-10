@@ -41,6 +41,8 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
     
     var delegateData : salesDelegate?
     
+    let vmLogin = LoginViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -109,7 +111,7 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
             // insalesCView.isHidden = true
             
             filterSalesData(strLang: "Hindi")
-            
+            LangType = "Hindi"
             
         } else {
             engLbl.textColor = UIColor(red: 0/255, green: 125/255, blue: 213/255, alpha: 1.0)
@@ -118,6 +120,7 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
             
             
             filterSalesData(strLang: "English")
+            LangType = "Eng"
             
         }
         
@@ -227,29 +230,118 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
             showToast(controller: self, message: "Product Not Found", seconds: 1)
         }else{
             
-            //            let imgsalesmaterialNew : imgsalesmaterialNewVC = self.storyboard?.instantiateViewController(withIdentifier: "stbimgsalesmaterialNewVC") as! imgsalesmaterialNewVC
-            //            imgsalesmaterialNew.modalPresentationStyle = .fullScreen
-            //            imgsalesmaterialNew.detailImg =  salesDetailModel[indexPath.row].image_path
-            //            imgsalesmaterialNew.productID = productId
-            //            self.addChild(imgsalesmaterialNew)
-            //            self.view.addSubview(imgsalesmaterialNew.view)
+            
+            if Connectivity.isConnectedToInternet()
+            {
+                let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
+                if let parentView = self.navigationController?.view
+                {
+                    alertView.parentView = parentView
+                }
+                else
+                {
+                    alertView.parentView = self.view
+                }
+                alertView.show()
+                
+                guard let FBAId = (UserDefaults.standard.string(forKey: "FBAId"))
+                else{ return }
+                guard let ssid = (UserDefaults.standard.string(forKey: "POSPNo"))
+                else{ return }
+                
+                var language = ""
+                
+                if(self.LangType == "Eng"){
+                    language = "English"
+                    
+                }else{
+                    language = "Hindi"
+                }
+                
+
+                let salesMaterClickReq = SalesMaterialContentUsageRequest(
+                    app_version: Configuration.appVersion,
+                    product_id: productId,
+                    device_code: UIDevice.current.identifierForVendor?.uuidString ?? "",
+                    fbaid: FBAId,
+                    ssid: ssid,
+                    type_of_content: Constant.SalesMaterial_TypeOfContyent,
+                    content_url:  salesDetailModel[indexPath.row].image_path,
+                    language: language,
+                    content_source: (extractImageName(from: salesDetailModel[indexPath.row].image_path) ?? ""),
+                    product_name: passindexlbl
+                )
+                
+                //Api call
+                Task {
+                    do {
+                        
+                        
+                        let result = try await vmLogin.salesMaterialContent_usage(salesMaterClickReq: salesMaterClickReq)
+                        
+                        DispatchQueue.main.async {  // Update UI on main thread
+                            alertView.close()
+                            
+                            if(result.lowercased() == "success"){
+                                print("API Success :- SalesUser Click")
+                                //showAlert(message: "API Success")
+                               
+                                
+                            }
+                            else{
+                                print("API Fail :- SalesUser Click")
+                                
+                                // showAlert(message: "API Failed")
+                                
+                            }
+                           
+                        }
+                        
+                       
+                        
+                        
+                    } catch  {
+                        
+                       
+                        print("Unexpected error:", error.localizedDescription)
+                        
+                        // Handle unexpected errors gracefully
+                    }
+                    
+                    DispatchQueue.main.async {  // Update UI on main thread
+                        
+                       
+                        self.moveToShareView(indexPathRow: indexPath.row)
+                    }
+                }
+            }
+            else{
+                let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
+                snackbar.show()
+            }
             
             
+            ///////////
             
-            let shareImageVC : ShareImageVC = self.storyboard?.instantiateViewController(withIdentifier: "stbShareImageVC") as! ShareImageVC
-            shareImageVC.modalPresentationStyle = .fullScreen
-            shareImageVC.modalTransitionStyle = .coverVertical
-            shareImageVC.detailImg =  salesDetailModel[indexPath.row].image_path
-            shareImageVC.productID = productId
-            //                        self.addChild(shareImageVC)
-            //                        self.view.addSubview(shareImageVC.view)
             
-            self.present(shareImageVC,animated: false,completion: nil)
         }
         
     }
     
     
+    func moveToShareView(indexPathRow : Int){
+        
+        let shareImageVC : ShareImageVC = self.storyboard?.instantiateViewController(withIdentifier: "stbShareImageVC") as! ShareImageVC
+        shareImageVC.modalPresentationStyle = .fullScreen
+        shareImageVC.modalTransitionStyle = .coverVertical
+        shareImageVC.detailImg =  salesDetailModel[indexPathRow].image_path
+        shareImageVC.productID = productId
+        //                        self.addChild(shareImageVC)
+        //                        self.view.addSubview(shareImageVC.view)
+        
+        self.present(shareImageVC,animated: false,completion: nil)
+        
+    }
     
     
     
@@ -268,6 +360,16 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
+    
+    func extractImageName(from imageUrl: String) -> String? {
+      guard !imageUrl.isEmpty else { return nil } // Handle empty URL
+
+      let url = URL(string: imageUrl)
+      guard let url = url else { return nil } // Handle invalid URL format
+
+      return url.lastPathComponent
+    }
+
     
     //********************************************************************************************//
     //---<APICALL>---

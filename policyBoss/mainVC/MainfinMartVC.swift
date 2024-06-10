@@ -148,15 +148,19 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let EmailID = UserDefaults.standard.string(forKey: "EmailID")
         let MobiNumb = UserDefaults.standard.string(forKey: "MobiNumb1")
         let IsUidLogin = UserDefaults.standard.string(forKey: "IsUidLogin")
+        let IsAgent  = UserDefaults.standard.string(forKey: getSharPrefernce.isAgent)
         
         print("Full Name", FullName ?? "")
+        print("IsAgent  ",IsAgent ?? "N")
         WebEngageAnaytics.shared.getWEGUser().setPhone(MobiNumb)
         WebEngageAnaytics.shared.getWEGUser().setEmail(EmailID)
         
         WebEngageAnaytics.shared.getWEGUser().login(EmailID)
         WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
         
-        if ( IsUidLogin == "N") {
+     
+        
+        if ( IsAgent == "Y") {
             
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: true )
         }else{

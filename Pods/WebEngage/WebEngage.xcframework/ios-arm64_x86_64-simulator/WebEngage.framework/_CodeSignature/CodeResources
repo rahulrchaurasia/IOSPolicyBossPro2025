@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/WEGUser.h</key>
 		<data>
-		D65wUvByBOXosNZewXXEPEwHY6I=
+		2k7X7C/KQAQXnaXSpD8QCDJbPF4=
 		</data>
 		<key>Headers/WEInLineNotificationProtocol.h</key>
 		<data>
@@ -42,59 +42,59 @@
 		</data>
 		<key>Headers/WebEngage-Swift.h</key>
 		<data>
-		e/F7UTA/HeTsQwPsTf5I48LzVTk=
+		8/88vXBLe/eCc+ko7plofoFFozM=
 		</data>
 		<key>Headers/WebEngage.h</key>
 		<data>
-		Zy/RLA3ksPpHYqjxe9BwwtR4n9U=
+		LNflA5khSdkOZeFtGrheUcL0GBM=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		V44UTqF5TtD4W9l+bnaErndI4CM=
+		FeKsmaqkBMRlWQq2buek/MfjiVY=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		5zy49aJwWfx/hoohFpXN90kIFTE=
+		Ztrlz/DED4Zmcsa09uq4m4jTrvU=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		ba89m/khW6QsgxPxbcO3Z+ie0GQ=
+		Ps3yktFhG2bRHOb3JU8wDoMD+mU=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		5DPwFenxS4VXMLrSrYt3OpBbiww=
+		32IFVLvdlvpU4I6ZJWujjbEkOUA=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		ba89m/khW6QsgxPxbcO3Z+ie0GQ=
+		Ps3yktFhG2bRHOb3JU8wDoMD+mU=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		jr5rdtQMcwFHNhFofxOH/mEEnOg=
+		QJzKU+MtS4K11pujV2z2fGIMDfY=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		5zy49aJwWfx/hoohFpXN90kIFTE=
+		Ztrlz/DED4Zmcsa09uq4m4jTrvU=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		2ACX6ushPvFYBWLARI12m54vSrs=
+		gi4U+Cb5ZOkI1le93g7J28GCGbI=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		j2F/hBCYgl9BZNS6Mg/IurRiSDg=
+		gJKZ0ZK9U+TFIGEpY6U9jHQp92Q=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		2ACX6ushPvFYBWLARI12m54vSrs=
+		gi4U+Cb5ZOkI1le93g7J28GCGbI=
 		</data>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		7SLL1SHhQ65I3J0yuT4p0vAKj/Q=
+		CdyXrdgPrNqHJHumpbPcoOyUI60=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		bmIzn7VCTtntcVomDA3o+jqQ46s=
+		oHvGN118sB+ob8Dvl1KjHLNozq4=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -180,11 +180,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			D65wUvByBOXosNZewXXEPEwHY6I=
+			2k7X7C/KQAQXnaXSpD8QCDJbPF4=
 			</data>
 			<key>hash2</key>
 			<data>
-			HafaitJo6/8OEhM8uh0YRvpot4WctEFN489e0FWqMmw=
+			TQXlXiz9s5zrGjuL6tWD9xkZ6XAYbUNPJboxx5cD4qs=
 			</data>
 		</dict>
 		<key>Headers/WEInLineNotificationProtocol.h</key>
@@ -202,143 +202,143 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			e/F7UTA/HeTsQwPsTf5I48LzVTk=
+			8/88vXBLe/eCc+ko7plofoFFozM=
 			</data>
 			<key>hash2</key>
 			<data>
-			jnyHWwfKiZwErR7xkhOdFy+YJTd1VEWs7f11tl+Vta4=
+			Lj1EMUgTTTyYWmfFTFXGPnqEHBAxfImUDKoLi0ThnCQ=
 			</data>
 		</dict>
 		<key>Headers/WebEngage.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Zy/RLA3ksPpHYqjxe9BwwtR4n9U=
+			LNflA5khSdkOZeFtGrheUcL0GBM=
 			</data>
 			<key>hash2</key>
 			<data>
-			hRLx423PAEeuZXCCxRwUDAWXrbN1FBtgBI1ELwC/mTM=
+			adyK8Cz19qtVbjbYtbnqTCQ6lJ6Mk34IWpqvKSIqBMU=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5zy49aJwWfx/hoohFpXN90kIFTE=
+			Ztrlz/DED4Zmcsa09uq4m4jTrvU=
 			</data>
 			<key>hash2</key>
 			<data>
-			gNYNf0V8JrK4rjzdVdOlSHdrzU2dcS80o8Bzj4M82qg=
+			Srbqxn0BSy1Zda5skyzZuup2WajLlGvMGAZZgqg9LGU=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ba89m/khW6QsgxPxbcO3Z+ie0GQ=
+			Ps3yktFhG2bRHOb3JU8wDoMD+mU=
 			</data>
 			<key>hash2</key>
 			<data>
-			m+89Y3UNHaEb1lU4/i1AYulsJKWfV1cwwNqpiNs8llI=
+			C5OF/sBjRkFqWg42HaJhzl7giCY44Sg8Cc0jt4SK7ko=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5DPwFenxS4VXMLrSrYt3OpBbiww=
+			32IFVLvdlvpU4I6ZJWujjbEkOUA=
 			</data>
 			<key>hash2</key>
 			<data>
-			WI88C63oK1AfH9K9uaoNI4wJZaPt8N2nEknRXR7tskg=
+			Y0rCAUbWavsEb+uUesw1r/UbT7qoPPAnsy4hb54FTP0=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ba89m/khW6QsgxPxbcO3Z+ie0GQ=
+			Ps3yktFhG2bRHOb3JU8wDoMD+mU=
 			</data>
 			<key>hash2</key>
 			<data>
-			m+89Y3UNHaEb1lU4/i1AYulsJKWfV1cwwNqpiNs8llI=
+			C5OF/sBjRkFqWg42HaJhzl7giCY44Sg8Cc0jt4SK7ko=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jr5rdtQMcwFHNhFofxOH/mEEnOg=
+			QJzKU+MtS4K11pujV2z2fGIMDfY=
 			</data>
 			<key>hash2</key>
 			<data>
-			atQkpZCjo2/IjKeB5ia4qrLaf4Qs4OttY/7svoaia/g=
+			7KmdT1lR174TR4DggFWZLIFTN5Wbp3cd5yJGfWkBEW8=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5zy49aJwWfx/hoohFpXN90kIFTE=
+			Ztrlz/DED4Zmcsa09uq4m4jTrvU=
 			</data>
 			<key>hash2</key>
 			<data>
-			gNYNf0V8JrK4rjzdVdOlSHdrzU2dcS80o8Bzj4M82qg=
+			Srbqxn0BSy1Zda5skyzZuup2WajLlGvMGAZZgqg9LGU=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2ACX6ushPvFYBWLARI12m54vSrs=
+			gi4U+Cb5ZOkI1le93g7J28GCGbI=
 			</data>
 			<key>hash2</key>
 			<data>
-			9RG5PLODgZLWSyAFPozjzLtLSmXyWM373rMKG5e1nlc=
+			g7Dx4lr1boPOC3MNAveDLc1TWNF61jJsOhZUcd7zOeA=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j2F/hBCYgl9BZNS6Mg/IurRiSDg=
+			gJKZ0ZK9U+TFIGEpY6U9jHQp92Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			s7y52KOb0e7jmZl7gL2jYksBM2IU1oRCBbegabvGR0M=
+			U+5CYx2VOxBxTlEzu78bLBfNqYXf3ODxsWISMCcXomo=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2ACX6ushPvFYBWLARI12m54vSrs=
+			gi4U+Cb5ZOkI1le93g7J28GCGbI=
 			</data>
 			<key>hash2</key>
 			<data>
-			9RG5PLODgZLWSyAFPozjzLtLSmXyWM373rMKG5e1nlc=
+			g7Dx4lr1boPOC3MNAveDLc1TWNF61jJsOhZUcd7zOeA=
 			</data>
 		</dict>
 		<key>Modules/WebEngage.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7SLL1SHhQ65I3J0yuT4p0vAKj/Q=
+			CdyXrdgPrNqHJHumpbPcoOyUI60=
 			</data>
 			<key>hash2</key>
 			<data>
-			Yr3LWoKHspZvxwp1urD6MLmmp4Eb6n8Pk5NPKqd2fYM=
+			ji7y6M7W4tYWYtwTZl2C6n+UzgGhIP6BB/A19S8fXhQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bmIzn7VCTtntcVomDA3o+jqQ46s=
+			oHvGN118sB+ob8Dvl1KjHLNozq4=
 			</data>
 			<key>hash2</key>
 			<data>
-			1Au5vZsDPQl++pOC7gityQb9FgoNdi1RJ/kpGA3NLOg=
+			YN2nA6XRsZ6vRNZHWb5savd7CaHmGjivBMMofLDb7MU=
 			</data>
 		</dict>
 	</dict>

@@ -75,7 +75,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
        loginViaPassword.addGestureRecognizer(tapPasswordGestureRecognizer)
         
         
-        
+        hideLoginVia(false) //Hiding Password
         let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .forever )
         snackbar.show()
         
