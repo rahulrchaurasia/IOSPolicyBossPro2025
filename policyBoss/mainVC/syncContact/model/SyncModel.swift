@@ -14,7 +14,7 @@ struct SyncContactModelRequest : Encodable {
     var fbaid : String
     var ssid : String
     var sub_fba_id : String
-    var device_id : String?
+    var device_id : String
     var raw_data : String
     var contactlist : [ContactMainModel] = []
    

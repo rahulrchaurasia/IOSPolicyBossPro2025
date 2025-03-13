@@ -25,9 +25,11 @@ class MenuDb {
         menuSectionlist.removeAll()
         menuSectionlist.append(MenuSection(section: "Home",menuModel: getHomeMenuData(_isPbAttendance: isPbAttendance, _isUidLogin: isUidLogin)))
         menuSectionlist.append(MenuSection(section: "My Account",menuModel: getMyAccountMenuData(_isenableenrolasPOSP: isenableenrolasPOSP, _isaddPospVisible: addPospVisible,_isfosUser: fosUser)))
-        menuSectionlist.append(MenuSection(section: "My Documents",menuModel: getMyDocumentMenuData()))
         
-        menuSectionlist.append(MenuSection(section: "My Transactions",menuModel: getMyTransactionMenuData(_isshowmyinsurancebusiness: isshowmyinsurancebusiness)))
+        //Not in Used
+//        menuSectionlist.append(MenuSection(section: "My Documents",menuModel: getMyDocumentMenuData()))
+        
+//        menuSectionlist.append(MenuSection(section: "My Transactions",menuModel: getMyTransactionMenuData(_isshowmyinsurancebusiness: isshowmyinsurancebusiness)))
         
         menuSectionlist.append(MenuSection(section: "My Leads",menuModel: getMyLeadsMenuData()))
         
@@ -67,6 +69,8 @@ class MenuDb {
         // Enrol as POSP : hide and show
         Menulist =  [MenuModel]()
         Menulist.append(MenuModel(name: "My Profile" ,img: "vector_person.png" ,modelId: "nav_MyProfile"))
+    
+       
         if(_isenableenrolasPOSP == "1"){
             
             Menulist.append(MenuModel(name: "Enrol as POSP",img: "posp_enrollment.png" ,modelId: "nav_EnrolPosp"))
@@ -84,7 +88,7 @@ class MenuDb {
         Menulist.append(MenuModel(name: "Change Password",img: "change_password.png" ,modelId: "nav_ChangePwd"))
         
         
-        Menulist.append(MenuModel(name: "Sms Templates" ,img: "mps.png" ,modelId: "nav_SmsTemp"))
+//        Menulist.append(MenuModel(name: "Sms Templates" ,img: "mps.png" ,modelId: "nav_SmsTemp"))
        
         //////
        

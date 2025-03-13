@@ -140,6 +140,11 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                     
                     userNewSignUpEntity = response.MasterData[0]
                     
+                    //let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
+                    let POSPURL = response.MasterData[0].enable_pro_pospurl
+                    
+                    UserDefaults.standard.set(String(describing: POSPURL), forKey: Constant.POSPURL)
+                    
                     if(userNewSignUpEntity?.enable_otp_only.uppercased() == "Y"){
                         
                         hideLoginVia(true)
@@ -498,7 +503,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
      
                         // Get app version and device ID
                          let appVersion = Configuration.appVersion
-                        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+                        let deviceID = Configuration.deviceID
                         
                         // Build the URL string using string interpolation
                     let  signupURL = userNewSignUpEntity.enable_pro_signupurl + "&app_version=\(appVersion )&device_code=\(deviceID ?? "")&ssid=&fbaid="

@@ -970,11 +970,12 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                                 let ProdId = self.dynamicDashboardModel[indexPath.row].ProdId
                                // let pospNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
                                 let appVersion = Configuration.appVersion
+                                let deviceID = Configuration.deviceID
                                 
                               
 //                                let info =      "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=\(ProdId)&login_ssid=\(pospNo)"
                                 
-                                let info = "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=\(ProdId)&login_ssid="
+                                let info = "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID)+"&product_id=\(ProdId)&login_ssid="
                                 
                                 let finalURL = modelURL + info
                                 print ("DYNAMIC URL",finalURL)
@@ -1467,6 +1468,15 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     let androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable) as AnyObject
                     
                     
+                    if let enableProAddSubUserUrl = jsonData?.value(forKey: "enable_pro_Addsubuser_url") as? String,
+                       !enableProAddSubUserUrl.isEmpty {
+                        
+                    
+                        UserDefaults.standard.set(enableProAddSubUserUrl, forKey: Constant.AddsubuserUrl)
+                    } else {
+                        // Provide a default value (could be an empty string or a preset default)
+                        UserDefaults.standard.set("", forKey: Constant.AddsubuserUrl)
+                    }
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
                     UserDefaults.standard.set(String(describing: userid), forKey: "userid") //005

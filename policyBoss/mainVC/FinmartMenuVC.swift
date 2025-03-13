@@ -86,6 +86,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     var appaccessStatus = ""
     var isfirstLogin = Int()
     var enableenrolasPOSP = ""
+    var enable_pro_Addsubuser_url = ""
     var showmyinsurancebusiness = ""
     var FOSStatus = ""
     var AddPospVisible = ""
@@ -395,10 +396,14 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
       
         case "nav_EnrolPosp" :
             
-            let enrolasPOSP : enrolasPOSPVC = self.storyboard?.instantiateViewController(withIdentifier: "stbenrolasPOSPVC") as! enrolasPOSPVC
-                               enrolasPOSP.modalPresentationStyle = .fullScreen
-                               enrolasPOSP.modalTransitionStyle = .coverVertical
-                               present(enrolasPOSP, animated: false, completion: nil)
+           
+            
+            let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+            commonWeb.modalPresentationStyle = .fullScreen
+            commonWeb.modalTransitionStyle = .coverVertical
+            commonWeb.webfromScreen = ScreenName.pospEnrollment
+            present(commonWeb, animated: false, completion: nil)
+          
        
         case "nav_AddSubUser" :
             
@@ -876,6 +881,9 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     //-----<end tableView Datasource+Deleagtes>-----
     
     
+    
+  
+    
     //---<APICALL>---
     func CheckAppAccessAPI()
     {
@@ -895,7 +903,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
             let iosuid = UserDefaults.standard.string(forKey: "iosuid")
             //        print("iosuid=",iosuid!)
-            let deviceID = UIDevice.current.identifierForVendor?.uuidString
+            let deviceID = Configuration.deviceID
             
             let params: [String: AnyObject] = ["uid": iosuid as AnyObject,
                                                "DeviceId": deviceID as AnyObject,
@@ -978,6 +986,9 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         
         self.enableenrolasPOSP = enableenrolasposp as! String
+        
+        self.enable_pro_Addsubuser_url = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl) ?? ""
+        
         self.showmyinsurancebusiness = showmyinsurancebusiness as! String
        
 
@@ -1050,6 +1061,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 let referer_code = UserDefaults.standard.string(forKey: "referer_code")
                 
                 let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as AnyObject
+                
                 let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as AnyObject
                 let addPospVisible  = jsonData?.value(forKey: "AddPospVisible") as AnyObject
                 
@@ -1061,6 +1073,17 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 self.enableenrolasPOSP = enableenrolasposp as! String
                 self.showmyinsurancebusiness = showmyinsurancebusiness as! String
                 self.AddPospVisible = addPospVisible as! String
+                
+                //for handling subuser
+                if let enableProAddSubUserUrl = jsonData?.value(forKey: "enable_pro_Addsubuser_url") as? String,
+                   !enableProAddSubUserUrl.isEmpty {
+                    
+                    self.enable_pro_Addsubuser_url = enableProAddSubUserUrl
+                    UserDefaults.standard.set(enableProAddSubUserUrl, forKey: Constant.AddsubuserUrl)
+                } else {
+                    // Provide a default value (could be an empty string or a preset default)
+                    UserDefaults.standard.set("", forKey: Constant.AddsubuserUrl)
+                }
                 
                 UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
     

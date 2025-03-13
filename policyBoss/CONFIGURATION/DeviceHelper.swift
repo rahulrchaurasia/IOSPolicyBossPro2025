@@ -1,3 +1,12 @@
+//
+//  DeviceHelper.swift
+//  policyBoss
+//
+//  Created by Rahul Chaurasia on 09/10/24.
+//  Copyright © 2024 policyBoss. All rights reserved.
+//
+
+
 import UIKit
 
 struct DeviceHelper {

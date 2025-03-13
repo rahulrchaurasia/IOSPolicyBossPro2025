@@ -365,6 +365,39 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             }
         }
         
+        else if(webfromScreen == ScreenName.pospEnrollment)
+        {
+            if let POSPURL = UserDefaults.standard.string(forKey: Constant.POSPURL){
+                
+                if(!POSPURL.isEmpty){
+                    
+                    let appVersion = Configuration.appVersion
+                    let deviceID = Configuration.deviceID
+                    
+                    let FBAId = UserDefaults.standard.string(forKey: "FBAId") as AnyObject
+                    
+                    let POSPNo = UserDefaults.standard.string(forKey: "POSPNo")  as AnyObject
+                    
+                    // Build the URL string using string interpolation
+                    /*
+                     https://www.policyboss.com/posp-form?ss_id=139895&fba_id=68219&sub_fba_id=0&ip_address=10.0.3.64&mac_address=10.0.3.64&app_version=policyboss-&product_id=1&ClientID=2
+                     */
+                    
+                    let  pospWebURL = POSPURL + "&ss_id=\(POSPNo)&fba_id=\(FBAId)&sub_fba_id=0&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version=\(appVersion)&device_code=\(deviceID)"
+                    
+            
+                    print("POSP URL",pospWebURL)
+                    titleLbl.text! = "Posp Enrollment"
+                    webView.load(URLRequest(url: URL(string: pospWebURL)!))
+                    print("URL",pospWebURL)
+                    
+                }
+                
+            }
+                
+            
+            
+        }
         
         
         
@@ -521,8 +554,9 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
     func bindInsuranceUrl(strURL : String, prdID : String ){
         
          let appVersion = Configuration.appVersion
+        let deviceID = Configuration.deviceID
         
-          let insURL = strURL+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id="+(prdID)+"&device_id=594ad17c0ec7fd1e&login_ssid="
+          let insURL = strURL+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id="+(prdID)+"&device_id="+(deviceID)+"&login_ssid="
         
         webView.load(URLRequest(url: URL(string: insURL)!))
         

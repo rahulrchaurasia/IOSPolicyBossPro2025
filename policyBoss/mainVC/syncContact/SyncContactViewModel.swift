@@ -38,6 +38,11 @@ class SyncContactViewModel{
         
         var fbaid = ""
         var sub_fba_id = ""
+       
+        
+        let deviceID = Configuration.deviceID
+        
+        
         if (parentid.trimmingCharacters(in: .whitespacesAndNewlines) == "" || parentid == "0" ) {
             
             fbaid = FBAId
@@ -51,6 +56,7 @@ class SyncContactViewModel{
             fbaid: fbaid,
             ssid: ssid,
             sub_fba_id: sub_fba_id,
+            device_id : deviceID,
             raw_data: rawData,
             contactlist: subContactList
         )
@@ -125,6 +131,7 @@ class SyncContactViewModel{
                     fbaid: "89435",
                     ssid: "119227",
                     sub_fba_id: "0",
+                    device_id :Configuration.deviceID,
                     raw_data: "",
                     contactlist: subContactList
                     )
@@ -267,10 +274,13 @@ class SyncContactViewModel{
             is_call: isCall ? "yes": "no" ,
             is_sms: isSMS ? "yes": "no" ,
             online_agreement: "online_agreement",
+            app_version :Configuration.appVersion,
+            device_code : Configuration.deviceID,
+            
             ss_id: Int(ssid) ?? 0)
         do {
             let jsonReq = try JSONEncoder().encode(syncAgreementReq)
-            debugPrint("Request:-", syncAgreementReq)
+            debugPrint("Agreement Request:-", syncAgreementReq)
             request.httpBody = jsonReq
         } catch {
             print(error.localizedDescription)

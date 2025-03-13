@@ -23,7 +23,7 @@ target 'policyBoss' do
    pod 'CustomIOSAlertView'
    pod 'TTGSnackbar'
    pod 'PopupDialog', '~> 0.5'
-   pod 'CobrowseIO'
+   # pod 'CobrowseIO'
    pod 'SDWebImage/WebP'
 #   pod 'WebEngage'
    pod 'WebEngage', '~> 6.6.1'

@@ -26,7 +26,27 @@ class Configuration: NSObject {
     static let basehealthassureURL = ""
     
    
-    static let appVersion =  Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+    //static let appVersion =  Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
-    static let buildVersion =  Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+   // static let buildVersion =  Bundle.main.infoDictionary?["CFBundleVersion"] as! String
+    
+    
+    static let appVersion: String = {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return "policyboss-" + version
+        } else {
+            return "policyboss-"
+        }
+    }()
+    
+    
+    static let buildVersion: String = {
+        if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return version
+        } else {
+            return "Unknown Build Version"
+        }
+    }()
+    
+    static let deviceID : String = DeviceHelper.deviceId
 }

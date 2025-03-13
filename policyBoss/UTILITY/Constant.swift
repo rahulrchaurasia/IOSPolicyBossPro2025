@@ -96,6 +96,10 @@ struct Constant  {
     static let  PbAttendanceURL   = "https://pbtimes.policyboss.com/EIS/JSON_Test/app_data_push_test.php"
     
     static let SalesMaterial_TypeOfContyent = "CUSTOMER COMM"
+    
+    static let POSPURL = "Enable Pro Pospurl"
+    
+    static let  AddsubuserUrl   = "AddsubuserUrl"
 }
 
 
@@ -128,6 +132,7 @@ struct ScreenName  {
     
     static let  policyByCRN   = "policyByCRN"
     static let  leadDashboard   = "leadDashboard"
+    static let  pospEnrollment   = "POSPEnrollment"
     
     static let Dynamic = "Dynamic"
 }
@@ -164,6 +169,9 @@ struct AnalyticScreenName  {
     static let  WelcomeSyncContactScreen   = "Welcome Sync Contact Screen"
     static let CommonWebViewScreen = "Common WebView Screen"
     static let PrivacyScreen = "Privacy Screen"
+    
+    
+   
     
     
 }

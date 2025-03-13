@@ -171,6 +171,7 @@
 		CD1278882A09147F009BC7A9 /* Pods_policyBoss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */; };
 		CD12788C2A092165009BC7A9 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; };
 		CD12788D2A092165009BC7A9 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD19A7102CB68AFC00484553 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */; };
 		CD1F8C602B72613D00098B72 /* OTPAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */; };
 		CD1F8C652B72C6C600098B72 /* OTPAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */; };
 		CD1F8C672B72C75200098B72 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C662B72C75200098B72 /* LoginViewModel.swift */; };
@@ -444,6 +445,7 @@
 		CD0E58FD29C07449008A67BF /* SyncContact.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SyncContact.storyboard; sourceTree = "<group>"; };
 		CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSynConatctVC.swift; sourceTree = "<group>"; };
 		CD12788A2A092160009BC7A9 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
+		CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertVC.swift; sourceTree = "<group>"; };
 		CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertView.swift; sourceTree = "<group>"; };
 		CD1F8C662B72C75200098B72 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 		8410403F21D7897D00C3B7A7 /* CONFIGURATION */ = {
 			isa = PBXGroup;
 			children = (
+				CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */,
 				8410404121D789C200C3B7A7 /* CommonSettings.swift */,
 				8410404221D789C200C3B7A7 /* Configuration.swift */,
 				8410404321D789C300C3B7A7 /* PBLogs.swift */,
@@ -1920,6 +1923,7 @@
 				44A685CD22DDA170001295F0 /* addSubUserTVCell.swift in Sources */,
 				CDF85CC429ED14B60041B64E /* SyncModel.swift in Sources */,
 				B22BFE53273833ED002EC580 /* TransactionHistoryResponse.swift in Sources */,
+				CD19A7102CB68AFC00484553 /* DeviceHelper.swift in Sources */,
 				CD65415A29C2EE7E006DC774 /* SyncMoreDetailsVC.swift in Sources */,
 				8480BBDE2208118900BEEDF4 /* hnfcontactUsVC.swift in Sources */,
 				840562DB21D4D2CF0099DDE8 /* incmPotentialVC.swift in Sources */,
@@ -2151,7 +2155,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2166,7 +2170,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.06;
+				MARKETING_VERSION = 2.0.07;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2185,7 +2189,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2200,7 +2204,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.06;
+				MARKETING_VERSION = 2.0.07;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -14,9 +14,8 @@ import Foundation
 
 struct SyncContactAgreementRequest: Encodable {
     let fba_id: Int
-    let is_call, is_sms, online_agreement: String
+    let is_call, is_sms, online_agreement,app_version,device_code: String
     let ss_id: Int
-
     
 }
 //********** End *********************************************

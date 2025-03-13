@@ -2,13 +2,6 @@ PODS:
   - Alamofire (4.9.1)
   - AlamofireImage (3.6.0):
     - Alamofire (~> 4.9)
-  - CobrowseIO (2.19.0):
-    - CobrowseIO/XCFramework (= 2.19.0)
-    - Starscream (~> 3.1.1)
-    - SwiftCBOR (~> 0.4.3)
-  - CobrowseIO/XCFramework (2.19.0):
-    - Starscream (~> 3.1.1)
-    - SwiftCBOR (~> 0.4.3)
   - CustomIOSAlertView (0.9.5)
   - DynamicBlurView (3.0.1)
   - KYDrawerController (2.1.0)
@@ -27,8 +20,6 @@ PODS:
   - SDWebImage/WebP (4.4.8):
     - libwebp (< 2.0, >= 0.5)
     - SDWebImage/Core
-  - Starscream (3.1.1)
-  - SwiftCBOR (0.4.5)
   - SwiftyJSON (5.0.0)
   - TTGSnackbar (1.9.2)
   - WebEngage (6.6.1)
@@ -43,7 +34,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 4.9.1)
   - AlamofireImage
-  - CobrowseIO
   - CustomIOSAlertView
   - KYDrawerController
   - PopupDialog (~> 0.5)
@@ -59,15 +49,12 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
-    - CobrowseIO
     - CustomIOSAlertView
     - DynamicBlurView
     - KYDrawerController
     - libwebp
     - PopupDialog
     - SDWebImage
-    - Starscream
-    - SwiftCBOR
     - SwiftyJSON
     - TTGSnackbar
     - WebEngage
@@ -78,15 +65,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
-  CobrowseIO: 93e296ceb2bf494c30f3b1bc79d445ddba57d8c5
   CustomIOSAlertView: cc4fa8e36219be3fd5ebcd40789f5b4aaae0f38e
   DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
   KYDrawerController: baad0e63b09c0cb564bd48f0f7f70f45d9176ebc
   libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
   PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
-  SwiftCBOR: ac340b74d3b2cf1f8884bb748bd09875848e3873
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   TTGSnackbar: b1da26bd1e791048b08d69e9efb033db0e22d310
   WebEngage: 440e5cd8e5cb5f4d573ef4fd36d74c299e99cae5
@@ -94,6 +78,6 @@ SPEC CHECKSUMS:
   WebEngageBannerPush: 470a5caa6978a429ba60a47ca249a90d271a7b1c
   WEPersonalization: db824cf2a032ec9327ff42a386eeaf8058043928
 
-PODFILE CHECKSUM: 8d0f5fd647924e946e092b94511bdb6581a289fc
+PODFILE CHECKSUM: e018f44462e11d07c067548b7fea7ada3d40d1fa
 
 COCOAPODS: 1.14.3
