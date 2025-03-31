@@ -12,6 +12,8 @@ import TTGSnackbar
 import Alamofire
 import WebEngage
 
+//Mark : Not in Used
+//Name: Register Page
 class ViewController: UIViewController,UITextFieldDelegate,SelectedDateDelegate,getPickerDataDelegate,selectedDataDelegate , UITableViewDelegate,UITableViewDataSource  {
     
     

@@ -587,38 +587,41 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         
         return true
     }
-    func  saveDeviceInKeyChain1() -> String?{
-       
-            let deviceID =  UIDevice.current.identifierForVendor?.uuidString
-            let keychain = Keychain(service: Constant.PbKeychain)
-            keychain[Constant.DeviceDetail] = deviceID
-            print("KeyStore Data Stored")
-            
-           return deviceID
-      }
     
-    func  getDeviceInKeyChain1() -> String{
-        
-        
-        let keychain  = Keychain(service: Constant.PbKeychain)
-        
-       // keyChainData = keychain["HighScore"] ?? "No Data"
-        
-        print("KeyStore Data get",keychain[string : Constant.DeviceDetail] ?? "No Data")
-        
-        return keychain[string : Constant.DeviceDetail] ?? ""
-        
-    }
-    func removeKeyChain1(){
-        do {
-            let keychain  = Keychain(service: Constant.PbKeychain)
-            try keychain.remove(Constant.PbKeychain)
-        } catch let error {
-            print("error keychain: \(error)")
-        }
-    }
+//    func  saveDeviceInKeyChain1() -> String?{
+//       
+//            let deviceID = DeviceHelper.deviceId
+//            let keychain = Keychain(service: Constant.PbKeychain)
+//            keychain[Constant.DeviceDetail] = deviceID
+//            print("KeyStore Data Stored")
+//            
+//           return deviceID
+//      }
+//    
+//    func  getDeviceInKeyChain1() -> String{
+//        
+//        
+//        let keychain  = Keychain(service: Constant.PbKeychain)
+//        
+//       // keyChainData = keychain["HighScore"] ?? "No Data"
+//        
+//        print("KeyStore Data get",keychain[string : Constant.DeviceDetail] ?? "No Data")
+//        
+//        return keychain[string : Constant.DeviceDetail] ?? ""
+//        
+//    }
+//    func removeKeyChain1(){
+//        do {
+//            let keychain  = Keychain(service: Constant.PbKeychain)
+//            try keychain.remove(Constant.PbKeychain)
+//        } catch let error {
+//            print("error keychain: \(error)")
+//        }
+//    }
     
     //---<APICALL>---
+    
+    //Not in Used
     func loginAPI()
     {
         

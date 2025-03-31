@@ -89,12 +89,12 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     var enable_pro_Addsubuser_url = ""
     var showmyinsurancebusiness = ""
     var FOSStatus = ""
-    var AddPospVisible = ""
+   // var AddPospVisible = ""
     var Menu_addPospVisible = ""
     var MenufosUser = ""
     
-    var androidproattendanceEnable = ""
-    var IsUidLogin = ""
+   
+   
     
     // For AlertDialog
     let alertService = AlertService()
@@ -112,7 +112,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        versionLbl.text = "Ver." + Configuration.appVersion
+        versionLbl.text =  Configuration.menuappVersion
         
         // MainScrollView.isScrollEnabled = false
         
@@ -407,10 +407,29 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
        
         case "nav_AddSubUser" :
             
-            let addSubUser : addSubUserVC = self.storyboard?.instantiateViewController(withIdentifier: "stbaddSubUserVC") as! addSubUserVC
-            addSubUser.modalPresentationStyle = .fullScreen
-            addSubUser.modalTransitionStyle = .coverVertical
-            present(addSubUser, animated: false, completion: nil)
+            
+            let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+            commonWeb.modalPresentationStyle = .fullScreen
+            commonWeb.modalTransitionStyle = .coverVertical
+            commonWeb.webfromScreen = ScreenName.addSubUser
+            present(commonWeb, animated: false, completion: nil)
+
+            
+            
+        case "nav_RaisedTicket" :
+        
+//            let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+//            commonWeb.modalPresentationStyle = .fullScreen
+//            commonWeb.modalTransitionStyle = .coverVertical
+//            commonWeb.webfromScreen = ScreenName.RaiseTicket
+//            present(commonWeb, animated: false, completion: nil)
+          
+            
+            let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+            commonWeb.modalPresentationStyle = .fullScreen
+            commonWeb.modalTransitionStyle = .coverVertical
+            commonWeb.webfromScreen = ScreenName.RaiseTicket
+            present(commonWeb, animated: false, completion: nil)
             
         case "nav_ChangePwd" :
             
@@ -511,371 +530,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             print("Default")
         }
         
-        /*
-    
         
-        /***************************** Home SECTION ******************************/
-        if(indexPath.section == 0)
-        {
-            //            if(indexPath.row == 0)
-            //            {
-            //                let sessionController = CBIOViewController()
-            //                present(sessionController, animated: true, completion: nil)
-            ////                self.navigationController?.pushViewController(sessionController, animated: true)
-            //            }
-            if(indexPath.row == 0)
-            {
-                
-            
-                
-                //self.moveToHome()
-                
-               
-                
-                NotificationCenter.default.post(name: .NotifyMyAccountProfile, object: nil)
-                
-                print("NNN : Notification start")
-                
-                self.dismissAll(animated: false)
-                
-            }
-//            else if(indexPath.row == 1)     // FINBOX
-//            {
-//
-//                // 05
-//
-//                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-//                commonWeb.modalPresentationStyle = .fullScreen
-//                commonWeb.modalTransitionStyle = .coverVertical
-//                commonWeb.webfromScreen = "myFinbox"
-//
-//                present(commonWeb, animated: false, completion: nil)
-//
-//
-//
-//            }
-//            else if(indexPath.row == 2)
-//            {
-//                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-//                commonWeb.modalPresentationStyle = .fullScreen
-//                commonWeb.modalTransitionStyle = .coverVertical
-//                commonWeb.webfromScreen = "Finperks"
-//                present(commonWeb, animated: false, completion: nil)
-//            }
-            
-        }
-        //myaccount
-        /*****************************  MY ACCOUNT SECTION ******************************/
-        if(indexPath.section == 1)
-        {
-            if(indexPath.row == 0)
-            {
-                let profile : profileVC = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
-                profile.modalPresentationStyle = .fullScreen
-                profile.modalTransitionStyle = .coverVertical
-                present(profile, animated: false, completion: nil)
-            }
-            else if(indexPath.row == 1)
-            {
-                if(self.enableenrolasPOSP == "1")
-                {
-                    let enrolasPOSP : enrolasPOSPVC = self.storyboard?.instantiateViewController(withIdentifier: "stbenrolasPOSPVC") as! enrolasPOSPVC
-                    enrolasPOSP.modalPresentationStyle = .fullScreen
-                    enrolasPOSP.modalTransitionStyle = .coverVertical
-                    present(enrolasPOSP, animated: false, completion: nil)
-                }
-                else
-                {
-                    // For myaccountItems2 array changePasswrdVC position is 2 ie index 1
-                    // hence when enrolasPOSP = 0  than myaccountItems2 array will load
-                    let changePasswrd : changePasswrdVC = self.storyboard?.instantiateViewController(withIdentifier: "stbchangePasswrdVC") as! changePasswrdVC
-                    changePasswrd.modalPresentationStyle = .fullScreen
-                    changePasswrd.modalTransitionStyle = .coverVertical
-                    present(changePasswrd, animated: false, completion: nil)
-                }
-                
-            }
-                //            else if(indexPath.row == 2)
-                //            {
-                //                let hnfraiseTickt : hnfraiseTicktVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhnfraiseTicktVC") as! hnfraiseTicktVC
-                //                present(hnfraiseTickt, animated: true, completion: nil)
-                //            }
-            else if(indexPath.row == 2)
-            {
-                let changePasswrd : changePasswrdVC = self.storyboard?.instantiateViewController(withIdentifier: "stbchangePasswrdVC") as! changePasswrdVC
-                changePasswrd.modalPresentationStyle = .fullScreen
-                changePasswrd.modalTransitionStyle = .coverVertical
-                present(changePasswrd, animated: false, completion: nil)
-            }
-        }
-            //mydocument
-            
-            /*****************************  MY DOCUMENT SECTION ******************************/
-        else if(indexPath.section == 2)
-        {
-            //            if(indexPath.row == 0)
-            //            {
-            //
-            //                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                commonWeb.webfromScreen = "loanAgreement"
-            //                present(commonWeb, animated: true, completion: nil)
-            //            }
-            if(indexPath.row == 0)
-            {
-                let incmCalculatr : incmCalculatrVC = self.storyboard?.instantiateViewController(withIdentifier: "stbincmCalculatrVC") as! incmCalculatrVC
-                incmCalculatr.modalPresentationStyle = .fullScreen
-                incmCalculatr.modalTransitionStyle = .coverVertical
-                incmCalculatr.fromScreen = "appoinLetter"
-                present(incmCalculatr, animated: false, completion: nil)
-            }
-            else if(indexPath.row == 1)
-            {
-                let incmCalculatr : incmCalculatrVC = self.storyboard?.instantiateViewController(withIdentifier: "stbincmCalculatrVC") as! incmCalculatrVC
-                incmCalculatr.modalPresentationStyle = .fullScreen
-                incmCalculatr.modalTransitionStyle = .coverVertical
-                incmCalculatr.fromScreen = "ApplictnForm"
-                present(incmCalculatr, animated: false, completion: nil)
-            }
-        }
-            //mytransactions
-            
-            /*****************************  MY TRANSACTION SECTION ******************************/
-        else if(indexPath.section == 3)
-        {
-            //            if(indexPath.row == 0)
-            //            {
-            ////                let mpsV : mpsVC = self.storyboard?.instantiateViewController(withIdentifier: "stbmpsVC") as! mpsVC
-            ////                present(mpsV, animated: true, completion: nil)
-            ////                self.view.removeFromSuperview()
-            ////                self.removeFromParent()
-            //                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                commonWeb.webfromScreen = "myBusiness"
-            //                present(commonWeb, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 1)
-            //            {
-            //                let transctionHistory : transctionHistoryVC = self.storyboard?.instantiateViewController(withIdentifier: "stbtransctionHistoryVC") as! transctionHistoryVC
-            //                present(transctionHistory, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 2)
-            //            {
-            //                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                commonWeb.webfromScreen = "messageCenter"
-            //                present(commonWeb, animated: true, completion: nil)
-            //            }
-            
-            if(indexPath.row == 0)
-            {
-                
-                
-                
-                if(self.showmyinsurancebusiness == "1")
-                {
-                    let commonWeb : InsuranceBussWebVC = self.storyboard?.instantiateViewController(withIdentifier: "InsuranceBussWebVC") as! InsuranceBussWebVC
-                    commonWeb.modalPresentationStyle = .fullScreen
-                    commonWeb.modalTransitionStyle = .coverVertical
-                    commonWeb.webfromScreen = "InsuranceBusiness"
-                    present(commonWeb, animated: false, completion: nil)
-                }
-                else
-                {
-                    // For transactionsItems2 array policyByCRN position is 1 ie index 0
-                    // hence when showmyinsurancebusiness = 0  than transactionsItems2 array will load
-                    let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-                    commonWeb.modalPresentationStyle = .fullScreen
-                    commonWeb.modalTransitionStyle = .coverVertical
-                    commonWeb.webfromScreen = "policyByCRN"
-                    present(commonWeb, animated: false, completion: nil)
-                }
-                
-                
-            }
-            else  if(indexPath.row == 1)
-            {
-                //                let reqpolicy : reqpolicyVC = self.storyboard?.instantiateViewController(withIdentifier: "stbreqpolicyVC") as! reqpolicyVC
-                //                present(reqpolicy, animated: true, completion: nil)
-                
-                
-                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-                commonWeb.modalPresentationStyle = .fullScreen
-                commonWeb.modalTransitionStyle = .coverVertical
-                commonWeb.webfromScreen = "policyByCRN"
-                present(commonWeb, animated: false, completion: nil)
-            }
-        }
-            //myleads
-            
-            /*****************************  MY LEADS SECTION ******************************/
-        else if(indexPath.section == 4)
-        {
-            
-            if(indexPath.row == 0)
-            {
-                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-                commonWeb.modalPresentationStyle = .fullScreen
-                commonWeb.modalTransitionStyle = .coverVertical
-                commonWeb.webfromScreen = "leadDashboard"
-                present(commonWeb, animated: false, completion: nil)
-            }
-            //            if(indexPath.row == 0)
-            //            {
-            //                let syncContacts : syncContactsVC = self.storyboard?.instantiateViewController(withIdentifier: "stbsyncContactsVC") as! syncContactsVC
-            //                present(syncContacts, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 1)
-            //            {
-            //                let motorInsurance : motorInsuranceVC = self.storyboard?.instantiateViewController(withIdentifier: "stbmotorInsuranceVC") as! motorInsuranceVC
-            //                present(motorInsurance, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 2)
-            //            {
-            //                let loans_shareData : loans_shareData_VC = self.storyboard?.instantiateViewController(withIdentifier: "stbloans_shareData_VC") as! loans_shareData_VC
-            //                present(loans_shareData, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 3)
-            //            {
-            //                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                commonWeb.webfromScreen = "leadDashboard"
-            //                present(commonWeb, animated: true, completion: nil)
-            //            }
-            //            else if(indexPath.row == 4)
-            //            {
-            //                let smsTemplate : smsTemplateVC = self.storyboard?.instantiateViewController(withIdentifier: "stbsmsTemplateVC") as! smsTemplateVC
-            //                present(smsTemplate, animated: true, completion: nil)
-            //            }
-            
-            
-        }
-            
-            
-            ////////////////////////// Commented  ////////////////////////////
-            
-            
-            //        if(self.appaccessStatus == "Active")
-            //        {
-            //            attendance
-            //            if(indexPath.section == 5)
-            //            {
-            //                if(indexPath.row == 0)
-            //                {
-            //                    if(isfirstLogin == 1)
-            //                    {
-            //                        let attendenceRegistratn : attendenceRegistratnVC = self.storyboard?.instantiateViewController(withIdentifier: "stbattendenceRegistratnVC") as! attendenceRegistratnVC
-            //                        present(attendenceRegistratn, animated: true, completion: nil)
-            //                    }
-            //                    else{
-            //                        let addAttendance : addAttendanceVC = self.storyboard?.instantiateViewController(withIdentifier: "stbaddAttendanceVC") as! addAttendanceVC
-            //                        present(addAttendance, animated: true, completion: nil)
-            //                    }
-            //                }
-            //                else if(indexPath.row == 1)
-            //                {
-            //                    let myLocation : myLocationVC = self.storyboard?.instantiateViewController(withIdentifier: "stbmyLocationVC") as! myLocationVC
-            //                    present(myLocation, animated: true, completion: nil)
-            //                }
-            //                else if(indexPath.row == 2)
-            //                {
-            //                    let attenReport : attenReportVC = self.storyboard?.instantiateViewController(withIdentifier: "stbattenReportVC") as! attenReportVC
-            //                    present(attenReport, animated: true, completion: nil)
-            //                }
-            //            }
-            //
-            //            else if(indexPath.section == 6)
-            //            {
-            //                if(indexPath.row == 0)
-            //                {
-            //                    let addUsersV : addUsersVC = storyboard?.instantiateViewController(withIdentifier: "stbaddUsersVC") as! addUsersVC
-            //                    addUsersV.fromScreen = "otherloanProduct"
-            //                    present(addUsersV, animated: true, completion: nil)
-            //
-            //                }
-            //                else if(indexPath.row == 1)
-            //                {
-            //                                    let helpnfeedback : helpnfeedbackVC = self.storyboard?.instantiateViewController(withIdentifier: "stbhelpnfeedbackVC") as! helpnfeedbackVC
-            //                                    present(helpnfeedback, animated: true, completion: nil)
-            //                    let addUsersV : addUsersVC = storyboard?.instantiateViewController(withIdentifier: "stbaddUsersVC") as! addUsersVC
-            //                    addUsersV.fromScreen = "moreServices"
-            //                    present(addUsersV, animated: true, completion: nil)
-            //                }
-            //                else if(indexPath.row == 2)
-            //                {
-            //                                    let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                                    commonWeb.webfromScreen = "Training"
-            //                                    present(commonWeb, animated: true, completion: nil)
-            //                    let addUsersV : addUsersVC = storyboard?.instantiateViewController(withIdentifier: "stbaddUsersVC") as! addUsersVC
-            //                    addUsersV.fromScreen = "myUtilities"
-            //                    present(addUsersV, animated: true, completion: nil)
-            //                }
-            //                else if(indexPath.row == 3)
-            //                {
-            //                                    let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                                    commonWeb.webfromScreen = "leadDetails"
-            //                                    present(commonWeb, animated: true, completion: nil)
-            //                    let whatsNew : whatsNewVC = self.storyboard?.instantiateViewController(withIdentifier: "stbwhatsNewVC") as! whatsNewVC
-            //                    present(whatsNew, animated: true, completion: nil)
-            //                }
-            //                if(indexPath.row == 4)
-            //                {
-            //                    callAlertView()
-            //                }
-            //            }
-            //        }
-            
-            
-            // End commented
-            
-            /*****************************  LOANS SECTION ******************************/
-            //        else  if(indexPath.section == 5)
-            //        {
-            //            if(indexPath.row == 0)
-            //            {
-            //                let StrURL = "http://erp.rupeeboss.com/FM/Franchise_Agreement.pdf"
-            //                let Url = NSURL(string: StrURL )
-            //                let svc = SFSafariViewController(url: Url! as URL)
-            //                 svc.modalPresentationStyle =  .fullScreen
-            //                self.present(svc, animated: true, completion: nil)
-            //
-            //
-            //            } else if(indexPath.row == 1)
-            //            {
-            //                 let FBAId = UserDefaults.standard.string(forKey: "FBAId")
-            //                let StrURL = "http://www.rupeeboss.com/equifax-finmart?fbaid=" + (FBAId!)
-            //                let Url = NSURL(string: StrURL )
-            //                let svc = SFSafariViewController(url: Url! as URL)
-            //                svc.modalPresentationStyle =  .fullScreen
-            //                self.present(svc, animated: true, completion: nil)
-            //            }
-            //
-            //        }
-            
-            /*****************************  OTHER SECTION ******************************/
-        else  if(indexPath.section == 5)
-        {
-            
-             if(indexPath.row == 0)
-            {
-                
-                let addUsersV : addUsersVC = storyboard?.instantiateViewController(withIdentifier: "stbaddUsersVC") as! addUsersVC
-                addUsersV.modalPresentationStyle = .fullScreen
-                addUsersV.modalTransitionStyle = .coverVertical
-                addUsersV.fromScreen = "myUtilities"
-                present(addUsersV, animated: false, completion: nil)
-            }
-            //                else if(indexPath.row == 2)
-            //                {
-            //                    //                let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            //                    //                commonWeb.webfromScreen = "leadDetails"
-            //                    //                present(commonWeb, animated: true, completion: nil)
-            //                    let whatsNew : whatsNewVC = self.storyboard?.instantiateViewController(withIdentifier: "stbwhatsNewVC") as! whatsNewVC
-            //                    present(whatsNew, animated: true, completion: nil)
-            //                }
-            if(indexPath.row == 1)
-            {
-                callAlertView()
-            }
-        }
-        
-        */
         
     }
     //-----<end tableView Datasource+Deleagtes>-----
@@ -961,68 +616,99 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     func getUserData(){
         
-        let FBAId = UserDefaults.standard.string(forKey: "FBAId") as AnyObject
         
-            
-        let loansendname = UserDefaults.standard.string(forKey: "loansendname") as AnyObject
+       
         
-        let POSPNo = UserDefaults.standard.string(forKey: "POSPNo") as AnyObject
-        let ERPID = UserDefaults.standard.string(forKey: "ERPID") as AnyObject
+
+        
+      //Mark:   actually it get value from horizon dsa api
+        let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
+        
+           
+        let loansendname = UserDefaults.standard.string(forKey: "FullName") ?? ""
+        
+        let POSPNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
+        let ERPID = UserDefaults.standard.string(forKey: "ERPID") ?? "0"
         let loanselfphoto = UserDefaults.standard.string(forKey: "loanselfphoto") as AnyObject
-        let referer_code = UserDefaults.standard.string(forKey: "referer_code") as AnyObject
+        let referer_code = UserDefaults.standard.string(forKey: "referer_code") ?? "0"
+        
+        let userType = Core.shared.getUserType()
         
         let enableenrolasposp = UserDefaults.standard.string(forKey: "enableenrolasposp") as AnyObject
         let showmyinsurancebusiness = UserDefaults.standard.string(forKey: "showmyinsurancebusiness") as AnyObject
         
        
-        
-        self.androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable)  ?? ""
-        
-        self.IsUidLogin = UserDefaults.standard.string(forKey: getSharPrefernce.uidLogin)  ?? ""
+       
         
         
-        
-        self.AddPospVisible = UserDefaults.standard.string(forKey: "AddPospVisible")  ?? ""
+     //   self.AddPospVisible = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl)  ?? ""
         
         
         self.enableenrolasPOSP = enableenrolasposp as! String
         
         self.enable_pro_Addsubuser_url = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl) ?? ""
         
-        self.showmyinsurancebusiness = showmyinsurancebusiness as! String
+       // self.showmyinsurancebusiness = showmyinsurancebusiness as! String
        
 
         //self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
        
         UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
         
-        self.fullNameLbl.text! = loansendname.uppercased
-        self.fbaIdLbl.text! = FBAId as! String
-        self.pospNoLbl.text! = POSPNo as! String
-        self.erpIdLbl.text! = ERPID as! String
-        self.refcodeLbl.text! = referer_code as! String
         
-        if(loanselfphoto as! String != ""){
-            //loadimages
-            let imgURL = NSURL(string: loanselfphoto as! String)
-            if imgURL != nil {
-                //let data = NSData(contentsOf: (imgURL as URL?)!)
-                
-                self.menuprofileImgView.sd_setImage(with: imgURL as URL?)
-             
-            }
+        //Mark: For SubUser Data, we added here 2025
+        if( UserDefaultsManager.shared.getSubUserSsId() != "0") {
+            
+            self.fullNameLbl.text = UserDefaultsManager.shared.getSubUserName()
+            self.fbaIdLbl.text! = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+            
+            self.refcodeLbl.text! =  ""
+            
+
+            let userEmail = UserDefaultsManager.shared.getSubUserEmail() ?? ""
+            
+            WebEngageAnaytics.shared.getWEGUser().login(userEmail)
+
         }
+        else {
+            
+            self.fullNameLbl.text! = loansendname.uppercased()
+            self.fbaIdLbl.text! = FBAId
+            self.refcodeLbl.text! = referer_code as? String ?? ""
+        }
+        
+        self.pospNoLbl.text! = POSPNo
+        //self.erpIdLbl.text! = ERPID
+        self.erpIdLbl.text = (ERPID == "0" || ERPID.isEmpty) ? "" : ERPID
+      
+
+        
+//        if(loanselfphoto as! String != ""){
+//            //loadimages
+//            let imgURL = NSURL(string: loanselfphoto as! String)
+//            if imgURL != nil {
+//                //let data = NSData(contentsOf: (imgURL as URL?)!)
+//                
+//                self.menuprofileImgView.sd_setImage(with: imgURL as URL?)
+//             
+//            }
+//        }
         
         // 005
         menuSectionList =  MenuDb.shareInstance.getMenuSection(
-            
-            isPbAttendance: self.androidproattendanceEnable, isUidLogin: self.IsUidLogin,
-            isenableenrolasPOSP: self.enableenrolasPOSP , isshowmyinsurancebusiness: self.showmyinsurancebusiness ,addPospVisible: self.AddPospVisible, fosUser: self.FOSStatus)
+            isenableenrolasPOSP: self.enableenrolasPOSP ,
+            isshowmyinsurancebusiness: self.showmyinsurancebusiness ,
+            addSubUserUrl: self.enable_pro_Addsubuser_url,
+            fosUser: self.FOSStatus,
+            ErpID: ERPID,
+            userType: userType
+        )
         
         self.menuTV.reloadData()
         
         
     }
+    
     func userconstantAPI()
     {
         
@@ -1053,45 +739,58 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 
                 let jsonData = userObject as? NSDictionary
                 
-                let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
-                let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
-                let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
-                let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
-                let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
+               // let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
+               // let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
+               // let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
+               // let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
+              //  let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
+                
+                //005 doubt
                 let referer_code = UserDefaults.standard.string(forKey: "referer_code")
                 
                 let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as AnyObject
                 
                 let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as AnyObject
-                let addPospVisible  = jsonData?.value(forKey: "AddPospVisible") as AnyObject
                 
-                let attendanceEnable  = jsonData?.value(forKey: getSharPrefernce.attendanceEnable) as AnyObject
+               // let addPospVisible  = jsonData?.value(forKey: "AddPospVisible") as AnyObject
                 
-                self.androidproattendanceEnable = attendanceEnable as! String
-                self.IsUidLogin = UserDefaults.standard.string(forKey: getSharPrefernce.uidLogin)  ?? ""
-                
+               
+              
                 self.enableenrolasPOSP = enableenrolasposp as! String
                 self.showmyinsurancebusiness = showmyinsurancebusiness as! String
-                self.AddPospVisible = addPospVisible as! String
+               // self.AddPospVisible = addPospVisible as! String
                 
-                //for handling subuser
+                
+                //For Horizon :
+                let POSPNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
+                let ERPID = UserDefaults.standard.string(forKey: "ERPID") ?? "0"
+                let userType = Core.shared.getUserType()
+                
+                //let loanselfphoto = UserDefaults.standard.string(forKey: "loanselfphoto") ?? ""
+              
+                   
+               let  loansendname = UserDefaults.standard.string(forKey: "FullName") as AnyObject
+                
+                //for handling subuser : New Added Functinality mar 2025
                 if let enableProAddSubUserUrl = jsonData?.value(forKey: "enable_pro_Addsubuser_url") as? String,
                    !enableProAddSubUserUrl.isEmpty {
                     
                     self.enable_pro_Addsubuser_url = enableProAddSubUserUrl
                     UserDefaults.standard.set(enableProAddSubUserUrl, forKey: Constant.AddsubuserUrl)
                 } else {
+       
                     // Provide a default value (could be an empty string or a preset default)
-                    UserDefaults.standard.set("", forKey: Constant.AddsubuserUrl)
+                    UserDefaults.standard.set("", forKey: DefaultKey.AddsubuserUrl)
                 }
                 
-                UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
+               // UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
     
+                //0005 added here 2025
                 self.fullNameLbl.text! = loansendname.uppercased
-                self.fbaIdLbl.text! = FBAId as! String
-                self.pospNoLbl.text! = POSPNo as! String
-                self.erpIdLbl.text! = ERPID as! String
-                self.refcodeLbl.text! = referer_code as! String
+                self.fbaIdLbl.text! = FBAId ?? ""
+                self.pospNoLbl.text! = POSPNo
+                self.erpIdLbl.text! = ERPID
+                self.refcodeLbl.text! = referer_code ?? ""
                 
 //                if(loanselfphoto as! String != ""){
 //                    //loadimages
@@ -1109,10 +808,14 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 
                 self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
                 
+               
                 self.menuSectionList =  MenuDb.shareInstance.getMenuSection(
-                    isPbAttendance: self.androidproattendanceEnable, isUidLogin: self.IsUidLogin,
-                    
-                    isenableenrolasPOSP: self.enableenrolasPOSP , isshowmyinsurancebusiness: self.showmyinsurancebusiness, addPospVisible: self.AddPospVisible  ,fosUser: self.FOSStatus)
+                    isenableenrolasPOSP: self.enableenrolasPOSP ,
+                    isshowmyinsurancebusiness: self.showmyinsurancebusiness,
+                    addSubUserUrl: self.enable_pro_Addsubuser_url  ,
+                    fosUser: self.FOSStatus,
+                    ErpID: ERPID ,
+                    userType: userType)
                 
                 
                
@@ -1136,6 +839,8 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
   
     
     //--<callAlert>--
+    
+    //Mark: Handle Logout Alert
     func callAlertView()
     {
         // Create the alert controller
@@ -1150,6 +855,8 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let Login : LoginVC = self.storyboard?.instantiateViewController(withIdentifier: "stbLoginVC") as! LoginVC
             Login.resetDefaults()
+            UserDefaultsManager.shared.clearAllUserDefaults() // Clears UserDefaultsManager
+
             
             Login.modalPresentationStyle = .fullScreen
             
@@ -1180,6 +887,9 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let defaults = UserDefaults.standard
         // let dictionary = defaults.dictionaryRepresentation()
         defaults.dictionaryRepresentation().keys.forEach(defaults.removeObject(forKey:))
+        
+        // Ensure it's saved
+        defaults.synchronize()
         Core.shared.setNewUser()
         
     }

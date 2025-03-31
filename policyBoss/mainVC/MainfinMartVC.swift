@@ -141,103 +141,91 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 
     }
     
+    //0005
     func setWebEnagageUser(){
         
         
-        let FullName = UserDefaults.standard.string(forKey: "FullName")
-        let EmailID = UserDefaults.standard.string(forKey: "EmailID")
-        let MobiNumb = UserDefaults.standard.string(forKey: "MobiNumb1")
-        let IsUidLogin = UserDefaults.standard.string(forKey: "IsUidLogin")
-        let IsAgent  = UserDefaults.standard.string(forKey: getSharPrefernce.isAgent)
+        if( UserDefaultsManager.shared.getSubUserSsId() != "0") {
+            
+            let subUserEmail = UserDefaultsManager.shared.getSubUserEmail() ?? ""
+            let subUserMobile = UserDefaultsManager.shared.getSubUserMobile() ?? ""
+            WebEngageAnaytics.shared.getWEGUser().setEmail(subUserEmail)
+            WebEngageAnaytics.shared.getWEGUser().login(subUserEmail)
+            WebEngageAnaytics.shared.getWEGUser().setPhone(subUserMobile)
+          
+            WebEngageAnaytics.shared.getWEGUser().setFirstName(
+                UserDefaultsManager.shared.getSubUserFirstName() ?? "")
+            WebEngageAnaytics.shared.getWEGUser().setLastName(
+                UserDefaultsManager.shared.getSubUserLastName() ?? "")
+            
+        }
+        else{
+           
+            let FullName = UserDefaultsManager.shared.getFullName()
         
-        print("Full Name", FullName ?? "")
-        print("IsAgent  ",IsAgent ?? "N")
-        WebEngageAnaytics.shared.getWEGUser().setPhone(MobiNumb)
-        WebEngageAnaytics.shared.getWEGUser().setEmail(EmailID)
-        
-        WebEngageAnaytics.shared.getWEGUser().login(EmailID)
+            print("Full Name", FullName)
+           
+            let EmailID = UserDefaultsManager.shared.getEmailId()
+            let MobiNumber = UserDefaultsManager.shared.getMobileNumber()
+            
+            WebEngageAnaytics.shared.getWEGUser().setEmail(EmailID)
+            WebEngageAnaytics.shared.getWEGUser().login(EmailID)
+            WebEngageAnaytics.shared.getWEGUser().setPhone(MobiNumber)
+            
+            // Handle empty string gracefully
+            let strName = FullName ?? ""
+            
+            // Handle empty string gracefully
+            
+
+            // Combine optional chaining and clarity for robust extraction
+            var firstName: String = ""
+            var lastName: String = ""
+
+            // Split the name cautiously, handling separators and single words
+            let strNameArray = strName.components(separatedBy: " ")
+            if(strNameArray.count > 1){
+                
+                do {
+                    let firstData = strName.split(separator: " ", maxSplits: 1).first ?? ""
+                        
+                    let lastData = strName.split(separator: " ", maxSplits: 1).last ?? ""
+                    
+                    firstName = String(firstData )
+                    lastName = String(lastData)
+                    
+                    print("firstName \(firstName) and lastName \(lastName)")
+                    
+                    WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName)
+                    WebEngageAnaytics.shared.getWEGUser().setLastName(lastName)
+                    
+                   
+                }
+                
+            }else{
+                
+                firstName = strName
+                print("firstName \(strName) and lastName \(lastName)")
+                WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName )
+                WebEngageAnaytics.shared.getWEGUser().setLastName("" )
+                
+            }
+            
+          
+            
+        }
+       
+       
         WebEngageAnaytics.shared.getWEGUser().setOptInStatusFor(WEGEngagementChannel.whatsapp, status: true)
         
-     
-        
-        if ( IsAgent == "Y") {
+        if ( UserDefaultsManager.shared.getIsAgent()) {
             
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: true )
         }else{
             WebEngageAnaytics.shared.getWEGUser().setAttribute("Is Agent", withValue: false )
         }
         
-        
-        // Handle empty string gracefully
-        let strName = FullName ?? ""
-        
-        
-        // Handle empty string gracefully
-        
-
-        // Combine optional chaining and clarity for robust extraction
-        var firstName: String = ""
-        var lastName: String = ""
-
-        // Split the name cautiously, handling separators and single words
-        let strNameArray = strName.components(separatedBy: " ")
-        if(strNameArray.count > 1){
-            
-            do {
-                let firstData = strName.split(separator: " ", maxSplits: 1).first ?? ""
-                    
-                let lastData = strName.split(separator: " ", maxSplits: 1).last ?? ""
-                
-                firstName = String(firstData )
-                lastName = String(lastData)
-                
-                print("firstName \(firstName) and lastName \(lastName)")
-                
-                WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName)
-                WebEngageAnaytics.shared.getWEGUser().setLastName(lastName)
-                
-               
-            } 
-            
-        }else{
-            
-            firstName = strName
-            print("firstName \(strName) and lastName \(lastName)")
-            WebEngageAnaytics.shared.getWEGUser().setFirstName(firstName )
-            WebEngageAnaytics.shared.getWEGUser().setLastName("" )
-            
-        }
-        
-        
-            
-        
-            // Two or more words: extract first and last
-          
-        // Split the string, ensuring there's at least one space
-        
-        //let strNameArray = FullName?.components(separatedBy: " ")
-//        let strName = (FullName ?? "") as String
-//        if let strNameArray = strName.split(separator: " ", maxSplits: 1) {
-//            
-//            if(strNameArray.count > 1){
-//                
-//                WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0] )
-//                WebEngageAnaytics.shared.getWEGUser().setLastName(strNameArray[1] )
-//                debugPrint("First Name",strNameArray[0] )
-//                debugPrint("Last Name",strNameArray[1] )
-//            }else{
-//                WebEngageAnaytics.shared.getWEGUser().setFirstName(strNameArray[0])
-//                WebEngageAnaytics.shared.getWEGUser().setLastName("" )
-//            }
-//            
-//        }else{
-//            WebEngageAnaytics.shared.getWEGUser().setFirstName(FullName)
-//            WebEngageAnaytics.shared.getWEGUser().setLastName("" )
-//        }
-//        
-        
-        
-        
+    
         
     }
     
@@ -868,6 +856,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
     }
     
+    //005 start work
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         if(popUpbackgroundView.isHidden == false)
@@ -971,11 +960,19 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                                // let pospNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
                                 let appVersion = Configuration.appVersion
                                 let deviceID = Configuration.deviceID
-                                
+                                let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+                                let parentSsid = ""
+                                let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+                               
+
+                                let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
                               
-//                                let info =      "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=\(ProdId)&login_ssid=\(pospNo)"
+//
+//                                let info = "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID)+"&product_id=\(ProdId)&login_ssid="
                                 
-                                let info = "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID)+"&product_id=\(ProdId)&login_ssid="
+                                
+                                let info = "&ip_address=\(ipAddress)&mac_address=10.0.0.1&app_version=\(appVersion)&product_id=\(ProdId)&device_id=\(deviceID)&login_ssid=\(parentSsid)&sub_ss_id=\(subSSID)&sub_fba_id=\(subFBAID)"
+
                                 
                                 let finalURL = modelURL + info
                                 print ("DYNAMIC URL",finalURL)
@@ -1399,19 +1396,12 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                     UserDefaults.standard.set(jsonString, forKey: "USERCONSTANT")     // set the data
                     
-                    //            let dictData  =  UserDefaults.standard.dictionary(forKey: "USERCONSTANT") as? NSDictionary  // retreive the data
-                    //
-                    //            let muUID =  dictData?.value(forKey: "uid") as AnyObject
-                    //            print("Fetchung Data" ,muUID)
                     
                     let uid = jsonData?.value(forKey: "uid") as AnyObject
                     let userid = jsonData?.value(forKey: "userid") as AnyObject
                     let iosuid = jsonData?.value(forKey: "iosuid") as AnyObject
-                    let emplat = jsonData?.value(forKey: "emplat") as AnyObject
-                    let emplng = jsonData?.value(forKey: "emplng") as AnyObject
-                    let loanselfemail = jsonData?.value(forKey: "loanselfemail") as AnyObject
-                    let loanselfmobile = jsonData?.value(forKey: "loanselfmobile") as AnyObject
-                    let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
+                    
+                  //  let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
                     let LoginID = jsonData?.value(forKey: "LoginID") as AnyObject
                     let ManagName = jsonData?.value(forKey: "ManagName") as AnyObject
                     self.managerName = ManagName as! String
@@ -1420,46 +1410,38 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     let MangMobile = jsonData?.value(forKey: "MangMobile") as AnyObject
                     let SuppEmail = jsonData?.value(forKey: "SuppEmail") as AnyObject
                     let SuppMobile = jsonData?.value(forKey: "SuppMobile") as AnyObject
-                    let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
-                    let loanselfid = jsonData?.value(forKey: "loanselfid") as AnyObject
-                    let loansendid = jsonData?.value(forKey: "loansendid") as AnyObject
-                    let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
-                    let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
+//                    let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
+//                   
+//                    let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
+//                    let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
                     let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
                     let TwoWheelerUrl = jsonData?.value(forKey: "TwoWheelerUrl") as AnyObject
                     let FourWheelerUrl = jsonData?.value(forKey: "FourWheelerUrl") as AnyObject
                     
+                    let raiseTickitUrl = jsonData?.value(forKey: "RaiseTickitUrl") as? String ?? ""
                     let healthurl = jsonData?.value(forKey: "healthurl") as AnyObject
                     let CVUrl = jsonData?.value(forKey: "CVUrl") as AnyObject
                     let notificationpopupurl = jsonData?.value(forKey: "notificationpopupurl") as AnyObject
                     
                     /// posp
-                    let pospsendname = jsonData?.value(forKey: "pospsendname") as AnyObject
-                    let parentid = jsonData?.value(forKey: "parentid") as AnyObject
-                    let pospsendemail = jsonData?.value(forKey: "pospsendemail") as AnyObject
-                    let pospsendmobile = jsonData?.value(forKey: "pospsendmobile") as AnyObject
+                   // let pospsendname = jsonData?.value(forKey: "pospsendname") as AnyObject
+                   // let parentid = jsonData?.value(forKey: "parentid") as AnyObject
+                  //  let pospsendemail = jsonData?.value(forKey: "pospsendemail") as AnyObject
+                   // let pospsendmobile = jsonData?.value(forKey: "pospsendmobile") as AnyObject
                     let pospsenddesignation = jsonData?.value(forKey: "pospsenddesignation") as AnyObject
                     let pospsendphoto = jsonData?.value(forKey: "pospsendphoto") as AnyObject
                     
                     
                     /// loan
                     
-                    let loansendemail = jsonData?.value(forKey: "loansendemail") as AnyObject
-                    let loansendmobile = jsonData?.value(forKey: "loansendmobile") as AnyObject
-                    let loansenddesignation = jsonData?.value(forKey: "loansenddesignation") as AnyObject
-                    let loansendphoto = jsonData?.value(forKey: "loansendphoto") as AnyObject
+                     let loansendphoto = jsonData?.value(forKey: "loansendphoto") as AnyObject
                     
                     
-                    let finperkurl = jsonData?.value(forKey: "finperkurl") as AnyObject
-                    let finboxurl = jsonData?.value(forKey: "finboxurl") as AnyObject
-                    let PBByCrnSearch = jsonData?.value(forKey: "PBByCrnSearch") as AnyObject
+                 
+                  
                     let LeadDashUrl = jsonData?.value(forKey: "LeadDashUrl") as AnyObject
                     let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as AnyObject
-                    let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as AnyObject
                     
-                    let fba_uid = jsonData?.value(forKey: "fba_uid") as AnyObject
-                    let fba_campaign_id = jsonData?.value(forKey: "fba_campaign_id") as AnyObject
-                    let fba_campaign_name = jsonData?.value(forKey: "fba_campaign_name") as AnyObject
                     
                     let iosversion = jsonData?.value(forKey: "iosversion") as AnyObject
                     
@@ -1475,17 +1457,16 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         UserDefaults.standard.set(enableProAddSubUserUrl, forKey: Constant.AddsubuserUrl)
                     } else {
                         // Provide a default value (could be an empty string or a preset default)
-                        UserDefaults.standard.set("", forKey: Constant.AddsubuserUrl)
+                        UserDefaults.standard.set("", forKey: DefaultKey.AddsubuserUrl)
                     }
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
                     UserDefaults.standard.set(String(describing: userid), forKey: "userid") //005
                     UserDefaults.standard.set(String(describing: iosuid), forKey: "iosuid")
-                    UserDefaults.standard.set(String(describing: emplat), forKey: "emplat")
-                    UserDefaults.standard.set(String(describing: emplng), forKey: "emplng")
-                    UserDefaults.standard.set(String(describing: loanselfemail), forKey: "loanselfemail")
-                    UserDefaults.standard.set(String(describing: loanselfmobile), forKey: "loanselfmobile")
-                    
+                   
+                    //Mark Set UserDefaultsManager raise Ticket
+                    UserDefaultsManager.shared.setRaiseTicketURL(raiseTickitUrl)
+                    debugPrint("raiseTickit Url",raiseTickitUrl)
                     UserDefaults.standard.set(String(describing: LoginID), forKey: "LoginID")
                     UserDefaults.standard.set(String(describing: ManagName), forKey: "ManagName")
                     UserDefaults.standard.set(String(describing: POSP_STATUS), forKey: "POSP_STATUS")
@@ -1493,11 +1474,11 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     UserDefaults.standard.set(String(describing: MangMobile), forKey: "MangMobile")
                     UserDefaults.standard.set(String(describing: SuppEmail), forKey: "SuppEmail")
                     UserDefaults.standard.set(String(describing: SuppMobile), forKey: "SuppMobile")
-                    UserDefaults.standard.set(String(describing: FBAId), forKey: "FBAId")
-                    UserDefaults.standard.set(String(describing: loanselfid), forKey: "loanselfid")
-                    UserDefaults.standard.set(String(describing: loansendid), forKey: "loansendid")
-                    UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
-                    UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
+                    
+//                    UserDefaults.standard.set(String(describing: FBAId), forKey: "FBAId")
+//                    UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
+//                    UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
+                    
                     UserDefaults.standard.set(String(describing: loanselfphoto), forKey: "loanselfphoto")
                     UserDefaults.standard.set(String(describing: TwoWheelerUrl), forKey: "TwoWheelerUrl")
                     UserDefaults.standard.set(String(describing: FourWheelerUrl), forKey: "FourWheelerUrl")
@@ -1506,31 +1487,28 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     UserDefaults.standard.set(String(describing: CVUrl), forKey: "CVUrl")
                     UserDefaults.standard.set(String(describing: notificationpopupurl), forKey: "notificationpopupurl")
                     
-                    UserDefaults.standard.set(String(describing: pospsendname), forKey: "pospsendname")
+//                    UserDefaults.standard.set(String(describing: pospsendname), forKey: "pospsendname")
+//                    
+//                    UserDefaults.standard.set(String(describing: parentid), forKey: "parentid")
                     
-                    UserDefaults.standard.set(String(describing: parentid), forKey: "parentid")
+//                    UserDefaults.standard.set(String(describing: pospsendemail), forKey: "pospsendemail")
+//                    UserDefaults.standard.set(String(describing: pospsendmobile), forKey: "pospsendmobile")
+//                    
                     
-                    UserDefaults.standard.set(String(describing: pospsendemail), forKey: "pospsendemail")
-                    UserDefaults.standard.set(String(describing: pospsendmobile), forKey: "pospsendmobile")
                     UserDefaults.standard.set(String(describing: pospsenddesignation), forKey: "pospsenddesignation")
                     UserDefaults.standard.set(String(describing: pospsendphoto), forKey: "pospsendphoto")
                     
-                    UserDefaults.standard.set(String(describing: loansendname), forKey: "loansendname")
-                    UserDefaults.standard.set(String(describing: loansendemail), forKey: "loansendemail")
-                    UserDefaults.standard.set(String(describing: loansendmobile), forKey: "loansendmobile")
-                    UserDefaults.standard.set(String(describing: loansenddesignation), forKey: "loansenddesignation")
+                   
+                  
                     UserDefaults.standard.set(String(describing: loansendphoto), forKey: "loansendphoto")
                     
-                    UserDefaults.standard.set(String(describing: finperkurl), forKey: "finperkurl")
-                    UserDefaults.standard.set(String(describing: finboxurl), forKey: "finboxurl")
-                    UserDefaults.standard.set(String(describing: PBByCrnSearch), forKey: "PBByCrnSearch")
+                   
+                   
                     UserDefaults.standard.set(String(describing: LeadDashUrl), forKey: "LeadDashUrl")
                     UserDefaults.standard.set(String(describing: enableenrolasposp), forKey: "enableenrolasposp")
-                    UserDefaults.standard.set(String(describing: showmyinsurancebusiness), forKey: "showmyinsurancebusiness")
+                   
                     
-                    UserDefaults.standard.set(String(describing: fba_uid), forKey: "fba_uid")
-                    UserDefaults.standard.set(String(describing: fba_campaign_id), forKey: "fba_campaign_id")
-                    UserDefaults.standard.set(String(describing: fba_campaign_name), forKey: "fba_campaign_name")
+                   
                     
                     UserDefaults.standard.set(String(describing: iosversion), forKey: "iosversion")
                     
@@ -1623,7 +1601,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                     let jsonData = userObject as? NSDictionary
                     let Dashboard = jsonData?.value(forKey: "Dashboard") as! NSArray
-                    
+                    let subUserSsId = UserDefaultsManager.shared.getSubUserSsId() ?? "0"
                     
                     print("MY DATA",Dashboard)
                     
@@ -1631,30 +1609,36 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         let aObject = Dashboard[index] as! [String : AnyObject]
                         
                         
-                        if(aObject["ProdId"] as! String != "16" && aObject["ProdId"] as! String != "18"  ){
+                        if(aObject["ProdId"] as? String != "16" && aObject["ProdId"] as? String != "18"   ){
                             
                             
                             if(aObject["dashboard_type"] as! String == "1"){
                                 
-                                let model = DynamicDashboardModel(menuid: aObject["menuid"] as! Int, menuname: aObject["menuname"] as! String,
-                                                                  link: aObject["link"] as! String, iconimage:  aObject["iconimage"] as! String,
-                                                                  isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
-                                                                  modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
-                                                                  
-                                                                  ProdId: aObject["ProdId"] as! String,
-                                                                  ProdName: aObject["menuname"] as! String,
-                                                                  ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
-                                                                  ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
-                                                                  IsExclusive: aObject["IsExclusive"] as! String,
-                                                                  IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
-                                                                  IsSharable: aObject["IsSharable"] as! String,
-                                                                  popupmsg: aObject["popupmsg"] as! String,
-                                                                  title: aObject["title"] as! String,
-                                                                  info: aObject["info"] as! String)
                                 
+                                if ((subUserSsId != "0" && aObject["ProdId"] as? String == "41") == false) {
+                                    
+                                    let model = DynamicDashboardModel(menuid: aObject["menuid"] as! Int, menuname: aObject["menuname"] as! String,
+                                                                      link: aObject["link"] as! String, iconimage:  aObject["iconimage"] as! String,
+                                                                      isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
+                                                                      modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
+                                                                      
+                                                                      ProdId: aObject["ProdId"] as! String,
+                                                                      ProdName: aObject["menuname"] as! String,
+                                                                      ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
+                                                                      ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
+                                                                      IsExclusive: aObject["IsExclusive"] as! String,
+                                                                      IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
+                                                                      IsSharable: aObject["IsSharable"] as! String,
+                                                                      popupmsg: aObject["popupmsg"] as! String,
+                                                                      title: aObject["title"] as! String,
+                                                                      info: aObject["info"] as! String)
+                                    
+                                    
+                                   
+                                    self.dynamicDashboardModel.append(model)
+                                }
                                 
                                
-                                self.dynamicDashboardModel.append(model)
                                 
                             }
                             /*   More Service Commented ...
@@ -2061,7 +2045,15 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
  
         dismissAll(animated: false)
+        
+        // If ProdId is "500", we are in HomePage
+          if ProdId == "500" {
+              return
+         
+          }
         switch (ProdId) {
+            
+      
         case "1"  :  // car
             
            

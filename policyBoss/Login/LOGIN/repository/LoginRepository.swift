@@ -202,6 +202,170 @@ final class LoginRepository {
         return "fail"
     }
     
+//    func getLoginDetailHorizon2(ssID : Int) async throws {
+//        
+//        
+//        guard let url = URL(string: "https://horizon.policyboss.com:5443/posps/dsas/view/\(ssID)") else {
+//            throw APIError.invalidURL
+//        }
+//    
+//        
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        
+//        debugPrint("Request:-", url)
+//       
+//        do {
+//            let (data, response) = try await URLSession.shared.data(for: request)
+//            
+//            guard let httpResponse = response as? HTTPURLResponse else {
+//                throw APIError.unexpectedResponse
+//            }
+//            
+//            if httpResponse.statusCode != 200 {
+//                
+//                // Create an appropriate error based on status code and optional message
+//                throw APIError.serverError(statusCode: httpResponse.statusCode, message: Constant.serverMessage)
+//                
+//            }
+//            
+//            
+////            let decoder = JSONDecoder()
+////            return try  decoder.decode(LoginNewResponse_DSAS_Horizon.self, from: data)
+////
+//            
+//            
+//            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+//                
+//                if let user_type = jsonObject["user_type"] as? String {
+//                    print("user_type",user_type )
+//                    userType = UserType(rawValue: user_type) ?? .none
+//                    
+//                    debugPrint("User Type",userType.rawValue)
+//                    
+//                    //Store userType in sharePref i.e is UserDefaults under object class Core
+//                    Core.shared.saveUserType(userType)
+//
+//                    if(userType.isAgent){
+//                        
+//                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
+//                        
+//                    }else{
+//                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
+//                        
+//                    }
+//                    
+//                    //Mark : POSP
+//                    if let pospDict = jsonObject["POSP"] as? [String: Any] {
+//                        // Access pospDict within this block
+//                        if let Erp_Id = pospDict["Erp_Id"] as? String {
+//                            print("Erp_Id",Erp_Id  )
+//                        }
+//                       // Fba_Id Fba_Id
+//                        if let Fba_Id = pospDict["Fba_Id"] as? String {
+//                            
+//                            POSP_FbaId = Fba_Id
+//                        }
+//                        
+//                        if let Email_Id = pospDict["Email_Id"] as? String {
+//                            POSP_EmailId = Email_Id
+//                        }
+//                        
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                    
+//                    // Mark : EMP
+//                    if let empDict = jsonObject["EMP"] as? [String: Any] {
+//                        // Access pospDict within this block
+//                        if let Emp_Name = empDict["Emp_Name"] as? String {
+//                            EMP_EmpName = Emp_Name
+//                        }
+//                        if let _UID = empDict["UID"] as? NSNumber {
+//                            EMP_UID = _UID.stringValue
+//                        }
+//                        if let FBA_ID = empDict["FBA_ID"] as? NSNumber {
+//                            EMP_FbaId = FBA_ID.stringValue
+//                        }
+//                        if let Mobile_Number = empDict["Mobile_Number"] as? NSNumber {
+//                            EMP_Mobile_Number = Mobile_Number.stringValue
+//                        }
+//                        if let Email_Id = empDict["Email_Id"] as? String {
+//                            EMP_Email_Id = Email_Id
+//                        }
+//                        
+//                      
+//                        
+//                    }
+//                    
+//                    // Mark : POSP_USER
+//                    if let userDict = jsonObject["POSP_USER"] as? [String: Any] {
+//                        
+//                        if let Erp_Id = userDict["Erp_Id"] as? String {
+//                            ErpId = Erp_Id
+//                        }
+//                        // Access pospDict within this block
+//                        if let Name_On_PAN = userDict["Name_On_PAN"] as? String {
+//                            POSP_USERNameOnPAN = Name_On_PAN
+//                        }
+//                        if let User_Id = userDict["User_Id"] as? NSNumber {
+//                            POSP_USERUserId = User_Id.stringValue
+//                        }
+//                        
+//                        if let Mobile_No = userDict["Mobile_No"] as? String {
+//                            POSP_USERMobile_No = Mobile_No
+//                        }
+//                        
+//                    } else {
+//                        // Handle missing or unexpected POSP (not a dictionary)
+//                    }
+//                    
+//                    
+//                    
+//    
+//                }
+//                
+//
+//                //let fbaid = getFbaId(userType: userType)
+//                UserDefaults.standard.set(getFbaId(userType: userType), forKey: "FBAId")
+//                UserDefaults.standard.set("", forKey: "referer_code")
+//                UserDefaults.standard.set(String(describing: ssID), forKey: "POSPNo")
+//                UserDefaults.standard.set(String(describing: 0), forKey: "CustID")
+//                UserDefaults.standard.set(String(describing: getMobileNo()), forKey: "MobiNumb1")
+//                UserDefaults.standard.set(String(describing: getEmailId()), forKey: "EmailID")
+//                UserDefaults.standard.set(String(describing: 0), forKey: "LoanId")
+//                UserDefaults.standard.set(String(describing: getName()), forKey: "FullName")
+//                       
+//                UserDefaults.standard.set(String(describing: ErpId), forKey: "ERPID")
+//                UserDefaults.standard.set(String(describing: getUserId()), forKey: "UserId")
+//                
+//                UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
+//                UserDefaults.standard.set(String(describing: EMP_UID), forKey: getSharPrefernce.uidLogin)
+//
+//               
+//                
+//            } else {
+//                throw APIError.custom(message: "Error decoding JSON")
+//            }
+//         
+//            ////////////////
+////            let horizonDetailResult = try JSONDecoder().decode(LoginNewResponse_DSAS_Horizon.self, from: data)
+////                
+////            print("HORIZON CALL",horizonDetailResult.Ss_Id ?? "No Data")
+////            
+////            
+////            return horizonDetailResult
+//            
+//        } catch {
+//            print("HORIZON CALL",error.localizedDescription)
+//            throw APIError.unexpectedError(error: error)
+//        }
+//        
+//    }
+
+    
     func getLoginDetailHorizon(ssID : Int) async throws {
         
         
@@ -243,15 +407,19 @@ final class LoginRepository {
                     
                     debugPrint("User Type",userType.rawValue)
                     
-                   
-                    if(userType.isAgent){
-                        
-                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
-                        
-                    }else{
-                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
-                        
-                    }
+                    //Store userType in sharePref i.e is UserDefaults under object class Core
+                    Core.shared.saveUserType(userType)
+                    
+                    UserDefaultsManager.shared.saveIsAgent(userType.isAgent)
+
+//                    if(userType.isAgent){
+//
+//                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
+//
+//                    }else{
+//                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
+//
+//                    }
                     
                     //Mark : POSP
                     if let pospDict = jsonObject["POSP"] as? [String: Any] {
@@ -321,12 +489,84 @@ final class LoginRepository {
                     }
                     
                     
-                    
+                    // Mark : SUB_USER
+                    if let userDict = jsonObject["SUB_USER"] as? [String: Any] {
+                        
+                        var subUserDetails: [String: String] = [:]
+                        
+                        if let ssId = userDict["Ss_Id"] {
+                               subUserDetails["Ss_Id"] = "\(ssId)"  // Convert to String safely
+                           }
+                        
+                        if let subFbaId = userDict["Sub_FBA_ID"] {
+                                subUserDetails["Sub_FBA_ID"] = "\(subFbaId)"  // Convert to String safely
+                           
+                        }
+                        if let emailId = userDict["Email_ID"] as? String {
+                               subUserDetails["Email_ID"] = emailId
+                           }
+
+                        if let firstName = userDict["First_Name"] as? String {
+                               subUserDetails["First_Name"] = firstName
+                           }
+
+                        if let lastName = userDict["Last_Name"] as? String {
+                               subUserDetails["Last_Name"] = lastName
+                           }
+
+                        if let mobile = userDict["Mobile"] {
+                               subUserDetails["Mobile"] = "\(mobile)"  // Convert to String safely
+                           }
+                        
+                        // ✅ Save all details in UserDefaults
+                            UserDefaultsManager.shared.saveSubUserDetails(
+                                ssId: subUserDetails["Ss_Id"] ?? "0",
+                                subFbaId: subUserDetails["Sub_FBA_ID"] ?? "0",
+                                email: subUserDetails["Email_ID"] ?? "",
+                                firstName: subUserDetails["First_Name"] ?? "",
+                                lastName: subUserDetails["Last_Name"] ?? "",
+                                mobile: subUserDetails["Mobile"] ?? ""
+                            )
+                        
+                    }
     
                 }
                 
 
                 //let fbaid = getFbaId(userType: userType)
+                
+                UserDefaults.standard.set("", forKey: "referer_code")
+                UserDefaults.standard.set(String(describing: 0), forKey: "CustID")
+                UserDefaults.standard.set(String(describing: 0), forKey: "LoanId")
+                
+                UserDefaultsManager.shared.saveFbaId(getFbaId(userType: userType))
+                UserDefaultsManager.shared.savePOSPNo(String(describing: ssID))
+                
+               
+                UserDefaultsManager.shared.saveMobileNumber(getMobileNo())
+                UserDefaultsManager.shared.saveEmailId(getEmailId())
+                UserDefaultsManager.shared.saveFullName(getName())
+                
+
+                UserDefaultsManager.shared.saveErpId(String(describing: ErpId))
+                UserDefaultsManager.shared.saveUserId(getUserId())
+              
+                UserDefaultsManager.shared.saveIsFirstLogin(true)
+                
+                
+                
+               // UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
+                
+                UserDefaultsManager.shared.saveEmpUID(String(describing: EMP_UID))
+                
+                
+                
+                //////
+                ///
+                ///
+                ///
+                
+                
                 UserDefaults.standard.set(getFbaId(userType: userType), forKey: "FBAId")
                 UserDefaults.standard.set("", forKey: "referer_code")
                 UserDefaults.standard.set(String(describing: ssID), forKey: "POSPNo")
@@ -342,6 +582,9 @@ final class LoginRepository {
                 UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
                 UserDefaults.standard.set(String(describing: EMP_UID), forKey: getSharPrefernce.uidLogin)
 
+                ///
+                ///
+               
                
                 
             } else {
@@ -350,10 +593,10 @@ final class LoginRepository {
          
             ////////////////
 //            let horizonDetailResult = try JSONDecoder().decode(LoginNewResponse_DSAS_Horizon.self, from: data)
-//                
+//
 //            print("HORIZON CALL",horizonDetailResult.Ss_Id ?? "No Data")
-//            
-//            
+//
+//
 //            return horizonDetailResult
             
         } catch {
@@ -362,6 +605,8 @@ final class LoginRepository {
         }
         
     }
+
+   
 
     
     private func getFbaId(userType : UserType) -> String {
@@ -442,7 +687,14 @@ final class LoginRepository {
         }
     
     private func getUserId() -> String {
-        return EMP_UID
+      //  return EMP_UID
+        
+            switch userType {
+            case .posp, .fos, .emp, .misp:
+                return EMP_UID
+            default:
+                return "0"
+            }
     }
     
     

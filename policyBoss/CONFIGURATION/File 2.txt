@@ -1,0 +1,23 @@
+import Network
+
+func getIPAddress() -> String? {
+    var address: String?
+    
+    let monitor = NWPathMonitor()
+    monitor.pathUpdateHandler = { path in
+        if path.status == .satisfied {
+            let interfaces = path.availableInterfaces
+            for interface in interfaces {
+                if interface.type == .wifi || interface.type == .cellular {
+                    address = interface.debugDescription
+                    break
+                }
+            }
+        }
+    }
+    
+    let queue = DispatchQueue(label: "NetworkMonitor")
+    monitor.start(queue: queue)
+    
+    return address
+}

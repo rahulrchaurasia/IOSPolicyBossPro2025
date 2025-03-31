@@ -23,6 +23,7 @@ import StoreKit
  
  */
 
+//not in used
 class DashBoardVC: UIViewController {
     
     
@@ -210,7 +211,7 @@ class DashBoardVC: UIViewController {
         
     }
     
-    func userconstantAPI()
+    func userconstantAPI2()
     
     {
         
@@ -402,6 +403,192 @@ class DashBoardVC: UIViewController {
         }
         
     }
+    
+    func userconstantAPI()
+    
+    {
+        
+        if Connectivity.isConnectedToInternet()
+        {
+            print("internet is available.")
+
+            if(UserDefaults.exists(key: "FBAId") == true) {
+                
+                let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+                
+                let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+                
+                let url = "user-constant-pb"
+                
+                FinmartRestClient.sharedInstance.authorisedPost(url, parameters: params, onSuccess: { (userObject, metadata) in
+                    
+                    // alertView.close()
+                    
+                    self.view.layoutIfNeeded()
+                    
+                    let jsonData = userObject as? NSDictionary
+                    
+                    guard let jsonString = jsonData else { return }
+                    
+                    let DashboardArray = jsonData?.value(forKey: "dashboardarray") as! NSArray
+                    print("USERCONSTANT DATA",DashboardArray)
+                    
+                    if(DashboardArray.count > 0){
+                        for index in 0...(DashboardArray.count)-1 {
+                            let aObject = DashboardArray[index] as! [String : AnyObject]
+                            
+                            let model = UserConstDashboarddModel(
+                                ProdId: aObject["ProdId"] as! String, url: aObject["url"] as! String)
+                            
+                            self.userDashboardModel.append(model)
+                        }
+                    }
+                    
+                    
+                    
+                    UserDefaults.standard.set(jsonString, forKey: "USERCONSTANT")     // set the data
+                    
+                    //            let dictData  =  UserDefaults.standard.dictionary(forKey: "USERCONSTANT") as? NSDictionary  // retreive the data
+                    //
+                    //            let muUID =  dictData?.value(forKey: "uid") as AnyObject
+                    //            print("Fetchung Data" ,muUID)
+                    
+                    let uid = jsonData?.value(forKey: "uid") as AnyObject
+                    let iosuid = jsonData?.value(forKey: "iosuid") as AnyObject
+                    
+                   
+                    let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
+                    let LoginID = jsonData?.value(forKey: "LoginID") as AnyObject
+                    let ManagName = jsonData?.value(forKey: "ManagName") as AnyObject
+                    self.managerName = ManagName as! String
+                    let POSP_STATUS = jsonData?.value(forKey: "POSP_STATUS") as AnyObject
+                    let MangEmail = jsonData?.value(forKey: "MangEmail") as AnyObject
+                    let MangMobile = jsonData?.value(forKey: "MangMobile") as AnyObject
+                    let SuppEmail = jsonData?.value(forKey: "SuppEmail") as AnyObject
+                    let SuppMobile = jsonData?.value(forKey: "SuppMobile") as AnyObject
+                    let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
+                    let loanselfid = jsonData?.value(forKey: "loanselfid") as AnyObject
+                    let loansendid = jsonData?.value(forKey: "loansendid") as AnyObject
+                    let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
+                    let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
+                    let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
+                    let TwoWheelerUrl = jsonData?.value(forKey: "TwoWheelerUrl") as AnyObject
+                    let FourWheelerUrl = jsonData?.value(forKey: "FourWheelerUrl") as AnyObject
+                    
+                    let healthurl = jsonData?.value(forKey: "healthurl") as AnyObject
+                    let CVUrl = jsonData?.value(forKey: "CVUrl") as AnyObject
+                    let notificationpopupurl = jsonData?.value(forKey: "notificationpopupurl") as AnyObject
+                    
+                    /// posp
+                    let pospsendname = jsonData?.value(forKey: "pospsendname") as AnyObject
+                    let pospsendemail = jsonData?.value(forKey: "pospsendemail") as AnyObject
+                    let pospsendmobile = jsonData?.value(forKey: "pospsendmobile") as AnyObject
+                    let pospsenddesignation = jsonData?.value(forKey: "pospsenddesignation") as AnyObject
+                    let pospsendphoto = jsonData?.value(forKey: "pospsendphoto") as AnyObject
+                    
+                    
+                    /// loan
+                    
+                    let loansendemail = jsonData?.value(forKey: "loansendemail") as AnyObject
+                    let loansendmobile = jsonData?.value(forKey: "loansendmobile") as AnyObject
+                    let loansenddesignation = jsonData?.value(forKey: "loansenddesignation") as AnyObject
+                    let loansendphoto = jsonData?.value(forKey: "loansendphoto") as AnyObject
+                    
+                    
+                   
+                    let PBByCrnSearch = jsonData?.value(forKey: "PBByCrnSearch") as AnyObject
+                    let LeadDashUrl = jsonData?.value(forKey: "LeadDashUrl") as AnyObject
+                    let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as AnyObject
+                    let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as AnyObject
+                    
+                    let fba_uid = jsonData?.value(forKey: "fba_uid") as AnyObject
+                    let fba_campaign_id = jsonData?.value(forKey: "fba_campaign_id") as AnyObject
+                    let fba_campaign_name = jsonData?.value(forKey: "fba_campaign_name") as AnyObject
+                    
+                    let iosversion = jsonData?.value(forKey: "iosversion") as AnyObject
+                    
+                    let referer_code = UserDefaults.standard.string(forKey: "referer_code") as AnyObject
+                    
+                    let androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable) as AnyObject
+                    
+                    
+                    
+                    UserDefaults.standard.set(String(describing: uid), forKey: "uid")
+                    UserDefaults.standard.set(String(describing: iosuid), forKey: "iosuid")
+                           
+                    UserDefaults.standard.set(String(describing: LoginID), forKey: "LoginID")
+                    UserDefaults.standard.set(String(describing: ManagName), forKey: "ManagName")
+                    UserDefaults.standard.set(String(describing: POSP_STATUS), forKey: "POSP_STATUS")
+                    UserDefaults.standard.set(String(describing: MangEmail), forKey: "MangEmail")
+                    UserDefaults.standard.set(String(describing: MangMobile), forKey: "MangMobile")
+                    UserDefaults.standard.set(String(describing: SuppEmail), forKey: "SuppEmail")
+                    UserDefaults.standard.set(String(describing: SuppMobile), forKey: "SuppMobile")
+                    UserDefaults.standard.set(String(describing: FBAId), forKey: "FBAId")
+                    UserDefaults.standard.set(String(describing: loanselfid), forKey: "loanselfid")
+                    UserDefaults.standard.set(String(describing: loansendid), forKey: "loansendid")
+                    UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
+                    UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
+                    UserDefaults.standard.set(String(describing: loanselfphoto), forKey: "loanselfphoto")
+                    UserDefaults.standard.set(String(describing: TwoWheelerUrl), forKey: "TwoWheelerUrl")
+                    UserDefaults.standard.set(String(describing: FourWheelerUrl), forKey: "FourWheelerUrl")
+                    
+                    UserDefaults.standard.set(String(describing: healthurl), forKey: "healthurl")
+                    UserDefaults.standard.set(String(describing: CVUrl), forKey: "CVUrl")
+                    UserDefaults.standard.set(String(describing: notificationpopupurl), forKey: "notificationpopupurl")
+                    
+                    UserDefaults.standard.set(String(describing: pospsendname), forKey: "pospsendname")
+                    UserDefaults.standard.set(String(describing: pospsendemail), forKey: "pospsendemail")
+                    UserDefaults.standard.set(String(describing: pospsendmobile), forKey: "pospsendmobile")
+                    UserDefaults.standard.set(String(describing: pospsenddesignation), forKey: "pospsenddesignation")
+                    UserDefaults.standard.set(String(describing: pospsendphoto), forKey: "pospsendphoto")
+                    
+                    UserDefaults.standard.set(String(describing: loansendname), forKey: "loansendname")
+                    UserDefaults.standard.set(String(describing: loansendemail), forKey: "loansendemail")
+                    UserDefaults.standard.set(String(describing: loansendmobile), forKey: "loansendmobile")
+                    UserDefaults.standard.set(String(describing: loansenddesignation), forKey: "loansenddesignation")
+                    UserDefaults.standard.set(String(describing: loansendphoto), forKey: "loansendphoto")
+                    
+                   
+                    UserDefaults.standard.set(String(describing: PBByCrnSearch), forKey: "PBByCrnSearch")
+                    UserDefaults.standard.set(String(describing: LeadDashUrl), forKey: "LeadDashUrl")
+                    UserDefaults.standard.set(String(describing: enableenrolasposp), forKey: "enableenrolasposp")
+                    UserDefaults.standard.set(String(describing: showmyinsurancebusiness), forKey: "showmyinsurancebusiness")
+                    
+                    UserDefaults.standard.set(String(describing: fba_uid), forKey: "fba_uid")
+                    UserDefaults.standard.set(String(describing: fba_campaign_id), forKey: "fba_campaign_id")
+                    UserDefaults.standard.set(String(describing: fba_campaign_name), forKey: "fba_campaign_name")
+                    
+                    UserDefaults.standard.set(String(describing: iosversion), forKey: "iosversion")
+                    
+                    UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
+                    
+                    UserDefaults.standard.set(String(describing: androidproattendanceEnable), forKey: getSharPrefernce.attendanceEnable)
+                   
+                     
+                          ///////////////////////////      Verify  Build Version to  Server    /////////////////////////////////////////////////////////
+                                            
+                              // self.verifyVersion()
+                                          
+                           ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                          
+                          
+                  
+                    
+                }, onError: { errorData in
+                    // alertView.close()
+                    //            let snackbar = TTGSnackbar.init(message: errorData.errorMessage, duration: .long)
+                    //            snackbar.show()
+                }, onForceUpgrade: {errorData in})
+                
+            }else{
+                //            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
+                //            snackbar.show()
+            }
+            
+        }
+        
+    }
+   
    
     
     func getdynamicappAPI()

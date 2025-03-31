@@ -47,6 +47,8 @@ struct getSharPrefernce  {
     static let  uidLogin = "IsUidLogin"
     static let  userType = "policyBossPro_userType"
     static let  isAgent = "policyBossPro_isAgent"
+    
+//    static let  userType = "policyBossPro_UserType"
   
     
 }
@@ -65,11 +67,17 @@ enum UserType: String {
     case misp = "MISP"
     case none = ""
     
+    /// Returns true for agent types (POSP and FOS)
     var isAgent: Bool {
         
      return self == .posp || self == .fos
         
     }
+    
+    /* For Used
+     let user: UserType = .posp
+     print(user.rawValue)  // Output: "POSP"
+     */
 }
 
 struct Constant  {
@@ -99,7 +107,12 @@ struct Constant  {
     
     static let POSPURL = "Enable Pro Pospurl"
     
-    static let  AddsubuserUrl   = "AddsubuserUrl"
+    static let  AddsubuserUrl   = "Addsubuser_url"
+}
+
+struct DefaultKey  {
+    
+    static let  AddsubuserUrl   = "enable_pro_Addsubuser_url"
 }
 
 
@@ -133,8 +146,10 @@ struct ScreenName  {
     static let  policyByCRN   = "policyByCRN"
     static let  leadDashboard   = "leadDashboard"
     static let  pospEnrollment   = "POSPEnrollment"
+    static let  addSubUser   = "AddSUBUSER"
     
     static let Dynamic = "Dynamic"
+    static let  RaiseTicket   = "RaiseTicket"
 }
 
 

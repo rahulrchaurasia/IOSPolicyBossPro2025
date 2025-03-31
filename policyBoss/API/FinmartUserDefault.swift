@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+//Not in used
 class FinmartUserDefault: NSObject {
     
     static let USER_CODE = "policyBossPro.userdefaults.userCode"

@@ -40,6 +40,13 @@ class Configuration: NSObject {
     }()
     
     
+    static let menuappVersion: String = {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return "Ver." + version
+        } else {
+            return "Ver."
+        }
+    }()
     static let buildVersion: String = {
         if let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             return version

@@ -30,8 +30,8 @@ class SyncContactViewModel{
         guard let FBAId = (UserDefaults.standard.string(forKey: "FBAId"))
         else{ return }
         
-        guard let parentid = (UserDefaults.standard.string(forKey: "parentid"))
-        else{ return }
+       let parentid = FBAId
+       
         
         guard let ssid = (UserDefaults.standard.string(forKey: "POSPNo"))
         else{ return }
@@ -42,16 +42,20 @@ class SyncContactViewModel{
         
         let deviceID = Configuration.deviceID
         
+        //Mark pass both same fbaID
+        fbaid = FBAId
+        sub_fba_id = parentid
         
-        if (parentid.trimmingCharacters(in: .whitespacesAndNewlines) == "" || parentid == "0" ) {
-            
-            fbaid = FBAId
-            sub_fba_id = parentid
-            
-        } else {
-            fbaid = parentid
-            sub_fba_id = FBAId
-        }
+//        if (parentid.trimmingCharacters(in: .whitespacesAndNewlines) == "" || parentid == "0" ) {
+//            
+//            fbaid = FBAId
+//            sub_fba_id = parentid
+//            
+//        } else {
+//            fbaid = parentid
+//            sub_fba_id = FBAId
+//        }
+        
         let syncReqData = SyncContactModelRequest(
             fbaid: fbaid,
             ssid: ssid,

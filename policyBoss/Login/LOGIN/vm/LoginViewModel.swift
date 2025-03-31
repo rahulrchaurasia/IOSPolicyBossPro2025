@@ -190,7 +190,7 @@ import Foundation
     }
     //************************* Password ********************************************
    
-    //Mark : Password
+    //Mark :  Horizon Api Called Main here {After login success horizon Api called}
     func getAuthLoginHorizon(username : String,password : String) async throws -> Result<String, APIErrors>{
         
         

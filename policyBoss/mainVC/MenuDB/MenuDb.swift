@@ -16,15 +16,18 @@ class MenuDb {
     
     var menuSectionlist = [MenuSection]()
     
+  
+    let subUserSsId = UserDefaultsManager.shared.getSubUserSsId() ?? "0"
     
     
-    func getMenuSection(isPbAttendance :String,isUidLogin :String,isenableenrolasPOSP :String, isshowmyinsurancebusiness : String ,
-                        addPospVisible :String, fosUser : String) ->  [MenuSection]{
+    func getMenuSection(isenableenrolasPOSP :String, isshowmyinsurancebusiness : String ,
+                        addSubUserUrl :String, fosUser : String, ErpID : String,userType : UserType) ->  [MenuSection]{
         
         // Here Section is 3 ie "MenuSection" And Row count of each Section represent by "menuModel"
         menuSectionlist.removeAll()
-        menuSectionlist.append(MenuSection(section: "Home",menuModel: getHomeMenuData(_isPbAttendance: isPbAttendance, _isUidLogin: isUidLogin)))
-        menuSectionlist.append(MenuSection(section: "My Account",menuModel: getMyAccountMenuData(_isenableenrolasPOSP: isenableenrolasPOSP, _isaddPospVisible: addPospVisible,_isfosUser: fosUser)))
+        menuSectionlist.append(MenuSection(section: "Home",menuModel: getHomeMenuData()))
+        menuSectionlist.append(MenuSection(section: "My Account",
+                                           menuModel: getMyAccountMenuData(_isenableenrolasPOSP: isenableenrolasPOSP, _isaddPospVisible: addSubUserUrl,_ErpID: ErpID, _userType : userType)))
         
         //Not in Used
 //        menuSectionlist.append(MenuSection(section: "My Documents",menuModel: getMyDocumentMenuData()))
@@ -42,20 +45,13 @@ class MenuDb {
     }
     
     
-    func  getHomeMenuData(_isPbAttendance isAttendenceEnable: String,
-                          _isUidLogin uidLogin: String) ->  [MenuModel]
+    func  getHomeMenuData() ->  [MenuModel]
     {
         Menulist =  [MenuModel]()
         Menulist.append(MenuModel(name: "Home" ,img: "home.png", modelId: "nav_home"))
-//        if(isAttendenceEnable == "1"){
-//            
-//            if (uidLogin == "Y"){
-//                Menulist.append(MenuModel(name: "PolicyBoss Attendance" ,img: "attendanceicon.png", modelId: "nav_attendance"))
-//            }
-//         
-//        }
+
     
-        Menulist.append(MenuModel(name: "Generate Login Token" ,img: "ic_business_name.png", modelId: "nav_authToken"))
+        Menulist.append(MenuModel(name: "App Code" ,img: "ic_business_name.png", modelId: "nav_authToken"))
         
         return Menulist
     }
@@ -64,11 +60,18 @@ class MenuDb {
     
     
     
-    func  getMyAccountMenuData(_isenableenrolasPOSP : String, _isaddPospVisible : String,_isfosUser : String) ->  [MenuModel]
+    func  getMyAccountMenuData(_isenableenrolasPOSP : String, _isaddPospVisible : String,_ErpID : String,_userType : UserType) ->  [MenuModel]
     {
+        
+        let subUserSsId = UserDefaultsManager.shared.getSubUserSsId() ?? "0"
+        
         // Enrol as POSP : hide and show
         Menulist =  [MenuModel]()
-        Menulist.append(MenuModel(name: "My Profile" ,img: "vector_person.png" ,modelId: "nav_MyProfile"))
+        
+        if(subUserSsId == "0"){
+            Menulist.append(MenuModel(name: "My Profile" ,img: "vector_person.png" ,modelId: "nav_MyProfile"))
+            
+        }
     
        
         if(_isenableenrolasPOSP == "1"){
@@ -76,32 +79,18 @@ class MenuDb {
             Menulist.append(MenuModel(name: "Enrol as POSP",img: "posp_enrollment.png" ,modelId: "nav_EnrolPosp"))
         }
         
-        if(_isaddPospVisible == "1" &&  _isfosUser  != "Y") {
-
-                
+        if (subUserSsId == "0" && _userType == .posp && !(_isaddPospVisible.isEmpty) && _ErpID != "0" ){
             Menulist.append(MenuModel(name: "Add Sub User",img: "posp_enrollment.png" ,modelId: "nav_AddSubUser"))
-           
-
         }
         
+        Menulist.append(MenuModel(name: "Raise a Ticket",img: "posp_enrollment.png" ,modelId: "nav_RaisedTicket"))
         
         Menulist.append(MenuModel(name: "Change Password",img: "change_password.png" ,modelId: "nav_ChangePwd"))
         
         
 //        Menulist.append(MenuModel(name: "Sms Templates" ,img: "mps.png" ,modelId: "nav_SmsTemp"))
        
-        //////
        
-        //todo : check key from userconstant to hide add posp
-        /*
-                if((userConstantEntity?.addPospVisible ?: "0").toInt() == 1 && (  prefManager?.fosUser?:"" != "Y")) {
-
-                           menuChild.add(MenuChild("nav_addposp", "Add Sub User", R.drawable.enrol_as_posp))            // 05 changeable
-
-
-                   }
-         */
-        /////
         
         return Menulist
     }
@@ -139,9 +128,14 @@ class MenuDb {
     
     func  getMyLeadsMenuData() ->  [MenuModel]
     {
+        let subUserSsId = UserDefaultsManager.shared.getSubUserSsId() ?? "0"
         
         Menulist =  [MenuModel]()
-        Menulist.append(MenuModel(name: "Summary & Dashboard" ,img: "insurance_policy_ic.png" ,modelId: "nav_LeadDashboard"))
+        if(subUserSsId == "0"){
+            Menulist.append(MenuModel(name: "Summary & Dashboard" ,img: "insurance_policy_ic.png" ,modelId: "nav_LeadDashboard"))
+        }
+    
+       
        
         
         return Menulist

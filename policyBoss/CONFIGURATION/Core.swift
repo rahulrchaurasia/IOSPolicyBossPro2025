@@ -15,6 +15,9 @@ class Core {
     static let shared  = Core ()
     
     static let signUpEntityKey = "policybosspro.signUpEntityKey"
+    static let userTypeKey = "policybosspro.userTypeKey"
+
+    
     func isNewUser() -> Bool {
         return !UserDefaults.standard.bool(forKey: "isNewUser")
     }
@@ -68,6 +71,21 @@ class Core {
         
         
     }
+    
+    //Mark: Store UserType 
+    func saveUserType(_ userType: UserType) {
+            UserDefaults.standard.set(userType.rawValue, forKey: Core.userTypeKey)
+        }
+        
+        // Retrieve userType from UserDefaults.
+    func getUserType() -> UserType {
+            if let rawValue = UserDefaults.standard.string(forKey: Core.userTypeKey) {
+                return UserType(rawValue: rawValue) ?? .none
+            }
+            return .none
+        }
+    
+    
     
     //For calling Core Data
     //Retrieve user signup data if it exists

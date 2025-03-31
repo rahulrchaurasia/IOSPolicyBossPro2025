@@ -128,9 +128,12 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         let HealthUrl = UserDefaults.standard.string(forKey: "healthurl")
         let CVUrl = UserDefaults.standard.string(forKey: "CVUrl")
         
-        let LoanId = UserDefaults.standard.string(forKey: "LoanId")
+       
         
-        let deviceID = UIDevice.current.identifierForVendor?.uuidString
+        let deviceID = DeviceHelper.deviceId  //UIDevice.current.identifierForVendor?.uuidString
+        
+        print("deviceID" , deviceID)
+        print("OLD deviceID" , UIDevice.current.identifierForVendor?.uuidString)
         let appVersion = Configuration.appVersion
         
         // self.setupWKWebview()
@@ -201,82 +204,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
        
         
-        /********************************************Loan URL ******************************************************************/
-        
-        
-        else if(webfromScreen == "credit")
-        {
-            
-            let creditURL = "https://www.rupeeboss.com/finmart-credit-card-loan-new?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: creditURL)!))
-            print("URL",creditURL)
-            
-            // webView.load(URLRequest(url: URL(string: dynamicUrl)!))
-        }
-        
-        else if(webfromScreen == "personal")
-        {
-            
-            let tempURL = "https://www.rupeeboss.com/finmart-personal-loan-new?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: tempURL)!))
-            print("URL",tempURL)
-            
-        }
-        
-        else if(webfromScreen == "business")
-        {
-            
-            let tempURL = "https://www.rupeeboss.com/finmart-business-loan-new?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: tempURL)!))
-            print("URL",tempURL)
-            
-        }
-        
-        
-        
-        
-        else if(webfromScreen == "home")
-        {
-            
-            let tempURL = "https://www.rupeeboss.com/finmart-home-loan-new?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: tempURL)!))
-            print("URL",tempURL)
-            
-        }
-        
-        else if(webfromScreen == "lap")
-        {
-            
-            let tempURL = "https://www.rupeeboss.com/finmart-property-loan?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: tempURL)!))
-            print("URL",tempURL)
-            
-        }
-        else if(webfromScreen == "car")
-        {
-            
-            let tempURL = "https://www.rupeeboss.com/car-loan-new?BrokerId="+(LoanId!)+"&client_source=finmart"
-            
-            titleLbl.text! = webTitle
-            webView.load(URLRequest(url: URL(string: tempURL)!))
-            print("URL",tempURL)
-            
-        }
-        
-        
-        /**********************************************End   OF Loan ***********************************************************/
-        
-        
+       
         /****************************** HTML    ( Disclosure & Privacy Policy)  ****************************************/
         else if(webfromScreen == "DISCLOSURE")
         {
@@ -298,55 +226,14 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         //    Menu Saction //
         ///////////////////////////////////////////////////////////////////////////////
         
-        /****************************** Home Section  ****************************************/
-        else if(webfromScreen == ScreenName.myFinbox)
-        {
-            
-            let url = UserDefaults.standard.string(forKey: "finboxurl")
-            //finboxurl
-            titleLbl.text! = "MY FINBOX"
-            guard let FINBOX = url else{
-                
-                return
-            }
-            
-            webView.load(URLRequest(url: URL(string: FINBOX)!))
-            print("URL",FINBOX)
-        }
-        
-        else if(webfromScreen == ScreenName.Finperks)
-        {
-            let url = UserDefaults.standard.string(forKey: "finboxurl")
-            
-            
-            if let finperkurl = url {
-                
-                titleLbl.text! = "FINPERKS"
-                webView.load(URLRequest(url: URL(string: finperkurl)!))
-                print("URL",finperkurl)
-            }
-        }
-        
-        /******************************END OF HOME Section  ****************************************/
-        
+       
         /****************************** MY TRANSACTION  Section  ****************************************/
         
         else if(webfromScreen == ScreenName.InsuranceBusiness)
         {
             insurancebusinessAPI()
         }
-        else if(webfromScreen == ScreenName.policyByCRN)
-        {
-            let url = UserDefaults.standard.string(forKey: "PBByCrnSearch")
-            
-            
-            if let mainURL = url {
-                
-                titleLbl.text! = "Search CRN"
-                webView.load(URLRequest(url: URL(string: mainURL)!))
-                print("URL",mainURL)
-            }
-        }
+        
         
         /******************************END****************************************/
         
@@ -365,6 +252,45 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             }
         }
         
+        else if(webfromScreen == ScreenName.RaiseTicket)
+        {
+           // let url = UserDefaults.standard.string(forKey: "LeadDashUrl")
+            
+            let url  = UserDefaultsManager.shared.getRaiseTicketURL()
+            
+            
+            if (!url.isEmpty) {
+                
+                titleLbl.text! = "RAISE TICKET"
+                webView.load(URLRequest(url: URL(string: url)!))
+                print("URL",url)
+                
+                
+                let appVersion = Configuration.appVersion
+                let deviceID = Configuration.deviceID
+                
+                let FBAId = UserDefaultsManager.shared.getFbaId()
+                
+                let POSPNo = UserDefaultsManager.shared.getPOSPNo()
+                
+                let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+                
+                let mobileNo = UserDefaultsManager.shared.getMobileNumber()
+                let udid = UserDefaultsManager.shared.getUserId()
+                
+                // Concatenate all parameters to form the complete URL
+                   let raiseTicketURL = "\(url)&mobile_no=\(mobileNo)&UDID=\(udid)&app_version=\(appVersion)&device_code=\(deviceID)&ssid=\(POSPNo)&fbaid=\(FBAId)"
+                   
+                titleLbl.text! = "RAISE TICKET"
+                webView.load(URLRequest(url: URL(string: raiseTicketURL)!))
+                print("URL",raiseTicketURL)
+                
+    
+            }
+            
+                       
+        }
+        
         else if(webfromScreen == ScreenName.pospEnrollment)
         {
             if let POSPURL = UserDefaults.standard.string(forKey: Constant.POSPURL){
@@ -374,16 +300,21 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                     let appVersion = Configuration.appVersion
                     let deviceID = Configuration.deviceID
                     
-                    let FBAId = UserDefaults.standard.string(forKey: "FBAId") as AnyObject
+                   // let FBAId = UserDefaults.standard.string(forKey: "FBAId") as AnyObject
                     
-                    let POSPNo = UserDefaults.standard.string(forKey: "POSPNo")  as AnyObject
+                    //let POSPNo = UserDefaults.standard.string(forKey: "POSPNo")  as AnyObject
+                    let FBAId = UserDefaultsManager.shared.getFbaId()
+                                   
+                    let POSPNo = UserDefaultsManager.shared.getPOSPNo()
+                    
+                    let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
                     
                     // Build the URL string using string interpolation
                     /*
                      https://www.policyboss.com/posp-form?ss_id=139895&fba_id=68219&sub_fba_id=0&ip_address=10.0.3.64&mac_address=10.0.3.64&app_version=policyboss-&product_id=1&ClientID=2
                      */
                     
-                    let  pospWebURL = POSPURL + "&ss_id=\(POSPNo)&fba_id=\(FBAId)&sub_fba_id=0&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version=\(appVersion)&device_code=\(deviceID)"
+                    let  pospWebURL = POSPURL + "&ssid=\(POSPNo)&fbaid=\(FBAId)&ip_address=\(ipAddress)&app_version=\(appVersion)&device_code=\(deviceID)"
                     
             
                     print("POSP URL",pospWebURL)
@@ -399,7 +330,44 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             
         }
         
-        
+        //Mark : new Functionality added march 2025
+        else if(webfromScreen == ScreenName.addSubUser)
+        {
+            if let ADDPOSPURL = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl){
+                
+                if(!ADDPOSPURL.isEmpty){
+                    
+                    let appVersion = Configuration.appVersion
+                    let deviceID = Configuration.deviceID
+                    let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+                    
+                    //Both way same
+                    let FBAId = UserDefaultsManager.shared.getFbaId()
+                                   
+                    let POSPNo = UserDefaultsManager.shared.getPOSPNo()
+//                let FBAId = UserDefaults.standard.string(forKey: "FBAId") as AnyObject
+//                    
+//             let POSPNo = UserDefaults.standard.string(forKey: "POSPNo")  as AnyObject
+                    
+                   
+                    
+                    let  pospWebURL = ADDPOSPURL + "&ssid=\(POSPNo)&fbaid=\(FBAId)&ip_address=\(ipAddress)&app_version=\(appVersion)&device_code=\(deviceID)"
+                    
+            
+                    
+
+                    print("Add SUBUSER URL",pospWebURL)
+                    titleLbl.text! = "Add SUBUSER"
+                    webView.load(URLRequest(url: URL(string: pospWebURL)!))
+                    print("URL",pospWebURL)
+                    
+                }
+                
+            }
+                
+            
+            
+        }
         
         /******************************END****************************************/
         
@@ -411,7 +379,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen == "messageCenter")
         {
             titleLbl.text! = "MESSAGE CENTER"
-            webView.load(URLRequest(url: URL(string: "http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id=5999&fba_id="+(FBAId!)+"&ip_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID!))!))
+            webView.load(URLRequest(url: URL(string: "http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id=5999&fba_id="+(FBAId!)+"&ip_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID))!))
             print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
         }
         
@@ -555,14 +523,28 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
          let appVersion = Configuration.appVersion
         let deviceID = Configuration.deviceID
+        let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+        let parentSsid = ""
+        let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+        print("SubUser_Ss_Id:", subSSID)
+
+        let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+        print("SubUser_Sub_FBA_ID:", subFBAID)
+       
+           // Remove "&sub_fba_id=0" from strURL
+           let cleanedURL = strURL.replacingOccurrences(of: "&sub_fba_id=0", with: "")
+
         
-          let insURL = strURL+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id="+(prdID)+"&device_id="+(deviceID)+"&login_ssid="
+        // Construct the final URL with all parameters
+            let insURL = "\(cleanedURL)&ip_address=\(ipAddress)&mac_address=10.0.0.1&app_version=\(appVersion)&product_id=\(prdID)&device_id=\(deviceID)&login_ssid=\(parentSsid)&sub_ss_id=\(subSSID)&sub_fba_id=\(subFBAID)"
+
         
         webView.load(URLRequest(url: URL(string: insURL)!))
         
         print("URL",insURL )
     }
     
+  
 //    func bindWebCommonUrl(strURL : String){
 //        
 //        let SSID = UserDefaults.standard.string(forKey: "POSPNo")

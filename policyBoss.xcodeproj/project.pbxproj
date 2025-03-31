@@ -182,6 +182,7 @@
 		CD290471288042FB00C75C74 /* FOSUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD290470288042FB00C75C74 /* FOSUserResponse.swift */; };
 		CD2D676329125ED000DF42D9 /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2D676229125ED000DF42D9 /* Extension+UIView.swift */; };
 		CD34DDAF2A7395B00055791E /* WebEngageAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */; };
+		CD39CE512D8827530012A697 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39CE502D8827530012A697 /* UserDefaultsManager.swift */; };
 		CD3ED387286069BF0012FF05 /* PospAmoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED386286069BE0012FF05 /* PospAmoutResponse.swift */; };
 		CD3F9A7C29CDA04A00FB8F2F /* NotificationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3F9A7B29CDA04A00FB8F2F /* NotificationListVC.swift */; };
 		CD3F9A7E29CDA0CC00FB8F2F /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD3F9A7D29CDA0CC00FB8F2F /* Notification.storyboard */; };
@@ -456,6 +457,7 @@
 		CD290470288042FB00C75C74 /* FOSUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FOSUserResponse.swift; sourceTree = "<group>"; };
 		CD2D676229125ED000DF42D9 /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngageAnalytics.swift; sourceTree = "<group>"; };
+		CD39CE502D8827530012A697 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		CD3ED386286069BE0012FF05 /* PospAmoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PospAmoutResponse.swift; sourceTree = "<group>"; };
 		CD3F9A7B29CDA04A00FB8F2F /* NotificationListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListVC.swift; sourceTree = "<group>"; };
 		CD3F9A7D29CDA0CC00FB8F2F /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
@@ -884,6 +886,7 @@
 		8410403C21D7868700C3B7A7 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				CD39CE502D8827530012A697 /* UserDefaultsManager.swift */,
 				8410403D21D786E500C3B7A7 /* FinmartRestClient.swift */,
 				84D2E0C621EDB85500991D47 /* LoginAPI.swift */,
 				8410404821D78A1400C3B7A7 /* FinmartUserDefault.swift */,
@@ -1831,6 +1834,7 @@
 				840C4BE121C383AC000B8D49 /* KnowlgeGuruVC.swift in Sources */,
 				8415D25721EEFFE000C07577 /* pendingcaseTVCell.swift in Sources */,
 				84A064BF22AFB10E000D18B7 /* notipopupurlVC.swift in Sources */,
+				CD39CE512D8827530012A697 /* UserDefaultsManager.swift in Sources */,
 				449F17EE22DC790200C9A2BF /* callingRevampTVCell.swift in Sources */,
 				840C4BDD21C38377000B8D49 /* SalesmaterialVC.swift in Sources */,
 				B253B248261652E0000C3A7D /* IQBarButtonItem.swift in Sources */,
