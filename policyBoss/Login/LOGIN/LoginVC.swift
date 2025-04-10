@@ -622,138 +622,138 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     //---<APICALL>---
     
     //Not in Used
-    func loginAPI()
-    {
-        
-        if Connectivity.isConnectedToInternet()
-        {
-        let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
-        if let parentView = self.navigationController?.view
-        {
-            alertView.parentView = parentView
-        }
-        else
-        {
-            alertView.parentView = self.view
-        }
-        alertView.show()
-        
-        //let deviceID = UIDevice.current.identifierForVendor?.uuidString
-        if  getDeviceInKeyChain().isEmpty{
-               
-            self.deviceID = saveDeviceInKeyChain() ?? ""
-            print("deviceID generated First time =",deviceID )
-                
-        }else{
-            
-            deviceID = getDeviceInKeyChain()
-        }
-          print("deviceID=",deviceID )
-        let token = UserDefaults.standard.string(forKey: Constant.token)
-            print("deviceToken=",token ?? "")
-        let params: [String: AnyObject] = ["AppID": "" as AnyObject,
-                                             "AppPASSWORD": "" as AnyObject,
-                                             "AppUSERID": "" as AnyObject,
-                                             "DeviceId": deviceID as AnyObject,
-                                             "DeviceName": ""as AnyObject,
-                                             "DeviceOS": "" as AnyObject,
-                                             "EmailId": emailId as AnyObject,
-                                             "FBAId": 0 as AnyObject,
-                                             "IpAdd": "" as AnyObject,
-                                             "LastLog": "" as AnyObject,
-                                             "MobileNo": "" as AnyObject,
-                                             "OldPassword": "" as AnyObject,
-                                             "Password": "000" as AnyObject,
-                                             "TokenId": token as AnyObject,
-                                             "UserId": userId as AnyObject,
-                                             "UserName": emailTf.text! as AnyObject,
-                                             "UserType": "" as AnyObject,
-                                             "VersionNo": "" as AnyObject]
-        
-        let url = "login"
-        
-        FinmartRestClient.sharedInstance.authorisedPost(url, parameters: params, onSuccess: { (userObject, metadata) in
-            alertView.close()
-            
-            self.view.layoutIfNeeded()
-            
-            let jsonData = userObject as? NSDictionary
-            print("jsonData=",jsonData!)
-            let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
-            let referer_code = jsonData?.value(forKey: "referer_code") as AnyObject
-            let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
-            let CustID = jsonData?.value(forKey: "CustID") as AnyObject
-            let EmailID = jsonData?.value(forKey: "EmailID") as AnyObject
-            let MobiNumb1 = jsonData?.value(forKey: "MobiNumb1") as AnyObject
-            let FullName = jsonData?.value(forKey: "FullName") as AnyObject
-            let LoanId   = jsonData?.value(forKey: "LoanId") as AnyObject
-            let IsUidLogin   = jsonData?.value(forKey: getSharPrefernce.uidLogin) as AnyObject
-            print ("IsUidLogin",IsUidLogin)
-            print ("MobiNumb1",MobiNumb1)
-             print ("EmailID",EmailID)
-            
-            UserDefaults.standard.set(String(describing: FBAId), forKey: "FBAId")
-            UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
-            UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
-            UserDefaults.standard.set(String(describing: CustID), forKey: "CustID")
-            
-            UserDefaults.standard.set(String(describing: MobiNumb1), forKey: "MobiNumb1")
-            UserDefaults.standard.set(String(describing: EmailID), forKey: "EmailID")
-            UserDefaults.standard.set(String(describing: LoanId), forKey: "LoanId")
-            UserDefaults.standard.set(String(describing: FullName), forKey: "FullName")
-           
-//            let IsFirstLogin = jsonData?.value(forKey: "IsFirstLogin") as AnyObject
-            UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
-            UserDefaults.standard.set(String(describing: IsUidLogin), forKey: getSharPrefernce.uidLogin)
-            
-           //--DemoUsingCoBrowserIO--
-            
-                /*****************  Commented **************************
-                CobrowseIO.instance().license = "-6ym5GFRbN0OdQ"
-                // print("Cobrowse device id:  \(CobrowseIO.instance().deviceId)")
-                CobrowseIO.instance().customData = [
-                    kCBIOUserIdKey: FBAId as! NSObject, //FBAID
-                    kCBIOUserNameKey: FullName as! NSObject, //USerName
-                    kCBIOUserEmailKey: EmailID as! NSObject, //Emailid
-                    kCBIODeviceIdKey: CobrowseIO.instance().deviceId as NSObject, //
-                    kCBIODeviceNameKey: "iOS" as NSObject
-                ]
-            
-                ******************************************************/
-             //--DemoUsingCoBrowserIO--
-            
-
-            
-      //      self.dismiss(animated: false, completion: nil)
-            
-            
-            if let POSPNoValue = POSPNo as? String ,!POSPNoValue.isEmpty{
-              //  WebEngageAnaytics.shared.trackEvent("POSP No Generated")
-                self.getFOSUserInfo()
-            } else {
-                let snackbar = TTGSnackbar.init(message: "Your Posp Number is not generated.!!\nNot Eligible For Login.Please Contact Admin", duration: .long)
-                snackbar.show()
-            }
-            
-          
-           
-
-            
-        }, onError: { errorData in
-            alertView.close()
-             let snackbar = TTGSnackbar.init(message: errorData.errorMessage, duration: .long)
-             snackbar.show()
-        }, onForceUpgrade: {errorData in})
-        
-        
-      }else{
-    
-            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
-            snackbar.show()
-            
-        }
-        
- }
+//    func loginAPI()
+//    {
+//        
+//        if Connectivity.isConnectedToInternet()
+//        {
+//        let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
+//        if let parentView = self.navigationController?.view
+//        {
+//            alertView.parentView = parentView
+//        }
+//        else
+//        {
+//            alertView.parentView = self.view
+//        }
+//        alertView.show()
+//        
+//        //let deviceID = UIDevice.current.identifierForVendor?.uuidString
+//        if  getDeviceInKeyChain().isEmpty{
+//               
+//            self.deviceID = saveDeviceInKeyChain() ?? ""
+//            print("deviceID generated First time =",deviceID )
+//                
+//        }else{
+//            
+//            deviceID = getDeviceInKeyChain()
+//        }
+//          print("deviceID=",deviceID )
+//        let token = UserDefaults.standard.string(forKey: Constant.token)
+//            print("deviceToken=",token ?? "")
+//        let params: [String: AnyObject] = ["AppID": "" as AnyObject,
+//                                             "AppPASSWORD": "" as AnyObject,
+//                                             "AppUSERID": "" as AnyObject,
+//                                             "DeviceId": deviceID as AnyObject,
+//                                             "DeviceName": ""as AnyObject,
+//                                             "DeviceOS": "" as AnyObject,
+//                                             "EmailId": emailId as AnyObject,
+//                                             "FBAId": 0 as AnyObject,
+//                                             "IpAdd": "" as AnyObject,
+//                                             "LastLog": "" as AnyObject,
+//                                             "MobileNo": "" as AnyObject,
+//                                             "OldPassword": "" as AnyObject,
+//                                             "Password": "000" as AnyObject,
+//                                             "TokenId": token as AnyObject,
+//                                             "UserId": userId as AnyObject,
+//                                             "UserName": emailTf.text! as AnyObject,
+//                                             "UserType": "" as AnyObject,
+//                                             "VersionNo": "" as AnyObject]
+//        
+//        let url = "login"
+//        
+//        FinmartRestClient.sharedInstance.authorisedPost(url, parameters: params, onSuccess: { (userObject, metadata) in
+//            alertView.close()
+//            
+//            self.view.layoutIfNeeded()
+//            
+//            let jsonData = userObject as? NSDictionary
+//            print("jsonData=",jsonData!)
+//            let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
+//            let referer_code = jsonData?.value(forKey: "referer_code") as AnyObject
+//            let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
+//            let CustID = jsonData?.value(forKey: "CustID") as AnyObject
+//            let EmailID = jsonData?.value(forKey: "EmailID") as AnyObject
+//            let MobiNumb1 = jsonData?.value(forKey: "MobiNumb1") as AnyObject
+//            let FullName = jsonData?.value(forKey: "FullName") as AnyObject
+//            let LoanId   = jsonData?.value(forKey: "LoanId") as AnyObject
+//            let IsUidLogin   = jsonData?.value(forKey: getSharPrefernce.uidLogin) as AnyObject
+//            print ("IsUidLogin",IsUidLogin)
+//            print ("MobiNumb1",MobiNumb1)
+//             print ("EmailID",EmailID)
+//            
+//            UserDefaults.standard.set(String(describing: FBAId), forKey: "FBAId")
+//            UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
+//            UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
+//            UserDefaults.standard.set(String(describing: CustID), forKey: "CustID")
+//            
+//            UserDefaults.standard.set(String(describing: MobiNumb1), forKey: "MobiNumb1")
+//            UserDefaults.standard.set(String(describing: EmailID), forKey: "EmailID")
+//            UserDefaults.standard.set(String(describing: LoanId), forKey: "LoanId")
+//            UserDefaults.standard.set(String(describing: FullName), forKey: "FullName")
+//           
+////            let IsFirstLogin = jsonData?.value(forKey: "IsFirstLogin") as AnyObject
+//            UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
+//            UserDefaults.standard.set(String(describing: IsUidLogin), forKey: getSharPrefernce.uidLogin)
+//            
+//           //--DemoUsingCoBrowserIO--
+//            
+//                /*****************  Commented **************************
+//                CobrowseIO.instance().license = "-6ym5GFRbN0OdQ"
+//                // print("Cobrowse device id:  \(CobrowseIO.instance().deviceId)")
+//                CobrowseIO.instance().customData = [
+//                    kCBIOUserIdKey: FBAId as! NSObject, //FBAID
+//                    kCBIOUserNameKey: FullName as! NSObject, //USerName
+//                    kCBIOUserEmailKey: EmailID as! NSObject, //Emailid
+//                    kCBIODeviceIdKey: CobrowseIO.instance().deviceId as NSObject, //
+//                    kCBIODeviceNameKey: "iOS" as NSObject
+//                ]
+//            
+//                ******************************************************/
+//             //--DemoUsingCoBrowserIO--
+//            
+//
+//            
+//      //      self.dismiss(animated: false, completion: nil)
+//            
+//            
+//            if let POSPNoValue = POSPNo as? String ,!POSPNoValue.isEmpty{
+//              //  WebEngageAnaytics.shared.trackEvent("POSP No Generated")
+//                self.getFOSUserInfo()
+//            } else {
+//                let snackbar = TTGSnackbar.init(message: "Your Posp Number is not generated.!!\nNot Eligible For Login.Please Contact Admin", duration: .long)
+//                snackbar.show()
+//            }
+//            
+//          
+//           
+//
+//            
+//        }, onError: { errorData in
+//            alertView.close()
+//             let snackbar = TTGSnackbar.init(message: errorData.errorMessage, duration: .long)
+//             snackbar.show()
+//        }, onForceUpgrade: {errorData in})
+//        
+//        
+//      }else{
+//    
+//            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
+//            snackbar.show()
+//            
+//        }
+//        
+// }
     
     
     

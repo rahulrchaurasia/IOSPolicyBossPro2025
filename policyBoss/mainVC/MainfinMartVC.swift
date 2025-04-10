@@ -121,7 +121,8 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         self.getDeviceDetails()
         
     
-        NotifyFirebaseDeeplink()
+        //testDeepLink()
+       //  NotifyFirebaseDeeplink()  : Note: call after api success
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotifyData(notification:)),
                                                name: .NotifyMyAccountProfile, object: nil)
@@ -136,12 +137,12 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
       NotificationCenter.default.addObserver(self, selector: #selector(pushNotifyDataHandling(notification:)), name: .NotifyPushDetails, object: nil)
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(NotifyFirebaseDeeplink(notification:)),
-                                               name: .NotifyDeepLink, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(NotifyFirebaseDeeplink(notification:)),
+//                                               name: .NotifyDeepLink, object: nil)
 
     }
     
-    //0005
+    
     func setWebEnagageUser(){
         
         
@@ -231,6 +232,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     
     //Mark:Store Deeplink Data in UserDefault used when user logout & come vialogin screen
+    
    
     func NotifyFirebaseDeeplink(){
 
@@ -265,6 +267,24 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             }
         }
       
+    }
+    
+    //for test Deeplink
+    func testDeepLink() {
+        // Create test data
+        let deepLinkData: [String: Any] = [
+            "product_id": "1",
+            "title": "Car",
+            "url": "https://www.policyboss.com/car-insurance?product_id=1&title=Car+Insurance"
+        ]
+        
+        // Store in UserDefaults exactly as your notification handler expects it
+        if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
+            UserDefaults.standard.set(data, forKey: Constant.deeplink)
+            
+            // Now call your existing notification handler function
+            NotifyFirebaseDeeplink()
+        }
     }
     
     
@@ -549,6 +569,18 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
        
     }
     
+    func moveToSalesmaterial(productID: String? = nil) {
+        let salesmaterial: SalesmaterialVC = self.storyboard?.instantiateViewController(withIdentifier: "stbSalesmaterialVC") as! SalesmaterialVC
+        
+        // Pass the productID if provided
+        if let productID = productID {
+            salesmaterial.deeplinkProductID = productID
+        }
+        
+        salesmaterial.modalPresentationStyle = .fullScreen
+        salesmaterial.modalTransitionStyle = .coverVertical
+        present(salesmaterial, animated: false, completion: nil)
+    }
    
     @IBAction func finmartMenuBtn(_ sender: Any)
     {
@@ -559,9 +591,12 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     @IBAction func btnNotification(_ sender: Any) {
         
-        let objVC = NotificationListVC.shareInstance()
-
-        navigationController?.pushViewController(objVC, animated: false)
+        
+    NotifyFirebaseDeeplink()
+        //005 temp
+//        let objVC = NotificationListVC.shareInstance()
+//
+//        navigationController?.pushViewController(objVC, animated: false)
     }
    
     @IBAction func salesmaterialBtnCliked(_ sender: Any)
@@ -856,7 +891,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
     }
     
-    //005 start work
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         if(popUpbackgroundView.isHidden == false)
@@ -971,7 +1006,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 //                                let info = "&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID)+"&product_id=\(ProdId)&login_ssid="
                                 
                                 
-                                let info = "&ip_address=\(ipAddress)&mac_address=10.0.0.1&app_version=\(appVersion)&product_id=\(ProdId)&device_id=\(deviceID)&login_ssid=\(parentSsid)&sub_ss_id=\(subSSID)&sub_fba_id=\(subFBAID)"
+                                let info = "&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&product_id=\(ProdId)&device_id=\(deviceID)&login_ssid=\(parentSsid)&sub_ss_id=\(subSSID)&sub_fba_id=\(subFBAID)"
 
                                 
                                 let finalURL = modelURL + info
@@ -1461,7 +1496,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     }
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
-                    UserDefaults.standard.set(String(describing: userid), forKey: "userid") //005
+                    UserDefaults.standard.set(String(describing: userid), forKey: "userid")
                     UserDefaults.standard.set(String(describing: iosuid), forKey: "iosuid")
                    
                     //Mark Set UserDefaultsManager raise Ticket
@@ -1525,9 +1560,8 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                    
                     
-                    let pospNoString = jsonData?["POSPNo"] as? String ?? "0"
-                    
-                    if let pospNoInt = Int64(pospNoString) {
+                 
+                    if let pospNoInt = Int64( UserDefaultsManager.shared.getPOSPNo()) {
                         
                         WebEngageAnaytics.shared.getWEGUser().setAttribute(
                             "POSP No.",
@@ -1541,7 +1575,8 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         
                     }
                     
-                    
+                    self.testDeepLink()
+                    self.NotifyFirebaseDeeplink()
                     
                 }, onError: { errorData in
                     // alertView.close()
@@ -2046,11 +2081,19 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
  
         dismissAll(animated: false)
         
+        if ProdId == "507"{
+            popUpbackgroundView.isHidden = false
+            //        managerNameLbl.text! = "Manager : " + self.managerName
+            usercallingAPI()
+            return
+        }
+        
         // If ProdId is "500", we are in HomePage
-          if ProdId == "500" {
+        if ProdId == "500" {
               return
          
-          }
+        }
+        
         switch (ProdId) {
             
       
@@ -2125,9 +2168,40 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
             break
             
-        case "504" : //Sales Material
+        case "504" : //Sales Material  (general)
           
             moveToSalesmaterial()
+            break
+            
+        
+        case "505" :
+            //Sync Contact Dashboard
+            callWebView(webfromScreen: ScreenName.leadDashboard)
+            
+            break
+            
+        case "506" :
+            //RaiseTicket Handling
+            callWebView(webfromScreen: ScreenName.RaiseTicket)
+            
+            break
+            
+        case "552" : //  SalesMaterial : "Health Insurance
+            moveToSalesmaterial(productID: "1")
+                       
+            break
+            
+            
+        case "553" :
+            // SalesMaterial : "Term Insurance"
+            moveToSalesmaterial(productID: "6")
+            
+            break
+            
+        case "554" :
+            // SalesMaterial : "Travel Insurance"
+            moveToSalesmaterial(productID: "8")
+            
             break
           
         default :
@@ -2138,11 +2212,13 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 let FBAId = UserDefaults.standard.string(forKey: "FBAId")
                 let deviceID = UIDevice.current.identifierForVendor?.uuidString
                 let appVersion = Configuration.appVersion
+                let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+                let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
                 
                 if let SSID = SSID, let FBAId = FBAId {
                     var appendURL = ProdURL + "&ss_id=" + SSID
                     appendURL += "&fba_id=" + FBAId
-                    appendURL += "&sub_fba_id=&ip_address=10.0.0.1&mac_address=10.0.0.1"
+                    appendURL += "&sub_fba_id=\(subFBAID)&ip_address=\(ipAddress)&mac_address=\(ipAddress)"
                     appendURL += "&app_version=" + appVersion
                     appendURL += "&device_id=" + (deviceID ?? "")
                     appendURL += "&login_ssid="

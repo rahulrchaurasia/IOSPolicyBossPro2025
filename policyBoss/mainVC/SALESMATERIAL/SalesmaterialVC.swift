@@ -23,6 +23,8 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     @IBOutlet weak var salesmaterialViewLbl: UILabel!
     @IBOutlet weak var salesmaterialdownldbckView: UIView!
     
+    var deeplinkProductID: String?
+    
     var isUpdate = false
     var selectedRow = 0
     
@@ -45,6 +47,15 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     var indexTbl = IndexPath()
     
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//      
+//        // Handle deeplink product selection if specified
+//           if let productID = deeplinkProductID {
+//               selectProductFromDeeplink(productID: productID)
+//           }
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +66,22 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
         //--<apiCall>--
         salesmaterialproductAPI()
         
+    }
+    
+    // Method to select the product
+    func selectProductFromDeeplink(productID: String) {
+        // Find the index of the specified product ID
+        if let index = ProductIdstringArray.firstIndex(where: { String($0) == productID }) {
+            let indexPath = IndexPath(row: index, section: 0)
+            
+            // Programmatically select the row
+           
+            self.salesMTView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+                 
+            
+            // Manually trigger the row selection handler
+            self.tableView(salesMTView, didSelectRowAt: indexPath)
+        }
     }
     
     @IBAction func salesMaterialBackBtn(_ sender: Any)
@@ -228,9 +255,9 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
         UserDefaults.standard.set(String(describing: indexR), forKey: "indexR")
         
         
+       
         
-        
-        if (cell.salescellCountLbl.isHidden == false)
+        if  (cell.salescellCountLbl.isHidden == false && deeplinkProductID?.isEmpty ?? true)
         {
             salesmaterialdownldbckView.isHidden = false
             salesmaterialViewLbl.text! = String(sMaterialModel[indexPath.row].productCount) + " new Images are available for downloading."
@@ -449,6 +476,12 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
                 
                 DispatchQueue.main.async {
                     self.salesMTView.reloadData()
+                    
+                    if let productID = self.deeplinkProductID {
+                        
+                    self.selectProductFromDeeplink(productID: productID)
+                        
+                    }
                     
                 }
                 

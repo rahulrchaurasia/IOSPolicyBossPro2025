@@ -118,7 +118,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Note : we have field :product_id,title and url
         /*eg: //htps://www.policyboss.com/sync-contacts-dashboard?product_id=43&title=Sync+Contact+DashBoard
         */
-         
+        ///////test ////////////
+        // For testing purposes - create a default URL
+//        let testURLString = "https://www.policyboss.com/car-insurance?product_id=1&title=Car+Insurance"
+//         
+//        guard let url = URL(string: testURLString) else {
+//            print("Invalid test URL format")
+//            return
+//        }
+        /////end here//////////
+    
+        
         guard let url = dynamicLink.url else{
             
             print("deeplink:- Link has no URL")

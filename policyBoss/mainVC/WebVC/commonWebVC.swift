@@ -541,7 +541,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         webView.load(URLRequest(url: URL(string: insURL)!))
         
-        print("URL",insURL )
+        print("URL WEBVIEW",insURL )
     }
     
   
