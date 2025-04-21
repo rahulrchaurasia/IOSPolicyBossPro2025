@@ -2239,7 +2239,7 @@ extension enrolasPOSPVC {
 
 extension String
 {
-    func toDateString( inputDateFormat inputFormat  : String,  ouputDateFormat outputFormat  : String ) -> String?
+    func toDateString1( inputDateFormat inputFormat  : String,  ouputDateFormat outputFormat  : String ) -> String?
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = inputFormat
@@ -2250,7 +2250,31 @@ extension String
         
     }
     
+    func toDateString(inputDateFormat inputFormat: String, ouputDateFormat outputFormat: String) -> String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Prevents locale-related issues
+            dateFormatter.dateFormat = inputFormat
+
+            guard let date = dateFormatter.date(from: self) else {
+                return nil // Safe: if the string can't be parsed, return nil instead of crashing
+            }
+
+            dateFormatter.dateFormat = outputFormat
+            return dateFormatter.string(from: date)
+        }
     
-    
+    func toDateStringWithFallback(formats: [String], outputFormat: String) -> String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            
+            for format in formats {
+                dateFormatter.dateFormat = format
+                if let date = dateFormatter.date(from: self) {
+                    dateFormatter.dateFormat = outputFormat
+                    return dateFormatter.string(from: date)
+                }
+            }
+            return nil
+        }
     
 }

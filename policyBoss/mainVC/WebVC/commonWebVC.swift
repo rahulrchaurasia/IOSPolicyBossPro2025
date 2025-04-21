@@ -184,7 +184,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             self.btnHome.isHidden = true
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/terms-condition")!))
-            debugPrint("URL","https://www.policyboss.com/terms-condition")
+            debugPrint("URL WEBVIEW","https://www.policyboss.com/terms-condition")
         }
         
         else if(webfromScreen == ScreenName.Insurance)
@@ -192,14 +192,14 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")!))
-            debugPrint("URL","https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")
+            debugPrint("URL WEBVIEW","https://origin-cdnh.policyboss.com/fmweb/insurance_repository/page.html")
         }
         else if(webfromScreen == ScreenName.SYNC_PRIVACY)
         {
             self.btnHome.isHidden = true
             titleLbl.text! = webTitle
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/privacy-policy-policyboss-pro")!))
-            debugPrint("URL","https://www.policyboss.com/terms-condition")
+            debugPrint("URL WEBVIEW","https://www.policyboss.com/terms-condition")
         }
         
        
@@ -217,7 +217,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         {
             titleLbl.text! = "Privacy Policy"
             webView.load(URLRequest(url: URL(string: "https://www.policyboss.com/privacy-policy-policyboss-pro")!))
-            print("URL","http://"+fromcontctWebsite)
+            print("URL WEBVIEW","http://"+fromcontctWebsite)
         }
         
         
@@ -248,7 +248,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                 
                 titleLbl.text! = "LEAD DASHBOARD"
                 webView.load(URLRequest(url: URL(string: mainURL)!))
-                print("URL",mainURL)
+                print("URL WEBVIEW",mainURL)
             }
         }
         
@@ -283,7 +283,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                    
                 titleLbl.text! = "RAISE TICKET"
                 webView.load(URLRequest(url: URL(string: raiseTicketURL)!))
-                print("URL",raiseTicketURL)
+                print("URL WEBVIEW",raiseTicketURL)
                 
     
             }
@@ -320,7 +320,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                     print("POSP URL",pospWebURL)
                     titleLbl.text! = "Posp Enrollment"
                     webView.load(URLRequest(url: URL(string: pospWebURL)!))
-                    print("URL",pospWebURL)
+                    print("URL WEBVIEW",pospWebURL)
                     
                 }
                 
@@ -359,7 +359,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
                     print("Add SUBUSER URL",pospWebURL)
                     titleLbl.text! = "Add SUBUSER"
                     webView.load(URLRequest(url: URL(string: pospWebURL)!))
-                    print("URL",pospWebURL)
+                    print("URL WEBVIEW",pospWebURL)
                     
                 }
                 
@@ -409,7 +409,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         {
             titleLbl.text! = "BACK"
             webView.load(URLRequest(url: URL(string: "http://"+fromcontctWebsite)!))
-            print("URL","http://"+fromcontctWebsite)
+            print("URL WEBVIEW","http://"+fromcontctWebsite)
         }
         
         else if(webfromScreen == "otherInvestmentproductp2p")
@@ -422,19 +422,19 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
             //            let ProposerPageUrl = UserDefaults.standard.string(forKey: "ProposerPageUrl")
             titleLbl.text! = "CLICK TO PROTECT 3D"
             webView.load(URLRequest(url: URL(string: ProposerPageUrl)!))
-            print("URL",ProposerPageUrl)
+            print("URL WEBVIEW",ProposerPageUrl)
             
         }
         else if(webfromScreen == "lyfinshdfcnetPremium"){
             titleLbl.text! = "CLICK TO PROTECT 3D"
             webView.load(URLRequest(url: URL(string: ProposerPageUrl)!))
-            print("URL",ProposerPageUrl)
+            print("URL WEBVIEW",ProposerPageUrl)
         }
         else if(webfromScreen == "payforgetMPS")
         {
             titleLbl.text! = "BACK"
             webView.load(URLRequest(url: URL(string: PaymentURL)!))
-            print("URL",PaymentURL)
+            print("URL WEBVIEW",PaymentURL)
         }
         
         
@@ -443,7 +443,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen ==  ScreenName.Dynamic){
             titleLbl.text! = dynamicName
             webView.load(URLRequest(url: URL(string: dynamicUrl)!))
-            print("URL",dynamicUrl)
+            print("URL WEBVIEW",dynamicUrl)
         }
         
         

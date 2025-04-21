@@ -15,12 +15,14 @@ final class LoginRepository {
     static let shared = LoginRepository()
     
     var userType : UserType = .none
+    var SSID  = "0"
     var ErpId = "0"
     var POSP_FbaId   = "0"
     var POSP_EmailId = ""
    
     
     var EMP_EmpName = ""
+
     var EMP_FbaId = "0"
     var EMP_UID = "0"
     var EMP_Mobile_Number = ""
@@ -366,6 +368,7 @@ final class LoginRepository {
 //    }
 
     
+    //MARK : ********HORIZON CALLING VVIMP ********
     func getLoginDetailHorizon(ssID : Int) async throws {
         
         
@@ -401,6 +404,19 @@ final class LoginRepository {
             
             if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 
+                if let Ss_Id = jsonObject["Ss_Id"] as? String {
+                  
+                    UserDefaultsManager.shared.saveSsId(Ss_Id)
+                    
+                    debugPrint("SSID is String  :",SSID)
+                }
+                
+                if let Ss_Id = jsonObject["Ss_Id"] as? Int64 {
+                  
+                    UserDefaultsManager.shared.saveSsId(String(Ss_Id ) )
+                    
+                    debugPrint("SSID is INT  :",SSID)
+                }
                 if let user_type = jsonObject["user_type"] as? String {
                     print("user_type",user_type )
                     userType = UserType(rawValue: user_type) ?? .none
@@ -535,10 +551,12 @@ final class LoginRepository {
 
                 //let fbaid = getFbaId(userType: userType)
                 
+               
                 UserDefaults.standard.set("", forKey: "referer_code")
                 UserDefaults.standard.set(String(describing: 0), forKey: "CustID")
                 UserDefaults.standard.set(String(describing: 0), forKey: "LoanId")
                 
+               
                 UserDefaultsManager.shared.saveFbaId(getFbaId(userType: userType))
                 UserDefaultsManager.shared.savePOSPNo(String(describing: ssID))
                 
@@ -558,13 +576,6 @@ final class LoginRepository {
                // UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
                 
                 UserDefaultsManager.shared.saveEmpUID(String(describing: EMP_UID))
-                
-                
-                
-                //////
-                ///
-                ///
-                ///
                 
                 
                 UserDefaults.standard.set(getFbaId(userType: userType), forKey: "FBAId")

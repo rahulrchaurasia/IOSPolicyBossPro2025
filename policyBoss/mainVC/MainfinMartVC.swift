@@ -121,7 +121,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         self.getDeviceDetails()
         
     
-        //testDeepLink()
+       
        //  NotifyFirebaseDeeplink()  : Note: call after api success
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotifyData(notification:)),
@@ -719,7 +719,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 cell.tapInfoProd = {
                     
                     
-                    let alertWebVC = self.alertService.alertWebView(webURL: self.dynamicDashboardModel[indexPath.row].info)
+                    let alertWebVC = self.alertService.alertWebView(webURL: self.dynamicDashboardModel[indexPath.row].infourl)
                     self.present(alertWebVC, animated: true)
                 }
                 
@@ -733,7 +733,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 
                   cell.cellNewImage.isHidden = true
                 // check if Info  is not empty
-                if(dynamicDashboardModel[indexPath.row].info == "" )
+                if(dynamicDashboardModel[indexPath.row].infourl == "" )
                 {
                     cell.cellbtnInfoProduct.isHidden = true
                     cell.cellImageInfoProduct.isHidden = true
@@ -1397,9 +1397,25 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 
             if(UserDefaults.exists(key: "FBAId") == true) {
                 
-                let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+                let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
                 
-                let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+                let appVersion = Configuration.appVersion
+                let deviceID = Configuration.deviceID
+                              
+              
+                let SSID = UserDefaultsManager.shared.getSsId()
+                              
+             
+                
+               // let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+                
+                let params: [String: AnyObject] = [
+                    "fbaid": FBAId  as AnyObject,
+                    "app_version": appVersion as AnyObject,
+                    "ssid": SSID as AnyObject,
+                    "device_code": deviceID as AnyObject
+                ]
+
                 
                 let url = "user-constant-pb"
                 
@@ -1433,14 +1449,14 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                     
                     let uid = jsonData?.value(forKey: "uid") as AnyObject
-                    let userid = jsonData?.value(forKey: "userid") as AnyObject
+                   // let userid = jsonData?.value(forKey: "userid") as AnyObject
                     let iosuid = jsonData?.value(forKey: "iosuid") as AnyObject
                     
                   //  let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
-                    let LoginID = jsonData?.value(forKey: "LoginID") as AnyObject
+                   // let LoginID = jsonData?.value(forKey: "LoginID") as AnyObject
                     let ManagName = jsonData?.value(forKey: "ManagName") as AnyObject
                     self.managerName = ManagName as! String
-                    let POSP_STATUS = jsonData?.value(forKey: "POSP_STATUS") as AnyObject
+                   // let POSP_STATUS = jsonData?.value(forKey: "POSP_STATUS") as AnyObject
                     let MangEmail = jsonData?.value(forKey: "MangEmail") as AnyObject
                     let MangMobile = jsonData?.value(forKey: "MangMobile") as AnyObject
                     let SuppEmail = jsonData?.value(forKey: "SuppEmail") as AnyObject
@@ -1449,7 +1465,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 //                   
 //                    let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
 //                    let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
-                    let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
+                  //  let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
                     let TwoWheelerUrl = jsonData?.value(forKey: "TwoWheelerUrl") as AnyObject
                     let FourWheelerUrl = jsonData?.value(forKey: "FourWheelerUrl") as AnyObject
                     
@@ -1463,13 +1479,13 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                    // let parentid = jsonData?.value(forKey: "parentid") as AnyObject
                   //  let pospsendemail = jsonData?.value(forKey: "pospsendemail") as AnyObject
                    // let pospsendmobile = jsonData?.value(forKey: "pospsendmobile") as AnyObject
-                    let pospsenddesignation = jsonData?.value(forKey: "pospsenddesignation") as AnyObject
-                    let pospsendphoto = jsonData?.value(forKey: "pospsendphoto") as AnyObject
+                   // let pospsenddesignation = jsonData?.value(forKey: "pospsenddesignation") as AnyObject
+//                    let pospsendphoto = jsonData?.value(forKey: "pospsendphoto") as AnyObject
                     
                     
                     /// loan
                     
-                     let loansendphoto = jsonData?.value(forKey: "loansendphoto") as AnyObject
+//                     let loansendphoto = jsonData?.value(forKey: "loansendphoto") as AnyObject
                     
                     
                  
@@ -1480,10 +1496,10 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     
                     let iosversion = jsonData?.value(forKey: "iosversion") as AnyObject
                     
-                    let referer_code = UserDefaults.standard.string(forKey: "referer_code") as AnyObject
-                    
-                    let androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable) as AnyObject
-                    
+//                    let referer_code = UserDefaults.standard.string(forKey: "referer_code") as AnyObject
+//                    
+//                    let androidproattendanceEnable = UserDefaults.standard.string(forKey: getSharPrefernce.attendanceEnable) as AnyObject
+//                    
                     
                     if let enableProAddSubUserUrl = jsonData?.value(forKey: "enable_pro_Addsubuser_url") as? String,
                        !enableProAddSubUserUrl.isEmpty {
@@ -1496,15 +1512,15 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     }
                     
                     UserDefaults.standard.set(String(describing: uid), forKey: "uid")
-                    UserDefaults.standard.set(String(describing: userid), forKey: "userid")
+//                    UserDefaults.standard.set(String(describing: userid), forKey: "userid")
                     UserDefaults.standard.set(String(describing: iosuid), forKey: "iosuid")
                    
                     //Mark Set UserDefaultsManager raise Ticket
                     UserDefaultsManager.shared.setRaiseTicketURL(raiseTickitUrl)
                     debugPrint("raiseTickit Url",raiseTickitUrl)
-                    UserDefaults.standard.set(String(describing: LoginID), forKey: "LoginID")
+                   // UserDefaults.standard.set(String(describing: LoginID), forKey: "LoginID")
                     UserDefaults.standard.set(String(describing: ManagName), forKey: "ManagName")
-                    UserDefaults.standard.set(String(describing: POSP_STATUS), forKey: "POSP_STATUS")
+                   // UserDefaults.standard.set(String(describing: POSP_STATUS), forKey: "POSP_STATUS")
                     UserDefaults.standard.set(String(describing: MangEmail), forKey: "MangEmail")
                     UserDefaults.standard.set(String(describing: MangMobile), forKey: "MangMobile")
                     UserDefaults.standard.set(String(describing: SuppEmail), forKey: "SuppEmail")
@@ -1514,7 +1530,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 //                    UserDefaults.standard.set(String(describing: POSPNo), forKey: "POSPNo")
 //                    UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
                     
-                    UserDefaults.standard.set(String(describing: loanselfphoto), forKey: "loanselfphoto")
+                   // UserDefaults.standard.set(String(describing: loanselfphoto), forKey: "loanselfphoto")
                     UserDefaults.standard.set(String(describing: TwoWheelerUrl), forKey: "TwoWheelerUrl")
                     UserDefaults.standard.set(String(describing: FourWheelerUrl), forKey: "FourWheelerUrl")
                     
@@ -1530,26 +1546,27 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 //                    UserDefaults.standard.set(String(describing: pospsendmobile), forKey: "pospsendmobile")
 //                    
                     
-                    UserDefaults.standard.set(String(describing: pospsenddesignation), forKey: "pospsenddesignation")
-                    UserDefaults.standard.set(String(describing: pospsendphoto), forKey: "pospsendphoto")
-                    
+                  //  UserDefaults.standard.set(String(describing: pospsenddesignation), forKey: "pospsenddesignation")
+//                    UserDefaults.standard.set(String(describing: pospsendphoto), forKey: "pospsendphoto")
+//                    
                    
-                  
-                    UserDefaults.standard.set(String(describing: loansendphoto), forKey: "loansendphoto")
+//                  
+//                    UserDefaults.standard.set(String(describing: loansendphoto), forKey: "loansendphoto")
                     
                    
                    
                     UserDefaults.standard.set(String(describing: LeadDashUrl), forKey: "LeadDashUrl")
-                    UserDefaults.standard.set(String(describing: enableenrolasposp), forKey: "enableenrolasposp")
+                   // UserDefaults.standard.set(String(describing: enableenrolasposp), forKey: "enableenrolasposp")
                    
                     
                    
                     
                     UserDefaults.standard.set(String(describing: iosversion), forKey: "iosversion")
                     
-                    UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
+//                    UserDefaults.standard.set(String(describing: referer_code), forKey: "referer_code")
+//                    
+//                    UserDefaults.standard.set(String(describing: androidproattendanceEnable), forKey: getSharPrefernce.attendanceEnable)
                     
-                    UserDefaults.standard.set(String(describing: androidproattendanceEnable), forKey: getSharPrefernce.attendanceEnable)
                     
                     ///////////////////////////      Verify  Build Version to  Server    /////////////////////////////////////////////////////////
                     
@@ -1575,7 +1592,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         
                     }
                     
-                    self.testDeepLink()
+                   // self.testDeepLink() //Note Fot testing of deeplink
                     self.NotifyFirebaseDeeplink()
                     
                 }, onError: { errorData in
@@ -1620,7 +1637,23 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 
                 let FBAId = UserDefaults.standard.string(forKey: "FBAId")
                 
-                let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+              //  let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+                
+                let appVersion = Configuration.appVersion
+                let deviceID = Configuration.deviceID
+                              
+              
+                let SSID = UserDefaultsManager.shared.getPOSPNo()
+                              
+                let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+                              
+                
+                let params: [String: AnyObject] = [
+                    "fbaid": FBAId  as AnyObject,
+                    "app_version": appVersion as AnyObject,
+                    "ssid": SSID as AnyObject,
+                    "device_code": deviceID as AnyObject
+                ]
                 
               
                 let url = "get-dynamic-app-pb"
@@ -1644,64 +1677,63 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         let aObject = Dashboard[index] as! [String : AnyObject]
                         
                         
-                        if(aObject["ProdId"] as? String != "16" && aObject["ProdId"] as? String != "18"   ){
+                        if(aObject["dashboard_type"] as?  Int == 1){
                             
                             
-                            if(aObject["dashboard_type"] as! String == "1"){
+                            if ((subUserSsId != "0" && aObject["ProdId"] as? String == "41") == false) {
                                 
-                                
-                                if ((subUserSsId != "0" && aObject["ProdId"] as? String == "41") == false) {
-                                    
-                                    let model = DynamicDashboardModel(menuid: aObject["menuid"] as! Int, menuname: aObject["menuname"] as! String,
-                                                                      link: aObject["link"] as! String, iconimage:  aObject["iconimage"] as! String,
-                                                                      isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
-                                                                      modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
-                                                                      
-                                                                      ProdId: aObject["ProdId"] as! String,
-                                                                      ProdName: aObject["menuname"] as! String,
-                                                                      ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
-                                                                      ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
-                                                                      IsExclusive: aObject["IsExclusive"] as! String,
-                                                                      IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
-                                                                      IsSharable: aObject["IsSharable"] as! String,
-                                                                      popupmsg: aObject["popupmsg"] as! String,
-                                                                      title: aObject["title"] as! String,
-                                                                      info: aObject["info"] as! String)
-                                    
-                                    
-                                   
-                                    self.dynamicDashboardModel.append(model)
-                                }
+//                                let model1 = DynamicDashboardModel(menuid: aObject["menuid"] as! Int, menuname: aObject["menuname"] as! String,
+//                                                                  link: aObject["link"] as! String, iconimage:  aObject["iconimage"] as! String,
+//                                                                  isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
+//                                                                  modalType: "INSURANCE" , dashboard_type: aObject["dashboard_type"] as! String,
+//                                                                  
+//                                                                  ProdId: aObject["ProdId"] as! String,
+//                                                                  ProdName: aObject["menuname"] as! String,
+//                                                                  ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
+//                                                                  ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
+//                                                                  IsExclusive: aObject["IsExclusive"] as! String,
+//                                                                  IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
+//                                                                  IsSharable: aObject["IsSharable"] as! String,
+//                                                                  popupmsg: aObject["popupinfo"] as! String,
+//                                                                  title: aObject["title"] as! String,
+//                                                                  info: aObject["info"] as! String)
+////                                
                                 
                                
                                 
+                                let model = DynamicDashboardModel(
+                                            menuid: aObject["menuid"] as? Int ?? 0,
+                                            menuname: aObject["menuname"] as? String ?? "",
+                                            link: aObject["link"] as? String ?? "",
+                                            iconimage: aObject["iconimage"] as? String ?? "",
+                                            isActive: aObject["isActive"] as? Int ?? 1,
+                                            dashdescription: aObject["description"] as? String ?? "",
+                                            modalType: "INSURANCE",
+                                            dashboard_type: aObject["dashboard_type"] as? String ?? "0",
+                                           
+                                
+                                            ProdId: aObject["ProdId"] as? String ?? "0",
+                                            ProdName: aObject["menuname"] as? String ?? "",
+                                            ProductNameFontColor: aObject["ProductNameFontColor"] as? String ?? "",
+                                            ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as? String ?? "",
+                                            ProductBackgroundColor: aObject["ProductBackgroundColor"] as? String ?? "",
+                                            IsExclusive: aObject["IsExclusive"] as? String ?? "",
+                                            IsNewprdClickable: aObject["IsNewprdClickable"] as? String ?? "",
+                                            IsSharable: aObject["IsSharable"] as? String ?? "",
+                                            popupmsg: aObject["popupinfo"] as? String ?? "",
+                                            title: aObject["title"] as? String ?? "",
+                                            info: aObject["infourl"] as? String ?? ""
+                                        )
+                                        
+                                       
+                                self.dynamicDashboardModel.append(model)
                             }
-                            /*   More Service Commented ...
-                            else if(aObject["dashboard_type"] as! String == "3" ){
-                                
-                                let model = DynamicDashboardModel(menuid: aObject["menuid"] as! Int, menuname: aObject["menuname"] as! String,
-                                                                  link: aObject["link"] as! String, iconimage:  aObject["iconimage"] as! String,
-                                                                  isActive: aObject["isActive"] as! Int, dashdescription: aObject["description"] as! String,
-                                                                  modalType: "MORESERVICE" , dashboard_type: aObject["dashboard_type"] as! String,
-                                                                  
-                                                                  ProdId: aObject["ProdId"] as! String, ProductNameFontColor: aObject["ProductNameFontColor"] as! String, ProductDetailsFontColor: aObject["ProductDetailsFontColor"] as! String,
-                                                                  ProductBackgroundColor: aObject["ProductBackgroundColor"] as! String,
-                                                                  IsExclusive: aObject["IsExclusive"] as! String,
-                                                                  IsNewprdClickable: aObject["IsNewprdClickable"] as! String,
-                                                                  IsSharable: aObject["IsSharable"] as! String,
-                                                                  popupmsg: aObject["popupmsg"] as! String,
-                                                                  title: aObject["title"] as! String,
-                                                                  info: aObject["info"] as! String)
-                                
-                                
-                                self.moreServiceModel.append(model)
-                            }
-                            */
                             
-                            
-                            
+                           
                             
                         }
+                 
+                    
                         
                         
                 

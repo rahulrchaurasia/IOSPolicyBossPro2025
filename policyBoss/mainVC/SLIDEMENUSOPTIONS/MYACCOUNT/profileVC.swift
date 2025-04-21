@@ -572,7 +572,65 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
         }
      
     }
-    func setWebEnagageUser(mob : String ,email : String , gender : String ,dob : String){
+    
+    private func setWebEnagageUser(mob: String, email: String, gender: String, dob: String) {
+        // Check if values are valid before setting them
+        let wegUser = WebEngageAnaytics.shared.getWEGUser()
+        if !mob.isEmpty {
+            wegUser.setPhone(mob)
+        }else{
+            wegUser.setPhone("")
+        }
+        
+        if !email.isEmpty {
+            wegUser.setEmail(email)
+        }else{
+            wegUser.setEmail("")
+        }
+        
+        if !gender.isEmpty {
+            wegUser.setGender(gender)
+        }else{
+            wegUser.setGender("")
+        }
+        
+        //        if !dob.isEmpty {
+        //
+        //
+        //           // wegUser.setBirthDateString(dob)
+        //
+        //            do {
+        //                if let dobFormatted = dob.toDateString(inputDateFormat: "dd-MM-yyyy", ouputDateFormat: "yyyy-MM-dd") {
+        //                    debugPrint("User dob ", dobFormatted)
+        //                    wegUser.setBirthDateString(dobFormatted)
+        //                } else {
+        //                    // Handle case where conversion returns nil
+        //                    wegUser.setBirthDateString("")
+        //                    debugPrint("Failed to format DOB: \(dob)")
+        //                }
+        //            } catch {
+        //                // Handle any exceptions thrown during date conversion
+        //                wegUser.setBirthDateString("")
+        //                debugPrint("Error formatting DOB: \(error.localizedDescription)")
+        //            }
+        //        } else {
+        //            wegUser.setBirthDateString("")
+        //        }
+        
+        if !dob.isEmpty {
+            let inputFormats = ["yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy"]
+            if let dobFormatted = dob.toDateStringWithFallback(formats: inputFormats, outputFormat: "yyyy-MM-dd") {
+                wegUser.setBirthDateString(dobFormatted)
+            } else {
+                wegUser.setBirthDateString("") // Invalid date
+                debugPrint("Invalid date format for DOB: \(dob)")
+            }
+        } else {
+            wegUser.setBirthDateString("")
+        }
+    }
+    
+    func setWebEnagageUser1(mob : String ,email : String , gender : String ,dob : String){
         
         WebEngageAnaytics.shared.getWEGUser().setPhone(mob)
         WebEngageAnaytics.shared.getWEGUser().setEmail(email)
@@ -1395,8 +1453,9 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
         }
         alertView.show()
         
-        let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+        let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
         
+            debugPrint("FBAID DATA",FBAId )
         let params: [String: AnyObject] = [ "FBAID":FBAId as AnyObject]
         
         let url = "get-my-account"
@@ -1406,124 +1465,236 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             
             self.view.layoutIfNeeded()
             
-            let jsonData = userObject as? NSArray
-            let Designation = (jsonData![0] as AnyObject).value(forKey: "Designation") as AnyObject
-            self.designationTf.text! = Designation as! String
-            let EditMobiNumb = (jsonData![0] as AnyObject).value(forKey: "EditMobiNumb") as AnyObject
-            self.mobilenotoshareTf.text! = EditMobiNumb as! String
-            let EditEmailId = (jsonData![0] as AnyObject).value(forKey: "EditEmailId") as AnyObject
-            self.emailtoshareTf.text! = EditEmailId as! String
+//            let jsonData = userObject as? NSArray
+//            let Designation = (jsonData![0] as AnyObject).value(forKey: "Designation") as AnyObject
+//            self.designationTf.text! = Designation as! String
+//            let EditMobiNumb = (jsonData![0] as AnyObject).value(forKey: "EditMobiNumb") as AnyObject
+//            self.mobilenotoshareTf.text! = EditMobiNumb as! String
+//            let EditEmailId = (jsonData![0] as AnyObject).value(forKey: "EditEmailId") as AnyObject
+//            self.emailtoshareTf.text! = EditEmailId as! String
+//            
+//            
+//            let Address_1 = (jsonData![0] as AnyObject).value(forKey: "Address_1") as AnyObject
+//            self.address1Tf.text! = Address_1 as! String
+//            let Address_2 = (jsonData![0] as AnyObject).value(forKey: "Address_2") as AnyObject
+//            self.address2Tf.text! = Address_2 as! String
+//            let Address_3 = (jsonData![0] as AnyObject).value(forKey: "Address_3") as AnyObject
+//            self.address3Tf.text! = Address_3 as! String
+//            let PinCode = (jsonData![0] as AnyObject).value(forKey: "PinCode") as AnyObject
+//            self.pincodeTf.text! = PinCode as! String
+//            let City = (jsonData![0] as AnyObject).value(forKey: "City") as AnyObject
+//            self.cityTf.text! = City as! String
+//            let StateName = (jsonData![0] as AnyObject).value(forKey: "StateName") as AnyObject
+//            if (StateName is NSNull){
+//                self.stateTf.text! = ""
+//            }else{
+//                self.stateTf.text! = StateName as! String
+//            }
+//            
+//            
+//            
+//            let LoanName = (jsonData![0] as AnyObject).value(forKey: "LoanName") as AnyObject
+//            self.accountHolderNameTf.text! = LoanName as! String
+//            let Loan_PAN = (jsonData![0] as AnyObject).value(forKey: "Loan_PAN") as AnyObject
+//            self.panTf.text! = Loan_PAN as! String
+//            let Loan_Aadhaar = (jsonData![0] as AnyObject).value(forKey: "Loan_Aadhaar") as AnyObject
+//            self.addharTf.text! = Loan_Aadhaar as! String
+//            let Loan_BankAcNo = (jsonData![0] as AnyObject).value(forKey: "Loan_BankAcNo") as AnyObject
+//            self.bankaccnoTf.text! = Loan_BankAcNo as! String
+//            let Loan_IFSC = (jsonData![0] as AnyObject).value(forKey: "Loan_IFSC") as AnyObject
+//            self.ifscCodeTf.text! = Loan_IFSC as! String
+//            let Loan_MICR = (jsonData![0] as AnyObject).value(forKey: "Loan_MICR") as AnyObject
+//            self.micrCodeTf.text! = Loan_MICR as! String
+//            let Loan_BankBranch = (jsonData![0] as AnyObject).value(forKey: "Loan_BankBranch") as AnyObject
+//            self.bankBranchTf.text! = Loan_BankBranch as! String
+//            let Loan_BankName = (jsonData![0] as AnyObject).value(forKey: "Loan_BankName") as AnyObject
+//            self.bankNameTf.text! = Loan_BankName as! String
+//            let Loan_BankCity = (jsonData![0] as AnyObject).value(forKey: "Loan_BankCity") as AnyObject
+//            self.bankCityTf.text! = Loan_BankCity as! String
+//            
+//            // 05
+//           let Loan_Account_Type = (jsonData![0] as AnyObject).value(forKey: "Loan_Account_Type") as AnyObject
+//            
+//            self.setAccountType(type: Loan_Account_Type as! String)
+//           
+//            let POSPNo = (jsonData![0] as AnyObject).value(forKey: "POSPNo") as AnyObject
+//            self.pospNoLbl.text! = POSPNo as! String
+//            let FBAID = (jsonData![0] as AnyObject).value(forKey: "FBAID") as AnyObject
+//            self.fbaIdLbl.text! = FBAID as! String
+//            
+//            
+//            let Gender = (jsonData![0] as AnyObject).value(forKey: "Gender") as AnyObject
+//            let DOB = (jsonData![0] as AnyObject).value(forKey: "DOB") as AnyObject
+//            
+//            let DisplayDesignation = (jsonData![0] as AnyObject).value(forKey: "DisplayDesignation") as AnyObject
+//            self.pospDesignTf.text! = DisplayDesignation as! String
+//            let DisplayPhoneNo = (jsonData![0] as AnyObject).value(forKey: "DisplayPhoneNo") as AnyObject
+//            self.pospMobNumTf.text! = DisplayPhoneNo as! String
+//            let DisplayEmail = (jsonData![0] as AnyObject).value(forKey: "DisplayEmail") as AnyObject
+//            self.pospemailTf.text! = DisplayEmail as! String
+//            let FullName = (jsonData![0] as AnyObject).value(forKey: "FullName") as AnyObject
+//            self.fbaNameLbl.text! = FullName as! String
+//            //<user-constant Param>
+//            let LoginID = UserDefaults.standard.string(forKey: "LoginID")
+//            let ManagName = UserDefaults.standard.string(forKey: "ManagName")
+//            let POSP_STATUS = UserDefaults.standard.string(forKey: "POSP_STATUS")
+//            let MangEmail = UserDefaults.standard.string(forKey: "MangEmail")
+//            let MangMobile = UserDefaults.standard.string(forKey: "MangMobile")
+//            let SuppEmail = UserDefaults.standard.string(forKey: "SuppEmail")
+//            let SuppMobile = UserDefaults.standard.string(forKey: "SuppMobile")
+//
+//            self.managerNameLbl.text! = ManagName!
+//            self.loginIdLbl.text! = LoginID!
+//            self.pospStatusLbl.text! = POSP_STATUS!
+//            self.abtmeemailLbl.text! = MangEmail!
+//            self.abtmeMobnoLbl.text! = MangMobile!
+//            self.spprtMobNoLbl.text! = SuppMobile!
+//            self.spportEmailLbl.text! = SuppEmail!
+//            
+//            self.setWebEnagageUser(mob: DisplayPhoneNo as? String ?? "" , email: DisplayEmail as? String ?? "", gender: Gender as? String ?? "" , dob: DOB as? String ?? "")
             
             
-            let Address_1 = (jsonData![0] as AnyObject).value(forKey: "Address_1") as AnyObject
-            self.address1Tf.text! = Address_1 as! String
-            let Address_2 = (jsonData![0] as AnyObject).value(forKey: "Address_2") as AnyObject
-            self.address2Tf.text! = Address_2 as! String
-            let Address_3 = (jsonData![0] as AnyObject).value(forKey: "Address_3") as AnyObject
-            self.address3Tf.text! = Address_3 as! String
-            let PinCode = (jsonData![0] as AnyObject).value(forKey: "PinCode") as AnyObject
-            self.pincodeTf.text! = PinCode as! String
-            let City = (jsonData![0] as AnyObject).value(forKey: "City") as AnyObject
-            self.cityTf.text! = City as! String
-            let StateName = (jsonData![0] as AnyObject).value(forKey: "StateName") as AnyObject
-            if (StateName is NSNull){
-                self.stateTf.text! = ""
-            }else{
-                self.stateTf.text! = StateName as! String
-            }
             
             
+        // Mark : new  ///////////////////////////////////////////
             
-            let LoanName = (jsonData![0] as AnyObject).value(forKey: "LoanName") as AnyObject
-            self.accountHolderNameTf.text! = LoanName as! String
-            let Loan_PAN = (jsonData![0] as AnyObject).value(forKey: "Loan_PAN") as AnyObject
-            self.panTf.text! = Loan_PAN as! String
-            let Loan_Aadhaar = (jsonData![0] as AnyObject).value(forKey: "Loan_Aadhaar") as AnyObject
-            self.addharTf.text! = Loan_Aadhaar as! String
-            let Loan_BankAcNo = (jsonData![0] as AnyObject).value(forKey: "Loan_BankAcNo") as AnyObject
-            self.bankaccnoTf.text! = Loan_BankAcNo as! String
-            let Loan_IFSC = (jsonData![0] as AnyObject).value(forKey: "Loan_IFSC") as AnyObject
-            self.ifscCodeTf.text! = Loan_IFSC as! String
-            let Loan_MICR = (jsonData![0] as AnyObject).value(forKey: "Loan_MICR") as AnyObject
-            self.micrCodeTf.text! = Loan_MICR as! String
-            let Loan_BankBranch = (jsonData![0] as AnyObject).value(forKey: "Loan_BankBranch") as AnyObject
-            self.bankBranchTf.text! = Loan_BankBranch as! String
-            let Loan_BankName = (jsonData![0] as AnyObject).value(forKey: "Loan_BankName") as AnyObject
-            self.bankNameTf.text! = Loan_BankName as! String
-            let Loan_BankCity = (jsonData![0] as AnyObject).value(forKey: "Loan_BankCity") as AnyObject
-            self.bankCityTf.text! = Loan_BankCity as! String
-            
-            // 05
-           let Loan_Account_Type = (jsonData![0] as AnyObject).value(forKey: "Loan_Account_Type") as AnyObject
-            
-            self.setAccountType(type: Loan_Account_Type as! String)
+            guard let jsonData = userObject as? NSArray, jsonData.count > 0,
+                         let firstObject = jsonData[0] as? [String: Any] else {
+                       debugPrint("Invalid JSON response format")
+                       return
+                   }
            
-            let POSPNo = (jsonData![0] as AnyObject).value(forKey: "POSPNo") as AnyObject
-            self.pospNoLbl.text! = POSPNo as! String
-            let FBAID = (jsonData![0] as AnyObject).value(forKey: "FBAID") as AnyObject
-            self.fbaIdLbl.text! = FBAID as! String
-            
-            
-            let Gender = (jsonData![0] as AnyObject).value(forKey: "Gender") as AnyObject
-            let DOB = (jsonData![0] as AnyObject).value(forKey: "DOB") as AnyObject
-            
-            let DisplayDesignation = (jsonData![0] as AnyObject).value(forKey: "DisplayDesignation") as AnyObject
-            self.pospDesignTf.text! = DisplayDesignation as! String
-            let DisplayPhoneNo = (jsonData![0] as AnyObject).value(forKey: "DisplayPhoneNo") as AnyObject
-            self.pospMobNumTf.text! = DisplayPhoneNo as! String
-            let DisplayEmail = (jsonData![0] as AnyObject).value(forKey: "DisplayEmail") as AnyObject
-            self.pospemailTf.text! = DisplayEmail as! String
-            let FullName = (jsonData![0] as AnyObject).value(forKey: "FullName") as AnyObject
-            self.fbaNameLbl.text! = FullName as! String
-            //<user-constant Param>
-            let LoginID = UserDefaults.standard.string(forKey: "LoginID")
-            let ManagName = UserDefaults.standard.string(forKey: "ManagName")
-            let POSP_STATUS = UserDefaults.standard.string(forKey: "POSP_STATUS")
-            let MangEmail = UserDefaults.standard.string(forKey: "MangEmail")
-            let MangMobile = UserDefaults.standard.string(forKey: "MangMobile")
-            let SuppEmail = UserDefaults.standard.string(forKey: "SuppEmail")
-            let SuppMobile = UserDefaults.standard.string(forKey: "SuppMobile")
-
-            self.managerNameLbl.text! = ManagName!
-            self.loginIdLbl.text! = LoginID!
-            self.pospStatusLbl.text! = POSP_STATUS!
-            self.abtmeemailLbl.text! = MangEmail!
-            self.abtmeMobnoLbl.text! = MangMobile!
-            self.spprtMobNoLbl.text! = SuppMobile!
-            self.spportEmailLbl.text! = SuppEmail!
-            
-            self.setWebEnagageUser(mob: DisplayPhoneNo as? String ?? "" , email: DisplayEmail as? String ?? "", gender: Gender as? String ?? "" , dob: DOB as? String ?? "")
-            
+            // Helper function to safely extract string values
+                func getStringValue(for key: String) -> String {
+                    let value = firstObject[key]
+                    if value is NSNull { return "" }
+                    return (value as? String) ?? ""
+                }
+                
+                // Helper function to safely extract Int values
+                func getIntValue(for key: String) -> Int {
+                    let value = firstObject[key]
+                    if value is NSNull { return 0 }
+                    return (value as? Int) ?? 0
+                }
+                
+                // Text fields
+                self.designationTf.text = getStringValue(for: "Designation")
+                self.mobilenotoshareTf.text = getStringValue(for: "EditMobiNumb")
+                self.emailtoshareTf.text = getStringValue(for: "EditEmailId")
+                
+                self.address1Tf.text = getStringValue(for: "Address_1")
+                self.address2Tf.text = getStringValue(for: "Address_2")
+                self.address3Tf.text = getStringValue(for: "Address_3")
+                self.pincodeTf.text = getStringValue(for: "PinCode")
+                self.cityTf.text = getStringValue(for: "City")
+                self.stateTf.text = getStringValue(for: "StateName")
+                
+                self.accountHolderNameTf.text = getStringValue(for: "LoanName")
+                self.panTf.text = getStringValue(for: "Loan_PAN")
+                self.addharTf.text = getStringValue(for: "Loan_Aadhaar")
+                self.bankaccnoTf.text = getStringValue(for: "Loan_BankAcNo")
+                self.ifscCodeTf.text = getStringValue(for: "Loan_IFSC")
+                self.micrCodeTf.text = getStringValue(for: "Loan_MICR")
+                self.bankBranchTf.text = getStringValue(for: "Loan_BankBranch")
+                self.bankNameTf.text = getStringValue(for: "Loan_BankName")
+                self.bankCityTf.text = getStringValue(for: "Loan_BankCity")
+                
+                // Account type
+                let accountType = getStringValue(for: "Loan_Account_Type")
+                if !accountType.isEmpty {
+                    self.setAccountType(type: accountType)
+                }
+                
+                // Labels
+                self.pospNoLbl.text = getStringValue(for: "POSPNo")
+                self.fbaIdLbl.text = getStringValue(for: "FBAID")
+                
+                // Display fields
+                self.pospDesignTf.text = getStringValue(for: "DisplayDesignation")
+                self.pospMobNumTf.text = getStringValue(for: "DisplayPhoneNo")
+                self.pospemailTf.text = getStringValue(for: "DisplayEmail")
+                self.fbaNameLbl.text = getStringValue(for: "FullName")
+                
+                // User defaults fields - safely unwrap
+                let loginID = UserDefaults.standard.string(forKey: "LoginID") ?? ""
+                let managName = UserDefaults.standard.string(forKey: "ManagName") ?? ""
+                let pospStatus = UserDefaults.standard.string(forKey: "POSP_STATUS") ?? ""
+                let mangEmail = UserDefaults.standard.string(forKey: "MangEmail") ?? ""
+                let mangMobile = UserDefaults.standard.string(forKey: "MangMobile") ?? ""
+                let suppEmail = UserDefaults.standard.string(forKey: "SuppEmail") ?? ""
+                let suppMobile = UserDefaults.standard.string(forKey: "SuppMobile") ?? ""
+                
+                self.managerNameLbl.text = managName
+                self.loginIdLbl.text = loginID
+                self.pospStatusLbl.text = pospStatus
+                self.abtmeemailLbl.text = mangEmail
+                self.abtmeMobnoLbl.text = mangMobile
+                self.spprtMobNoLbl.text = suppMobile
+                self.spportEmailLbl.text = suppEmail
+               
+//                // WebEngage
+                let displayPhone = getStringValue(for: "DisplayPhoneNo")
+                let displayEmail = getStringValue(for: "DisplayEmail")
+                let gender = getStringValue(for: "Gender")
+                let dob = getStringValue(for: "DOB")
+//                
+               self.setWebEnagageUser(mob: displayPhone, email: displayEmail, gender: gender, dob: dob)
+                
      /*********************DOC Availabilty From server ***********************************/
           
-            let doc = (jsonData![0] as AnyObject).value(forKey: "doc_available") as? NSArray
+//            let doc = (jsonData![0] as AnyObject).value(forKey: "doc_available") as? NSArray
+//            
+//            if(doc?.count ?? 0 > 0){
+//                
+//                self.profileDocModel = [pospDoc]()
+//                for index in 0...(doc?.count ?? 0)-1 {
+//                    
+//                    let aObject = doc?[index] as! [String : AnyObject]
+//                    
+//                    let DocType = (doc![index] as AnyObject).value(forKey: "DocType") as! Int
+//                    
+//                    let FileName = (doc![index] as AnyObject).value(forKey: "FileName") as! String
+//                
+//                    self.setupUploadDoc(type : DocType, srUrl: FileName)   // Set the Doc URL
+//                    
+//                    
+//                    let model = pospDoc(DocType:  aObject["DocType"] as! Int ,            // Bind the all doc
+//                        FileName: aObject["FileName"] as! String,
+//                        DocName: aObject["DocName"] as! String
+//                    )
+//                    
+//                    self.profileDocModel.append(model)
+//                }
+//                
+//
+//                
+//            }
             
-            if(doc?.count ?? 0 > 0){
+            
+            
+            // Document processing 005
+            if let docArray = firstObject["doc_available"] as? [[String: Any]], !docArray.isEmpty {
+                self.profileDocModel = []
                 
-                self.profileDocModel = [pospDoc]()
-                for index in 0...(doc?.count ?? 0)-1 {
+                for docObject in docArray {
+                    guard let docType = docObject["DocType"] as? Int,
+                          let fileName = docObject["FileName"] as? String,
+                          let docName = docObject["DocName"] as? String else {
+                        continue
+                    }
                     
-                    let aObject = doc?[index] as! [String : AnyObject]
+                    self.setupUploadDoc(type: docType, srUrl: fileName)
                     
-                    let DocType = (doc![index] as AnyObject).value(forKey: "DocType") as! Int
-                    
-                    let FileName = (doc![index] as AnyObject).value(forKey: "FileName") as! String
-                
-                    self.setupUploadDoc(type : DocType, srUrl: FileName)   // Set the Doc URL
-                    
-                    
-                    let model = pospDoc(DocType:  aObject["DocType"] as! Int ,            // Bind the all doc
-                        FileName: aObject["FileName"] as! String,
-                        DocName: aObject["DocName"] as! String
+                    let model = pospDoc(
+                        DocType: docType,
+                        FileName: fileName,
+                        DocName: docName
                     )
                     
                     self.profileDocModel.append(model)
                 }
-                
-
-                
             }
-            
               /********************* end DOC ***********************************/
             
         }, onError: { errorData in

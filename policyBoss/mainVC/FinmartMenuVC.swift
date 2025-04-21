@@ -85,9 +85,10 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     var fromScreen = ""
     var appaccessStatus = ""
     var isfirstLogin = Int()
-    var enableenrolasPOSP = ""
+   // var enableenrolasPOSP = ""
     var enable_pro_Addsubuser_url = ""
-    var showmyinsurancebusiness = ""
+    var showmyinsurancebusiness = "0"
+    var raiseTickitUrl = ""
     var FOSStatus = ""
    // var AddPospVisible = ""
     var Menu_addPospVisible = ""
@@ -601,12 +602,14 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     func bindMenuData(){
         
         
-        if(UserDefaults.exists(key: "enableenrolasposp") == false) {
+        if(UserDefaults.exists(key: "FourWheelerUrl") == false) {
             
             userconstantAPI()
+           
             print("User Constant Called")
         }else{
             
+            //bind menu here
             getUserData()
         }
         
@@ -617,26 +620,25 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     func getUserData(){
         
         
-       
-        
-
-        
       //Mark:   actually it get value from horizon dsa api
-        let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
+        let FBAId = UserDefaultsManager.shared.getFbaId()
         
            
-        let loansendname = UserDefaults.standard.string(forKey: "FullName") ?? ""
+      //  let loansendname = UserDefaults.standard.string(forKey: "FullName") ?? ""
         
-        let POSPNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
-        let ERPID = UserDefaults.standard.string(forKey: "ERPID") ?? "0"
-        let loanselfphoto = UserDefaults.standard.string(forKey: "loanselfphoto") as AnyObject
-        let referer_code = UserDefaults.standard.string(forKey: "referer_code") ?? "0"
+        let fullName =  UserDefaultsManager.shared.getFullName()
+        
+        let POSPNo = UserDefaultsManager.shared.getSsId()
+        let ERPID = UserDefaultsManager.shared.getErpId()
+//        let loanselfphoto = UserDefaults.standard.string(forKey: "loanselfphoto") as AnyObject
+//        let referer_code = UserDefaults.standard.string(forKey: "referer_code") ?? "0"
         
         let userType = Core.shared.getUserType()
         
-        let enableenrolasposp = UserDefaults.standard.string(forKey: "enableenrolasposp") as AnyObject
-        let showmyinsurancebusiness = UserDefaults.standard.string(forKey: "showmyinsurancebusiness") as AnyObject
-        
+      //  let enableenrolasposp = UserDefaults.standard.string(forKey: "enableenrolasposp") ?? "0"
+//        let showmyinsurancebusiness = UserDefaults.standard.string(forKey: "showmyinsurancebusiness") ?? "0"
+          
+      
        
        
         
@@ -644,7 +646,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
      //   self.AddPospVisible = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl)  ?? ""
         
         
-        self.enableenrolasPOSP = enableenrolasposp as! String
+       // self.enableenrolasPOSP = enableenrolasposp
         
         self.enable_pro_Addsubuser_url = UserDefaults.standard.string(forKey: Constant.AddsubuserUrl) ?? ""
         
@@ -653,9 +655,8 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
 
         //self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
        
-        UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
-        
-        
+     
+        debugPrint("SUBUSER SSID",UserDefaultsManager.shared.getSubUserSsId() ?? "0")
         //Mark: For SubUser Data, we added here 2025
         if( UserDefaultsManager.shared.getSubUserSsId() != "0") {
             
@@ -672,9 +673,9 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
         else {
             
-            self.fullNameLbl.text! = loansendname.uppercased()
+            self.fullNameLbl.text! = fullName.uppercased()
             self.fbaIdLbl.text! = FBAId
-            self.refcodeLbl.text! = referer_code as? String ?? ""
+            self.refcodeLbl.text! =  ""
         }
         
         self.pospNoLbl.text! = POSPNo
@@ -696,7 +697,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
         // 005
         menuSectionList =  MenuDb.shareInstance.getMenuSection(
-            isenableenrolasPOSP: self.enableenrolasPOSP ,
+            
             isshowmyinsurancebusiness: self.showmyinsurancebusiness ,
             addSubUserUrl: self.enable_pro_Addsubuser_url,
             fosUser: self.FOSStatus,
@@ -726,9 +727,24 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             }
             alertView.show()
             
-            let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+//            let FBAId = UserDefaults.standard.string(forKey: "FBAId")
             
-            let params: [String: AnyObject] = ["fbaid":FBAId as AnyObject]
+            let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
+            
+            let appVersion = Configuration.appVersion
+            let deviceID = Configuration.deviceID
+                          
+          
+            let SSID = UserDefaultsManager.shared.getSsId()
+                          
+            
+            let params: [String: AnyObject] = [
+                "fbaid": FBAId  as AnyObject,
+                "app_version": appVersion as AnyObject,
+                "ssid": SSID as AnyObject,
+                "device_code": deviceID as AnyObject
+            ]
+
             
               let url = "user-constant-pb"
             
@@ -739,37 +755,36 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 
                 let jsonData = userObject as? NSDictionary
                 
-               // let loansendname = jsonData?.value(forKey: "loansendname") as AnyObject
-               // let FBAId = jsonData?.value(forKey: "FBAId") as AnyObject
-               // let POSPNo = jsonData?.value(forKey: "POSPNo") as AnyObject
-               // let ERPID = jsonData?.value(forKey: "ERPID") as AnyObject
-              //  let loanselfphoto = jsonData?.value(forKey: "loanselfphoto") as AnyObject
-                
-                //005 doubt
-                let referer_code = UserDefaults.standard.string(forKey: "referer_code")
-                
-                let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as AnyObject
-                
-                let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as AnyObject
-                
-               // let addPospVisible  = jsonData?.value(forKey: "AddPospVisible") as AnyObject
-                
-               
               
-                self.enableenrolasPOSP = enableenrolasposp as! String
-                self.showmyinsurancebusiness = showmyinsurancebusiness as! String
-               // self.AddPospVisible = addPospVisible as! String
+               
+                // FIXED: Safely extract values and store them in UserDefaults
+//                if let enableenrolasposp = jsonData?.value(forKey: "enableenrolasposp") as? String {
+//                    UserDefaults.standard.set(enableenrolasposp, forKey: "enableenrolasposp")
+//                    self.enableenrolasPOSP = enableenrolasposp
+//                } else {
+//                    // Default value if API doesn't return this field
+//                    UserDefaults.standard.set("0", forKey: "enableenrolasposp")
+//                    self.enableenrolasPOSP = "0"
+//                }
+                           
+              
+         
+               
+//                if let showmyinsurancebusiness = jsonData?.value(forKey: "showmyinsurancebusiness") as? String {
+//                    UserDefaults.standard.set(showmyinsurancebusiness, forKey: "showmyinsurancebusiness")
+//                    self.showmyinsurancebusiness = showmyinsurancebusiness
+//                } else {
+//                    UserDefaults.standard.set("0", forKey: "showmyinsurancebusiness")
+//                    self.showmyinsurancebusiness = "0"
+//                }
                 
-                
-                //For Horizon :
-                let POSPNo = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
-                let ERPID = UserDefaults.standard.string(forKey: "ERPID") ?? "0"
+              
+              //  let ERPID = UserDefaultsManager.shared.getErpId()
                 let userType = Core.shared.getUserType()
                 
-                //let loanselfphoto = UserDefaults.standard.string(forKey: "loanselfphoto") ?? ""
               
                    
-               let  loansendname = UserDefaults.standard.string(forKey: "FullName") as AnyObject
+//               let  loansendname = UserDefaults.standard.string(forKey: "FullName") as AnyObject
                 
                 //for handling subuser : New Added Functinality mar 2025
                 if let enableProAddSubUserUrl = jsonData?.value(forKey: "enable_pro_Addsubuser_url") as? String,
@@ -783,44 +798,24 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     UserDefaults.standard.set("", forKey: DefaultKey.AddsubuserUrl)
                 }
                 
-               // UserDefaults.standard.set(String(describing: ERPID), forKey: "ERPID")
-    
-                //0005 added here 2025
-                self.fullNameLbl.text! = loansendname.uppercased
-                self.fbaIdLbl.text! = FBAId ?? ""
-                self.pospNoLbl.text! = POSPNo
-                self.erpIdLbl.text! = ERPID
-                self.refcodeLbl.text! = referer_code ?? ""
-                
-//                if(loanselfphoto as! String != ""){
-//                    //loadimages
-//                    let imgURL = NSURL(string: loanselfphoto as! String)
-//                    if imgURL != nil {
-//
-//                        DispatchQueue.main.async {
-//                            let data = NSData(contentsOf: (imgURL as URL?)!)
-//
-//                            self.menuprofileImgView.sd_setImage(with: imgURL as URL?)
-//                        }
-//
-//                    }
-//                }
+              
+                if let raiseTickitUrl = jsonData?.value(forKey: "RaiseTickitUrl") as? String, !raiseTickitUrl.isEmpty {
+                    
+                    self.raiseTickitUrl = raiseTickitUrl
+                  
+                    UserDefaultsManager.shared.setRaiseTicketURL(raiseTickitUrl)
+                }else{
+                    UserDefaultsManager.shared.setRaiseTicketURL("")
+                }
                 
                 self.FOSStatus = UserDefaults.standard.string(forKey: "FOS_USER_AUTHENTICATIONN") ?? ""
                 
-               
-                self.menuSectionList =  MenuDb.shareInstance.getMenuSection(
-                    isenableenrolasPOSP: self.enableenrolasPOSP ,
-                    isshowmyinsurancebusiness: self.showmyinsurancebusiness,
-                    addSubUserUrl: self.enable_pro_Addsubuser_url  ,
-                    fosUser: self.FOSStatus,
-                    ErpID: ERPID ,
-                    userType: userType)
+                debugPrint("userconstantAPI completed successfully - calling getUserData()")
+                  
+                // handle Binding Menu here
+                self.getUserData()
                 
-                
-               
-                
-                self.menuTV.reloadData()
+          
                 
             }, onError: { errorData in
                 alertView.close()

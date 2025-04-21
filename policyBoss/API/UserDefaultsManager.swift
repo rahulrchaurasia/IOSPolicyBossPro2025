@@ -19,6 +19,7 @@ class UserDefaultsManager {
     private enum Keys {
         
         //Horizon DSAS API
+        static let ssId = "Ss_Id"
         static let fbaId = "FBAId"
         static let refererCode = "referer_code"
         static let pospNo = "POSPNo"
@@ -56,6 +57,10 @@ class UserDefaultsManager {
    
     
     // MARK: - Save Methods of Horizon Api
+    
+        func saveSsId(_ ssId: String) {
+            defaults.set(ssId, forKey: Keys.ssId)
+        }
         func savePOSPNo(_ pospNo: String) {
             defaults.set(pospNo, forKey: Keys.pospNo)
         }
@@ -96,7 +101,12 @@ class UserDefaultsManager {
             defaults.set(uid, forKey: Keys.empUID)
         }
         
+    
         // MARK: - Retrieve Methods
+    
+        func getSsId() -> String {
+            return defaults.object(forKey: Keys.ssId) as? String ?? "0"
+        }
         func getPOSPNo() -> String {
             return defaults.string(forKey: Keys.pospNo) ?? ""
         }
@@ -155,6 +165,7 @@ class UserDefaultsManager {
            defaults.set(firstName, forKey: Keys.subUserFirstName)
            defaults.set(lastName, forKey: Keys.subUserLastName)
            defaults.set(mobile, forKey: Keys.subUserMobile)
+           defaults.synchronize() // Force immediate write
        }
     
     func isUserAgent() -> Bool {
@@ -162,6 +173,17 @@ class UserDefaultsManager {
         let userType = Core.shared.getUserType()
         
         return if( userType == .posp || (userType == .fos)  ){
+            true
+        }else{
+            false
+        }
+    }
+    
+    func isUserEmployee() -> Bool {
+        
+        let userType = Core.shared.getUserType()
+        
+        return if( userType == .emp)  {
             true
         }else{
             false

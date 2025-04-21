@@ -174,33 +174,99 @@ class WelcomeSynConatctVC: UIViewController {
         
     }
     
+//    @IBAction func btnStarted(_ sender: Any) {
+//        
+//        if Connectivity.isConnectedToInternet(){
+//            
+//            if( verifyAllCondition()){
+//
+//
+//                self.contactAuthorizedReq()
+//
+//                if(isAuthorized){
+//                    
+//                    
+//                    saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
+//                  
+//                }
+//
+//
+//            }
+//            
+//         
+//        }else{
+//            
+//            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
+//            snackbar.show()
+//        }
+//    }
+    
     @IBAction func btnStarted(_ sender: Any) {
         
-        if Connectivity.isConnectedToInternet(){
-            
-            if( verifyAllCondition()){
-
-
-                self.contactAuthorizedReq()
-
-                if(isAuthorized){
-                    
-                    
-                    saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
-                  
+        // First check connectivity and terms acceptance
+        if !Connectivity.isConnectedToInternet() {
+            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle)
+            snackbar.show()
+            return
+        }
+        
+        if !verifyAllCondition() {
+            return // Button should be disabled already by verifyAllCondition()
+        }
+        
+        
+       
+        let status = CNContactStore.authorizationStatus(for: .contacts)
+        
+        switch status {
+        case .notDetermined:
+            // Request access
+            store.requestAccess(for: .contacts) { [weak self] didAuthorize, error in
+                guard let self = self else { return }
+                
+                DispatchQueue.main.async {
+                    if didAuthorize {
+                        self.isAuthorized = true
+                        self.saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
+                    } else {
+                        self.isAuthorized = false
+                        self.checkPermissionAlert(_title: Constant.contactTitle, _message: Constant.contactReq)
+                    }
                 }
-
-
             }
             
-         
-        }else{
+//        case .authorized, .limited:
+//            // Both authorized and limited access are acceptable
+//            self.isAuthorized = true
+//            self.saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
+//            
             
-            let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
-            snackbar.show()
+        case .authorized:
+            
+            self.isAuthorized = true
+            self.saveSyncContAgreementData(isCall: self.isTermCALL, isSms: self.isTermSMS)
+         
+            
+        case .limited:
+            self.checkPermissionAlert(
+                _title: Constant.contactLimitedTitle,
+                _message: Constant.contactLimitedMessage
+            )
+
+        case .denied, .restricted:
+            self.checkPermissionAlert(
+                _title: Constant.contactTitle,
+                _message: Constant.contactReq
+            )
+            
+        @unknown default:
+            print("Unknown authorization status")
         }
+        
+        
     }
-    
+
+
     
     func fetchSyncAgreementDetails(){
         let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")

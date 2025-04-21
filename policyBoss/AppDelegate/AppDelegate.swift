@@ -139,15 +139,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
               let queryItems = components.queryItems else {return}
         
-        //let dict  : NSMutableDictionary = [:]
-        
-        
-        //        for queryItem in queryItems {
-        //            print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
-        //
-        //            dict.setValue(queryItem.value, forKey: queryItem.name)
-        //
-        //        }
+     
         
         
         var deepLinkData: [String: Any] = [:]

@@ -20,7 +20,7 @@ class MenuDb {
     let subUserSsId = UserDefaultsManager.shared.getSubUserSsId() ?? "0"
     
     
-    func getMenuSection(isenableenrolasPOSP :String, isshowmyinsurancebusiness : String ,
+    func getMenuSection(isenableenrolasPOSP :String = "", isshowmyinsurancebusiness : String ,
                         addSubUserUrl :String, fosUser : String, ErpID : String,userType : UserType) ->  [MenuSection]{
         
         // Here Section is 3 ie "MenuSection" And Row count of each Section represent by "menuModel"
@@ -73,19 +73,22 @@ class MenuDb {
             
         }
     
-       
-        if(_isenableenrolasPOSP == "1"){
+        if( !UserDefaultsManager.shared.isUserEmployee()){
             
             Menulist.append(MenuModel(name: "Enrol as POSP",img: "posp_enrollment.png" ,modelId: "nav_EnrolPosp"))
         }
-        
+//        if(_isenableenrolasPOSP == "1"){
+//            
+//            Menulist.append(MenuModel(name: "Enrol as POSP",img: "posp_enrollment.png" ,modelId: "nav_EnrolPosp"))
+//        }
+//        
         if (subUserSsId == "0" && _userType == .posp && !(_isaddPospVisible.isEmpty) && _ErpID != "0" ){
             Menulist.append(MenuModel(name: "Add Sub User",img: "posp_enrollment.png" ,modelId: "nav_AddSubUser"))
         }
         
         Menulist.append(MenuModel(name: "Raise a Ticket",img: "posp_enrollment.png" ,modelId: "nav_RaisedTicket"))
         
-        Menulist.append(MenuModel(name: "Change Password",img: "change_password.png" ,modelId: "nav_ChangePwd"))
+//        Menulist.append(MenuModel(name: "Change Password",img: "change_password.png" ,modelId: "nav_ChangePwd"))
         
         
 //        Menulist.append(MenuModel(name: "Sms Templates" ,img: "mps.png" ,modelId: "nav_SmsTemp"))

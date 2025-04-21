@@ -61,10 +61,13 @@ class LoginVC: UIViewController,UITextFieldDelegate {
         emailTf.keyboardType = .emailAddress
        // passwordTf.delegate = self
         
+        
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.LoginScreen)
 
 
         handleViewStyle()
+        
+        hideLoginVia(false) //Hiding Password
         let tapOTPGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleOTPTap(_:)))
 
         loginViaOTP.addGestureRecognizer(tapOTPGestureRecognizer)
@@ -75,7 +78,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
        loginViaPassword.addGestureRecognizer(tapPasswordGestureRecognizer)
         
         
-        hideLoginVia(false) //Hiding Password
+      
         let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .forever )
         snackbar.show()
         

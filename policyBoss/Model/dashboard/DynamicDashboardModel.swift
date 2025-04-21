@@ -34,7 +34,7 @@ class DynamicDashboardModel: NSObject {
     var popupmsg : String
 
     var title: String
-    var info: String
+    var infourl: String
 //
     
     
@@ -67,7 +67,7 @@ class DynamicDashboardModel: NSObject {
         self.popupmsg=popupmsg
         
         self.title = title
-        self.info = info
+        self.infourl = info
         
     }
     init( modalType: String,ProdId: String , menuname: String,dashdescription: String,iconimage :String)
@@ -97,7 +97,7 @@ class DynamicDashboardModel: NSObject {
         self.popupmsg = ""
         
         self.title = ""
-        self.info = ""
+        self.infourl = ""
         
     }
 

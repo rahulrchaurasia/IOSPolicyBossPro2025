@@ -43,7 +43,7 @@ struct storyBoardName  {
 
 struct getSharPrefernce  {
     
-    static let  attendanceEnable   = "androidproattendanceEnable"
+   // static let  attendanceEnable   = "androidproattendanceEnable"
     static let  uidLogin = "IsUidLogin"
     static let  userType = "policyBossPro_userType"
     static let  isAgent = "policyBossPro_isAgent"
@@ -86,6 +86,9 @@ struct Constant  {
     static let  errorMessage   = "No Data Found. Please try Again!!"
     static let  contactReq   = "Please Allow Contact Access."
     static let  contactTitle   = "Contact access is need to get your Contact Sync."
+    static let  contactLimitedTitle =  "Full Contact Access Required"
+    static let  contactLimitedMessage = "You've granted limited access to your contacts. To enable contact sync, please allow full access from Settings."
+
 
     static let  token   = "FCMTOKEN"
     static let  NotificationCount   = "NotificationCount"

@@ -12,7 +12,11 @@ class Configuration: NSObject {
 
   // static let baseURLString = "http://qa.mgfm.in"               //testing
     //http://api.magicfinmart.com
-   static let baseURLString = "https://horizon.policyboss.com:5443/quote/Postfm/"     //live
+    
+    static let baseURLString = "https://horizon.policyboss.com:5443/Postfm/"     //live
+     
+     //Mark Old One
+   //static let baseURLString = "https://horizon.policyboss.com:5443/quote/Postfm/"     //live
     
     static let baseROOTURL = "https://horizon.policyboss.com:5443"
     
