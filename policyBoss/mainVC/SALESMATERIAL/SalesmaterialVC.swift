@@ -306,7 +306,25 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
                 alertView.parentView = self.view
             }
             alertView.show()
-            let params: [String: AnyObject] = [:]
+          //  let params: [String: AnyObject] = [:]
+            
+            let appVersion = Configuration.appVersion
+            let deviceID = Configuration.deviceID
+            
+            let  fbaID = UserDefaultsManager.shared.getFbaId()
+            let   ssID = UserDefaultsManager.shared.getSsId()
+            let product_id = ""
+                           
+  
+            let params: [String: AnyObject] = [
+                            
+                            "app_version": appVersion as AnyObject,
+                            "device_code": deviceID as AnyObject,
+                            "ssid": ssID as AnyObject,
+                            "fbaid" : fbaID as AnyObject,
+                            "product_id" : product_id as AnyObject,
+                            
+                        ]
             
           
              let url = "sales-material-product-pb"

@@ -6,6 +6,8 @@
 //  Copyright © 2020 Ashwini. All rights reserved.
 //
 
+
+//Mark Not in Used
 import UIKit
 
 //Note : empDesignation and PhotoUrl are came from userconstant.
@@ -81,18 +83,21 @@ class imgsalesmaterialNewVC: UIViewController {
         
         if(PhotoUrl.isEmpty){
             
-            PhotoUrl =  "http://qa.mgfm.in/images/profile_pic.png"
+            PhotoUrl =  "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
         }
     }
     
+   
+    
+    
     func pospDetails(){
         
-       // empName = UserDefaults.standard.string(forKey: "pospsendname") ?? "POSP Name"
-       // empEmail = UserDefaults.standard.string(forKey: "pospsendemail") ??  "XXXXXX@finmart.com"
-        //   empMobileNo = UserDefaults.standard.string(forKey: "pospsendmobile") ?? "98XXXXXXXX"
+       
         
         let fullName = UserDefaultsManager.shared.getFullName()
+        
         empName = fullName.isEmpty ? "POSP Name" : fullName
+        print("POSP fullName",fullName)
         
         let email = UserDefaultsManager.shared.getEmailId()
         empEmail = email.isEmpty ? "XXXXXX@policyboss.com" : email
@@ -100,11 +105,15 @@ class imgsalesmaterialNewVC: UIViewController {
         let mobile = UserDefaultsManager.shared.getMobileNumber()
         empMobileNo = mobile.isEmpty ? "98XXXXXXXX" : mobile
         
-     
-        empDesignation = UserDefaults.standard.string(forKey: "pospsenddesignation") ??  "LandMark POSP"
-        PhotoUrl = UserDefaults.standard.string(forKey: "pospsendphoto") ?? "http://qa.mgfm.in/images/profile_pic.png"
+        let designation = UserDefaultsManager.shared.getPospSelfDesignation()
+        empDesignation = designation.isEmpty ? "LandMark POSP" : designation
         
-          print("PhotoUrl",PhotoUrl)
+        
+        let tempPhotoUrl = UserDefaultsManager.shared.getPospSelfPhoto()
+        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
+        
+       
+        print("PhotoUrl",PhotoUrl)
         
         validate()
         
@@ -120,6 +129,8 @@ class imgsalesmaterialNewVC: UIViewController {
         lblEmail.text = empEmail
     }
     
+   
+    
     //Not in Used
     func loanDetails(){
         
@@ -127,7 +138,7 @@ class imgsalesmaterialNewVC: UIViewController {
         empEmail = UserDefaults.standard.string(forKey: "loansendemail") ?? "XXXXXX@finmart.com"
         empMobileNo = UserDefaults.standard.string(forKey: "loansendmobile") ?? "98XXXXXXXX"
         empDesignation = UserDefaults.standard.string(forKey: "loansenddesignation") ?? "LandMark POSP"
-        PhotoUrl = UserDefaults.standard.string(forKey: "loansendphoto") ?? "http://qa.mgfm.in/images/profile_pic.png"
+        PhotoUrl = UserDefaults.standard.string(forKey: "loansendphoto") ?? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
          print("PhotoUrl",PhotoUrl)
         
         validate()

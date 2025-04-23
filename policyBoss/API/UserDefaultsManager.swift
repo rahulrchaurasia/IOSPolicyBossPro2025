@@ -35,7 +35,19 @@ class UserDefaultsManager {
         static let  isAgent = "policyBossPro_isAgent"
         static let empUID = "EMP_UID"
         
+        static let permanantAdd1 = "Permanant_Add1"
+        static let permanantAdd2 = "Permanant_Add2"
+        static let permanantAdd3 = "Permanant_Add3"
+        static let permanantCity = "Permanant_City"
+        static let permanantState = "Permanant_State"
+        static let gender = "Gender"
+        static let birthdate = "Birthdate"
+        static let permanantPincode = "Permanant_Pincode"
+        
         static let raiseTicketURL = "raiseTicketURL"
+        
+        static let pospselfdesignation = "pospselfdesignation"
+        static let pospselfphoto = "pospselfphoto"
         
         //SubUser
         static let subUserSsId = "SubUser_Ss_Id"
@@ -100,7 +112,14 @@ class UserDefaultsManager {
         func saveEmpUID(_ uid: String) {
             defaults.set(uid, forKey: Keys.empUID)
         }
-        
+    
+        func savePospSelfDesignation(_ design: String) {
+            defaults.set(design, forKey: Keys.pospselfdesignation)
+        }
+        func savePospSelfPhoto(_ photo: String) {
+            defaults.set(photo, forKey: Keys.pospselfphoto)
+        }
+            
     
         // MARK: - Retrieve Methods
     
@@ -146,6 +165,58 @@ class UserDefaultsManager {
         func getEmpUID() -> String {
             return defaults.string(forKey: Keys.empUID) ?? ""
         }
+    
+    
+        func getPospSelfDesignation() -> String {
+            return defaults.string(forKey: Keys.pospselfdesignation) ?? ""
+        }
+    
+        func getPospSelfPhoto() -> String {
+            return defaults.string(forKey: Keys.pospselfphoto) ?? ""
+        }
+
+    
+      // Profile Details
+        func getPermanantAdd1() -> String {
+            return defaults.string(forKey: Keys.permanantAdd1) ?? ""
+        }
+        func getPermanantAdd2() -> String {
+            return defaults.string(forKey: Keys.permanantAdd2) ?? ""
+        }
+        func getPermanantAdd3() -> String {
+            return defaults.string(forKey: Keys.permanantAdd3) ?? ""
+        }
+        func getPermanantCity() -> String {
+            return defaults.string(forKey: Keys.permanantCity) ?? ""
+        }
+        func getPermanantPinCode() -> String {
+            return defaults.string(forKey: Keys.permanantPincode) ?? ""
+        }
+    
+        func getPermanantState() -> String {
+            return defaults.string(forKey: Keys.permanantState) ?? ""
+        }
+        func getGender() -> String {
+            return defaults.string(forKey: Keys.gender) ?? ""
+        }
+        func getBirthdate() -> String {
+            return defaults.string(forKey: Keys.birthdate) ?? ""
+        }
+    
+
+    func savePofileDetails(permanantAdd1: String, permanantAdd2: String, permanantAdd3: String, permanantCity: String, permanantState: String, gender: String,  birthdate: String,permanantPincode:String) {
+        
+        defaults.set(permanantAdd1, forKey: Keys.permanantAdd1)
+        defaults.set(permanantAdd2, forKey: Keys.permanantAdd2)
+        defaults.set(permanantAdd3, forKey: Keys.permanantAdd3)
+        defaults.set(permanantCity, forKey: Keys.permanantCity)
+        defaults.set(permanantState, forKey: Keys.permanantState)
+        defaults.set(gender, forKey: Keys.gender)
+        defaults.set(birthdate, forKey: Keys.birthdate)
+        defaults.set(permanantPincode, forKey: Keys.permanantPincode)
+        defaults.synchronize() // Force immediate write
+    }
+ 
     
     
       // Mark: For UserConstant API

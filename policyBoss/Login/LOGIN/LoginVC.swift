@@ -67,7 +67,7 @@ class LoginVC: UIViewController,UITextFieldDelegate {
 
         handleViewStyle()
         
-        hideLoginVia(false) //Hiding Password
+        hideLoginVia(true) //Hiding Password
         let tapOTPGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleOTPTap(_:)))
 
         loginViaOTP.addGestureRecognizer(tapOTPGestureRecognizer)

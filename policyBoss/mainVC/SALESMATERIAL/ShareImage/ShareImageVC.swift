@@ -8,6 +8,8 @@
 
 import UIKit
 
+//Mark : This is Used as ShareView
+
 class ShareImageVC: UIViewController {
     
     var detailImg = ""
@@ -45,12 +47,13 @@ class ShareImageVC: UIViewController {
              imgProduct.sd_setImage(with: url)
              
              
-             if(productID == "4" ||  productID == "5" || productID == "6" || productID == "7" ){
-                 
-                 loanDetails()
-             }else{
-                 pospDetails()
-             }
+            pospDetails()
+//             if(productID == "4" ||  productID == "5" || productID == "6" || productID == "7" ){
+//                 
+//                 loanDetails()
+//             }else{
+//                 pospDetails()
+//             }
              
              
     }
@@ -77,19 +80,34 @@ class ShareImageVC: UIViewController {
         
         if(PhotoUrl.isEmpty){
             
-            PhotoUrl =  "http://qa.mgfm.in/images/profile_pic.png"
+            PhotoUrl =  "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
         }
     }
     
     func pospDetails(){
         
-        empName = UserDefaults.standard.string(forKey: "pospsendname") ?? "POSP Name"
-        empEmail = UserDefaults.standard.string(forKey: "pospsendemail") ??  "XXXXXX@finmart.com"
-        empMobileNo = UserDefaults.standard.string(forKey: "pospsendmobile") ?? "98XXXXXXXX"
-        empDesignation = UserDefaults.standard.string(forKey: "pospsenddesignation") ??  "LandMark POSP"
-        PhotoUrl = UserDefaults.standard.string(forKey: "pospsendphoto") ?? "http://qa.mgfm.in/images/profile_pic.png"
+       
         
-          print("PhotoUrl",PhotoUrl)
+        let fullName = UserDefaultsManager.shared.getFullName()
+        
+        empName = fullName.isEmpty ? "POSP Name" : fullName
+        print("POSP fullName",fullName)
+        
+        let email = UserDefaultsManager.shared.getEmailId()
+        empEmail = email.isEmpty ? "XXXXXX@policyboss.com" : email
+
+        let mobile = UserDefaultsManager.shared.getMobileNumber()
+        empMobileNo = mobile.isEmpty ? "98XXXXXXXX" : mobile
+        
+        let designation = UserDefaultsManager.shared.getPospSelfDesignation()
+        empDesignation = designation.isEmpty ? "LandMark POSP" : designation
+        
+        
+        let tempPhotoUrl = UserDefaultsManager.shared.getPospSelfPhoto()
+        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
+        
+       
+        print("PhotoUrl",PhotoUrl)
         
         validate()
         
@@ -103,7 +121,10 @@ class ShareImageVC: UIViewController {
         lblDesignation.text = empDesignation
         lblMobile.text = empMobileNo
         lblEmail.text = empEmail
+        
     }
+    
+ 
     
     func loanDetails(){
         

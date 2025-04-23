@@ -313,14 +313,15 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
                 
                 blnStatus = allowedCharacters.isSuperset(of: characterSet as CharacterSet)
                 
-                if(updatedText.count == 6)
-                {
-                    if(blnStatus){
-                        print("pincode =",updatedText)
-                       getCityStateAPI(pincode: updatedText)
-                    }
-                    
-                }
+                // Mark : 005 tem commented
+//                if(updatedText.count == 6)
+//                {
+//                    if(blnStatus){
+//                        print("pincode =",updatedText)
+//                       getCityStateAPI(pincode: updatedText)
+//                    }
+//                    
+//                }
                 
                 return blnStatus
                 
@@ -695,47 +696,50 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
     
     @IBAction func savingBtnCliked(_ sender: Any)
     {
-        btnColorChangeGray(Btn: currentBtn)
-        btnColorChangeBlue(Btn: savingBtn)
-        accountType = "SAVING"
+//        btnColorChangeGray(Btn: currentBtn)
+//        btnColorChangeBlue(Btn: savingBtn)
+//        accountType = "SAVING"
     }
     
     @IBAction func currentBtnCliked(_ sender: Any)
     {
-        btnColorChangeGray(Btn: savingBtn)
-        btnColorChangeBlue(Btn: currentBtn)
-        accountType = "CURRENT"
+//        btnColorChangeGray(Btn: savingBtn)
+//        btnColorChangeBlue(Btn: currentBtn)
+//        accountType = "CURRENT"
     }
+    
+    
+    //Mark: 005 Temparay close camara/ gallery bec server api is missing since server change
    
     //---<accessCamera>---
     @IBAction func cameraBtnCliked(_ sender: Any)
     {
-        uploadDoc = "CameraClick"
-        callCamera((Any).self)
+//        uploadDoc = "CameraClick"
+//        callCamera((Any).self)
     }
     
     @IBAction func fbaphotoCamBtnCliked(_ sender: Any)
     {
-        uploadDoc = "fbaPhoto"
-        callCamera((Any).self)
+//        uploadDoc = "fbaPhoto"
+//        callCamera((Any).self)
     }
     
     @IBAction func fbapanCamBtnCliked(_ sender: Any)
     {
-        uploadDoc = "fbaPan"
-        callCamera((Any).self)
+//        uploadDoc = "fbaPan"
+//        callCamera((Any).self)
     }
     
     @IBAction func cancelchqCamBtnCliked(_ sender: Any)
     {
-        uploadDoc = "cancelChq"
-        callCamera((Any).self)
+//        uploadDoc = "cancelChq"
+//        callCamera((Any).self)
     }
     
     @IBAction func fbaaadharCamBtnCliked(_ sender: Any)
     {
-        uploadDoc = "fbaAadhar"
-        callCamera((Any).self)
+//        uploadDoc = "fbaAadhar"
+//        callCamera((Any).self)
     }
     
     func callCamera(_ sender: Any)
@@ -1016,15 +1020,12 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
-    
-//        if(ifscCodeTf.text!.trimmingCharacters(in: .whitespaces).isEmpty){
-//
-//            return
-//        }
+
         
         if(textField == self.micrCodeTf || textField == self.bankBranchTf || textField == self.bankCityTf || textField == self.bankNameTf)
         {
-            getifsccodeAPI()
+            //Mark : 005 temp commented
+           // getifsccodeAPI()
         }
         
     }
@@ -1438,7 +1439,7 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
       
         
     }
-    func getmyaccountAPI()
+    func getmyaccountAPIOLD()
     {
         if Connectivity.isConnectedToInternet()
         {
@@ -1707,6 +1708,108 @@ class profileVC: UIViewController,UITextFieldDelegate,UIImagePickerControllerDel
             let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
             snackbar.show()
         }
+    }
+    
+    func getmyaccountAPI()
+    {
+        
+        let defaults = UserDefaultsManager.shared
+        
+        let FBAId = UserDefaults.standard.string(forKey: "FBAId") ?? "0"
+        
+        
+        
+        
+        // Mark : new  ///////////////////////////////////////////
+            
+           
+                // Text fields
+                self.designationTf.text = ""
+                self.mobilenotoshareTf.text = defaults.getMobileNumber()
+        self.emailtoshareTf.text = defaults.getEmailId()
+                
+               self.address1Tf.text = defaults.getPermanantAdd1()
+                self.address2Tf.text = defaults.getPermanantAdd2()
+                self.address3Tf.text = defaults.getPermanantAdd3()
+                self.pincodeTf.text = defaults.getPermanantPinCode()
+                self.cityTf.text = defaults.getPermanantCity()
+                self.stateTf.text = defaults.getPermanantState()
+                
+              self.accountHolderNameTf.text = defaults.getFullName()
+                self.panTf.text =  ""
+                self.addharTf.text = ""
+                self.bankaccnoTf.text = ""
+                self.ifscCodeTf.text = ""
+                self.micrCodeTf.text = ""
+                self.bankBranchTf.text = ""
+                self.bankNameTf.text = ""
+                self.bankCityTf.text = ""
+                
+                // Account type
+//                let accountType = getStringValue(for: "Loan_Account_Type")
+//                if !accountType.isEmpty {
+//                    self.setAccountType(type: accountType)
+//                }
+                
+                // Labels
+              self.pospNoLbl.text = UserDefaultsManager.shared.getSsId()
+                self.fbaIdLbl.text = UserDefaultsManager.shared.getFbaId()
+                
+                // Display fields
+                self.pospDesignTf.text = ""
+                self.pospMobNumTf.text = defaults.getMobileNumber()
+                self.pospemailTf.text = defaults.getEmailId()
+                self.fbaNameLbl.text = defaults.getFullName()
+                                       
+        
+                // User defaults fields - safely unwrap
+                let loginID =  UserDefaultsManager.shared.getEmailId()
+                let managName = UserDefaults.standard.string(forKey: "ManagName") ?? ""
+                let pospStatus = ""
+                let mangEmail = UserDefaults.standard.string(forKey: "MangEmail") ?? ""
+                let mangMobile = UserDefaults.standard.string(forKey: "MangMobile") ?? ""
+                let suppEmail = UserDefaults.standard.string(forKey: "SuppEmail") ?? ""
+                let suppMobile = UserDefaults.standard.string(forKey: "SuppMobile") ?? ""
+                
+                self.managerNameLbl.text = managName
+                self.loginIdLbl.text = loginID
+                self.pospStatusLbl.text = pospStatus
+                self.abtmeemailLbl.text = mangEmail
+                self.abtmeMobnoLbl.text = mangMobile
+                self.spprtMobNoLbl.text = suppMobile
+                self.spportEmailLbl.text = suppEmail
+               
+//                // WebEngage
+                let displayPhone = defaults.getMobileNumber()
+                let displayEmail = defaults.getEmailId()
+              let gender = defaults.getGender()
+                let dob = defaults.getBirthdate()
+//
+               self.setWebEnagageUser(mob: displayPhone, email: displayEmail, gender: gender, dob: dob)
+                
+                 
+            // Document processing 005
+//            if let docArray = firstObject["doc_available"] as? [[String: Any]], !docArray.isEmpty {
+//                self.profileDocModel = []
+//                
+//                for docObject in docArray {
+//                    guard let docType = docObject["DocType"] as? Int,
+//                          let fileName = docObject["FileName"] as? String,
+//                          let docName = docObject["DocName"] as? String else {
+//                        continue
+//                    }
+//                    
+//                    self.setupUploadDoc(type: docType, srUrl: fileName)
+//                    
+//                    let model = pospDoc(
+//                        DocType: docType,
+//                        FileName: fileName,
+//                        DocName: docName
+//                    )
+//                    
+//                    self.profileDocModel.append(model)
+//                }
+//            }
     }
     
     

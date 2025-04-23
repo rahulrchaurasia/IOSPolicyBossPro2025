@@ -654,8 +654,8 @@
             filePath = "policyBoss/mainVC/SLIDEMENUSOPTIONS/MYACCOUNT/profileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
+            startingLineNumber = "661"
+            endingLineNumber = "661"
             landmarkName = "setWebEnagageUser1(mob:email:gender:dob:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -670,8 +670,8 @@
             filePath = "policyBoss/Login/LOGIN/repository/LoginRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
+            startingLineNumber = "713"
+            endingLineNumber = "713"
             landmarkName = "getName()"
             landmarkType = "7">
          </BreakpointContent>
@@ -838,8 +838,8 @@
             filePath = "policyBoss/mainVC/MainfinMartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2116"
-            endingLineNumber = "2116"
+            startingLineNumber = "2132"
+            endingLineNumber = "2132"
             landmarkName = "callWebViewUsingDeeplink(ProdId:ProdTitle:ProdURL:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -870,8 +870,8 @@
             filePath = "policyBoss/mainVC/MainfinMartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2215"
-            endingLineNumber = "2215"
+            startingLineNumber = "2231"
+            endingLineNumber = "2231"
             landmarkName = "callWebViewUsingDeeplink(ProdId:ProdTitle:ProdURL:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -889,86 +889,6 @@
             startingLineNumber = "124"
             endingLineNumber = "124"
             landmarkName = "getContactData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F10FA727-CFD8-4D73-B78E-CC45260C1447"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/SLIDEMENUSOPTIONS/MYACCOUNT/profileVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
-            landmarkName = "setWebEnagageUser(mob:email:gender:dob:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F1F9F4F1-08E2-4EBC-A13B-90DE6526ECE0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/SLIDEMENUSOPTIONS/MYACCOUNT/profileVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
-            landmarkName = "setWebEnagageUser(mob:email:gender:dob:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "93B2A196-9FF3-4859-8B76-96A31F5117A8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/FinmartMenuVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "645"
-            endingLineNumber = "645"
-            landmarkName = "getUserData()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EAC493DC-1BAE-42A0-9369-EE3049424787"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/Login/LOGIN/repository/LoginRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "getLoginDetailHorizon(ssID:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0DC38DF7-40A0-4061-A189-44E98041D014"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/Login/LOGIN/repository/LoginRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
-            landmarkName = "getLoginDetailHorizon(ssID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

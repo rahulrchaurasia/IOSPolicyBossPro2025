@@ -244,10 +244,10 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
                 }
                 alertView.show()
                 
-                guard let FBAId = (UserDefaults.standard.string(forKey: "FBAId"))
-                else{ return }
-                guard let ssid = (UserDefaults.standard.string(forKey: "POSPNo"))
-                else{ return }
+                let FBAId = UserDefaultsManager.shared.getFbaId()
+              
+                let ssid = UserDefaultsManager.shared.getSsId()
+             
                 
                 var language = ""
                 
@@ -377,6 +377,8 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
     {
         if Connectivity.isConnectedToInternet()
         {
+            
+            
             let alertView:CustomIOSAlertView = FinmartStyler.getLoadingAlertViewWithMessage("Please Wait...")
             if let parentView = self.navigationController?.view
             {
@@ -387,7 +389,24 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
                 alertView.parentView = self.view
             }
             alertView.show()
-            let params: [String: AnyObject] = ["product_id": productId as AnyObject]
+           // let params: [String: AnyObject] = ["product_id": productId as AnyObject]
+            
+            let appVersion = Configuration.appVersion
+            let deviceID = Configuration.deviceID
+            let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
+            let  fbaID = UserDefaultsManager.shared.getFbaId()
+            let   ssID = UserDefaultsManager.shared.getSsId()
+            
+            let params: [String: AnyObject] = [
+                
+                            "app_version": appVersion as AnyObject,
+                            "device_code": deviceID as AnyObject,
+                            "ssid": ssID as AnyObject,
+                            "fbaid": fbaID  as AnyObject,
+                
+                            "product_id": productId  as AnyObject
+                           
+                        ]
             
             let url = "sales-material-product-details-pb"
             

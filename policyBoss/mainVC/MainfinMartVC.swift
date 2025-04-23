@@ -1538,6 +1538,22 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     UserDefaults.standard.set(String(describing: CVUrl), forKey: "CVUrl")
                     UserDefaults.standard.set(String(describing: notificationpopupurl), forKey: "notificationpopupurl")
                     
+                    
+                    if let pospselfphoto = jsonData?.value(forKey: "pospselfphoto") as? String,
+                       !pospselfphoto.isEmpty {
+                        
+                    
+                        UserDefaultsManager.shared.savePospSelfPhoto(pospselfphoto)
+                    }
+                    
+                    if let pospselfdesignation = jsonData?.value(forKey: "pospselfdesignation") as? String,
+                       !pospselfdesignation.isEmpty {
+                        
+                
+                        UserDefaultsManager.shared.savePospSelfDesignation(pospselfdesignation)
+                    }
+                   
+                    
 //                    UserDefaults.standard.set(String(describing: pospsendname), forKey: "pospsendname")
 //                    
 //                    UserDefaults.standard.set(String(describing: parentid), forKey: "parentid")

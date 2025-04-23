@@ -27,6 +27,17 @@ final class LoginRepository {
     var EMP_UID = "0"
     var EMP_Mobile_Number = ""
     var EMP_Email_Id = ""
+    
+    var POSP_USER_Permanant_Add1 = ""
+    var POSP_USER_Permanant_Add2 = ""
+    var POSP_USER_Permanant_Add3 = ""
+    var POSP_USER_Permanant_City = ""
+    var POSP_USER_Permanant_State = ""
+    var POSP_USER_Gender = ""
+    var POSP_USER_Birthdate = ""
+    var POSP_Permanant_Pincode = ""
+    
+    
    
     
     var POSP_USERNameOnPAN = ""
@@ -405,14 +416,14 @@ final class LoginRepository {
             if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 
                 if let Ss_Id = jsonObject["Ss_Id"] as? String {
-                  
+                    
                     UserDefaultsManager.shared.saveSsId(Ss_Id)
                     
                     debugPrint("SSID is String  :",SSID)
                 }
                 
                 if let Ss_Id = jsonObject["Ss_Id"] as? Int64 {
-                  
+                    
                     UserDefaultsManager.shared.saveSsId(String(Ss_Id ) )
                     
                     debugPrint("SSID is INT  :",SSID)
@@ -427,23 +438,24 @@ final class LoginRepository {
                     Core.shared.saveUserType(userType)
                     
                     UserDefaultsManager.shared.saveIsAgent(userType.isAgent)
-
-//                    if(userType.isAgent){
-//
-//                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
-//
-//                    }else{
-//                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
-//
-//                    }
+                    
+                    //                    if(userType.isAgent){
+                    //
+                    //                        UserDefaults.standard.set("Y", forKey: getSharPrefernce.isAgent)
+                    //
+                    //                    }else{
+                    //                        UserDefaults.standard.set("N", forKey: getSharPrefernce.isAgent)
+                    //
+                    //                    }
                     
                     //Mark : POSP
                     if let pospDict = jsonObject["POSP"] as? [String: Any] {
                         // Access pospDict within this block
                         if let Erp_Id = pospDict["Erp_Id"] as? String {
                             print("Erp_Id",Erp_Id  )
+                            ErpId = Erp_Id
                         }
-                       // Fba_Id Fba_Id
+                        // Fba_Id Fba_Id
                         if let Fba_Id = pospDict["Fba_Id"] as? String {
                             
                             POSP_FbaId = Fba_Id
@@ -478,7 +490,7 @@ final class LoginRepository {
                             EMP_Email_Id = Email_Id
                         }
                         
-                      
+                        
                         
                     }
                     
@@ -486,7 +498,7 @@ final class LoginRepository {
                     if let userDict = jsonObject["POSP_USER"] as? [String: Any] {
                         
                         if let Erp_Id = userDict["Erp_Id"] as? String {
-                            ErpId = Erp_Id
+                            self.ErpId = Erp_Id
                         }
                         // Access pospDict within this block
                         if let Name_On_PAN = userDict["Name_On_PAN"] as? String {
@@ -500,6 +512,33 @@ final class LoginRepository {
                             POSP_USERMobile_No = Mobile_No
                         }
                         
+                        if let Permanant_Add1 = userDict["Permanant_Add1"] as? String {
+                            POSP_USER_Permanant_Add1 = Permanant_Add1
+                        }
+                        if let Permanant_Add2 = userDict["Permanant_Add2"] as? String {
+                            POSP_USER_Permanant_Add2 = Permanant_Add2
+                        }
+                        if let Permanant_Add3 = userDict["Permanant_Add3"] as? String {
+                            POSP_USER_Permanant_Add3 = Permanant_Add3
+                        }
+                        if let Permanant_City = userDict["Permanant_City"] as? String {
+                            POSP_USER_Permanant_City = Permanant_City
+                        }
+                        if let Permanant_State = userDict["Permanant_State"] as? String {
+                            POSP_USER_Permanant_State = Permanant_State
+                        }
+                        if let Gender = userDict["Gender"] as? String {
+                            POSP_USER_Gender = Gender
+                        }
+                        if let Birthdate = userDict["Birthdate"] as? String {
+                            POSP_USER_Birthdate = Birthdate
+                        }
+                        if let Permanant_Pincode = userDict["Permanant_Pincode"] as? String
+                        {
+                            POSP_Permanant_Pincode = Permanant_Pincode
+                        }
+                        
+                        
                     } else {
                         // Handle missing or unexpected POSP (not a dictionary)
                     }
@@ -511,71 +550,83 @@ final class LoginRepository {
                         var subUserDetails: [String: String] = [:]
                         
                         if let ssId = userDict["Ss_Id"] {
-                               subUserDetails["Ss_Id"] = "\(ssId)"  // Convert to String safely
-                           }
+                            subUserDetails["Ss_Id"] = "\(ssId)"  // Convert to String safely
+                        }
                         
                         if let subFbaId = userDict["Sub_FBA_ID"] {
-                                subUserDetails["Sub_FBA_ID"] = "\(subFbaId)"  // Convert to String safely
-                           
+                            subUserDetails["Sub_FBA_ID"] = "\(subFbaId)"  // Convert to String safely
+                            
                         }
                         if let emailId = userDict["Email_ID"] as? String {
-                               subUserDetails["Email_ID"] = emailId
-                           }
-
+                            subUserDetails["Email_ID"] = emailId
+                        }
+                        
                         if let firstName = userDict["First_Name"] as? String {
-                               subUserDetails["First_Name"] = firstName
-                           }
-
+                            subUserDetails["First_Name"] = firstName
+                        }
+                        
                         if let lastName = userDict["Last_Name"] as? String {
-                               subUserDetails["Last_Name"] = lastName
-                           }
-
+                            subUserDetails["Last_Name"] = lastName
+                        }
+                        
                         if let mobile = userDict["Mobile"] {
-                               subUserDetails["Mobile"] = "\(mobile)"  // Convert to String safely
-                           }
+                            subUserDetails["Mobile"] = "\(mobile)"  // Convert to String safely
+                        }
                         
                         // ✅ Save all details in UserDefaults
-                            UserDefaultsManager.shared.saveSubUserDetails(
-                                ssId: subUserDetails["Ss_Id"] ?? "0",
-                                subFbaId: subUserDetails["Sub_FBA_ID"] ?? "0",
-                                email: subUserDetails["Email_ID"] ?? "",
-                                firstName: subUserDetails["First_Name"] ?? "",
-                                lastName: subUserDetails["Last_Name"] ?? "",
-                                mobile: subUserDetails["Mobile"] ?? ""
-                            )
+                        UserDefaultsManager.shared.saveSubUserDetails(
+                            ssId: subUserDetails["Ss_Id"] ?? "0",
+                            subFbaId: subUserDetails["Sub_FBA_ID"] ?? "0",
+                            email: subUserDetails["Email_ID"] ?? "",
+                            firstName: subUserDetails["First_Name"] ?? "",
+                            lastName: subUserDetails["Last_Name"] ?? "",
+                            mobile: subUserDetails["Mobile"] ?? ""
+                        )
                         
                     }
-    
+                    
                 }
                 
-
+                
                 //let fbaid = getFbaId(userType: userType)
                 
-               
+                
                 UserDefaults.standard.set("", forKey: "referer_code")
                 UserDefaults.standard.set(String(describing: 0), forKey: "CustID")
                 UserDefaults.standard.set(String(describing: 0), forKey: "LoanId")
                 
-               
+                
                 UserDefaultsManager.shared.saveFbaId(getFbaId(userType: userType))
                 UserDefaultsManager.shared.savePOSPNo(String(describing: ssID))
                 
-               
+                
                 UserDefaultsManager.shared.saveMobileNumber(getMobileNo())
                 UserDefaultsManager.shared.saveEmailId(getEmailId())
                 UserDefaultsManager.shared.saveFullName(getName())
                 
-
+                
                 UserDefaultsManager.shared.saveErpId(String(describing: ErpId))
                 UserDefaultsManager.shared.saveUserId(getUserId())
-              
+                
                 UserDefaultsManager.shared.saveIsFirstLogin(true)
                 
                 
                 
-               // UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
+                
+                // UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
                 
                 UserDefaultsManager.shared.saveEmpUID(String(describing: EMP_UID))
+                
+                UserDefaultsManager.shared.savePofileDetails(
+                    permanantAdd1: POSP_USER_Permanant_Add1,
+                    permanantAdd2: POSP_USER_Permanant_Add2,
+                    permanantAdd3: POSP_USER_Permanant_Add3,
+                    permanantCity: POSP_USER_Permanant_City,
+                    permanantState: POSP_USER_Permanant_State,
+                    gender: POSP_USER_Gender,
+                    birthdate: POSP_USER_Birthdate,
+                    permanantPincode: POSP_Permanant_Pincode
+                )
                 
                 
                 UserDefaults.standard.set(getFbaId(userType: userType), forKey: "FBAId")
@@ -586,17 +637,20 @@ final class LoginRepository {
                 UserDefaults.standard.set(String(describing: getEmailId()), forKey: "EmailID")
                 UserDefaults.standard.set(String(describing: 0), forKey: "LoanId")
                 UserDefaults.standard.set(String(describing: getName()), forKey: "FullName")
-                       
+                
                 UserDefaults.standard.set(String(describing: ErpId), forKey: "ERPID")
                 UserDefaults.standard.set(String(describing: getUserId()), forKey: "UserId")
                 
                 UserDefaults.standard.set(String(describing: "1"), forKey: "IsFirstLogin")
                 UserDefaults.standard.set(String(describing: EMP_UID), forKey: getSharPrefernce.uidLogin)
-
+                
+                
+                
+                
                 ///
                 ///
-               
-               
+                
+                
                 
             } else {
                 throw APIError.custom(message: "Error decoding JSON")
