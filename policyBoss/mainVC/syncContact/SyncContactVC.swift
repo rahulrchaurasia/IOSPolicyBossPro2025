@@ -40,11 +40,16 @@ class SyncContactVC: UIViewController {
 
        
         initData()
-        setProgressUI()
+       // setProgressUI()
         
         getContactData()
        
        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setProgressUI()
     }
     
     func initData(){
@@ -91,13 +96,21 @@ class SyncContactVC: UIViewController {
         self.navigationController?.popToRootViewController(animated: false)
     }
     
-    func setProgressUI(){
-        progressView.layer.cornerRadius = 10
-        progressView.clipsToBounds = true
-        progressView.layer.sublayers![1].cornerRadius = 10
-        progressView.subviews[1].clipsToBounds = true
-    }
+
     
+   
+    private func setProgressUI() {
+
+           let radius = progressView.bounds.height / 2
+
+           progressView.layer.cornerRadius = radius
+           progressView.clipsToBounds = true
+
+           for subview in progressView.subviews {
+               subview.layer.cornerRadius = radius
+               subview.clipsToBounds = true
+           }
+       }
   
     func getContactData() {
         let authorizationStatus = CNContactStore.authorizationStatus(for: .contacts)
@@ -452,7 +465,8 @@ class SyncContactVC: UIViewController {
 
                     if !contact.jobTitle.isEmpty {
                         debugPrint("Company Title:", contact.jobTitle)
-                        contactModel.companyTitle = contact.departmentName
+                      
+                        contactModel.companyTitle = contact.jobTitle
                     }
                     
 
@@ -637,7 +651,10 @@ class SyncContactVC: UIViewController {
                     }
                 
                 //var  currentProgress  = 1.0 / Float(maxProgress)
-                let progressValue =   1.0 / Float(maxProgress)
+              //  let progressValue =   1.0 / Float(maxProgress)
+            
+            let progressValue: Float =
+                maxProgress > 0 ? (1.0 / Float(maxProgress)) : 1.0
            
                 // stride : Used for Step in For Loop
                 for index in stride(from: 0, to: ContactMainList.count, by: contactUploadStep) {

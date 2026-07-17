@@ -111,6 +111,13 @@ struct Constant  {
     static let POSPURL = "Enable Pro Pospurl"
     
     static let  AddsubuserUrl   = "Addsubuser_url"
+    
+    
+    /******** WebLogin Scanner */
+    
+    static let SECRET_KEY = "SECRET-HZ07QRWY-JIBT-XRMQ-ZP95-J0RWP3DYRACW"
+    static let CLIENT_KEY = "CLIENT-CNTP6NYE-CU9N-DUZW-CSPI-SH1IS4DOVHB9"
+  
 }
 
 struct DefaultKey  {

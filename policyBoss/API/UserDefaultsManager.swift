@@ -6,6 +6,7 @@
 //  Copyright © 2025 policyBoss. All rights reserved.
 //
 
+//mark : Both SSID and POSP no are same came from horizon
 
 import Foundation
 
@@ -49,6 +50,8 @@ class UserDefaultsManager {
         static let pospselfdesignation = "pospselfdesignation"
         static let pospselfphoto = "pospselfphoto"
         
+        static let designation = "Designation"
+        
         //SubUser
         static let subUserSsId = "SubUser_Ss_Id"
                static let subUserSubFbaId = "SubUser_Sub_FBA_ID"
@@ -73,6 +76,8 @@ class UserDefaultsManager {
         func saveSsId(_ ssId: String) {
             defaults.set(ssId, forKey: Keys.ssId)
         }
+    
+        //mark : Both SSID and POSP no are same came from horizon
         func savePOSPNo(_ pospNo: String) {
             defaults.set(pospNo, forKey: Keys.pospNo)
         }
@@ -119,8 +124,12 @@ class UserDefaultsManager {
         func savePospSelfPhoto(_ photo: String) {
             defaults.set(photo, forKey: Keys.pospselfphoto)
         }
-            
-    
+           
+        func saveDesignation(_ designation: String) {
+            defaults.set(designation, forKey: Keys.designation)
+        }
+      
+        
         // MARK: - Retrieve Methods
     
         func getSsId() -> String {
@@ -175,7 +184,10 @@ class UserDefaultsManager {
             return defaults.string(forKey: Keys.pospselfphoto) ?? ""
         }
 
-    
+        func getDesignation() -> String {
+            return defaults.string(forKey: Keys.designation) ?? ""
+        }
+        
       // Profile Details
         func getPermanantAdd1() -> String {
             return defaults.string(forKey: Keys.permanantAdd1) ?? ""

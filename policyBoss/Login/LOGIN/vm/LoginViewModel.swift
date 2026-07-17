@@ -304,6 +304,37 @@ import Foundation
     }
     
     
+    
+    func getAuthLoginHorizonTest(username : String,password : String) async throws -> Result<String, APIErrors>{
+        
+  
+        do {
+            
+            if let ssidInt = Int(password){
+                
+                print("SS_ID as String:", password)
+                
+                print("HORIZON CALL",password )
+                // let horizonDetailResult =
+                try await  LoginRepository.shared.getLoginDetailHorizon(ssID:  ssidInt )
+                
+            }
+            
+            
+            return .success("Success")
+            
+            
+            
+        }catch {
+            
+            return .failure(.custom(message: "Network error: \( String(describing: error))"))
+         }
+        
+        
+    }
+    
+    
+    
     //************************* OTP ********************************************
    
     //Mark : Get OTP : Called From LoginVC ie Uikit not swiftui
@@ -468,6 +499,47 @@ import Foundation
         }
        
     }
+    
+    
+    
+    //************************ Home MainVC  ******************************************
+   
+    //Mark :
+    
+
+        
+    func getUserCallingDetail() async throws -> (UserCallingResponse?, String){
+        
+            
+            do{
+                let response = try await LoginRepository.shared.getUserCallingDetail()
+                
+               
+                if(response.status  == "0"){
+                    
+                    return(response.result,"0")
+                }
+                print("User CallingSuccess ",response)
+                
+            }catch {
+                
+                print("User Calling  reponse Fail ")
+                return(nil,"1")
+               
+               // return .failure(.custom(message: serverUnavailbleError ))
+                
+            }
+            
+           
+        return(nil,"1")
+       
+        
+       
+            
+    }
+
+    
+    
     
         
 }

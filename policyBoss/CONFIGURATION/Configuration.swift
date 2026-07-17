@@ -14,6 +14,8 @@ class Configuration: NSObject {
     //http://api.magicfinmart.com
     
     static let baseURLString = "https://horizon.policyboss.com:5443/Postfm/"     //live
+    
+    static let baseURLString2   = "https://horizon.policyboss.com:5443/quote/Postfm/"
      
      //Mark Old One
    //static let baseURLString = "https://horizon.policyboss.com:5443/quote/Postfm/"     //live

@@ -118,7 +118,7 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         
         
-        let FBAId = UserDefaults.standard.string(forKey: "FBAId")
+        let FBAId = UserDefaultsManager.shared.getFbaId() 
         //        let SSID = UserDefaults.standard.string(forKey: "POSPNo")
         // let Url = UserDefaults.standard.string(forKey: "Url")
         let loanselfmobile = UserDefaults.standard.string(forKey: "loanselfmobile")
@@ -132,8 +132,8 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         let deviceID = DeviceHelper.deviceId  //UIDevice.current.identifierForVendor?.uuidString
         
-        print("deviceID" , deviceID)
-        print("OLD deviceID" , UIDevice.current.identifierForVendor?.uuidString)
+        //print("deviceID" , deviceID)
+       // print("OLD deviceID" , UIDevice.current.identifierForVendor?.uuidString)
         let appVersion = Configuration.appVersion
         
         // self.setupWKWebview()
@@ -379,21 +379,21 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen == "messageCenter")
         {
             titleLbl.text! = "MESSAGE CENTER"
-            webView.load(URLRequest(url: URL(string: "http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id=5999&fba_id="+(FBAId!)+"&ip_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID))!))
+            webView.load(URLRequest(url: URL(string: "http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id=5999&fba_id="+(FBAId)+"&ip_address=10.0.0.1&app_version="+(appVersion)+"&device_id="+(deviceID))!))
             print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
         }
         
         else if(webfromScreen == "Training")
         {
             titleLbl.text! = "TRAINING"
-            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/training-schedule-calendar/"+(FBAId!))!))
+            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/training-schedule-calendar/"+(FBAId))!))
             
-            print("URL","http://bo.magicfinmart.com/training-schedule-calendar/"+(FBAId!))
+            print("URL","http://bo.magicfinmart.com/training-schedule-calendar/"+(FBAId))
         }
         else if(webfromScreen == "leadDetails")
         {
             titleLbl.text! = "LEAD DETAILS"
-            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/motor-lead-details/"+(FBAId!))!))
+            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/motor-lead-details/"+(FBAId))!))
             print("URL",CVUrl!+"&ip_address=10.0.0.1&mac_address=10.0.0.1&app_version="+(appVersion)+"&product_id=12")
         }
         
@@ -415,8 +415,8 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         else if(webfromScreen == "otherInvestmentproductp2p")
         {
             titleLbl.text! = "OTHER INVESTMENT PRODUCT-P2P"
-            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/liquiloan/main_2.html?fbaid="+(FBAId!)+"&type=finmart&loan_id=38054")!))
-            print("URL","http://bo.magicfinmart.com/liquiloan/main_2.html?fbaid="+(FBAId!)+"&type=finmart&loan_id=38054")
+            webView.load(URLRequest(url: URL(string: "http://bo.magicfinmart.com/liquiloan/main_2.html?fbaid="+(FBAId)+"&type=finmart&loan_id=38054")!))
+            print("URL","http://bo.magicfinmart.com/liquiloan/main_2.html?fbaid="+(FBAId)+"&type=finmart&loan_id=38054")
         }
         else if(webfromScreen == "lyfinsQuote"){
             //            let ProposerPageUrl = UserDefaults.standard.string(forKey: "ProposerPageUrl")

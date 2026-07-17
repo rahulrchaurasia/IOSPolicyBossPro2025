@@ -6,14 +6,15 @@
 //  Copyright © 2020 Ashwini. All rights reserved.
 //
 
-
+/* ********************************************************/
 //Mark Not in Used
+/* *******************************************************/
 import UIKit
 
 //Note : empDesignation and PhotoUrl are came from userconstant.
 class imgsalesmaterialNewVC: UIViewController {
     
-    
+    //Mark Not in Used Mark Not in Used Mark Not in Used
     var detailImg = ""
     var productID = ""
     
@@ -110,6 +111,7 @@ class imgsalesmaterialNewVC: UIViewController {
         
         
         let tempPhotoUrl = UserDefaultsManager.shared.getPospSelfPhoto()
+        print("PhotoUrl",tempPhotoUrl)
         PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
         
        

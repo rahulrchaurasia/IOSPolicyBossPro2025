@@ -189,13 +189,25 @@ class addUsersVC: UIViewController {
     @IBAction func myTrainingBtnCliked(_ sender: Any)
     {
        
-        WebEngageAnaytics.shared.trackEvent("Clicked on My Training Calendar in My Utilities")
-
-        let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-        commonWeb.modalPresentationStyle = .fullScreen
-        commonWeb.modalTransitionStyle = .coverVertical
-        commonWeb.webfromScreen = "Training"
-        present(commonWeb, animated: false, completion: nil)
+//        WebEngageAnaytics.shared.trackEvent("Clicked on My Training Calendar in My Utilities")
+//
+//        let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
+//        commonWeb.modalPresentationStyle = .fullScreen
+//        commonWeb.modalTransitionStyle = .coverVertical
+//        commonWeb.webfromScreen = "Training"
+//        present(commonWeb, animated: false, completion: nil)
+        
+        
+        let alert = UIAlertController(title: nil,
+                                         message: "Training service is temporarily unavailable.",
+                                         preferredStyle: .alert)
+           
+           self.present(alert, animated: true)
+           
+           // Auto dismiss after 1.5 seconds
+           DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+               alert.dismiss(animated: true, completion: nil)
+           }
     }
     
     @IBAction func helpnFeedbckBtnCliked(_ sender: Any)

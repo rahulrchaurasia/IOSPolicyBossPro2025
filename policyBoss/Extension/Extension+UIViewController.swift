@@ -47,7 +47,8 @@ extension UIViewController {
 
     }
     
-    func getDeviceID() -> String{
+    //not in Used
+    func getDeviceIDOLD() -> String{
         
 
         if  getDeviceInKeyChain().isEmpty{

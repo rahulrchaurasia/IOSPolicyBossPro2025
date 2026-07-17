@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -36,7 +36,6 @@
 		444DBF94246AC2EB009F08F6 /* AddToRazorpayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444DBF93246AC2EB009F08F6 /* AddToRazorpayModel.swift */; };
 		447DF6302466DDD400D0F545 /* payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 447DF62F2466DDD400D0F545 /* payment.storyboard */; };
 		447DF6342466DF3E00D0F545 /* PaymentMainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447DF6332466DF3E00D0F545 /* PaymentMainController.swift */; };
-		449F17EE22DC790200C9A2BF /* callingRevampTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449F17ED22DC790200C9A2BF /* callingRevampTVCell.swift */; };
 		449F17F622DCA87C00C9A2BF /* addSubUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449F17F522DCA87C00C9A2BF /* addSubUserVC.swift */; };
 		44A3E0D824686B1E00A50332 /* PaymentCancelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A3E0D724686B1E00A50332 /* PaymentCancelController.swift */; };
 		44A685CD22DDA170001295F0 /* addSubUserTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A685CC22DDA170001295F0 /* addSubUserTVCell.swift */; };
@@ -116,7 +115,6 @@
 		84C4D08D21C23B0700A677B7 /* multiselctionTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D08C21C23B0700A677B7 /* multiselctionTVC.swift */; };
 		84C4D08F21C23DD700A677B7 /* multiselctionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D08E21C23DD700A677B7 /* multiselctionTVCell.swift */; };
 		84C4D09821C268B500A677B7 /* MainfinMartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D09721C268B500A677B7 /* MainfinMartVC.swift */; };
-		84C4D09A21C2736100A677B7 /* MainfinmartTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4D09921C2736100A677B7 /* MainfinmartTVCell.swift */; };
 		84D2E0C721EDB85500991D47 /* LoginAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2E0C621EDB85500991D47 /* LoginAPI.swift */; };
 		84D2E0CA21EDB91A00991D47 /* AttendanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D2E0C921EDB91A00991D47 /* AttendanceModel.swift */; };
 		84EF6E9F2296B2730002E73B /* smsTempTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF6E9E2296B2730002E73B /* smsTempTVCell.swift */; };
@@ -171,6 +169,7 @@
 		CD1278882A09147F009BC7A9 /* Pods_policyBoss.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C6BCCC6D4D82F3906D0309 /* Pods_policyBoss.framework */; };
 		CD12788C2A092165009BC7A9 /* Razorpay.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; };
 		CD12788D2A092165009BC7A9 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD157D6B300A5E6500C5FAE5 /* PBNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD157D6A300A5E6500C5FAE5 /* PBNotificationService.swift */; };
 		CD19A7102CB68AFC00484553 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */; };
 		CD1F8C602B72613D00098B72 /* OTPAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */; };
 		CD1F8C652B72C6C600098B72 /* OTPAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */; };
@@ -230,9 +229,10 @@
 		CDCAC3CB2A78FE0700B85C88 /* EmpbyregsourceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */; };
 		CDCAC3CD2A78FF4200B85C88 /* registerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */; };
 		CDCF845D2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */; };
-		CDCF845F2A7A6ABE001C7DB7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */; };
 		CDD14A0229A73EBD006BB92B /* AlertLoginTokenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */; };
 		CDD14A0429A753EA006BB92B /* OauthTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */; };
+		CDD342AC2FBB077600A9E489 /* Extension+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD342AB2FBB077600A9E489 /* Extension+CGFloat.swift */; };
+		CDD342B42FBB116C00A9E489 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD342B32FBB116C00A9E489 /* Color+Extension.swift */; };
 		CDD3E68429C43E2D00E7DDFE /* SyncContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */; };
 		CDDB6E6029D5549200BCEC66 /* AlertSyncDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB6E5F29D5549200BCEC66 /* AlertSyncDashboardVC.swift */; };
 		CDDF4F952A1B258D00D6438A /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = CDDF4F942A1B258D00D6438A /* KeychainAccess */; };
@@ -303,7 +303,6 @@
 		444DBF93246AC2EB009F08F6 /* AddToRazorpayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToRazorpayModel.swift; sourceTree = "<group>"; };
 		447DF62F2466DDD400D0F545 /* payment.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = payment.storyboard; sourceTree = "<group>"; };
 		447DF6332466DF3E00D0F545 /* PaymentMainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMainController.swift; sourceTree = "<group>"; };
-		449F17ED22DC790200C9A2BF /* callingRevampTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = callingRevampTVCell.swift; sourceTree = "<group>"; };
 		449F17F522DCA87C00C9A2BF /* addSubUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addSubUserVC.swift; sourceTree = "<group>"; };
 		44A3E0D724686B1E00A50332 /* PaymentCancelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentCancelController.swift; sourceTree = "<group>"; };
 		44A685CC22DDA170001295F0 /* addSubUserTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addSubUserTVCell.swift; sourceTree = "<group>"; };
@@ -391,7 +390,6 @@
 		84C4D08C21C23B0700A677B7 /* multiselctionTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = multiselctionTVC.swift; sourceTree = "<group>"; };
 		84C4D08E21C23DD700A677B7 /* multiselctionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = multiselctionTVCell.swift; sourceTree = "<group>"; };
 		84C4D09721C268B500A677B7 /* MainfinMartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainfinMartVC.swift; sourceTree = "<group>"; };
-		84C4D09921C2736100A677B7 /* MainfinmartTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainfinmartTVCell.swift; sourceTree = "<group>"; };
 		84D2E0C621EDB85500991D47 /* LoginAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginAPI.swift; sourceTree = "<group>"; };
 		84D2E0C921EDB91A00991D47 /* AttendanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttendanceModel.swift; sourceTree = "<group>"; };
 		84EF6E9E2296B2730002E73B /* smsTempTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smsTempTVCell.swift; sourceTree = "<group>"; };
@@ -446,6 +444,7 @@
 		CD0E58FD29C07449008A67BF /* SyncContact.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SyncContact.storyboard; sourceTree = "<group>"; };
 		CD0E590029C074E9008A67BF /* WelcomeSynConatctVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSynConatctVC.swift; sourceTree = "<group>"; };
 		CD12788A2A092160009BC7A9 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
+		CD157D6A300A5E6500C5FAE5 /* PBNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBNotificationService.swift; sourceTree = "<group>"; };
 		CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
 		CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertVC.swift; sourceTree = "<group>"; };
 		CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertView.swift; sourceTree = "<group>"; };
@@ -502,15 +501,29 @@
 		CDCAC3CA2A78FE0700B85C88 /* EmpbyregsourceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpbyregsourceResponse.swift; sourceTree = "<group>"; };
 		CDCAC3CC2A78FF4200B85C88 /* registerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = registerViewModel.swift; sourceTree = "<group>"; };
 		CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+AppDelegateWebEngageAnaly.swift"; sourceTree = "<group>"; };
-		CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		CDD14A0129A73EBD006BB92B /* AlertLoginTokenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLoginTokenVC.swift; sourceTree = "<group>"; };
 		CDD14A0329A753EA006BB92B /* OauthTokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OauthTokenModel.swift; sourceTree = "<group>"; };
+		CDD342AB2FBB077600A9E489 /* Extension+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CGFloat.swift"; sourceTree = "<group>"; };
+		CDD342B32FBB116C00A9E489 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		CDD3E68329C43E2D00E7DDFE /* SyncContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncContactVC.swift; sourceTree = "<group>"; };
 		CDDB6E5F29D5549200BCEC66 /* AlertSyncDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSyncDashboardVC.swift; sourceTree = "<group>"; };
 		CDE3E35229C5E646004C3B83 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		CDF85CC329ED14B60041B64E /* SyncModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncModel.swift; sourceTree = "<group>"; };
 		CDF85CC529ED152E0041B64E /* SyncAgreementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncAgreementModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CD0707D12DBB9C0600424B04 /* home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = home; sourceTree = "<group>"; };
+		CD6514282EB48818006345D0 /* cell */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = cell; sourceTree = "<group>"; };
+		CD6514292EB48B3C006345D0 /* repository */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = repository; sourceTree = "<group>"; };
+		CD65142A2EB48B48006345D0 /* vm */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = vm; sourceTree = "<group>"; };
+		CD6516392EB4BF1C006345D0 /* response */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = response; sourceTree = "<group>"; };
+		CD6516462EB4CBA4006345D0 /* Network */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Network; sourceTree = "<group>"; };
+		CD6516552EB4D9A8006345D0 /* request */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = request; sourceTree = "<group>"; };
+		CDD3428E2FBB004100A9E489 /* swiftuiScreen */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = swiftuiScreen; sourceTree = "<group>"; };
+		CDD342AD2FBB0D8500A9E489 /* modifier */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = modifier; sourceTree = "<group>"; };
+		CDE2F7122EBB7E3F0087B3A7 /* response */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = response; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		840AC5C921BE80AB004DCB26 /* Frameworks */ = {
@@ -756,6 +769,7 @@
 		840562F821D4D48A0099DDE8 /* OTHERUTILITIES */ = {
 			isa = PBXGroup;
 			children = (
+				CDE2F7122EBB7E3F0087B3A7 /* response */,
 				840562EA21D4D3B30099DDE8 /* whatsNewVC.swift */,
 				84F4114E220AF254001407EE /* whatsNewTVCell.swift */,
 				840562EC21D4D3D90099DDE8 /* helpnfeedbackVC.swift */,
@@ -814,6 +828,7 @@
 				B2915B4126998FB500DECE41 /* Reachability */,
 				84BF349121D33DC10030DC2D /* Storyboard */,
 				CD1F8C682B72C7AE00098B72 /* swiftui */,
+				CDD3428E2FBB004100A9E489 /* swiftuiScreen */,
 				CD4A84B72A122BED00B0426F /* swiftuiUtility */,
 				8403E89921BFE1460009662A /* Textfield */,
 				8410403921D7849100C3B7A7 /* UTILITY */,
@@ -886,6 +901,7 @@
 		8410403C21D7868700C3B7A7 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				CD6516462EB4CBA4006345D0 /* Network */,
 				CD39CE502D8827530012A697 /* UserDefaultsManager.swift */,
 				8410403D21D786E500C3B7A7 /* FinmartRestClient.swift */,
 				84D2E0C621EDB85500991D47 /* LoginAPI.swift */,
@@ -944,13 +960,6 @@
 				840562F821D4D48A0099DDE8 /* OTHERUTILITIES */,
 			);
 			path = SLIDEMENUSOPTIONS;
-			sourceTree = "<group>";
-		};
-		8431D1D421E86007000419E3 /* InsuranceSection */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = InsuranceSection;
 			sourceTree = "<group>";
 		};
 		84347420222D415D004A418A /* Insurance */ = {
@@ -1048,20 +1057,13 @@
 		84C4D09621C2675800A677B7 /* mainVC */ = {
 			isa = PBXGroup;
 			children = (
+				CD6514232EB48771006345D0 /* home */,
 				CD3F9A7A29CD9FDA00FB8F2F /* notification */,
 				CD0E58FF29C074AD008A67BF /* syncContact */,
 				CD753849285CA3EA004B2D4D /* registeration */,
 				B21FAC912737C0D200AC9AA4 /* Transaction */,
 				B20B223A2731924F009A522E /* MenuDB */,
 				849B082B22017B650055BB80 /* WebVC */,
-				84C4D09721C268B500A677B7 /* MainfinMartVC.swift */,
-				84C4D09921C2736100A677B7 /* MainfinmartTVCell.swift */,
-				8411808021C50F1300D5638B /* FinmartMenuVC.swift */,
-				84C368C621C7AB0800BB2E9B /* finmartMenuCell.swift */,
-				449F17ED22DC790200C9A2BF /* callingRevampTVCell.swift */,
-				84A064BE22AFB10D000D18B7 /* notipopupurlVC.swift */,
-				8431D1D421E86007000419E3 /* InsuranceSection */,
-				84E1A930220458EE00A94A29 /* LoansSection */,
 				8413349121C8FD170084AFC2 /* KYDrawer */,
 				84288B2121CCF33700BC50BC /* SLIDEMENUSOPTIONS */,
 				8411808221C5103B00D5638B /* SLIDEMENUFILES */,
@@ -1076,6 +1078,7 @@
 		84D2E0C821EDB90300991D47 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CD0707D12DBB9C0600424B04 /* home */,
 				CD9A1B5C29E52C8B002E1C07 /* Notification */,
 				CDC7B7F429A4F2BA00DC2012 /* deviceDetail */,
 				CDC7B7EF29A4B68900DC2012 /* profile */,
@@ -1093,13 +1096,6 @@
 				4427908B244885E000AFDED9 /* UserConstDashboardModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		84E1A930220458EE00A94A29 /* LoansSection */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LoansSection;
 			sourceTree = "<group>";
 		};
 		B20B223A2731924F009A522E /* MenuDB */ = {
@@ -1219,6 +1215,8 @@
 				CDE3E35229C5E646004C3B83 /* Extension+String.swift */,
 				CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */,
 				CD7D551B2B88CD530041DE53 /* View+Extension.swift */,
+				CDD342AB2FBB077600A9E489 /* Extension+CGFloat.swift */,
+				CDD342B32FBB116C00A9E489 /* Color+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1235,6 +1233,7 @@
 			isa = PBXGroup;
 			children = (
 				840AC5CF21BE80AB004DCB26 /* AppDelegate.swift */,
+				CD157D6A300A5E6500C5FAE5 /* PBNotificationService.swift */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -1271,6 +1270,7 @@
 		CD1F8C682B72C7AE00098B72 /* swiftui */ = {
 			isa = PBXGroup;
 			children = (
+				CDD342AD2FBB0D8500A9E489 /* modifier */,
 				CD955D3A2B7DCF1500011FF6 /* Loader */,
 				CDC920AD2B7892E300B14969 /* TextField */,
 				CD1F8C692B72C7B600098B72 /* button */,
@@ -1312,7 +1312,6 @@
 			children = (
 				CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */,
 				CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */,
-				CDCF845E2A7A6ABE001C7DB7 /* NotificationService.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -1379,6 +1378,30 @@
 				CDC53ABB2B7628E7003AE374 /* Password */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		CD6514232EB48771006345D0 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				CD6516552EB4D9A8006345D0 /* request */,
+				CD6516392EB4BF1C006345D0 /* response */,
+				CD65142A2EB48B48006345D0 /* vm */,
+				CD6514292EB48B3C006345D0 /* repository */,
+				CD6514242EB4878A006345D0 /* view */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		CD6514242EB4878A006345D0 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				CD6514282EB48818006345D0 /* cell */,
+				84C4D09721C268B500A677B7 /* MainfinMartVC.swift */,
+				8411808021C50F1300D5638B /* FinmartMenuVC.swift */,
+				84C368C621C7AB0800BB2E9B /* finmartMenuCell.swift */,
+				84A064BE22AFB10D000D18B7 /* notipopupurlVC.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		CD65415829C2EE52006DC774 /* SyncAlertDialog */ = {
@@ -1576,10 +1599,23 @@
 				840AC5CA21BE80AB004DCB26 /* Resources */,
 				200D3CAD711905B7120BF57E /* [CP] Embed Pods Frameworks */,
 				4437E92624D699BF00CDEADE /* Embed Frameworks */,
+				CD353B842EBE0DAE001D15C4 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CD0707D12DBB9C0600424B04 /* home */,
+				CD6514282EB48818006345D0 /* cell */,
+				CD6514292EB48B3C006345D0 /* repository */,
+				CD65142A2EB48B48006345D0 /* vm */,
+				CD6516392EB4BF1C006345D0 /* response */,
+				CD6516462EB4CBA4006345D0 /* Network */,
+				CD6516552EB4D9A8006345D0 /* request */,
+				CDD3428E2FBB004100A9E489 /* swiftuiScreen */,
+				CDD342AD2FBB0D8500A9E489 /* modifier */,
+				CDE2F7122EBB7E3F0087B3A7 /* response */,
 			);
 			name = policyBoss;
 			packageProductDependencies = (
@@ -1736,9 +1772,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-policyBoss/Pods-policyBoss-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-policyBoss/Pods-policyBoss-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1767,6 +1807,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CD353B842EBE0DAE001D15C4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1776,7 +1833,6 @@
 			files = (
 				44AB396D243E201A0009BD86 /* AlertWebViewController.swift in Sources */,
 				44C9635522D340CA0037BC82 /* viewCommentnAddVC.swift in Sources */,
-				CDCF845F2A7A6ABE001C7DB7 /* NotificationService.swift in Sources */,
 				8410F8D821F84F9C00DFC974 /* imgsalesmaterialVC.swift in Sources */,
 				8410F8D621F835DF00DFC974 /* insalesmaterialCVCell.swift in Sources */,
 				44394A33248A26980095ADF5 /* InsuranceCompModel.swift in Sources */,
@@ -1811,6 +1867,7 @@
 				84C368BF21C7706E00BB2E9B /* pendingcasescapsVC.swift in Sources */,
 				84C368C721C7AB0800BB2E9B /* finmartMenuCell.swift in Sources */,
 				CD07390A2B7B6C3D00DE525B /* LoginNewResponse_DSAS_Horizon.swift in Sources */,
+				CDD342AC2FBB077600A9E489 /* Extension+CGFloat.swift in Sources */,
 				B253B250261652E0000C3A7D /* IQKeyboardReturnKeyHandler.swift in Sources */,
 				B253B259261652E0000C3A7D /* IQNSArray+Sort.swift in Sources */,
 				442C140D2497A31700E3C455 /* pospDoc.swift in Sources */,
@@ -1818,6 +1875,7 @@
 				CDC920AF2B7894F200B14969 /* PasswordAlertVC.swift in Sources */,
 				CD6E912629C1F4EF00936762 /* Constant.swift in Sources */,
 				B245113E261464C0003EB5A9 /* callbackToHomeProtocol.swift in Sources */,
+				CDD342B42FBB116C00A9E489 /* Color+Extension.swift in Sources */,
 				B20B223E273193AD009A522E /* MenuModel.swift in Sources */,
 				84C4D09821C268B500A677B7 /* MainfinMartVC.swift in Sources */,
 				CDC53AC02B762B1C003AE374 /* TestFile.swift in Sources */,
@@ -1835,7 +1893,6 @@
 				8415D25721EEFFE000C07577 /* pendingcaseTVCell.swift in Sources */,
 				84A064BF22AFB10E000D18B7 /* notipopupurlVC.swift in Sources */,
 				CD39CE512D8827530012A697 /* UserDefaultsManager.swift in Sources */,
-				449F17EE22DC790200C9A2BF /* callingRevampTVCell.swift in Sources */,
 				840C4BDD21C38377000B8D49 /* SalesmaterialVC.swift in Sources */,
 				B253B248261652E0000C3A7D /* IQBarButtonItem.swift in Sources */,
 				8480BBE622083C1B00BEEDF4 /* hnfraiseticktTVCell.swift in Sources */,
@@ -1856,6 +1913,7 @@
 				CD475D042910DEBA00BAE252 /* MenuBottomSheetVC.swift in Sources */,
 				B253B24F261652E0000C3A7D /* IQKeyboardManager+Position.swift in Sources */,
 				B218FF17269336F70090A877 /* HealthAssureConfigure.swift in Sources */,
+				CD157D6B300A5E6500C5FAE5 /* PBNotificationService.swift in Sources */,
 				CDD14A0229A73EBD006BB92B /* AlertLoginTokenVC.swift in Sources */,
 				8410403B21D784EB00C3B7A7 /* FinmartStyler.swift in Sources */,
 				8480BBDB220807FA00BEEDF4 /* helpnfeedbckTVCell.swift in Sources */,
@@ -1863,7 +1921,6 @@
 				8410404521D789C300C3B7A7 /* CommonSettings.swift in Sources */,
 				8413349621C8FD350084AFC2 /* KYEmbedMainControllerSegue.swift in Sources */,
 				B218FF19269339DA0090A877 /* APIManger.swift in Sources */,
-				84C4D09A21C2736100A677B7 /* MainfinmartTVCell.swift in Sources */,
 				840562ED21D4D3D90099DDE8 /* helpnfeedbackVC.swift in Sources */,
 				84C4D08F21C23DD700A677B7 /* multiselctionTVCell.swift in Sources */,
 				CD475D0C2910F1CC00BAE252 /* NotificationVC.swift in Sources */,
@@ -2159,7 +2216,8 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 32;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2168,13 +2226,13 @@
 					"$(PROJECT_DIR)/policyBoss",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/policyBoss/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.08;
+				MARKETING_VERSION = 2.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2193,7 +2251,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2202,13 +2260,13 @@
 					"$(PROJECT_DIR)/policyBoss",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/policyBoss/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.08;
+				MARKETING_VERSION = 2.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -186,9 +186,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TTGSnackbar/TTGSnackbar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework"
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WEPersonalization/WEPersonalization.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebEngage/WebEngage.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
@@ -202,9 +200,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/TTGSnackbar/TTGSnackbar.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/WebEngageAppEx/WebEngageAppEx.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/WebEngageBannerPush/WebEngageBannerPush.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework"
-  install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WEPersonalization/WEPersonalization.framework"
   install_framework "${PODS_XCFRAMEWORKS_BUILD_DIR}/WebEngage/WebEngage.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

@@ -36,6 +36,10 @@ class ShareImageVC: UIViewController {
     
     @IBOutlet var lblEmail: UILabel!
     
+    private let defaultProfileURL =
+    "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -99,12 +103,34 @@ class ShareImageVC: UIViewController {
         let mobile = UserDefaultsManager.shared.getMobileNumber()
         empMobileNo = mobile.isEmpty ? "98XXXXXXXX" : mobile
         
-        let designation = UserDefaultsManager.shared.getPospSelfDesignation()
+    
+        let designation = UserDefaultsManager.shared.getDesignation()
+        
+      
         empDesignation = designation.isEmpty ? "LandMark POSP" : designation
         
+        //Note : Original url sample below
+//         let tempPhotoUrl =     "http://download.policyboss.com/onboarding/download/onboarding_docs/174475/Profile_174475.jpeg"
         
         let tempPhotoUrl = UserDefaultsManager.shared.getPospSelfPhoto()
-        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
+      
+        let finalPhotoUrl: String
+        
+        if tempPhotoUrl.isEmpty {
+            finalPhotoUrl = defaultProfileURL
+        } else if tempPhotoUrl.contains("mfmfile") {
+            finalPhotoUrl = defaultProfileURL
+        } else {
+            finalPhotoUrl = tempPhotoUrl
+        }
+
+        PhotoUrl = finalPhotoUrl
+        
+        //005 Notes : we Donot have Profile Photo So we used HardCore Data
+      //  let tempPhotoUrl = "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
+        ///////////////////////////////////////////////////////////////////////
+        
+//        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
         
        
         print("PhotoUrl",PhotoUrl)

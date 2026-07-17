@@ -9,6 +9,7 @@
 import Foundation
 
 
+// Instead of this we Used Dictinary for get data from horizon Response
 struct LoginNewResponse_DSAS_Horizon: Codable {
     var EMP: EMP?
     var POSP: POSP?  = nil  //some time come String ie"NA" or some time posp Object
@@ -20,6 +21,7 @@ struct LoginNewResponse_DSAS_Horizon: Codable {
     var user_type: String?
     var Ss_Id: Int64?
     
+   
   
   
 }
@@ -62,3 +64,16 @@ struct DEVICE: Codable {
     
 
 }
+
+
+//struct SubUser: Codable, Identifiable {
+//    let Ss_Id: Int64?
+//    let Sub_FBA_ID: Int64?
+//    let First_Name: String?
+//    let Last_Name: String?
+//    let Email_ID: String?
+//    let Mobile: String?
+//    
+//    // Optional: computed id for Identifiable conformance
+//    var id: Int64 { Ss_Id ?? Sub_FBA_ID ?? 0 }
+//}

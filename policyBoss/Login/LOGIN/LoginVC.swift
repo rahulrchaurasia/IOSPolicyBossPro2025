@@ -41,6 +41,9 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     let alertService = AlertService()
     
     var selectedLoginOption: LoginOption = .otp
+    
+    //Note: For Testing used below one used ssid in pwd and direct loged in
+    // var selectedLoginOption: LoginOption = .password  //005 temporary added
     let imageFill = "circlefill"
     let imageEmpty = "circleempty"
     
@@ -447,19 +450,48 @@ class LoginVC: UIViewController,UITextFieldDelegate {
     func loginSuccess(){
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
-        {
-           
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            let KYDrawer : KYDrawerController = self.storyboard?.instantiateViewController(withIdentifier: "stbKYDrawerController") as! KYDrawerController
-            KYDrawer.modalPresentationStyle = .fullScreen
-            KYDrawer.modalTransitionStyle = .coverVertical
-            appDelegate?.window?.rootViewController = KYDrawer
-            self.present(KYDrawer, animated: false, completion: nil)
-            
-            TTGSnackbar.init(message: "Login successfully.", duration: .long).show()
-            
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3)
+//        {
+//           
+//            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//            let KYDrawer : KYDrawerController = self.storyboard?.instantiateViewController(withIdentifier: "stbKYDrawerController") as! KYDrawerController
+//            KYDrawer.modalPresentationStyle = .fullScreen
+//            KYDrawer.modalTransitionStyle = .coverVertical
+//            appDelegate?.window?.rootViewController = KYDrawer
+//            self.present(KYDrawer, animated: false, completion: nil)
+//            
+//            TTGSnackbar.init(message: "Login successfully.", duration: .long).show()
+//            
+//        }
+        
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                  let window = appDelegate.window else {
+                return
+            }
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let kyDrawer = storyboard.instantiateViewController(withIdentifier: "stbKYDrawerController") as? KYDrawerController else {
+                return
+            }
+
+            kyDrawer.modalPresentationStyle = .fullScreen
+            kyDrawer.modalTransitionStyle = .coverVertical
+
+            // ✅ Smooth transition (optional)
+            UIView.transition(with: window,
+                              duration: 0.4,
+                              options: .transitionCrossDissolve,
+                              animations: {
+                                  window.rootViewController = kyDrawer
+                              },
+                              completion: { _ in
+                                  TTGSnackbar(message: "Login successfully.", duration: .long).show()
+                              })
         }
+
         
     }
     
@@ -509,7 +541,9 @@ class LoginVC: UIViewController,UITextFieldDelegate {
                         let deviceID = Configuration.deviceID
                         
                         // Build the URL string using string interpolation
-                    let  signupURL = userNewSignUpEntity.enable_pro_signupurl + "&app_version=\(appVersion )&device_code=\(deviceID ?? "")&ssid=&fbaid="
+//                    let  signupURL = userNewSignUpEntity.enable_pro_signupurl + "&app_version=\(appVersion )&device_code=\(deviceID ?? "")&ssid=&fbaid="
+                    
+                    let  signupURL = userNewSignUpEntity.enable_pro_signupurl
                     
                     print("URL New SignUp", signupURL)
                     if let url = URL(string: signupURL) {

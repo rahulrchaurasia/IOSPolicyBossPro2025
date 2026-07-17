@@ -16,7 +16,9 @@ extension View {
         }
     
     
-    
+    func applySheetConfig() -> some View {
+        self.modifier(SheetConfigModifier())
+    }
     
     //added :05otp
     func disableWithOpacity(_ condition : Bool) -> some View {

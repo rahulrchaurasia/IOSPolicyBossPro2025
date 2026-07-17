@@ -145,7 +145,7 @@ extension TutorialViewController: TutorialPageViewControllerDelegate {
             let parameter  :[String: AnyObject] = [
                 
                 "ss_id": POSPNo as AnyObject,
-                "device_id": getDeviceID() as AnyObject,
+                "device_id": Configuration.deviceID as AnyObject,
                 "device_name": getDeviceName() as AnyObject,
                 "os_detail": getDeviceOS() as AnyObject,
                 "action_type": "install" as AnyObject,

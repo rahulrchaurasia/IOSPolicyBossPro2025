@@ -15,7 +15,7 @@ import CustomIOSAlertView
 
    // NOT IN USED
 
-// Insted use imgsalesmaterialVCNew
+// Insted use ShareImageVC
 ///******************************///
 
 class imgsalesmaterialVC: UIViewController,UIDocumentInteractionControllerDelegate {

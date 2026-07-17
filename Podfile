@@ -1,6 +1,6 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
 
+platform :ios, '16.0'
 target 'policyBoss' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -28,8 +28,8 @@ target 'policyBoss' do
 #   pod 'WebEngage'
    pod 'WebEngage', '~> 6.6.1'
    
-   pod 'WEPersonalization'
-   pod 'WebEngageBannerPush'
+#   pod 'WEPersonalization'
+#   pod 'WebEngageBannerPush'
    pod 'WebEngageAppEx/ContentExtension' 
    
 end
@@ -38,8 +38,8 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-    # some older pods don't support some architectures, anything over iOS 11 resolves that
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '14.0'
+      # Match your app's deployment target
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
       
       xcconfig_relative_path = "Pods/Target Support Files/#{target.name}/#{target.name}.#{config.name}.xcconfig"
          file_path = Pathname.new(File.expand_path(xcconfig_relative_path))

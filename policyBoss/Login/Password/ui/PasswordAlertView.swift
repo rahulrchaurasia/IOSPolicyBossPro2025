@@ -6,6 +6,7 @@
 //  Copyright © 2024 policyBoss. All rights reserved.
 //
 
+// Note : Login via pwd Not in Used :so For Testing we directly pass for horizon api
 import SwiftUI
 
 //closureType is enum for run type handling
@@ -168,7 +169,14 @@ private extension PasswordAlertView {
                         Task {
                             do  {
                                 vm.isLoading = true
-                                let result = try await  vm.getAuthLoginHorizon(username: alertUserID, password: vm.password)
+     
+    //*********************************************************************************
+    // Note : we commented for pwd :so no need pwd login we directly pass for horizon api
+                                let result = try await  vm.getAuthLoginHorizonTest(username: alertUserID, password: vm.password)
+                             
+//                                guard let userID = Int( vm.password) else { return }
+//                                let result = try await vm.getLoginDetailHorizon(userID: userID)
+                               
                                 
                                 switch result {
                                 case .success(let response):

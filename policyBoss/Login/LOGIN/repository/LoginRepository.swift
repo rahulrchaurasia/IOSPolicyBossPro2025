@@ -28,6 +28,7 @@ final class LoginRepository {
     var EMP_Mobile_Number = ""
     var EMP_Email_Id = ""
     
+    
     var POSP_USER_Permanant_Add1 = ""
     var POSP_USER_Permanant_Add2 = ""
     var POSP_USER_Permanant_Add3 = ""
@@ -74,6 +75,8 @@ final class LoginRepository {
         let apiReq: [String: Any] = [
                         
                         "login_id": login_id ,
+                        "device_id" : Configuration.deviceID,
+                        "ip_address" : NetworkManager.shared.getIPAddress() ?? ""
                          ]
                
                 do {
@@ -494,6 +497,17 @@ final class LoginRepository {
                         
                     }
                     
+                    // Mark : HR
+                    
+                    if let hrDict = jsonObject["HR"] as? [String: Any] {
+                        
+                        if let Designation = hrDict["Designation"] as? String {
+                          
+                            UserDefaultsManager.shared.saveDesignation(Designation)
+                        }
+                    
+                    }
+                    
                     // Mark : POSP_USER
                     if let userDict = jsonObject["POSP_USER"] as? [String: Any] {
                         
@@ -808,4 +822,125 @@ final class LoginRepository {
         
     }
     
+    
+    
+    func getUserCallingDetail1() async throws ->  String{
+
+        let appVersion = Configuration.appVersion
+        let deviceID = Configuration.deviceID
+        
+        let FBAId = UserDefaultsManager.shared.getFbaId()
+        
+        
+        let SSID = UserDefaultsManager.shared.getSsId()
+       
+        let params: [String: String] = [
+            "fbaid": FBAId  as String,
+            "ssid": SSID as String,
+            "app_version": appVersion as String,
+            "device_code": deviceID as String
+        ]
+        
+        let endUrl = "/Postfm/user-calling"
+        let urlString =  Configuration.baseROOTURL  + endUrl
+
+
+        guard let url = URL(string: urlString) else {
+            throw APIErrors.custom(message: Constant.InvalidURL)
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        debugPrint("URL :-", urlString)
+
+            
+        do {
+            
+            
+            guard let jsonReq = try? JSONSerialization.data(withJSONObject: params ) else {
+                throw APIError.custom(message: "Failed to encode user data")
+            }
+
+            
+          
+            debugPrint("Request:-", jsonReq)
+            request.httpBody = jsonReq
+            
+           
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+       
+        let (data, _) = try await URLSession.shared.data(for: request, delegate: nil)
+        
+        //Parse the JSON Data
+        
+            let UserCallingResp = try? JSONDecoder().decode(UserCallingResponse.self, from: data)
+       
+        
+        
+        return UserCallingResp?.Status ?? ""
+        
+        
+        
+    }
+    
+    //005 ErrorHandle
+   // mark Refered Code
+    func getUserCallingDetail() async throws ->(result: UserCallingResponse?, status : String) {
+       
+        
+        let appVersion = Configuration.appVersion
+        let deviceID = Configuration.deviceID
+        let FBAId = UserDefaultsManager.shared.getFbaId()
+        let SSID = UserDefaultsManager.shared.getSsId()
+
+        let params: [String: Any] = [
+            "fbaid": FBAId,
+            "ssid": SSID,
+            "app_version": appVersion,
+            "device_code": deviceID
+        ]
+
+        let urlString = Configuration.baseURLString2 + "user-calling"
+        guard let url = URL(string: urlString) else {
+            throw APIError.custom(message: Constant.InvalidURL)
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let jsonData = try JSONSerialization.data(withJSONObject: params)
+        request.httpBody = jsonData
+
+        debugPrint("Request URL: \(urlString)")
+        debugPrint("Request Body: \(String(data: jsonData, encoding: .utf8) ?? "")")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+       
+        
+
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw APIError.custom(message: "Invalid server response")
+        }
+
+       
+        //Parse the JSON Data
+        
+        let UserCallingResp = try? JSONDecoder().decode(UserCallingResponse.self, from: data)
+       
+        if(UserCallingResp?.Status.lowercased()  == "success"){
+           
+            // fetch Response
+        
+            
+            return(UserCallingResp,"0")
+            
+        }
+        return (nil,"1")
+    }
+
 }
