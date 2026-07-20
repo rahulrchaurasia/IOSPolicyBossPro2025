@@ -129,17 +129,11 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         setupViewModel()
         bindViewModel()
         loadData()
-        
-       // loadData()
-        //--<api>--
-       // getLoanStaticDashboard()
-//        self.userconstantAPI()
-//        self.getdynamicappAPI()
-//        self.getDeviceDetails()
+      
         
     
-       
-       //  NotifyFirebaseDeeplink()  : Note: call after api success
+        // Notification Observers
+      
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotifyData(notification:)),
                                                name: .NotifyMyAccountProfile, object: nil)
@@ -154,8 +148,9 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
       NotificationCenter.default.addObserver(self, selector: #selector(pushNotifyDataHandling(notification:)), name: .NotifyPushDetails, object: nil)
         
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(NotifyFirebaseDeeplink(notification:)),
-//                                               name: .NotifyDeepLink, object: nil)
+        // ✅ Active and listening for incoming background/foreground deep links
+        NotificationCenter.default.addObserver(self, selector: #selector(NotifyFirebaseDeeplink(notification:)),
+                                               name: .NotifyDeepLink, object: nil)
 
     }
     
@@ -327,24 +322,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         // Mark : Not Using Notification Center Data, we keep in UserDefault bec
         // Data req when user is logout
         
-        //commented
-//        debugPrint("deeplink",notification.object as? [String: Any] ?? [:])
-//
-//        let deeplink = notification.object as? [String : Any] ?? [:]
-//
-//        debugPrint("product id",  deeplink["product_id"] ?? "NO DATA FOUND")
-//        debugPrint("product Title",  deeplink["title"] ?? "NO DATA FOUND")
-//        debugPrint("product URL",  deeplink["url"] ?? "NO DATA FOUND")
-//
-//
-//
-//        if let prdId = deeplink["product_id"]{
-//
-//            callWebViewUsingDeeplink(ProdId: String(describing: prdId), ProdTitle:  deeplink["title"] as? String ?? "" ,ProdURL: deeplink["url"] as? String ?? "" )
-//
-//
-//        }
-        //end
+
         
         if let data = UserDefaults.standard.data(forKey: Constant.deeplink) {
             // Convert the Data back to a dictionary
@@ -2358,7 +2336,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
         
         // If ProdId is "500", we are in HomePage
-        if ProdId == "500" {
+        if ProdId == "500" || ProdId == "HM" {
               return
          
         }
@@ -2366,6 +2344,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         switch (ProdId) {
             
       
+        
         case "1"  :  // car
             
            
@@ -2408,7 +2387,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
             
     
-        case "41" : // Sync Contact
+        case "41", "SY": // Sync Contact
             
           
             let objVC = WelcomeSynConatctVC.shareInstance()
@@ -2418,14 +2397,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             break
             
          
-        case "SY" : // Sync Contact
-            
-
-            let objVC = WelcomeSynConatctVC.shareInstance()
-
-            navigationController?.pushViewController(objVC, animated: false)
-            
-            break
+       
             
         case "501" : //profile
             
