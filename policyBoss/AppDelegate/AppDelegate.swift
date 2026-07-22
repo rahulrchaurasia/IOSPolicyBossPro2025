@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // For iOS  display notification (sent via APNS)
         // Assign Notification Center Delegate
         UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
         
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         
@@ -75,30 +76,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
         
-        // For iOS 10 data message (sent via FCM)
-        
-//        if #available(iOS 10.0, *) {
-//           
-//            
-//        } else {
-//            let settings: UIUserNotificationSettings =
-//            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            UIApplication.shared.registerUserNotificationSettings(settings)
-//        }
         
         application.registerForRemoteNotifications()
-        Messaging.messaging().delegate = self
+       
         
         /********************* End **********************/
         
-        //---Statusbar Customization
-        //005
-        //        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-        //        statusBar.backgroundColor = UIColor(red: 1/255, green: 88/255, blue: 155/255, alpha: 1.0)
         
-        //---
         
-        // Handle User Session State Route Redirection
+        // ---------------------------------------------------------
+        // 4. Handle User Session State Route Redirection
+        // ---------------------------------------------------------
         let IsFirstLogin = UserDefaults.standard.string(forKey: "IsFirstLogin")
         if(IsFirstLogin == "1")
         {
@@ -119,142 +107,184 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
-    /***********************************************************/
-    //Mark : Deeplink
     
-    //Mark: For Handling Dynamic Link
-    func handleIncomingDynamicLink(_ dynamicLink : DynamicLink){
-        
-        //Note : we have field :product_id,title and url
-        /*eg: //htps://www.policyboss.com/sync-contacts-dashboard?product_id=43&title=Sync+Contact+DashBoard
-         */
-        ///////test ////////////
-        // For testing purposes - create a default URL
-        //        let testURLString = "https://www.policyboss.com/car-insurance?product_id=1&title=Car+Insurance"
-        //
-        //        guard let url = URL(string: testURLString) else {
-        //            print("Invalid test URL format")
-        //            return
-        //        }
-        /////end here//////////
-        
-        
-        guard let url = dynamicLink.url else{
-            
-            print("deeplink:- Link has no URL")
-            return
-        }
-        print("deeplink:- Your Incoming Link parameter is \(url.absoluteString)")
-        //secod let ie queryItems not execute if first let is true
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let queryItems = components.queryItems else {return}
-        
-        
-        
-        
-        var deepLinkData: [String: Any] = [:]
-        
-        for queryItem in queryItems {
-            
-            deepLinkData[queryItem.name] = queryItem.value
-            
-            print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
-        }
-        
-        deepLinkData["url"] = url.absoluteString
-        print("deeplink:- Parameter is URL has a value of \(url.absoluteString) ")
-        
-        
-        
-        // Convert the dictionary to Data
-        if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
-            UserDefaults.standard.set(data, forKey: Constant.deeplink)
-        }
-        
-        //post Dictionary of Deeplink Notification
-        NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
-        
-    }
-    
-    //Mark: Dynamic Link come here
-    
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
-                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        
-        if let incommingURL = userActivity.webpageURL{
-            
-            print("deeplink:- Incoming URL is \(incommingURL)")
-            
-            let linkhandled = DynamicLinks.dynamicLinks()
-                .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
-                    
-                    guard error == nil else {
-                        
-                        print("deeplink:- Found an error \(String(describing: error?.localizedDescription))")
-                        return
-                    }
-                    
-                    if let dynamiclink = dynamiclink{
-                        
-                        self.handleIncomingDynamicLink(dynamiclink)
-                        
-                        
-                    }
-                    
-                }
-            
-            if linkhandled{
-                return true
-            }else{
-                
-                return false
+    //**********************************************************************
+    // MARK: Parse Universal Link
+    //**********************************************************************
+
+    /// Parses incoming standard web URLs containing deep link parameters, caches them for session recovery (e.g. post-logout), and broadcasts live updates.
+    private func handleUniversalLink(_ url: URL) {
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+                return
             }
-            
+
+            var deepLinkData = [String: Any]()
+
+            components.queryItems?.forEach {
+                deepLinkData[$0.name] = $0.value
+                print("Parameter : \($0.name) = \($0.value ?? "")")
+            }
+
+            deepLinkData["url"] = url.absoluteString
+            print("DeepLink Dictionary = \(deepLinkData)")
+
+            // Store persistently for Cold Starts / Post-Login Flows
+            if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
+                UserDefaults.standard.set(data, forKey: Constant.deeplink)
+            }
+
+            // Notify active running view controllers instantly
+            NotificationCenter.default.post(
+                name: .NotifyDeepLink,
+                object: deepLinkData
+            )
         }
+   
+    
+
+   
+    //**********************************************************************
+    // MARK: Universal Link Handling (Apple App Site Association)
+    //**********************************************************************
+    //That is the only method needed for Universal Links.
+    func application(
+        _ application: UIApplication,
+        continue userActivity: NSUserActivity,
+        restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
+    ) -> Bool {
+
+        guard let url = userActivity.webpageURL else {
+            return false
+        }
+
+        print("DeepLink Incoming URL : \(url.absoluteString)")
+
+        handleUniversalLink(url)
+
+        return true
+    }
+
+    
+   
+    
+    
+    
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+
+        // Google Sign-In / Facebook / Payment SDK handling
         
-        
+        // Handle third-party callbacks (Google Sign-In, Facebook, Payment SDKs) here if required
+      
+
         return false
     }
     
     
+    //Mark : depricated Used for Firebase
+//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
+//                     annotation: Any) -> Bool {
+//        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
+//            
+//            print("deeplink:- open url receive a URL through custom scheme!! \(url.absoluteString)")
+//            self.handleIncomingDynamicLink(dynamicLink)
+//            
+//            return true
+//        }else{
+//            
+//            print("DEEPLINK",url)
+//            // May be handel google and facebook signIn here
+//            return false
+//        }
+//        
+//    }
+    
+    //Mark: Depricated For Handling Dynamic Link for Firebase
+//    func handleIncomingDynamicLink(_ dynamicLink : DynamicLink){
+//
+//
+//
+//        guard let url = dynamicLink.url else{
+//
+//            print("deeplink:- Link has no URL")
+//            return
+//        }
+//        print("deeplink:- Your Incoming Link parameter is \(url.absoluteString)")
+//        //secod let ie queryItems not execute if first let is true
+//        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+//              let queryItems = components.queryItems else {return}
+//
+//
+//
+//
+//        var deepLinkData: [String: Any] = [:]
+//
+//        for queryItem in queryItems {
+//
+//            deepLinkData[queryItem.name] = queryItem.value
+//
+//            print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
+//        }
+//
+//        deepLinkData["url"] = url.absoluteString
+//        print("deeplink:- Parameter is URL has a value of \(url.absoluteString) ")
+//
+//
+//
+//        // Convert the dictionary to Data
+//        if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
+//            UserDefaults.standard.set(data, forKey: Constant.deeplink)
+//        }
+//
+//        //post Dictionary of Deeplink Notification
+//        NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
+//
+//    }
+//
+    
+//    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
+//                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+//
+//
+//        if let incommingURL = userActivity.webpageURL{
+//
+//            print("deeplink:- Incoming URL is \(incommingURL)")
+//
+//            let linkhandled = DynamicLinks.dynamicLinks()
+//                .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
+//
+//                    guard error == nil else {
+//
+//                        print("deeplink:- Found an error \(String(describing: error?.localizedDescription))")
+//                        return
+//                    }
+//
+//                    if let dynamiclink = dynamiclink{
+//
+//                        self.handleIncomingDynamicLink(dynamiclink)
+//
+//
+//                    }
+//
+//                }
+//
+//            if linkhandled{
+//                return true
+//            }else{
+//
+//                return false
+//            }
+//
+//        }
+//
+//
+//        return false
+//    }
+//
     
     
-    func application(_ app: UIApplication, open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
-        
-        print("DEEPLINK",url)
-        return application(app, open: url,
-                           sourceApplication: options[UIApplication.OpenURLOptionsKey
-                            .sourceApplication] as? String,
-                           annotation: "")
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
-                     annotation: Any) -> Bool {
-        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
-            
-            print("deeplink:- open url receive a URL through custom scheme!! \(url.absoluteString)")
-            self.handleIncomingDynamicLink(dynamicLink)
-            
-            return true
-        }else{
-            
-            print("DEEPLINK",url)
-            // May be handel google and facebook signIn here
-            return false
-        }
-        
-    }
-    
-    
-    //    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    //
-    //        //com.demo.food
-    //        print("DEEPLINK",url)
-    //        return true
-    //    }
-    
+   
     
     
     
@@ -325,18 +355,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     //Mark:- Foreground Notification : Required When app is already Present
     func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification) async
-    -> UNNotificationPresentationOptions {
-        _ = notification.request.content.userInfo
-        
-        
-        // Print full message.
-        //print("NOTIFICATION INFO1 ",userInfo)
-        
-        // Change this to your preferred presentation option
-        return [[.alert, .sound]]
-    }
-    
+                                    willPresent notification: UNNotification) async
+        -> UNNotificationPresentationOptions {
+            
+            // Return modern presentation options (Replacing deprecated .alert)
+            return [.banner, .sound, .list]
+        }
     
     
     //********** on Notification {Background & Foreground} ***************
