@@ -284,41 +284,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     }
     
     
-//     func NotifyFirebaseDeeplink() {
-//        guard let data = UserDefaults.standard.data(forKey: Constant.deeplink) else { return }
-//        
-//        // Convert the Data back to a dictionary
-//        if let deepLinkData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
-//            
-//            // 1. Safely extract product_id (handling both String and Int types)
-//            let rawProductId = deepLinkData["product_id"]
-//            let productID: String
-//            if let intId = rawProductId as? Int {
-//                productID = String(intId)
-//            } else {
-//                productID = rawProductId as? String ?? ""
-//            }
-//            
-//            let title = deepLinkData["title"] as? String ?? ""
-//            let url = deepLinkData["url"] as? String ?? ""
-//            
-//            debugPrint("deepLink product ID: \(productID), title: \(title), url: \(url)")
-//            
-//            // 2. Clear storage immediately so it doesn't loop
-//            UserDefaults.standard.removeObject(forKey: Constant.deeplink)
-//            
-//            // 3. If product ID is Home or empty, skip
-//            if productID == "500" || productID == "HM" || productID.isEmpty {
-//                return
-//            }
-//            
-//            
-//            // Route cleanly through the universal router
-//            callWebViewUsingDeeplink(actionId: productID, title: title, urlToLoad: url)
-//        }
-//    }
-    
-  
+
     
     
     @objc func NotifyFirebaseDeeplink(notification: Notification? = nil) {
@@ -326,43 +292,46 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         // Mark : Not Using Notification Center Data, we keep in UserDefault bec
         // Data req when user is logout
         
-
         
-        if let data = UserDefaults.standard.data(forKey: Constant.deeplink) {
-            // Convert the Data back to a dictionary
-            
-            if let deepLinkData = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
+        var deepLinkData: [String: Any]? = nil
 
-                
-                // 1. Safely extract product_id (handling both String and Int types)
-                let rawProductId = deepLinkData["product_id"]
-                let productID: String
-                if let intId = rawProductId as? Int {
-                    productID = String(intId)
-                } else {
-                    productID = rawProductId as? String ?? ""
-                }
-                
-                let title = deepLinkData["title"] as? String ?? ""
-                let url = deepLinkData["url"] as? String ?? ""
-                
-                debugPrint("deepLink product ID: \(productID), title: \(title), url: \(url)")
-                
-                // 2. Clear storage immediately so it doesn't loop
-                UserDefaults.standard.removeObject(forKey: Constant.deeplink)
-                
-                // 3. If product ID is Home or empty, skip
-                if productID == "500" || productID == "HM" || productID.isEmpty {
-                    return
-                }
-                
-                
-                // Route cleanly through the universal router
-                callWebViewUsingDeeplink(actionId: productID, title: title, urlToLoad: url)
-          
-               
+            // 1. Check Notification Center object first
+            if let userInfo = notification?.object as? [String: Any] {
+                deepLinkData = userInfo
             }
-       }
+            // 2. Otherwise fallback to UserDefaults
+            else if let data = UserDefaults.standard.data(forKey: Constant.deeplink),
+                    let dict = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
+                deepLinkData = dict
+                UserDefaults.standard.removeObject(forKey: Constant.deeplink) // Clear to prevent loops
+            }
+
+            guard let dict = deepLinkData else { return }
+
+            // Safely extract product_id
+            let rawProductId = dict["product_id"]
+            let productID: String
+            if let intId = rawProductId as? Int {
+                productID = String(intId)
+            } else {
+                productID = rawProductId as? String ?? ""
+            }
+
+            let title = dict["title"] as? String ?? ""
+            
+            // FIX: Extract the specific 'url' parameter. If it contains a nested URL, use it.
+            // Otherwise, fallback to the full absolute link or empty string.
+            let url = dict["url"] as? String ?? ""
+
+            debugPrint("deepLink product ID: \(productID), title: \(title), url to load: \(url)")
+
+            // 3. Skip if Home or empty
+            if productID == "500" || productID == "HM" || productID.isEmpty {
+                return
+            }
+
+            // Route cleanly through the universal router with the exact target link
+            callWebViewUsingDeeplink(actionId: productID, title: title, urlToLoad: url)
       
         
     }
@@ -2181,8 +2150,8 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         alertView.show()
         
           
-            let appVersion = Configuration.appVersion
-            let deviceID = Configuration.deviceID
+           // let appVersion = Configuration.appVersion
+           // let deviceID = Configuration.deviceID
             
             let FBAId = UserDefaultsManager.shared.getFbaId()
             
@@ -2194,11 +2163,14 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             "product_id": prdID as AnyObject,
             "sub_fba_id":"0" as AnyObject
         ]
-         let endUrl = "GetShareUrl"
-        let url =  FinmartRestClient.baseURLString  + endUrl
+//         let endUrl = "GetShareUrl"
+//        let url =  FinmartRestClient.baseURLString  + endUrl
            
            // let tempUrl = "https://horizon.policyboss.com:5443/quote/Postfm/"
            // let url =  tempUrl + endUrl
+            
+            let url =   "https://horizon.policyboss.com:5443/product_share/product_share_url"
+            
      Alamofire.request(url, method: .post, parameters: parameter,encoding: JSONEncoding.default,headers: FinmartRestClient.headers).responseJSON(completionHandler: { (response) in
         switch response.result {
                     
@@ -2213,10 +2185,30 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                     let decoder = JSONDecoder()
                     let shareModel = try decoder.decode(SharePrdModel.self, from: data)
                     
-                    print("Share ",shareModel.MasterData.msg + shareModel.MasterData.url)
+                    //"Status": "Success
+                    // Case-insensitive comparison to handle any upper/lower case mismatch (Success, SUCCESS, success)
+                    let isSuccess =
+                        shareModel.status?
+                            .trimmingCharacters(in: .whitespacesAndNewlines)
+                            .lowercased() == "success"
+                    if isSuccess {
+                        print("Share: \(shareModel.msg ?? "")")
+                        
+                        let strbody = (shareModel.msg ?? "") + "\n"
+                        self.shareTextData(strBody: strbody)
+                        
+                    }else {
+                        // Failure case (e.g. "Ss_id is not valid")
+                        print("Failure message: \(shareModel.msg ?? "")")
+                        
+                        let snackbar = TTGSnackbar(
+                            message: shareModel.msg ?? "Unknown error occurred",
+                            duration: .long
+                        )
+                        snackbar.show()
+                    }
+                    
                    
-                    let strbody = shareModel.MasterData.msg + "\n" + shareModel.MasterData.url
-                    self.shareTextData(strBody: strbody)
                     
                 } catch let error {
                     print(error)
@@ -2420,214 +2412,85 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
         case  "DB": // Standard or Dashboard Web View
             if urlToLoad.isEmpty { return }
+//            
+//            let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
+//            let fbaId = UserDefaultsManager.shared.getFbaId()
+//            let ssid =  UserDefaultsManager.shared.getSsId()
+//            let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+//            let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+//            let appVersion = Configuration.appVersion
+//            let deviceID =  Configuration.deviceID
+//            
+//            var finalUrl = urlToLoad
+//          
+//                let appendParams = "&ss_id=\(ssid)&fba_id=\(fbaId)&sub_fba_id=\(subFBAID)&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&device_id=\(deviceID)&product_id=\(sanitizedId)&login_ssid=&sub_ss_id=\(subSSID)"
+//                finalUrl += appendParams
             
-            let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
-            let fbaId = UserDefaultsManager.shared.getFbaId()
-            let ssid =  UserDefaultsManager.shared.getSsId()
-            let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
-            let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
-            let appVersion = Configuration.appVersion
-            let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? Configuration.deviceID
-            
-            var finalUrl = urlToLoad
-            if sanitizedId == "DB" || !finalUrl.contains("ss_id") {
-                let appendParams = "&ss_id=\(ssid)&fba_id=\(fbaId)&sub_fba_id=\(subFBAID)&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&device_id=\(deviceID)&product_id=\(sanitizedId)&login_ssid=&sub_ss_id=\(subSSID)"
-                finalUrl += appendParams
-            }
+            guard !urlToLoad.isEmpty else { return }
+
+                let finalUrl = buildDynamicUrl(
+                    url: urlToLoad,
+                    productId: sanitizedId
+                )
             
             callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
             
         default:
-            // Fallback for custom or dynamic deep link URLs passed from outside
-            if !urlToLoad.isEmpty {
-                let SSID = UserDefaultsManager.shared.getSsId()
-                let FBAId = UserDefaultsManager.shared.getFbaId()
-                let deviceID = UIDevice.current.identifierForVendor?.uuidString ?? Configuration.deviceID
-                let appVersion = Configuration.appVersion
-                let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
-                let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
-                let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
-                
-                var appendURL = urlURLWithParameters(base: urlToLoad, ssid: SSID, fbaId: FBAId, subFbaId: subFBAID, subSsid: subSSID, ip: ipAddress, version: appVersion, device: deviceID, title: title)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.callDeepLinkAndPushNotifyWebView(dynamicUrl: appendURL, dynamicName: title)
-                }
-            } else {
+
+            guard !urlToLoad.isEmpty else {
                 print("Unhandled Routing ID: \(sanitizedId)")
+                return
             }
+
+            let finalUrl = buildDynamicUrl(
+                url: urlToLoad,
+                productId: sanitizedId
+            )
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.callDeepLinkAndPushNotifyWebView(
+                    dynamicUrl: finalUrl,
+                    dynamicName: title
+                )
+            }
+            
         }
     }
 
     // Helper for cleaning up URL parameter attachment
-    private func urlURLWithParameters(base: String, ssid: String, fbaId: String, subFbaId: String, subSsid: String, ip: String, version: String, device: String, title: String) -> String {
-        var appendURL = base
-        if !appendURL.contains("ss_id=") {
-            appendURL += "&ss_id=\(ssid)"
-        }
-        if !appendURL.contains("fba_id=") {
-            appendURL += "&fba_id=\(fbaId)"
-        }
-        appendURL += "&sub_fba_id=\(subFbaId)&ip_address=\(ip)&mac_address=\(ip)&app_version=\(version)&device_id=\(device)&login_ssid=&sub_ss_id=\(subSsid)"
-        return appendURL
+    private func buildDynamicUrl(
+        url: String,
+        productId: String
+    ) -> String {
+
+        let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
+        let fbaId = UserDefaultsManager.shared.getFbaId()
+        let ssid = UserDefaultsManager.shared.getSsId()
+        let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+        let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+        let appVersion = Configuration.appVersion
+        let deviceID = Configuration.deviceID
+
+        var finalUrl = url
+
+        let appendParams =
+            "&ss_id=\(ssid)" +
+            "&fba_id=\(fbaId)" +
+            "&sub_fba_id=\(subFBAID)" +
+            "&ip_address=\(ipAddress)" +
+            "&mac_address=\(ipAddress)" +
+            "&app_version=\(appVersion)" +
+            "&device_id=\(deviceID)" +
+            "&product_id=\(productId)" +
+            "&login_ssid=" +
+            "&sub_ss_id=\(subSSID)"
+
+        finalUrl += appendParams
+
+        return finalUrl
     }
     
     
-    // Mark : Calling Push and Deeplink calls
-//    func callWebViewUsingDeeplink1(  ProdId : String, ProdTitle : String ,ProdURL : String){
-//        
-// 
-//        dismissAll(animated: false)
-//        
-//        if ProdId == "507"{
-//            popUpbackgroundView.isHidden = false
-//            //        managerNameLbl.text! = "Manager : " + self.managerName
-//            usercallingAPI()
-//            return
-//        }
-//        
-//        // If ProdId is "500", we are in HomePage
-//        if ProdId == "500" || ProdId == "HM" {
-//              return
-//         
-//        }
-//        
-//        switch (ProdId) {
-//            
-//      
-//        
-//        case "1"  :  // car
-//            
-//           
-//            callWebView(webfromScreen: ScreenName.privateCar)
-//            
-//            break
-//        case "2"  :  // Health
-//           
-//            
-//            callWebView(webfromScreen: ScreenName.HealthInsurance )
-//            break
-//            
-//        case "10" :  // TWO WHEELER
-//         
-//           
-//            callWebView(webfromScreen: ScreenName.twoWheeler)
-//            break
-//            
-//        case "12"  :   //COMMERCIAL VEHICLE
-//           
-//        
-//            callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE )
-//            break
-//            
-//        case "18"  :    // TermInsurance
-//            
-//            /*
-//            let LifeInsurance : LifeInsuranceVC = self.storyboard?.instantiateViewController(withIdentifier: "stbLifeInsuranceVC") as! LifeInsuranceVC
-//       
-//            
-//             LifeInsurance.modalPresentationStyle = .fullScreen
-//            LifeInsurance.addType = "CHILD"
-//            
-//            add(LifeInsurance)
-//            deSelectDashboard()
-//             */
-//            
-//            break
-//            
-//        
-//            
-//    
-//        case "41", "SY": // Sync Contact
-//            
-//          
-//            let objVC = WelcomeSynConatctVC.shareInstance()
-//
-//            navigationController?.pushViewController(objVC, animated: false)
-//            
-//            break
-//            
-//         
-//       
-//            
-//        case "501" : //profile
-//            
-//            let profile : profileVC = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
-//                           profile.modalPresentationStyle = .fullScreen
-//                           profile.modalTransitionStyle = .coverVertical
-//                           present(profile, animated: false, completion: nil)
-//        
-//            
-//            break
-//            
-//        case "504" : //Sales Material  (general)
-//          
-//            moveToSalesmaterial()
-//            break
-//            
-//        
-//        case "505" :
-//            //Sync Contact Dashboard
-//            callWebView(webfromScreen: ScreenName.leadDashboard)
-//            
-//            break
-//            
-//        case "506" :
-//            //RaiseTicket Handling
-//            callWebView(webfromScreen: ScreenName.RaiseTicket)
-//            
-//            break
-//            
-//        case "552" : //  SalesMaterial : "Health Insurance
-//            moveToSalesmaterial(productID: "1")
-//                       
-//            break
-//            
-//            
-//        case "553" :
-//            // SalesMaterial : "Term Insurance"
-//            moveToSalesmaterial(productID: "6")
-//            
-//            break
-//            
-//        case "554" :
-//            // SalesMaterial : "Travel Insurance"
-//            moveToSalesmaterial(productID: "8")
-//            
-//            break
-//          
-//        default :
-//            
-//            if !ProdURL.isEmpty{
-//                
-//                let SSID = UserDefaults.standard.string(forKey: "POSPNo")
-//                let FBAId = UserDefaults.standard.string(forKey: "FBAId")
-//                let deviceID = UIDevice.current.identifierForVendor?.uuidString
-//                let appVersion = Configuration.appVersion
-//                let ipAddress = NetworkManager.shared.getIPAddress() ?? ""
-//                let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
-//                
-//                if let SSID = SSID, let FBAId = FBAId {
-//                    var appendURL = ProdURL + "&ss_id=" + SSID
-//                    appendURL += "&fba_id=" + FBAId
-//                    appendURL += "&sub_fba_id=\(subFBAID)&ip_address=\(ipAddress)&mac_address=\(ipAddress)"
-//                    appendURL += "&app_version=" + appVersion
-//                    appendURL += "&device_id=" + (deviceID ?? "")
-//                    appendURL += "&login_ssid="
-//                    callDeepLinkAndPushNotifyWebView(dynamicUrl: appendURL, dynamicName: ProdTitle)
-//                    
-//                }
-//               
-//            }
-//            
-//         
-//            break
-//        }
-//        
-//        
-//        
-//    }
-//    
     
     
     func callWebViewPushNotification(ProdId: String, pushNotifyData: PushNotificationModel) {

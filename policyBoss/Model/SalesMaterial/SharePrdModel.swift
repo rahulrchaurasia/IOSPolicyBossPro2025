@@ -10,19 +10,13 @@ import Foundation
 
 // MARK: - SharePrdModel
 struct SharePrdModel: Codable {
-    let Message, Status: String
-    let StatusNo: Int
-    let MasterData: MasterData
-    
-    //    enum CodingKeys: String, CodingKey {
-    //        case message = "Message"
-    //        case status = "Status"
-    //        case statusNo = "StatusNo"
-    //        case masterData = "MasterData"
-    //    }
+       let msg: String?
+        let status: String?
+
+        enum CodingKeys: String, CodingKey {
+            case msg = "Msg"
+            case status = "Status"
+        }
 }
 
-// MARK: - MasterData
-struct MasterData: Codable {
-    let url, msg: String
-}
+

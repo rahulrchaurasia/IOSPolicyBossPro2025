@@ -125,8 +125,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Parameter : \($0.name) = \($0.value ?? "")")
             }
 
-            deepLinkData["url"] = url.absoluteString
+            // FIX: If the query parameters contain an explicit 'url' key,
+            // make sure it saves the full intended inner target string.
+        
+            if let explicitURL = components.queryItems?.first(where: { $0.name == "url" })?.value {
+                deepLinkData["url"] = explicitURL
+            } else {
+                deepLinkData["url"] = url.absoluteString
+            }
+        
+           
             print("DeepLink Dictionary = \(deepLinkData)")
+        
+       // print("DeepLink url = \( deepLinkData["url"])")
+        print("DeepLink url = \(deepLinkData["url"] as? String ?? "No URL found")")
 
             // Store persistently for Cold Starts / Post-Login Flows
             if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
