@@ -15,6 +15,9 @@ import WebEngage
 import SwiftUI
 //import CobrowseIO
 
+import FirebaseAnalytics // ADD THIS
+import BranchSDK         // ADD THIS
+
 class LoginVC: UIViewController,UITextFieldDelegate {
 
     //  WebEngage for Analytics
@@ -464,7 +467,25 @@ class LoginVC: UIViewController,UITextFieldDelegate {
 //            
 //        }
         
-        
+        // 1. Retrieve user data from UserDefaults
+            let ssid = UserDefaults.standard.string(forKey: "POSPNo") ?? "0"
+            let userType = UserDefaults.standard.string(forKey: "UserType") ?? "UNKNOWN" // Adjust key if necessary
+            
+            print("Log for Analytics Type: \(userType) and pospNo: \(ssid)")
+            
+     
+           // ========================================================
+            // 2. FIREBASE ANALYTICS LOGIN
+            // ========================================================
+            FirebaseAnalyticsHelper.shared.setUserId(ssid)
+            FirebaseAnalyticsHelper.shared.setUserProperty(name: "user_type", value: userType)
+
+            let firebaseParams: [String: Any] = [
+                AnalyticsParameterMethod: "API",
+                "ss_id": ssid,
+                "user_type": userType
+            ]
+            FirebaseAnalyticsHelper.shared.trackEvent(AnalyticsEventLogin, parameters: firebaseParams)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,

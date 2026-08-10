@@ -60,6 +60,25 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
         super.viewDidLoad()
         
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SalesMaterialScreen)
+        
+        
+        // =========================================================
+        // FIREBASE ANALYTICS: TRACK SCREEN VIEW
+        // =========================================================
+        let ssid = UserDefaultsManager.shared.getSsId() ?? "0"
+        let extraParams: [String: Any] = [
+            "ss_id": ssid
+            // Note: You don't need to pass "screen_name" here because your helper
+            // class already maps the `screenName` parameter to AnalyticsParameterScreenName!
+        ]
+        
+        FirebaseAnalyticsHelper.shared.trackScreenView(
+            screenName: "salesmaterial_viewed",
+            className: String(describing: type(of: self)),
+            extraParams: extraParams
+        )
+        // =========================================================
+        
         salesmaterialdownldbckView.isHidden = true
         //        salesmaterialdownldView.isHidden = true
         
@@ -69,20 +88,60 @@ class SalesmaterialVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     }
     
     // Method to select the product
-    func selectProductFromDeeplink(productID: String) {
-        // Find the index of the specified product ID
-        if let index = ProductIdstringArray.firstIndex(where: { String($0) == productID }) {
-            let indexPath = IndexPath(row: index, section: 0)
+//    func selectProductFromDeeplink(productID: String) {
+//        // Find the index of the specified product ID
+//        if let index = ProductIdstringArray.firstIndex(where: { String($0) == productID }) {
+//            let indexPath = IndexPath(row: index, section: 0)
+//            
+//            // Programmatically select the row
+//           
+//            self.salesMTView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+//                 
+//            
+//            // Manually trigger the row selection handler
+//            self.tableView(salesMTView, didSelectRowAt: indexPath)
+//        }
+//    }
+    
+    // Method to select the product and route safely
+        func selectProductFromDeeplink(productID: String) {
             
-            // Programmatically select the row
+            // 1. Find the correct index for the product
+            guard let index = ProductIdstringArray.firstIndex(where: { String($0) == productID }) else {
+                print("Product ID not found in array")
+                return
+            }
+            
+            // 2. Update all the internal tracking variables (bypassing the visual cell)
+            self.productID = String(ProductIdstringArray[index])
+            self.productName = ProductNameArray[index]
+            self.indexR = index
+            
+            let mod = sMaterialModel[index]
+            self.productCnt = mod.productCount
+            
+            UserDefaults.standard.set(String(describing: self.productCnt), forKey: "productCnt")
+            UserDefaults.standard.set(String(describing: self.indexR), forKey: "indexR")
+            
+            var oldCountArray = UserDefaults.standard.array(forKey:"SalesProductCount") as? [Int] ?? [Int]()
+            if oldCountArray.indices.contains(index) {
+                oldCountArray[index] = mod.productCount
+                UserDefaults.standard.set(oldCountArray, forKey: "SalesProductCount")
+            }
+            
+            // 3. Clear the deeplink ID so it doesn't infinitely loop if the user comes back to this screen
+            self.deeplinkProductID = nil
+            
+            // 4. Jump directly to the detail screen!
+            let insalesmaterial : insalesmaterialVC = self.storyboard?.instantiateViewController(withIdentifier: "stbinsalesmaterialVC") as! insalesmaterialVC
+            insalesmaterial.modalPresentationStyle = .fullScreen
+            insalesmaterial.modalTransitionStyle = .coverVertical
+            insalesmaterial.productId = self.productID
+            insalesmaterial.passindexlbl = self.productName
            
-            self.salesMTView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
-                 
-            
-            // Manually trigger the row selection handler
-            self.tableView(salesMTView, didSelectRowAt: indexPath)
+            // Change this to false! It will snap on screen instantly the moment the API finishes.
+            self.present(insalesmaterial, animated: false, completion: nil)
         }
-    }
     
     @IBAction func salesMaterialBackBtn(_ sender: Any)
     {

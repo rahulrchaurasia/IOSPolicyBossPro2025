@@ -42,6 +42,23 @@ class SyncContactVC: UIViewController {
         initData()
        // setProgressUI()
         
+        // =========================================================
+        // FIREBASE ANALYTICS: TRACK SCREEN VIEW
+        // =========================================================
+        let ssid = UserDefaultsManager.shared.getSsId() 
+        let extraParams: [String: Any] = [
+            "ss_id": ssid
+        ]
+        
+        // screenName = "sync_contacts_viewed"
+        // className = "WelcomeSynConatctVC"
+        FirebaseAnalyticsHelper.shared.trackScreenView(
+            screenName: "sync_contacts_started",
+            className: String(describing: type(of: self)),
+            extraParams: extraParams
+        )
+        // =========================================================
+        
         getContactData()
        
        

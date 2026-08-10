@@ -8,6 +8,9 @@
 	<array>
 		<string>applinks:www.policyboss.com</string>
 		<string>applinks:policybosspro.page.link</string>
+		<string>applinks:policyboss.app.link</string>
+		<string>applinks:policyboss-alternate.app.link</string>
+		<string>applinks:[www.policyboss.com](https://www.policyboss.com)</string>
 	</array>
 </dict>
 </plist>

@@ -171,6 +171,8 @@
 		CD12788D2A092165009BC7A9 /* Razorpay.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD12788A2A092160009BC7A9 /* Razorpay.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD18A25A300DF1C200B65212 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CD18A253300DF1C100B65212 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CD19A7102CB68AFC00484553 /* DeviceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */; };
+		CD1C00043021F6E0006B300A /* BranchSDK in Frameworks */ = {isa = PBXBuildFile; productRef = CD1C00033021F6E0006B300A /* BranchSDK */; };
+		CD1C0006302223CE006B300A /* BranchCustomEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1C0005302223CE006B300A /* BranchCustomEvents.swift */; };
 		CD1F8C602B72613D00098B72 /* OTPAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */; };
 		CD1F8C652B72C6C600098B72 /* OTPAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */; };
 		CD1F8C672B72C75200098B72 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F8C662B72C75200098B72 /* LoginViewModel.swift */; };
@@ -206,6 +208,7 @@
 		CD7D55172B88CCA70041DE53 /* OTPAlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D55162B88CCA70041DE53 /* OTPAlertDialog.swift */; };
 		CD7D551A2B88CCDF0041DE53 /* Binding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */; };
 		CD7D551C2B88CD530041DE53 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7D551B2B88CD530041DE53 /* View+Extension.swift */; };
+		CD7EA8BE30244D4F007BA0B4 /* FirebaseAnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7EA8BD30244D4B007BA0B4 /* FirebaseAnalyticsHelper.swift */; };
 		CD906EE029A72E9E004F85DC /* stbOther.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD906EDF29A72E9E004F85DC /* stbOther.storyboard */; };
 		CD917FBF2A384430007BB770 /* CustomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD917FBE2A384430007BB770 /* CustomLoaderView.swift */; };
 		CD955D3C2B7DCF3100011FF6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */; };
@@ -464,6 +467,7 @@
 		CD12788A2A092160009BC7A9 /* Razorpay.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Razorpay.xcframework; sourceTree = "<group>"; };
 		CD18A253300DF1C100B65212 /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD19A70F2CB68AFC00484553 /* DeviceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHelper.swift; sourceTree = "<group>"; };
+		CD1C0005302223CE006B300A /* BranchCustomEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchCustomEvents.swift; sourceTree = "<group>"; };
 		CD1F8C5F2B72613D00098B72 /* OTPAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertVC.swift; sourceTree = "<group>"; };
 		CD1F8C642B72C6C500098B72 /* OTPAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertView.swift; sourceTree = "<group>"; };
 		CD1F8C662B72C75200098B72 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -499,6 +503,7 @@
 		CD7D55162B88CCA70041DE53 /* OTPAlertDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPAlertDialog.swift; sourceTree = "<group>"; };
 		CD7D55192B88CCDF0041DE53 /* Binding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extension.swift"; sourceTree = "<group>"; };
 		CD7D551B2B88CD530041DE53 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		CD7EA8BD30244D4B007BA0B4 /* FirebaseAnalyticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsHelper.swift; sourceTree = "<group>"; };
 		CD906EDF29A72E9E004F85DC /* stbOther.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = stbOther.storyboard; sourceTree = "<group>"; };
 		CD917FBE2A384430007BB770 /* CustomLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoaderView.swift; sourceTree = "<group>"; };
 		CD955D3B2B7DCF3100011FF6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -560,6 +565,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD9A04EB2B555F0300BCD739 /* FirebaseMessaging in Frameworks */,
+				CD1C00043021F6E0006B300A /* BranchSDK in Frameworks */,
 				CD1278882A09147F009BC7A9 /* Pods_policyBoss.framework in Frameworks */,
 				CDDF4F952A1B258D00D6438A /* KeychainAccess in Frameworks */,
 				CD9A04EF2B555F8E00BCD739 /* FirebaseCrashlytics in Frameworks */,
@@ -1347,6 +1353,8 @@
 		CD34DDAD2A7395860055791E /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
+				CD7EA8BD30244D4B007BA0B4 /* FirebaseAnalyticsHelper.swift */,
+				CD1C0005302223CE006B300A /* BranchCustomEvents.swift */,
 				CD34DDAE2A7395B00055791E /* WebEngageAnalytics.swift */,
 				CDCF845C2A7A668E001C7DB7 /* Extension+AppDelegateWebEngageAnaly.swift */,
 			);
@@ -1663,6 +1671,7 @@
 				CD9A04EC2B555F7E00BCD739 /* FirebaseAnalytics */,
 				CD9A04EE2B555F8E00BCD739 /* FirebaseCrashlytics */,
 				CD9A04F02B555FA900BCD739 /* FirebaseDynamicLinks */,
+				CD1C00033021F6E0006B300A /* BranchSDK */,
 			);
 			productName = MagicFinmart;
 			productReference = 840AC5CC21BE80AB004DCB26 /* PolicyBoss Pro.app */;
@@ -1775,6 +1784,7 @@
 			packageReferences = (
 				CDDF4F932A1B258D00D6438A /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				CD9A04E92B55568900BCD739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CD1C00023021F6E0006B300A /* XCRemoteSwiftPackageReference "ios-branch-deep-linking" */,
 			);
 			productRefGroup = 840AC5CD21BE80AB004DCB26 /* Products */;
 			projectDirPath = "";
@@ -2037,6 +2047,7 @@
 				B21FAC932737C11500AC9AA4 /* TransactionVC.swift in Sources */,
 				B253B252261652E0000C3A7D /* IQKeyboardManager+Debug.swift in Sources */,
 				CD290471288042FB00C75C74 /* FOSUserResponse.swift in Sources */,
+				CD1C0006302223CE006B300A /* BranchCustomEvents.swift in Sources */,
 				B253B251261652E0000C3A7D /* IQKeyboardManager.swift in Sources */,
 				CD3F9A8029CDA97600FB8F2F /* NotificationViewModel.swift in Sources */,
 				840562E921D4D39D0099DDE8 /* reqpolicyVC.swift in Sources */,
@@ -2062,6 +2073,7 @@
 				CD917FBF2A384430007BB770 /* CustomLoaderView.swift in Sources */,
 				B253B258261652E0000C3A7D /* IQUIView+Hierarchy.swift in Sources */,
 				CD3F9A8229CDDB2F00FB8F2F /* NotificationTVC.swift in Sources */,
+				CD7EA8BE30244D4F007BA0B4 /* FirebaseAnalyticsHelper.swift in Sources */,
 				CD1F8C6D2B72C81B00098B72 /* APButton.swift in Sources */,
 				CD7D55172B88CCA70041DE53 /* OTPAlertDialog.swift in Sources */,
 				CD7D551C2B88CD530041DE53 /* View+Extension.swift in Sources */,
@@ -2299,7 +2311,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
@@ -2315,7 +2327,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.13;
+				MARKETING_VERSION = 2.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2334,7 +2346,7 @@
 				CODE_SIGN_ENTITLEMENTS = policyBoss/policyBoss.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = 62DMBCG3SA;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2349,7 +2361,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.0.13;
+				MARKETING_VERSION = 2.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.policyboss.policybosspro;
 				PRODUCT_NAME = "PolicyBoss Pro";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2567,6 +2579,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CD1C00023021F6E0006B300A /* XCRemoteSwiftPackageReference "ios-branch-deep-linking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BranchMetrics/ios-branch-deep-linking";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.14.2;
+			};
+		};
 		CD9A04E92B55568900BCD739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -2586,6 +2606,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CD1C00033021F6E0006B300A /* BranchSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD1C00023021F6E0006B300A /* XCRemoteSwiftPackageReference "ios-branch-deep-linking" */;
+			productName = BranchSDK;
+		};
 		CD9A04EA2B555F0300BCD739 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CD9A04E92B55568900BCD739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

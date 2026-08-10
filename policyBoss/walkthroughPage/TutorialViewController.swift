@@ -9,6 +9,7 @@
 import UIKit
 import TTGSnackbar
 import Alamofire
+import FirebaseAnalytics // ADD THIS
 
 class TutorialViewController: UIViewController {
 
@@ -25,16 +26,32 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.WelcomeScreen)
+        
+        
+        // ==========================================
+            // 1. FIREBASE ANALYTICS
+            // ==========================================
+        
+        
+        // Use the shared instance directly
+                let parameters: [String: Any] = [
+                    AnalyticsParameterScreenName: String(describing: type(of: self)),
+                    "description": "User started the onboarding slider"
+                ]
+                
+                FirebaseAnalyticsHelper.shared.trackEvent(AnalyticsEventTutorialBegin, parameters: parameters)
+        
 
+        
         if(Core.shared.isVerifyInstall()){
             self.getDeviceDetails()
             
             Core.shared.setVerifyInstall()
         }
-     
+        
         
         setData()
-
+        
         pageControl.addTarget(self, action: Selector("didChangePageControlValue"), for: .valueChanged)
         
         

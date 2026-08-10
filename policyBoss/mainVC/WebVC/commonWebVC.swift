@@ -141,6 +141,33 @@ class commonWebVC: UIViewController,WKNavigationDelegate,UIScrollViewDelegate ,U
         
         
         
+        // =========================================================
+        // FIREBASE ANALYTICS: TRACK WEBVIEW SCREEN
+        // =========================================================
+        let ssid = UserDefaultsManager.shared.getSsId()
+        
+        // Get the user's name (fallback to empty string if missing)
+        let userName = UserDefaultsManager.shared.getFullName() 
+        
+        // Safely get the Title being displayed on the screen
+        let currentTitle = self.titleLbl.text ?? self.webTitle
+        
+        // Safely get the URL currently loaded in the WKWebView
+        let currentUrl = self.webView.url?.absoluteString ?? "unknown_url"
+        
+        let extraParams: [String: Any] = [
+            "name": userName,
+            "title": currentTitle,
+            "url": currentUrl,
+            "ss_id": ssid
+        ]
+        
+        // Track the screen using your shared helper
+        FirebaseAnalyticsHelper.shared.trackScreenView(
+            screenName: "page_view_webview",
+            className: String(describing: type(of: self)), // dynamically gets "commonWebVC"
+            extraParams: extraParams
+        )
         
         
         if(webfromScreen == ScreenName.privateCar)      //  PrdID =1

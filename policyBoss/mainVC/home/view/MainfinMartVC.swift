@@ -18,6 +18,8 @@ import WebEngage
 import Combine
 import SwiftUI
 
+import FirebaseAnalytics
+
 class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,callingrevampDelegate,MFMailComposeViewControllerDelegate ,HomeDelegate, SKStoreProductViewControllerDelegate{
    
     
@@ -289,111 +291,473 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     @objc func NotifyFirebaseDeeplink(notification: Notification? = nil) {
         
-        // Mark : Not Using Notification Center Data, we keep in UserDefault bec
-        // Data req when user is logout
+        
+        
         
         
         var deepLinkData: [String: Any]? = nil
-
-            // 1. Check Notification Center object first
-            if let userInfo = notification?.object as? [String: Any] {
-                deepLinkData = userInfo
-            }
-            // 2. Otherwise fallback to UserDefaults
-            else if let data = UserDefaults.standard.data(forKey: Constant.deeplink),
-                    let dict = try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSDictionary.self, from: data) as? [String: Any] {
-                deepLinkData = dict
-                UserDefaults.standard.removeObject(forKey: Constant.deeplink) // Clear to prevent loops
-            }
-
-            guard let dict = deepLinkData else { return }
-
-            // Safely extract product_id
-            let rawProductId = dict["product_id"]
-            let productID: String
-            if let intId = rawProductId as? Int {
-                productID = String(intId)
-            } else {
-                productID = rawProductId as? String ?? ""
-            }
-
-            let title = dict["title"] as? String ?? ""
-            
-            // FIX: Extract the specific 'url' parameter. If it contains a nested URL, use it.
-            // Otherwise, fallback to the full absolute link or empty string.
-            let url = dict["url"] as? String ?? ""
-
-            debugPrint("deepLink product ID: \(productID), title: \(title), url to load: \(url)")
-
-            // 3. Skip if Home or empty
-            if productID == "500" || productID == "HM" || productID.isEmpty {
-                return
-            }
-
-            // Route cleanly through the universal router with the exact target link
-            callWebViewUsingDeeplink(actionId: productID, title: title, urlToLoad: url)
-      
+        var fallbackRawUrl = ""
+        var prdID: String? = nil
+        var extractedUrl = ""
+        var titleValue = ""
         
+        // 1. Check Notification Center object first
+        if let userInfo = notification?.object as? [String: Any] {
+            deepLinkData = userInfo
+        }
+        // 2. Otherwise fallback to UserDefaults (Cold Start)
+        else if let data = UserDefaults.standard.data(forKey: Constant.deeplink),
+                let dict = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [String: Any] {
+            deepLinkData = dict
+        }
+        
+        guard let dict = deepLinkData else { return }
+        
+        // 3. Extract data safely
+        if let intId = dict["product_id"] as? Int {
+            prdID = String(intId)
+        } else {
+            prdID = dict["product_id"] as? String
+        }
+        
+        titleValue = dict["title"] as? String ?? ""
+        extractedUrl = dict["url"] as? String ?? ""
+        fallbackRawUrl = extractedUrl
+        
+        // 4. Validate Product ID
+        guard let finalPrdID = prdID, !finalPrdID.isEmpty else {
+            UserDefaults.standard.removeObject(forKey: Constant.deeplink)
+            return
+        }
+        
+        let ssid = UserDefaultsManager.shared.getSsId()
+        
+        
+        
+        
+        // =========================================================
+        // MARK: - Analytics Parity
+        // =========================================================
+       
+        // 1. FIRE BRANCH EVENT
+        let branchParams: [String: String] = [
+            "url": fallbackRawUrl,
+            "deeplink_type": finalPrdID,
+            "ss_id": ssid
+        ]
+        BranchAnalyticsHelper.shared.trackCustomEvent(
+            eventName: BranchCustomEvents.DEEPLINK_CLICK,
+            customData: branchParams
+        )
+
+        // 2. FIRE FIREBASE EVENT
+        let firebaseParams: [String: Any] = [
+            "url": fallbackRawUrl,
+            "deeplink_type": finalPrdID,
+            "ss_id": ssid
+        ]
+        FirebaseAnalyticsHelper.shared.trackEvent("deeplink_click", parameters: firebaseParams)
+        
+        // =========================================================
+        // MARK: - Delegate to Unified Router
+        // =========================================================
+        
+        let sanitizedId = finalPrdID.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Call your unified routing function!
+        self.callWebViewUsingDeeplink(actionId: sanitizedId, title: titleValue, urlToLoad: fallbackRawUrl)
+        
+        // Clear state after routing
+        UserDefaults.standard.removeObject(forKey: Constant.deeplink)
     }
     
-    @objc func pushNotifyDataHandling(notification : Notification){
-        
+    // MARK: - 1. The Global Clean Slate Manager
+        func callWebViewUsingDeeplink(actionId: String, title: String = "", urlToLoad: String = "") {
+            
+            let sanitizedId = actionId.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            if sanitizedId.isEmpty { return }
+            
+            // 1. GLOBAL CLEAN SLATE: Pop any pushed screens (like SyncContact or existing WebViews)
+            self.navigationController?.popToRootViewController(animated: false)
+            
+            // 2. GLOBAL CLEAN SLATE: Dismiss any open modals/popups
+            if let presentedVC = self.presentedViewController {
+                presentedVC.dismiss(animated: false) {
+                    // 3. Once screen is clean, execute the route!
+                    self.executeDeeplinkRouting(sanitizedId: sanitizedId, title: title, urlToLoad: urlToLoad)
+                }
+            } else {
+                // Nothing was presented, execute the route!
+                self.executeDeeplinkRouting(sanitizedId: sanitizedId, title: title, urlToLoad: urlToLoad)
+            }
+        }
+    
+    
+    
+    // MARK: - 2. The Actual Routing Logic
+        private func executeDeeplinkRouting(sanitizedId: String, title: String, urlToLoad: String) {
+            
+            debugPrint("Product ID for Deeplink: \(sanitizedId)")
+            
+            // Handle ignored or special states
+            if sanitizedId == "500" || sanitizedId == "HM" { return }
+            
+            if sanitizedId == "507" {
+                popUpbackgroundView.isHidden = false
+                usercallingAPI()
+                return
+            }
+            
+            // Fetch global parameters for URL appending
+            let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+            let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+            let ipAddress = "0.0.0.0" // Implement your IP fetcher
+            let deviceId = Configuration.deviceID // Implement your Device ID fetcher
+            let appVersion = Configuration.appVersion
+            let ssid = UserDefaultsManager.shared.getSsId()
+            let fbaId = UserDefaultsManager.shared.getFbaId()
+            
+            // Unified routing switch statement
+            switch sanitizedId {
+                
+            case "1": callWebView(webfromScreen: ScreenName.privateCar)
+            case "2": callWebView(webfromScreen: ScreenName.HealthInsurance)
+            case "10": callWebView(webfromScreen: ScreenName.twoWheeler)
+            case "12": callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
+            case "18": break
+                
+            case "41", "SY":
+                let objVC = WelcomeSynConatctVC.shareInstance()
+                navigationController?.pushViewController(objVC, animated: false)
+                
+            case "SYC": callWebView(webfromScreen: ScreenName.leadDashboard)
+                
+            case "501", "PF":
+                let profile = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
+                profile.modalPresentationStyle = .fullScreen
+                profile.modalTransitionStyle = .coverVertical
+                present(profile, animated: false, completion: nil)
+                
+            case "502": callWebView(webfromScreen: ScreenName.pospEnrollment)
+                
+            case "503", "NL":
+                let objVC = NotificationListVC.shareInstance()
+                navigationController?.pushViewController(objVC, animated: false)
+                
+            case "504", "SL": moveToSalesmaterial()
+            case "505": callWebView(webfromScreen: ScreenName.leadDashboard)
+            case "506": callWebView(webfromScreen: ScreenName.RaiseTicket)
+            
+            case "551": moveToSalesmaterial(productID: "2")
+            case "552": moveToSalesmaterial(productID: "1")
+            case "553": moveToSalesmaterial(productID: "6")
+            case "554": moveToSalesmaterial(productID: "8")
+                
+            case "POP":
+                let targetUrl = urlToLoad.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !targetUrl.isEmpty else { return }
+                
+                let separator = targetUrl.contains("?") ? "&" : "?"
+                let finalWebUrl = "\(targetUrl)\(separator)ss_id=\(ssid)&fba_id=\(fbaId)&device_id=\(deviceId)"
+                let alertWebVC = self.alertService.alertWebView(webURL: finalWebUrl)
+                self.present(alertWebVC, animated: true)
+                
+            case "CB":
+                if !urlToLoad.isEmpty, let url = URL(string: urlToLoad) {
+                    UIApplication.shared.open(url)
+                }
+                
+            case "WB":
+                guard !urlToLoad.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+                callDeepLinkAndPushNotifyWebView(dynamicUrl: urlToLoad, dynamicName: title)
+                
+            case "DB":
+                guard !urlToLoad.isEmpty else { return }
+                let finalUrl = buildDynamicUrl(url: urlToLoad, productId: sanitizedId)
+                callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
+                
+            default:
+                guard !urlToLoad.isEmpty else {
+                    print("Unhandled Routing ID: \(sanitizedId)")
+                    return
+                }
+                let finalUrl = buildDynamicUrl(url: urlToLoad, productId: sanitizedId)
+                
+                // Note: Since we already cleaned the slate globally, we don't strictly need the asyncAfter here,
+                // but leaving it as a 0.1s buffer is safe for heavy web views.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
+                }
+            }
+        }
+    
+    
+    // MARK: - Unified Universal Router (Handles both Deep Links & Push Notifications)
+//    func callWebViewUsingDeeplink1(actionId: String, title: String = "", urlToLoad: String = "") {
+//        
+//        // 1. Dismiss active alerts or popups before navigating
+//        dismissAll(animated: false)
+//        
+//        let sanitizedId = actionId.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
+//        if sanitizedId.isEmpty { return }
+//        
+//        debugPrint("Product ID for Deeplink: \(sanitizedId)")
+//        
+//        // 2. Handle ignored or special states
+//        if sanitizedId == "500" || sanitizedId == "HM" {
+//            return
+//        }
+//        
+//        if sanitizedId == "507" {
+//            popUpbackgroundView.isHidden = false
+//            usercallingAPI()
+//            return
+//        }
+//        
+//        // Fetch global parameters for URL appending
+//        
+//        let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
+//        let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
+//        let ipAddress = "0.0.0.0" // Implement your IP fetcher
+//        let deviceId = Configuration.deviceID // Implement your Device ID fetcher
+//        let appVersion = Configuration.appVersion
+//        let ssid = UserDefaultsManager.shared.getSsId()
+//        let fbaId = UserDefaultsManager.shared.getFbaId()
+//        
+//        // 3. Unified routing switch statement for both ID types and Push flags
+//        switch sanitizedId {
+//            
+//        case "1": // Car Insurance
+//            callWebView(webfromScreen: ScreenName.privateCar)
+//            
+//        case "2": // Health Insurance
+//            callWebView(webfromScreen: ScreenName.HealthInsurance)
+//            
+//        case "10": // Two Wheeler
+//            callWebView(webfromScreen: ScreenName.twoWheeler)
+//            
+//        case "12": // Commercial Vehicle
+//            callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
+//            
+//        case "18": // Term Insurance
+//            break
+//            
+//        case "41", "SY": // Sync Contact (Handles both Deep Link ID 41 and Push flag SY)
+//            let objVC = WelcomeSynConatctVC.shareInstance()
+//            navigationController?.pushViewController(objVC, animated: false)
+//            
+//        case "SYC": // Sync Contact Dashboard Backup Route
+//            callWebView(webfromScreen: ScreenName.leadDashboard)
+//            
+//        case "501", "PF": // Profile / My Account
+//            let profile = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
+//            profile.modalPresentationStyle = .fullScreen
+//            profile.modalTransitionStyle = .coverVertical
+//            present(profile, animated: false, completion: nil)
+//            
+//            
+//        case "502":
+//     
+//        
+//            callWebView(webfromScreen: ScreenName.pospEnrollment)
+//            
+//           
+//            
+//        case "503", "NL": // Notification List
+//            let objVC = NotificationListVC.shareInstance()
+//            navigationController?.pushViewController(objVC, animated: false)
+//            
+//        case "504", "SL": // Sales Material (General)
+//            moveToSalesmaterial()
+//            
+//        case "505": // Sync Contact Dashboard
+//            callWebView(webfromScreen: ScreenName.leadDashboard)
+//            
+//        case "506": // Raise Ticket
+//            callWebView(webfromScreen: ScreenName.RaiseTicket)
+//            
+//        case "552": // SalesMaterial: Health Insurance
+//            moveToSalesmaterial(productID: "1")
+//            
+//        case "553": // SalesMaterial: Term Insurance
+//            moveToSalesmaterial(productID: "6")
+//            
+//        case "554": // SalesMaterial: Travel Insurance
+//            moveToSalesmaterial(productID: "8")
+//            
+//        case "POP":
+//           
+//            
+//            // 1. Ensure urlToLoad is not empty
+//            let targetUrl = urlToLoad.trimmingCharacters(in: .whitespacesAndNewlines)
+//            guard !targetUrl.isEmpty else {
+//                print("Error: POP action received an empty URL.")
+//                return
+//            }
+//            
+//            // 2. Append tracking parameters (matching Android behavior)
+//            let separator = targetUrl.contains("?") ? "&" : "?"
+//            let finalWebUrl = "\(targetUrl)\(separator)ss_id=\(ssid)&fba_id=\(fbaId)&device_id=\(deviceId)"
+//            
+//            // 3. Present the popup dialog
+//            let alertWebVC = self.alertService.alertWebView(webURL: finalWebUrl)
+//            self.present(alertWebVC, animated: true)
+//            
+//            
+//        case "CB": // Open External Browser
+//            if !urlToLoad.isEmpty, let url = URL(string: urlToLoad) {
+//                UIApplication.shared.open(url)
+//            }
+//            
+//        case "WB":  // without added any ID's
+//            // Standard Web View
+//        
+//            
+//            guard !urlToLoad.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+//                print("Error: URL is empty for WB action.")
+//                return
+//            }
+//            
+//            let strURL = urlToLoad
+//            callDeepLinkAndPushNotifyWebView(dynamicUrl: strURL, dynamicName: title)
+//            
+//        case  "DB": // Standard or Dashboard Web View with Adding all req ID
+//            if urlToLoad.isEmpty { return }
+//
+//            guard !urlToLoad.isEmpty else { return }
+//
+//                let finalUrl = buildDynamicUrl(
+//                    url: urlToLoad,
+//                    productId: sanitizedId
+//                )
+//            
+//            callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
+//            
+//        default:
+//
+//            guard !urlToLoad.isEmpty else {
+//                print("Unhandled Routing ID: \(sanitizedId)")
+//                return
+//            }
+//
+//            let finalUrl = buildDynamicUrl(
+//                url: urlToLoad,
+//                productId: sanitizedId
+//            )
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                self.callDeepLinkAndPushNotifyWebView(
+//                    dynamicUrl: finalUrl,
+//                    dynamicName: title
+//                )
+//            }
+//            
+//        }
+//    }
+    
+    
+
+    
+    // Update Notification Routing exactly as done above to mirror `getNotificationAction`
+    @objc func pushNotifyDataHandling(notification: Notification) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         UserDefaults.standard.set(0, forKey: Constant.NotificationCount)
         
-      debugPrint("PUSHDATA",notification.object as? [String: Any] ?? [:])
-
+        debugPrint("PUSHDATA",notification.object as? [String: Any] ?? [:])
+        
+        
+        let ssid = UserDefaultsManager.shared.getSsId()
+        
+        
         let userInfo = notification.object as? [String: Any] ?? [:]
         
         var pushNotifyData =  PushNotificationModel()
-
-
+        
+        
         if let notifyFlag = userInfo["notifyFlag"] {
-
+            
             pushNotifyData.notifyFlag = notifyFlag as? String
             print("NOTIFICATION notifyFlag ",notifyFlag)
         }else{
             print("NOTIFICATION notifyFlag No Data Found ")
             return
         }
-
-
+        
+        
         if let body = userInfo["body"] {
-
+            
             pushNotifyData.body = body as? String
             print("NOTIFICATION body ",body)
         }
         if let title = userInfo["title"] {
-
+            
             pushNotifyData.title = title as? String
             print("NOTIFICATION title ",title)
         }
         if let web_url = userInfo["web_url"] {
-
+            
             pushNotifyData.web_url = web_url as? String ?? ""
             print("NOTIFICATION web_url ",web_url)
         }
         if let web_title = userInfo["web_title"] {
-
+            
             pushNotifyData.web_title = web_title as? String ?? ""
             print("NOTIFICATION web_title ",web_title)
         }
         if let message_id = userInfo["message_id"] {
-
+            
             pushNotifyData.message_id = message_id as? String
             print("NOTIFICATION message_id ",message_id)
         }
         
-        // Action
         
-       // callWebView(webfromScreen: "COMMERCIALVEHICLE", type: "CHILD")
-        if let ProdId = pushNotifyData.notifyFlag{
+        let notifyType = pushNotifyData.notifyFlag ?? ""
+        let notifyTitle = pushNotifyData.web_title ?? ""
+        let notifyUrl = pushNotifyData.web_url ?? ""
+        let safeSsid = ssid
+
+        // 1. FIRE BRANCH EVENT
+        let branchParams: [String: String] = [
+            "notification_type": notifyType,
+            "notification_title": notifyTitle,
+            "notification_url": notifyUrl,
+            "ss_id": safeSsid
+        ]
+        BranchAnalyticsHelper.shared.trackCustomEvent(
+            eventName: BranchCustomEvents.NOTIFICATION_CLICK,
+            customData: branchParams
+        )
+        
+        // 2. FIRE FIREBASE EVENT
+        let firebaseParams: [String: Any] = [
+            "notification_type": notifyType,
+            "notification_title": notifyTitle,
+            "notification_url": notifyUrl,
+            "ss_id": safeSsid
+        ]
+        FirebaseAnalyticsHelper.shared.trackEvent("notification_click", parameters: firebaseParams)
+        
+        // Now call the switch statement matching the Android implementation
+        //  callWebViewPushNotification(ProdId: notifyFlag, webUrl: web_url, title: web_title)
+        
+        
+        //        if let ProdId = pushNotifyData.notifyFlag{
+        //
+        //            callWebViewPushNotification(ProdId: ProdId,pushNotifyData: pushNotifyData)
+        //        }
+        
+        // 4. 🔥 THE CHANGE: Delegate to the Unified Router 🔥
+        if let actionId = pushNotifyData.notifyFlag {
             
-            callWebViewPushNotification(ProdId: ProdId,pushNotifyData: pushNotifyData)
+            let title = pushNotifyData.web_title ?? ""
+            let url = pushNotifyData.web_url ?? ""
+            
+            // Pass the extracted data directly to your new single source of truth
+            self.callWebViewUsingDeeplink(actionId: actionId, title: title, urlToLoad: url)
         }
         
-      
-    
+        
+        
     }
     
     @objc func NotifyData(notification : Notification){
@@ -561,18 +925,55 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
        
     }
     
+    // Safely routes to Sales Material, clearing any existing modals first
     func moveToSalesmaterial(productID: String? = nil) {
+        
+        // Step 1: Clear any PUSHED screens (e.g., SyncContactVC, NotificationList)
+        self.navigationController?.popToRootViewController(animated: false)
+        
+        // Step 2: Clear any PRESENTED modal screens (e.g., Detail, ShareImage, Popups)
+        // Note: Dismissing the bottom-most presented VC automatically wipes out all children above it!
+        if let presentedVC = self.presentedViewController {
+            presentedVC.dismiss(animated: false) {
+                // Step 3: Now the app is back to a completely clean slate. Route!
+                self.presentSalesMaterial(productID: productID)
+            }
+        } else {
+            // Nothing was open, just route!
+            self.presentSalesMaterial(productID: productID)
+        }
+    }
+    
+    // Helper function to handle the actual presentation
+    private func presentSalesMaterial(productID: String?) {
         let salesmaterial: SalesmaterialVC = self.storyboard?.instantiateViewController(withIdentifier: "stbSalesmaterialVC") as! SalesmaterialVC
         
-        // Pass the productID if provided
-        if let productID = productID {
+        // If we have a productID, it's a deep link. Turn off the animation!
+        let isDeepLink = (productID != nil)
+        
+        if isDeepLink {
             salesmaterial.deeplinkProductID = productID
         }
         
         salesmaterial.modalPresentationStyle = .fullScreen
         salesmaterial.modalTransitionStyle = .coverVertical
-        present(salesmaterial, animated: false, completion: nil)
+        
+        // Present instantly (false) for deep links, normal slide-up (true) for regular clicks
+        self.present(salesmaterial, animated: !isDeepLink, completion: nil)
     }
+    
+//    func moveToSalesmaterial(productID: String? = nil) {
+//        let salesmaterial: SalesmaterialVC = self.storyboard?.instantiateViewController(withIdentifier: "stbSalesmaterialVC") as! SalesmaterialVC
+//        
+//        // Pass the productID if provided
+//        if let productID = productID {
+//            salesmaterial.deeplinkProductID = productID
+//        }
+//        
+//        salesmaterial.modalPresentationStyle = .fullScreen
+//        salesmaterial.modalTransitionStyle = .coverVertical
+//        present(salesmaterial, animated: false, completion: nil)
+//    }
    
     @IBAction func finmartMenuBtn(_ sender: Any)
     {
@@ -706,13 +1107,29 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
                 // When Dashboard cell's share Icon Clicked
                 cell.tapShareProd = {
                     
+                    
+                    let productName = self.dynamicDashboardModel[indexPath.row].ProdName ?? ""
+                    let productId = self.dynamicDashboardModel[indexPath.row].ProdId
+                    
                     let alertVC =  self.alertService.alert(title: self.dynamicDashboardModel[indexPath.row].title,
                                                            body:self.dynamicDashboardModel[indexPath.row].popupmsg,
                                                            buttonTitle: "SHARE")
                     
                     // When Alert Dialog Share Button Click
                     alertVC.didClickShare = {
+                        
+                        
                         print("share the Data ")
+                        // ==========================================
+                        // 1. FIREBASE ANALYTICS TRACKING
+                        // ==========================================
+                        let firebaseParams: [String: Any] = [
+                            AnalyticsParameterItemName: productName,
+                            AnalyticsParameterItemID: "\(productId)",
+                            AnalyticsParameterContentType: "product_share"
+                        ]
+                        FirebaseAnalyticsHelper.shared.trackEvent(AnalyticsEventShare, parameters: firebaseParams)
+                        
                         self.getShareData(prdID: self.dynamicDashboardModel[indexPath.row].ProdId)
                         
                     }
@@ -2164,12 +2581,9 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             "sub_fba_id":"0" as AnyObject
         ]
 //         let endUrl = "GetShareUrl"
-//        let url =  FinmartRestClient.baseURLString  + endUrl
-           
-           // let tempUrl = "https://horizon.policyboss.com:5443/quote/Postfm/"
-           // let url =  tempUrl + endUrl
+
             
-            let url =   "https://horizon.policyboss.com:5443/product_share/product_share_url"
+            let url =  "https://horizon.policyboss.com:5443/product_share/product_share_url"
             
      Alamofire.request(url, method: .post, parameters: parameter,encoding: JSONEncoding.default,headers: FinmartRestClient.headers).responseJSON(completionHandler: { (response) in
         switch response.result {
@@ -2318,144 +2732,7 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
         
     }
     
-    // MARK: - Unified Universal Router (Handles both Deep Links & Push Notifications)
-    func callWebViewUsingDeeplink(actionId: String, title: String = "", urlToLoad: String = "") {
-        
-        // 1. Dismiss active alerts or popups before navigating
-        dismissAll(animated: false)
-        
-        let sanitizedId = actionId.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        if sanitizedId.isEmpty { return }
-        
-        // 2. Handle ignored or special states
-        if sanitizedId == "500" || sanitizedId == "HM" {
-            return
-        }
-        
-        if sanitizedId == "507" {
-            popUpbackgroundView.isHidden = false
-            usercallingAPI()
-            return
-        }
-        
-        // 3. Unified routing switch statement for both ID types and Push flags
-        switch sanitizedId {
-            
-        case "1": // Car Insurance
-            callWebView(webfromScreen: ScreenName.privateCar)
-            
-        case "2": // Health Insurance
-            callWebView(webfromScreen: ScreenName.HealthInsurance)
-            
-        case "10": // Two Wheeler
-            callWebView(webfromScreen: ScreenName.twoWheeler)
-            
-        case "12": // Commercial Vehicle
-            callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
-            
-        case "18": // Term Insurance
-            break
-            
-        case "41", "SY": // Sync Contact (Handles both Deep Link ID 41 and Push flag SY)
-            let objVC = WelcomeSynConatctVC.shareInstance()
-            navigationController?.pushViewController(objVC, animated: false)
-            
-        case "SYC": // Sync Contact Dashboard Backup Route
-            callWebView(webfromScreen: ScreenName.leadDashboard)
-            
-        case "501", "PF": // Profile / My Account
-            let profile = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
-            profile.modalPresentationStyle = .fullScreen
-            profile.modalTransitionStyle = .coverVertical
-            present(profile, animated: false, completion: nil)
-            
-        case "503", "NL": // Notification List
-            let objVC = NotificationListVC.shareInstance()
-            navigationController?.pushViewController(objVC, animated: false)
-            
-        case "504", "SL": // Sales Material (General)
-            moveToSalesmaterial()
-            
-        case "505": // Sync Contact Dashboard
-            callWebView(webfromScreen: ScreenName.leadDashboard)
-            
-        case "506": // Raise Ticket
-            callWebView(webfromScreen: ScreenName.RaiseTicket)
-            
-        case "552": // SalesMaterial: Health Insurance
-            moveToSalesmaterial(productID: "1")
-            
-        case "553": // SalesMaterial: Term Insurance
-            moveToSalesmaterial(productID: "6")
-            
-        case "554": // SalesMaterial: Travel Insurance
-            moveToSalesmaterial(productID: "8")
-            
-        
-            
-        case "CB": // Open External Browser
-            if !urlToLoad.isEmpty, let url = URL(string: urlToLoad) {
-                UIApplication.shared.open(url)
-            }
-            
-        case "WB":
-            // Standard Web View
-        
-            
-            guard !urlToLoad.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                print("Error: URL is empty for WB action.")
-                return
-            }
-            
-            let strURL = urlToLoad
-            callDeepLinkAndPushNotifyWebView(dynamicUrl: strURL, dynamicName: title)
-            
-        case  "DB": // Standard or Dashboard Web View
-            if urlToLoad.isEmpty { return }
-//            
-//            let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
-//            let fbaId = UserDefaultsManager.shared.getFbaId()
-//            let ssid =  UserDefaultsManager.shared.getSsId()
-//            let subFBAID = UserDefaultsManager.shared.getSubUserSubFbaId() ?? ""
-//            let subSSID = UserDefaultsManager.shared.getSubUserSsId() ?? ""
-//            let appVersion = Configuration.appVersion
-//            let deviceID =  Configuration.deviceID
-//            
-//            var finalUrl = urlToLoad
-//          
-//                let appendParams = "&ss_id=\(ssid)&fba_id=\(fbaId)&sub_fba_id=\(subFBAID)&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&device_id=\(deviceID)&product_id=\(sanitizedId)&login_ssid=&sub_ss_id=\(subSSID)"
-//                finalUrl += appendParams
-            
-            guard !urlToLoad.isEmpty else { return }
 
-                let finalUrl = buildDynamicUrl(
-                    url: urlToLoad,
-                    productId: sanitizedId
-                )
-            
-            callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
-            
-        default:
-
-            guard !urlToLoad.isEmpty else {
-                print("Unhandled Routing ID: \(sanitizedId)")
-                return
-            }
-
-            let finalUrl = buildDynamicUrl(
-                url: urlToLoad,
-                productId: sanitizedId
-            )
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                self.callDeepLinkAndPushNotifyWebView(
-                    dynamicUrl: finalUrl,
-                    dynamicName: title
-                )
-            }
-            
-        }
-    }
 
     // Helper for cleaning up URL parameter attachment
     private func buildDynamicUrl(
@@ -2492,183 +2769,82 @@ class MainfinMartVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     
     
+    //Not in Used
+//    func callWebViewPushNotification(ProdId: String, pushNotifyData: PushNotificationModel) {
+//        
+//        dismissAll(animated: false)
+//        
+//        switch ProdId {
+//        case "HM":
+//            // Home Menu - Do Nothing
+//            break
+//            
+//        case "NL":
+//            // Notification List
+//            let objVC = NotificationListVC.shareInstance()
+//            navigationController?.pushViewController(objVC, animated: false)
+//            
+//        case "PF":
+//            // Profile / My Account
+//            let profile: profileVC = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
+//            profile.modalPresentationStyle = .fullScreen
+//            profile.modalTransitionStyle = .coverVertical
+//            present(profile, animated: false, completion: nil)
+//            
+//        case "SL":
+//            // Sales Material
+//            moveToSalesmaterial()
+//            
+//        case "SY":
+//            // Sync Contact
+//            let objVC = WelcomeSynConatctVC.shareInstance()
+//            navigationController?.pushViewController(objVC, animated: false)
+//            
+//        case "SYC":
+//            // Sync Contact Dashboard Backup Route
+//            callWebView(webfromScreen: ScreenName.leadDashboard)
+//            
+//        case "WB":
+//            // Standard Web View
+//            guard let strURL = pushNotifyData.web_url else { return }
+//            callDeepLinkAndPushNotifyWebView(dynamicUrl: strURL, dynamicName: pushNotifyData.web_title ?? "")
+//            
+//        case "CB":
+//            // Open External Browser (Chrome/Safari)
+//            guard let strURL = pushNotifyData.web_url, let url = URL(string: strURL) else { return }
+//            UIApplication.shared.open(url)
+//            
+//        case "DB":
+//            // Dashboard Web View (Requires Appended Auth Strings)
+//            guard let strURL = pushNotifyData.web_url, let title = pushNotifyData.web_title else { return }
+//            
+//            let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
+//            let fbaId = UserDefaultsManager.shared.getFbaId()
+//            let ssid = UserDefaultsManager.shared.getSsId()
+//            let appVersion = Configuration.appVersion
+//            let deviceID = Configuration.deviceID
+//            
+//            let appendParams = "&ss_id=\(ssid)&fba_id=\(fbaId)&sub_fba_id=&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&device_id=\(deviceID)&product_id=\(ProdId)&login_ssid="
+//            
+//            let finalUrl = strURL + appendParams
+//            callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
+//            
+//        // Legacy Product IDs
+//        case "1": callWebView(webfromScreen: ScreenName.privateCar)
+//        case "2": callWebView(webfromScreen: ScreenName.HealthInsurance)
+//        case "10": callWebView(webfromScreen: ScreenName.twoWheeler)
+//        case "12": callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
+//        case "18": break // Term Insurance
+//        case "41":
+//            let objVC = WelcomeSynConatctVC.shareInstance()
+//            navigationController?.pushViewController(objVC, animated: false)
+//            
+//        default:
+//            print("Unhandled Notification Product ID: \(ProdId)")
+//        }
+//    }
     
-    func callWebViewPushNotification(ProdId: String, pushNotifyData: PushNotificationModel) {
-        
-        dismissAll(animated: false)
-        
-        switch ProdId {
-        case "HM":
-            // Home Menu - Do Nothing
-            break
-            
-        case "NL":
-            // Notification List
-            let objVC = NotificationListVC.shareInstance()
-            navigationController?.pushViewController(objVC, animated: false)
-            
-        case "PF":
-            // Profile / My Account
-            let profile: profileVC = self.storyboard?.instantiateViewController(withIdentifier: "stbprofileVC") as! profileVC
-            profile.modalPresentationStyle = .fullScreen
-            profile.modalTransitionStyle = .coverVertical
-            present(profile, animated: false, completion: nil)
-            
-        case "SL":
-            // Sales Material
-            moveToSalesmaterial()
-            
-        case "SY":
-            // Sync Contact
-            let objVC = WelcomeSynConatctVC.shareInstance()
-            navigationController?.pushViewController(objVC, animated: false)
-            
-        case "SYC":
-            // Sync Contact Dashboard Backup Route
-            callWebView(webfromScreen: ScreenName.leadDashboard)
-            
-        case "WB":
-            // Standard Web View
-            guard let strURL = pushNotifyData.web_url else { return }
-            callDeepLinkAndPushNotifyWebView(dynamicUrl: strURL, dynamicName: pushNotifyData.web_title ?? "")
-            
-        case "CB":
-            // Open External Browser (Chrome/Safari)
-            guard let strURL = pushNotifyData.web_url, let url = URL(string: strURL) else { return }
-            UIApplication.shared.open(url)
-            
-        case "DB":
-            // Dashboard Web View (Requires Appended Auth Strings)
-            guard let strURL = pushNotifyData.web_url, let title = pushNotifyData.web_title else { return }
-            
-            let ipAddress = NetworkManager.shared.getIPAddress() ?? "0.0.0.0"
-            let fbaId = UserDefaultsManager.shared.getFbaId()
-            let ssid = UserDefaultsManager.shared.getSsId()
-            let appVersion = Configuration.appVersion
-            let deviceID = Configuration.deviceID
-            
-            let appendParams = "&ss_id=\(ssid)&fba_id=\(fbaId)&sub_fba_id=&ip_address=\(ipAddress)&mac_address=\(ipAddress)&app_version=\(appVersion)&device_id=\(deviceID)&product_id=\(ProdId)&login_ssid="
-            
-            let finalUrl = strURL + appendParams
-            callDeepLinkAndPushNotifyWebView(dynamicUrl: finalUrl, dynamicName: title)
-            
-        // Legacy Product IDs
-        case "1": callWebView(webfromScreen: ScreenName.privateCar)
-        case "2": callWebView(webfromScreen: ScreenName.HealthInsurance)
-        case "10": callWebView(webfromScreen: ScreenName.twoWheeler)
-        case "12": callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE)
-        case "18": break // Term Insurance
-        case "41":
-            let objVC = WelcomeSynConatctVC.shareInstance()
-            navigationController?.pushViewController(objVC, animated: false)
-            
-        default:
-            print("Unhandled Notification Product ID: \(ProdId)")
-        }
-    }
-    
-    func callWebViewPushNotificationOLD(  ProdId : String ,pushNotifyData : PushNotificationModel){
-        
-        dismissAll(animated: false)
-        
-        switch (ProdId) {
-        case "1"  :  // car
-          
-            callWebView(webfromScreen: ScreenName.privateCar)
-            
-            break
-        case "2"  :  // Health
-           
-           
-            callWebView(webfromScreen: ScreenName.HealthInsurance )
-            break
-            
-        case "10" :  // TWO WHEELER
-         
-           
-            callWebView(webfromScreen: ScreenName.twoWheeler)
-            break
-            
-        case "12"  :   //COMMERCIAL VEHICLE
-            
-           
-            callWebView(webfromScreen: ScreenName.COMMERCIALVEHICLE )
-            break
-            
-        case "18"  :    // TermInsurance
-            
-            /*
-            let LifeInsurance : LifeInsuranceVC = self.storyboard?.instantiateViewController(withIdentifier: "stbLifeInsuranceVC") as! LifeInsuranceVC
-       
-            
-             LifeInsurance.modalPresentationStyle = .fullScreen
-            LifeInsurance.addType = "CHILD"
-            
-            add(LifeInsurance)
-            deSelectDashboard()
-             */
-            
-            break
-            
-        
-            
-    
-        case "41" : // Sync Contact
-            
-         
-            let objVC = WelcomeSynConatctVC.shareInstance()
 
-            navigationController?.pushViewController(objVC, animated: false)
-            
-            break
-            
-         
-        case "SY" : // Sync Contact
-            
-
-            let objVC = WelcomeSynConatctVC.shareInstance()
-
-            navigationController?.pushViewController(objVC, animated: false)
-            
-            break
-            
-        case "WB" : // WEB VIEW
-            
-            guard let strURL = pushNotifyData.web_url else {return }
-
-            let commonWeb : commonWebVC = self.storyboard?.instantiateViewController(withIdentifier: "stbcommonWebVC") as! commonWebVC
-            commonWeb.modalPresentationStyle = .fullScreen
-            commonWeb.webfromScreen = ScreenName.Dynamic
-            commonWeb.dynamicUrl = strURL
-            commonWeb.dynamicName = pushNotifyData.web_title ?? ""
-          
-            commonWeb.modalPresentationStyle = .fullScreen
-          
-            commonWeb.addType = Screen.navigateBack
-           
-            navigationController?.pushViewController(commonWeb, animated: false)
-          
-            break
-            
-        case "CB" : // Open Browser
-            
-          
-            guard let strURL = pushNotifyData.web_url else {return }
-
-            if let url = URL(string: strURL) {
-                UIApplication.shared.open(url)
-            }
-            
-            break
-    
-        default : break
-            
-          
-        }
-        
-        
-        
-    }
     
     func callDeepLinkAndPushNotifyWebView(dynamicUrl : String,dynamicName : String ){
         

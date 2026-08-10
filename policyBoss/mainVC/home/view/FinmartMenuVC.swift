@@ -13,6 +13,7 @@ import WebKit
 //import CobrowseIO
 import SafariServices
 import SwiftUI
+import FirebaseAnalytics
 
 class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate,HomeDelegate {
    
@@ -880,13 +881,32 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             
             UIAlertAction in
             NSLog("OK Pressed")
+            
+            
+            // ==========================================
+            // 1. FIREBASE LOGOUT TRACKING
+            // ==========================================
+            // Get the current SS_ID before it gets cleared
+            let ssid = UserDefaultsManager.shared.getSsId()
+
+            let firebaseParams: [String: Any] = [
+                "ss_id": ssid
+            ]
+
+            // Track the logout event
+            FirebaseAnalyticsHelper.shared.trackEvent("user_logout", parameters: firebaseParams)
+
+            // Clear the user ID in Firebase
+            FirebaseAnalyticsHelper.shared.clearUserId()
+            
+            
             WebEngageAnaytics.shared.getWEGUser().logout()
             self.dismissAll(animated: false)
             let appDelegate = UIApplication.shared.delegate as? AppDelegate
             let Login : LoginVC = self.storyboard?.instantiateViewController(withIdentifier: "stbLoginVC") as! LoginVC
             Login.resetDefaults()
             UserDefaultsManager.shared.clearAllUserDefaults() // Clears UserDefaultsManager
-
+            
             
             Login.modalPresentationStyle = .fullScreen
             
@@ -894,7 +914,7 @@ class FinmartMenuVC: UIViewController,UITableViewDataSource,UITableViewDelegate,
             self.present(Login, animated: true, completion: nil)
             
             
-          
+            
             //              self.resetDefaults()
             //             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
             //

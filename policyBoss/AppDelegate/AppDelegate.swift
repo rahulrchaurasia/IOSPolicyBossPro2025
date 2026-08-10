@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Firebase
 import WebEngage
+import BranchSDK
 
 
 @UIApplicationMain
@@ -84,6 +85,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
+        // ************************************************
+        // MARK: 3. Branch.io Initialization & Routing
+        // ************************************************
+        
+        // Uncomment to enable logging during development
+        // Branch.getInstance().enableLogging()
+        
+        // Uncomment to test with the Branch Test Key
+        // Branch.setUseTestBranchKey(true)
+        
+        Branch.getInstance().initSession(launchOptions: launchOptions) { (params, error) in
+            guard error == nil else {
+                print("Branch init failed: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            guard let params = params as? [String: AnyObject] else { return }
+            
+            // --- BRANCH SDK UNIVERSAL LINK PIPELINE ---
+            // 1. Check if the link was generated in the Branch Dashboard (+clicked_branch_link)
+            if let clickedBranchLink = params["+clicked_branch_link"] as? Bool, clickedBranchLink == true {
+                print("Branch successfully parsed a Branch-generated Link")
+                self.handleBranchDeepLink(params: params)
+            }
+            // 2. Fallback check for Standard Universal Links (e.g. policyboss.com/deeplink?product_id=10)
+            // Branch intercepts raw Universal Links and passes them back in the +non_branch_link parameter.
+            else if let nonBranchLinkString = params["+non_branch_link"] as? String, let url = URL(string: nonBranchLinkString) {
+                print("Branch intercepted a pure Universal Link: \(url.absoluteString)")
+                self.handleUniversalLink(url)
+            }
+        }
+        
+        
+        
         // ---------------------------------------------------------
         // 4. Handle User Session State Route Redirection
         // ---------------------------------------------------------
@@ -106,6 +141,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
         
     }
+    
+    // **********************************************************************
+        // MARK: Branch.io Link Parsing & Broadcasting
+    // **********************************************************************
+        private func handleBranchDeepLink(params: [String: AnyObject]) {
+            var deepLinkData = [String: Any]()
+            
+            // Extract standard deep link data passed from Branch Dashboard
+            if let productId = params["product_id"] {
+                deepLinkData["product_id"] = "\(productId)"
+            }
+            
+            if let title = params["title"] as? String {
+                deepLinkData["title"] = title
+            }
+            
+            // Safely extract the target URL
+            if let explicitURL = params["url"] as? String {
+                deepLinkData["url"] = explicitURL
+            } else if let fallbackURL = params["$fallback_url"] as? String {
+                deepLinkData["url"] = fallbackURL
+            } else {
+                deepLinkData["url"] = ""
+            }
+            
+            print("Branch DeepLink Dictionary = \(deepLinkData)")
+            
+            // Store persistently for Cold Starts / Post-Login Flows
+            if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
+                UserDefaults.standard.set(data, forKey: Constant.deeplink)
+            }
+            
+            // Notify active running view controllers instantly
+            NotificationCenter.default.post(
+                name: .NotifyDeepLink,
+                object: deepLinkData
+            )
+        }
     
     
     //**********************************************************************
@@ -164,139 +237,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
     ) -> Bool {
-
-        guard let url = userActivity.webpageURL else {
-            return false
+        
+        // Log the incoming URL for debugging purposes
+        if let url = userActivity.webpageURL {
+            print("Incoming Universal Link passed to Branch: \(url.absoluteString)")
         }
-
-        print("DeepLink Incoming URL : \(url.absoluteString)")
-
-        handleUniversalLink(url)
-
-        return true
+        
+        // Let Branch handle the Universal Link.
+        // Branch will parse it and return the data via the initSession callback inside didFinishLaunchingWithOptions.
+        // NOTE: We have removed the manual call to self.handleUniversalLink(url) to prevent duplicate parsing.
+        return Branch.getInstance().continue(userActivity)
     }
 
-    
+   
    
     
-    
-    
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-
-        // Google Sign-In / Facebook / Payment SDK handling
+    // **********************************************************************
+        // MARK: URI Scheme Handling
+        // **********************************************************************
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        // Log the incoming URI Scheme for debugging
+        print("Incoming URI Scheme passed to Branch: \(url.absoluteString)")
+        
+        // Pass URI Schemes to Branch
+        let branchHandled = Branch.getInstance().application(app, open: url, options: options)
         
         // Handle third-party callbacks (Google Sign-In, Facebook, Payment SDKs) here if required
-      
-
-        return false
+        // Example:
+        // if let googleHandled = GIDSignIn.sharedInstance.handle(url) {
+        //     return googleHandled
+        // }
+        
+        return branchHandled
+        
     }
     
     
-    //Mark : depricated Used for Firebase
-//    func application(_ application: UIApplication, open url: URL, sourceApplication: String?,
-//                     annotation: Any) -> Bool {
-//        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url) {
-//            
-//            print("deeplink:- open url receive a URL through custom scheme!! \(url.absoluteString)")
-//            self.handleIncomingDynamicLink(dynamicLink)
-//            
-//            return true
-//        }else{
-//            
-//            print("DEEPLINK",url)
-//            // May be handel google and facebook signIn here
-//            return false
-//        }
-//        
-//    }
     
-    //Mark: Depricated For Handling Dynamic Link for Firebase
-//    func handleIncomingDynamicLink(_ dynamicLink : DynamicLink){
-//
-//
-//
-//        guard let url = dynamicLink.url else{
-//
-//            print("deeplink:- Link has no URL")
-//            return
-//        }
-//        print("deeplink:- Your Incoming Link parameter is \(url.absoluteString)")
-//        //secod let ie queryItems not execute if first let is true
-//        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-//              let queryItems = components.queryItems else {return}
-//
-//
-//
-//
-//        var deepLinkData: [String: Any] = [:]
-//
-//        for queryItem in queryItems {
-//
-//            deepLinkData[queryItem.name] = queryItem.value
-//
-//            print("deeplink:- Parameter is \(queryItem.name) has a value of \(queryItem.value ?? "") ")
-//        }
-//
-//        deepLinkData["url"] = url.absoluteString
-//        print("deeplink:- Parameter is URL has a value of \(url.absoluteString) ")
-//
-//
-//
-//        // Convert the dictionary to Data
-//        if let data = try? NSKeyedArchiver.archivedData(withRootObject: deepLinkData, requiringSecureCoding: false) {
-//            UserDefaults.standard.set(data, forKey: Constant.deeplink)
-//        }
-//
-//        //post Dictionary of Deeplink Notification
-//        NotificationCenter.default.post(name: .NotifyDeepLink, object: deepLinkData)
-//
-//    }
-//
-    
-//    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
-//                     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-//
-//
-//        if let incommingURL = userActivity.webpageURL{
-//
-//            print("deeplink:- Incoming URL is \(incommingURL)")
-//
-//            let linkhandled = DynamicLinks.dynamicLinks()
-//                .handleUniversalLink(userActivity.webpageURL!) { dynamiclink, error in
-//
-//                    guard error == nil else {
-//
-//                        print("deeplink:- Found an error \(String(describing: error?.localizedDescription))")
-//                        return
-//                    }
-//
-//                    if let dynamiclink = dynamiclink{
-//
-//                        self.handleIncomingDynamicLink(dynamiclink)
-//
-//
-//                    }
-//
-//                }
-//
-//            if linkhandled{
-//                return true
-//            }else{
-//
-//                return false
-//            }
-//
-//        }
-//
-//
-//        return false
-//    }
-//
-    
-    
-   
+
     
     
     

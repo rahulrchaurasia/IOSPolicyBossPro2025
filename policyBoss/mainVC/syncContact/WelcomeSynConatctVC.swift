@@ -29,23 +29,41 @@ class WelcomeSynConatctVC: UIViewController {
     let syContactViewModel  = SyncContactViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         ScrollView.layoutIfNeeded()
-       
+        
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.WelcomeSyncContactScreen)
-
+        
+        
+        // =========================================================
+        // FIREBASE ANALYTICS: TRACK SCREEN VIEW
+        // =========================================================
+        let ssid = UserDefaultsManager.shared.getSsId() 
+        let extraParams: [String: Any] = [
+            "ss_id": ssid
+        ]
+        
+        // screenName = "sync_contacts_viewed"
+        // className = "WelcomeSynConatctVC"
+        FirebaseAnalyticsHelper.shared.trackScreenView(
+            screenName: "sync_contacts_viewed",
+            className: String(describing: type(of: self)),
+            extraParams: extraParams
+        )
+        // =========================================================
+        
         //self.ScrollView.scrollToBottom(animated: true)
         btnGetStarted.alpha = 0.40
-    
+        
         btnGetStarted.layer.cornerRadius = 15
         btnGetStarted.layer.masksToBounds = true // This line is important to make sure the button stays within its bounds
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.clickAction(sender:)))
-
-
+        
+        
         self.ClickHere.addGestureRecognizer(gesture)
         
-       
+        
         if Connectivity.isConnectedToInternet(){
             
             fetchSyncAgreementDetails()
@@ -54,8 +72,8 @@ class WelcomeSynConatctVC: UIViewController {
             let snackbar = TTGSnackbar.init(message: Connectivity.message, duration: .middle )
             snackbar.show()
         }
-            
-      
+        
+        
         
         // Do any additional setup after loading the view.
     }

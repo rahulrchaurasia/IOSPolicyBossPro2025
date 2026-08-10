@@ -14,6 +14,7 @@ class ShareImageVC: UIViewController {
     
     var detailImg = ""
     var productID = ""
+    var productName = ""
     
     var  empName = ""
     var  empEmail = ""
@@ -21,7 +22,7 @@ class ShareImageVC: UIViewController {
     var  empMobileNo = ""
     var  PhotoUrl  = ""
     
-   
+    
     @IBOutlet var mainView: UIView!
     
     @IBOutlet var imgProduct: UIImageView!
@@ -38,31 +39,31 @@ class ShareImageVC: UIViewController {
     
     private let defaultProfileURL =
     "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         WebEngageAnaytics.shared.navigatingToScreen(AnalyticScreenName.SalesShareScreen)
-
-           print("detailImg=",detailImg)
-            let url = URL(string: detailImg)
-             
-             imgProduct.sd_setImage(with: url)
-             
-             
-            pospDetails()
-//             if(productID == "4" ||  productID == "5" || productID == "6" || productID == "7" ){
-//                 
-//                 loanDetails()
-//             }else{
-//                 pospDetails()
-//             }
-             
-             
+        
+        print("detailImg=",detailImg)
+        let url = URL(string: detailImg)
+        
+        imgProduct.sd_setImage(with: url)
+        
+        
+        pospDetails()
+        //             if(productID == "4" ||  productID == "5" || productID == "6" || productID == "7" ){
+        //
+        //                 loanDetails()
+        //             }else{
+        //                 pospDetails()
+        //             }
+        
+        
     }
     
-
+    
     func validate(){
         
         if(empName.isEmpty){
@@ -90,7 +91,7 @@ class ShareImageVC: UIViewController {
     
     func pospDetails(){
         
-       
+        
         
         let fullName = UserDefaultsManager.shared.getFullName()
         
@@ -99,21 +100,21 @@ class ShareImageVC: UIViewController {
         
         let email = UserDefaultsManager.shared.getEmailId()
         empEmail = email.isEmpty ? "XXXXXX@policyboss.com" : email
-
+        
         let mobile = UserDefaultsManager.shared.getMobileNumber()
         empMobileNo = mobile.isEmpty ? "98XXXXXXXX" : mobile
         
-    
+        
         let designation = UserDefaultsManager.shared.getDesignation()
         
-      
+        
         empDesignation = designation.isEmpty ? "LandMark POSP" : designation
         
         //Note : Original url sample below
-//         let tempPhotoUrl =     "http://download.policyboss.com/onboarding/download/onboarding_docs/174475/Profile_174475.jpeg"
+        //         let tempPhotoUrl =     "http://download.policyboss.com/onboarding/download/onboarding_docs/174475/Profile_174475.jpeg"
         
         let tempPhotoUrl = UserDefaultsManager.shared.getPospSelfPhoto()
-      
+        
         let finalPhotoUrl: String
         
         if tempPhotoUrl.isEmpty {
@@ -123,16 +124,16 @@ class ShareImageVC: UIViewController {
         } else {
             finalPhotoUrl = tempPhotoUrl
         }
-
+        
         PhotoUrl = finalPhotoUrl
         
         //005 Notes : we Donot have Profile Photo So we used HardCore Data
-      //  let tempPhotoUrl = "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
+        //  let tempPhotoUrl = "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png"
         ///////////////////////////////////////////////////////////////////////
         
-//        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
+        //        PhotoUrl = tempPhotoUrl.isEmpty ? "https://origin-cdnh.policyboss.com/website/Images/campaign/profile_pic.png" : tempPhotoUrl
         
-       
+        
         print("PhotoUrl",PhotoUrl)
         
         validate()
@@ -140,8 +141,8 @@ class ShareImageVC: UIViewController {
         let url = URL(string: PhotoUrl)
         imgUser.sd_setImage(with: url)
         
-       
-       
+        
+        
         
         lblEmpName.text = empName
         lblDesignation.text = empDesignation
@@ -150,7 +151,7 @@ class ShareImageVC: UIViewController {
         
     }
     
- 
+    
     
     func loanDetails(){
         
@@ -159,7 +160,7 @@ class ShareImageVC: UIViewController {
         empMobileNo = UserDefaults.standard.string(forKey: "loansendmobile") ?? "98XXXXXXXX"
         empDesignation = UserDefaults.standard.string(forKey: "loansenddesignation") ?? "LandMark POSP"
         PhotoUrl = UserDefaults.standard.string(forKey: "loansendphoto") ?? "http://qa.mgfm.in/images/profile_pic.png"
-         print("PhotoUrl",PhotoUrl)
+        print("PhotoUrl",PhotoUrl)
         
         validate()
         
@@ -176,7 +177,7 @@ class ShareImageVC: UIViewController {
     
     @IBAction func homeBtnClick(_ sender: Any) {
         
-
+        
         
         self.dismissAll(animated: false)
     }
@@ -186,35 +187,57 @@ class ShareImageVC: UIViewController {
     @IBAction func backBtnClick(_ sender: Any) {
         
         self.dismiss(animated: false, completion: nil)
-
+        
     }
     
     
     @IBAction func shareImageBtnClick(_ sender: Any) {
-    
         
-         if(mainView.image() != nil){
-
+        
+        // =========================================================
+        // FIREBASE ANALYTICS: TRACK IMAGE SHARE
+        // =========================================================
+        
+        let ssid = UserDefaultsManager.shared.getSsId()
+       
+      
+        
+        let itemParams: [String: Any] = [
+            "item_name": productID,
+            "item_id": productName,
+            "content_type": "sales_material_share",
+            "ss_id": ssid
+        ]
+        
+        print("--- Analytics Params ---")
+        dump(itemParams)
+        
+        // "view_item" is the raw string for AnalyticsEventViewItem
+        FirebaseAnalyticsHelper.shared.trackEvent("share", parameters: itemParams)
+        // =========================================================
+        
+        if(mainView.image() != nil){
+            
             print("Image was created")
             guard let  shareImage =  mainView.image() else{
-
+                
                 return
             }
-
+            
             let shareAll: [Any] = [ shareImage ]
-
+            
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
         }else{
-
+            
             print("Image was not created")
             let shareAll: [Any] = [ empName,empDesignation,empMobileNo,empEmail , URL(string: detailImg)!]
-
+            
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
-
+            
         }
     }
 }

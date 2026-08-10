@@ -46,8 +46,8 @@
             filePath = "policyBoss/walkthroughPage/TutorialViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "getDeviceDetails()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "policyBoss/mainVC/WebVC/commonWebVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "homeBtnCliked(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "saveSyncContAgreementData(isCall:isSms:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "getContactData1()"
             landmarkType = "7">
          </BreakpointContent>
@@ -286,8 +286,8 @@
             filePath = "policyBoss/mainVC/syncContact/WelcomeSynConatctVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "WelcomeSynConatctVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -526,8 +526,8 @@
             filePath = "policyBoss/Login/LOGIN/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "557"
+            endingLineNumber = "557"
             landmarkName = "signupBtnCliked(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -654,8 +654,8 @@
             filePath = "policyBoss/Login/LOGIN/LoginVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "790"
+            endingLineNumber = "790"
             landmarkName = "LoginVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -766,8 +766,8 @@
             filePath = "policyBoss/mainVC/syncContact/SyncContactVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "getContactData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -782,8 +782,8 @@
             filePath = "policyBoss/mainVC/WebVC/commonWebVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "394"
-            endingLineNumber = "394"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -983,48 +983,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B6D6F966-3144-45C6-962E-45CAC69F8A80"
+            uuid = "9478B442-0E33-451A-A548-4D673B74469C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "policyBoss/AppDelegate/AppDelegate.swift"
+            filePath = "policyBoss/mainVC/home/view/MainfinMartVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "AppDelegate"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
+            landmarkName = "MainfinMartVC"
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B9A9ED3E-0F1D-4DD6-9F69-0991687AF826"
-            shouldBeEnabled = "Yes"
+            uuid = "A404BA40-5910-4071-B50C-5F495B4218C2"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/home/view/MainfinMartVC.swift"
+            filePath = "policyBoss/mainVC/SALESMATERIAL/SalesmaterialVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1836"
-            endingLineNumber = "1836"
-            landmarkName = "getDeviceDetails()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B1DE71BE-D964-451B-A643-1E88F636AF61"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "policyBoss/mainVC/home/view/MainfinMartVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2553"
-            endingLineNumber = "2553"
-            landmarkName = "callWebViewPushNotification(ProdId:pushNotifyData:)"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
+            landmarkName = "salesmaterialproductAPI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

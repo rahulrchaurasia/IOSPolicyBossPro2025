@@ -336,6 +336,10 @@ class insalesmaterialVC: UIViewController,UICollectionViewDataSource,UICollectio
         shareImageVC.modalTransitionStyle = .coverVertical
         shareImageVC.detailImg =  salesDetailModel[indexPathRow].image_path
         shareImageVC.productID = productId
+        
+        // PASS THE PRODUCT NAME HERE:
+        shareImageVC.productName = passindexlbl
+       
         //                        self.addChild(shareImageVC)
         //                        self.view.addSubview(shareImageVC.view)
         
